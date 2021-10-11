@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.view.xfy_zss_modelCpDao">
+    <select id="selectXfy_zss_modelCp"  resultType="com.project.model.xfy_zss_modelCp">
+        select
+        to_char(a.APPLY_DT,'yyyy/MM/dd') as CPL_DT,
+        a.APPLY_DT,
+        a.LAST_STAT_NAME,
+        a.PROD_NAME,
+        a.ZF_NBR_FLG,
+        a.ACC_NUM,
+        a.MKT_EMPLOYEE_ID,
+        a.MAIN_OFFER_NAME,
+        a.MAIN_OFFER_AMT,
+        a.MAIN_PROM_ROW_ID,
+        a.AGENT_POINT_ID,
+        a.AGENT_POINT_NAME,
+        a.STD_AREA_LVL5_NAME,
+        a.SPEED,
+        a.PRD_ITEM_TYPE,
+        a.MIX_FLG,
+        a.NEW_CCUST_FLG,
+        a.MSU_211_CNT,
+        a.MSU_MIX_HIGH_P21X_CNT,
+        a.MSU_NEW_LAN_CNT,
+        a.MSU_LAN_NEW_CCUST_CNT,
+        a.MSU_NEW_CDMA_CNT,
+        a.MSU_CDMA_NEW_CCUST_CNT,
+        a.MSU_NEW_ITV_CNT,
+        a.MSU_MIX_CNT,
+        a.MSU_CDMA_MNP_Y_CNT,
+        a.MSU_LT_CDMA_MNP_Y_CNT,
+        a.MSU_YD_CDMA_MNP_Y_CNT,
+        a.MSU_CDMA_MNP_N_CNT,
+        a.MKT_ZJ_NAME,
+        a.MSU_MIX_169_CNT,
+        a.MKT_EMPLOYEE_NAME,
+        a.SALES_EMPLOYEE_NAME,
+        a.REAL_MSU_211_CNT
+        from nbetl.RPT_REAL_PRD_LST_IO_DAY_D_sbj@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" a
+        where a.APPLY_DT between #{start} and #{end}
+        and a.IO_FLG='I'
+        and a.std_area_lvl5_name like'%鄞州%'
+    </select>
+</mapper>

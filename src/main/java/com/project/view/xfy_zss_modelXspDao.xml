@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.view.xfy_zss_modelXspDao">
+    <select id="selectXfy_zss_modelXsp"  resultType="com.project.model.xfy_zss_modelXsp">
+        select
+        to_char(a.APPLY_DT,'yyyy/MM/dd') as CPL_DT,
+        a.APPLY_DT,
+        a.OFFER_AMT,
+        a.OFFER_TYPE_DESC,
+        a.ORDER_ITEM_ACCEPT_DATE,
+        a.AGENT_POINT_ID,
+        a.AGENT_POINT_NAME,
+        a.MSU_YHK_BY_CNT,
+        a.MSU_XYFQ_CNT,
+        a.MSU_BXL_CNT,
+        a.MSU_ZNZW_CNT,
+        a.MSU_YHK_CNT,
+        a.MSU_PROM_5G_CNT,
+        a.MSU_SJ_PROM_5G_CNT,
+        a.MSU_FK_PROM_5G_CNT,
+        a.MKT_FJ_NAME,
+        a.MKT_ZJ_NAME,
+        a.ACC_NUM,
+        a.MKT_EMPLOYEE_NAME,
+        a.SALES_EMPLOYEE_NAME
+        from nbetl.RPT_REAL_prom_LST_IO_DAY_D_sbj@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" a
+        where a.APPLY_DT between #{start} and #{end}
+        and a.IO_FLG='I'
+        and a.std_area_lvl5_name like'%鄞州%'
+    </select>
+</mapper>
