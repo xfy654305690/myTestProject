@@ -1,0 +1,34 @@
+<component name="libraryTable">
+  <library name="xlsDetail">
+    <CLASSES />
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../importLib/Spire.Xls-FE_5.1.0.zip!/doc" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../importLib/Spire.Xls-FE_5.1.0.zip!/samples/01_quick guide" />
+      <root url="jar://$PROJECT_DIR$/../importLib/Spire.Xls-FE_5.1.0.zip!/samples/02_data" />
+      <root url="jar://$PROJECT_DIR$/../importLib/Spire.Xls-FE_5.1.0.zip!/samples/03_cells" />
+      <root url="jar://$PROJECT_DIR$/../importLib/Spire.Xls-FE_5.1.0.zip!/samples/04_rowsColumns" />
+      <root url="jar://$PROJECT_DIR$/../importLib/Spire.Xls-FE_5.1.0.zip!/samples/05_images" />
+      <root url="jar://$PROJECT_DIR$/../importLib/Spire.Xls-FE_5.1.0.zip!/samples/06_comments" />
+      <root url="jar://$PROJECT_DIR$/../importLib/Spire.Xls-FE_5.1.0.zip!/samples/07_conversion" />
+      <root url="jar://$PROJECT_DIR$/../importLib/Spire.Xls-FE_5.1.0.zip!/samples/08_filteringAndValidation" />
+      <root url="jar://$PROJECT_DIR$/../importLib/Spire.Xls-FE_5.1.0.zip!/samples/09_charts" />
+      <root url="jar://$PROJECT_DIR$/../importLib/Spire.Xls-FE_5.1.0.zip!/samples/10_shapes" />
+      <root url="jar://$PROJECT_DIR$/../importLib/Spire.Xls-FE_5.1.0.zip!/samples/11_formatting" />
+      <root url="jar://$PROJECT_DIR$/../importLib/Spire.Xls-FE_5.1.0.zip!/samples/12_formulas" />
+      <root url="jar://$PROJECT_DIR$/../importLib/Spire.Xls-FE_5.1.0.zip!/samples/13_headerFooter" />
+      <root url="jar://$PROJECT_DIR$/../importLib/Spire.Xls-FE_5.1.0.zip!/samples/14_hyperlink" />
+      <root url="jar://$PROJECT_DIR$/../importLib/Spire.Xls-FE_5.1.0.zip!/samples/15_markerDesigner" />
+      <root url="jar://$PROJECT_DIR$/../importLib/Spire.Xls-FE_5.1.0.zip!/samples/16_namedRanges" />
+      <root url="jar://$PROJECT_DIR$/../importLib/Spire.Xls-FE_5.1.0.zip!/samples/17_oleObjects" />
+      <root url="jar://$PROJECT_DIR$/../importLib/Spire.Xls-FE_5.1.0.zip!/samples/18_pageSetup" />
+      <root url="jar://$PROJECT_DIR$/../importLib/Spire.Xls-FE_5.1.0.zip!/samples/19_pivotTables" />
+      <root url="jar://$PROJECT_DIR$/../importLib/Spire.Xls-FE_5.1.0.zip!/samples/20_print" />
+      <root url="jar://$PROJECT_DIR$/../importLib/Spire.Xls-FE_5.1.0.zip!/samples/21_security" />
+      <root url="jar://$PROJECT_DIR$/../importLib/Spire.Xls-FE_5.1.0.zip!/samples/22_textBoxes" />
+      <root url="jar://$PROJECT_DIR$/../importLib/Spire.Xls-FE_5.1.0.zip!/samples/23_worksheets" />
+      <root url="jar://$PROJECT_DIR$/../importLib/Spire.Xls-FE_5.1.0.zip!/samples/24_workbook" />
+    </SOURCES>
+  </library>
+</component>
