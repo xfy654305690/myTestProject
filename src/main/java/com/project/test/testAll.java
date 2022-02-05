@@ -135,13 +135,6 @@ public class testAll {
             }
         }
 
-
-        // 刷新公式
-        xssfWorkbook.setForceFormulaRecalculation(true);
-        //使用evaluateFormulaCell对函数单元格进行强行更新计算
-        xssfWorkbook.getCreationHelper().createFormulaEvaluator().evaluateAll();
-
-        //导出
         FileOutputStream fos=new FileOutputStream("E:\\Test\\student.xlsx");
         xssfWorkbook.write(fos);
         fos.close();

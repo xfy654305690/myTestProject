@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.view.zj_Report_XubaoDao">
+    <select id="selectZj_Report_Xubao_Zj"  resultType="com.project.model.zj_Report_Xubao_Zj">
+        select *
+        from (
+                 SELECT zj                                               Zj_Name,
+                        CNT_ALL                                          bb_Amt,
+                        CNT_XB                                           bb_Amt_Com,
+                        CNT_WXB                                          bb_Amt_Uncom,
+                        trunc(CNT_XB / CNT_ALL,3)*100.00||'%'            bb_Com_Rate,
+                        XBQSR                                            bb_Income,
+                        XBHSR                                            bb_Com_Income,
+                        WXBSR                                            bb_Amt_Uncom_Income,
+                        trunc(XBHSR / XBQSR,3)*100.00||'%'               bb_Com_Rate_Income,
+                        CNT_GX_ALL                                       FDDI_Amt,
+                        CNT_GX_XB                                        FDDI_Com,
+                        trunc(decode(CNT_GX_ALL, 0, 1, CNT_GX_XB / CNT_GX_ALL),3)*100.00||'%'    FDDI_Com_Rate
+                 FROM (SELECT ZJ_AREA_NAME_OLD                                                             zj,
+                              COUNT(*)                                                                     CNT_ALL,
+                              SUM(PER_MON_AMT) * 12 / 10000                                                XBQSR,
+                              SUM(CASE WHEN XB_DT &lt; #{endDate} and XB_DT is not null THEN 1 ELSE 0 END) CNT_XB,
+                              SUM(CASE
+                                      WHEN XB_DT &lt; #{endDate} and XB_DT is not null THEN (CASE
+                                                                                                 WHEN XB_CDSC_TYPE_NAME = '融合优惠'
+                                                                                                     THEN
+                                                                                                     COALESCE(PROM_YGSR, 0)
+                                                                                                 ELSE COALESCE(XB_PER_MON_AMT, 0) END)
+                                      ELSE 0 END) * 12 /10000                                                                        XBHSR,
+                              SUM(CASE WHEN XB_DT &gt;= #{endDate} or XB_DT is null THEN 1 ELSE 0 END)     CNT_WXB,
+                              SUM(CASE
+                                      WHEN XB_DT &gt;= #{endDate} or XB_DT is null THEN PER_MON_AMT
+                                      ELSE 0 END) * 12 /10000                                                                        WXBSR,
+                              SUM(CASE
+                                      WHEN STD_PRD_LVL4_NAME in ('LAN拨号[精品光宽带]', 'LAN专线[光宽带]', 'LAN专线[普通线路]')
+                                          then 1 else 0 end)                                                          CNT_GX_ALL,
+                              SUM(CASE
+                                      WHEN STD_PRD_LVL4_NAME in ('LAN拨号[精品光宽带]', 'LAN专线[光宽带]', 'LAN专线[普通线路]')
+                                          and XB_DT &lt; #{endDate}
+                                          and XB_DT is not null then 1 else 0 end)                                                          CNT_GX_XB
+                       FROM (
+                                SELECT A.*,
+                                       B.PROM_YGSR,
+                                       C.ID_TYPE_NAME,
+                                       D.Zj_Old as  ZJ_AREA_NAME_OLD,
+                                       ROW_NUMBER() OVER(PARTITION BY A.ASSET_ROW_ID ORDER BY B.CPL_DT DESC) RANK
+                                FROM NBETL.RPT_BRD_EXP_ASSET_sbj@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" A
+                                         LEFT JOIN NBETL.RPT_RHFZ_LIST_sbj@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" B
+                                                   ON A.ASSET_ROW_ID = B.ASSET_ROW_ID_KD
+                                                       AND B.YW_TYPE = '单宽转融'
+                                         left join NBETL.rpt_par_cust_cur_v@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" C
+                                                   on C.ccust_id = A.ccust_id
+                                         left join XFY_REP_PUB_ZJ_CON D
+                                                   on D.Zj_New = A.ZJ_AREA_NAME
+                                WHERE A.ARRIVE_MONTH = #{nowMonth}
+                                  and A.telecom_area_name = '宁波鄞州分公司'
+                            )
+                       WHERE RANK = 1
+                       GROUP BY ZJ_AREA_NAME_OLD)
+                 ORDER BY (CNT_XB / CNT_ALL) desc
+             )  p1
+                 inner join XFY_REP_PUB_ZJ_PAR p2
+                 on p1.Zj_Name=p2.Zj_Abbr_Name
+    </select>
+
+    <select id="selectZj_Report_Xubao_Xf"  resultType="com.project.model.zj_Report_Xubao_Xf">
+
+         SELECT '合计'                                            Zj_Name,
+                CNT_ALL                                          bb_Amt,
+                CNT_XB                                           bb_Amt_Com,
+                CNT_WXB                                          bb_Amt_Uncom,
+                trunc(CNT_XB / CNT_ALL,3)*100.00||'%'            bb_Com_Rate,
+                XBQSR                                            bb_Income,
+                XBHSR                                            bb_Com_Income,
+                WXBSR                                            bb_Amt_Uncom_Income,
+                trunc(XBHSR / XBQSR,3)*100.00||'%'               bb_Com_Rate_Income,
+                CNT_GX_ALL                                       FDDI_Amt,
+                CNT_GX_XB                                        FDDI_Com,
+                trunc(decode(CNT_GX_ALL, 0, 1, CNT_GX_XB / CNT_GX_ALL),3)*100.00||'%'   FDDI_Com_Rate
+         FROM (SELECT COUNT(*)                                                                     CNT_ALL,
+                      SUM(PER_MON_AMT) * 12 / 10000                                                XBQSR,
+                      SUM(CASE WHEN XB_DT &lt; #{endDate} and XB_DT is not null THEN 1 ELSE 0 END) CNT_XB,
+                      SUM(CASE
+                              WHEN XB_DT &lt; #{endDate} and XB_DT is not null THEN (CASE
+                                                                                         WHEN XB_CDSC_TYPE_NAME = '融合优惠'
+                                                                                             THEN
+                                                                                             COALESCE(PROM_YGSR, 0)
+                                                                                         ELSE COALESCE(XB_PER_MON_AMT, 0) END)
+                              ELSE 0 END) * 12 /10000                                                                        XBHSR,
+                      SUM(CASE WHEN XB_DT &gt;= #{endDate} or XB_DT is null THEN 1 ELSE 0 END)     CNT_WXB,
+                      SUM(CASE
+                              WHEN XB_DT &gt;= #{endDate} or XB_DT is null THEN PER_MON_AMT
+                              ELSE 0 END) * 12 /10000                                                                        WXBSR,
+                      SUM(CASE
+                              WHEN STD_PRD_LVL4_NAME in ('LAN拨号[精品光宽带]', 'LAN专线[光宽带]', 'LAN专线[普通线路]')
+                                  then 1 else 0 end)                                                          CNT_GX_ALL,
+                      SUM(CASE
+                              WHEN STD_PRD_LVL4_NAME in ('LAN拨号[精品光宽带]', 'LAN专线[光宽带]', 'LAN专线[普通线路]')
+                                  and XB_DT &lt; #{endDate}
+                                  and XB_DT is not null then 1 else 0 end)                                                          CNT_GX_XB
+               FROM (
+                        SELECT A.*,
+                               B.PROM_YGSR,
+                               C.ID_TYPE_NAME,
+                               ROW_NUMBER() OVER(PARTITION BY A.ASSET_ROW_ID ORDER BY B.CPL_DT DESC) RANK
+                        FROM NBETL.RPT_BRD_EXP_ASSET_sbj@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" A
+                                 LEFT JOIN NBETL.RPT_RHFZ_LIST_sbj@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" B
+                                           ON A.ASSET_ROW_ID = B.ASSET_ROW_ID_KD
+                                               AND B.YW_TYPE = '单宽转融'
+                                 left join NBETL.rpt_par_cust_cur_v@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" C
+                                           on C.ccust_id = A.ccust_id
+                        WHERE A.ARRIVE_MONTH = #{nowMonth}
+                          and A.telecom_area_name = '宁波鄞州分公司'
+                    )
+               WHERE RANK = 1)
+
+    </select>
+
+
+    <select id="selectZj_Report_Xubao_Tx"  resultType="com.project.model.zj_Report_Xubao_Tx">
+        select
+        case when C.ID_TYPE_NAME IN ('事业单位法人证书', '单位介绍信或单位公函', '机构代码', '社会团体法人登记证书', '统一社会信用代码证书', '单位介绍信或单位公函', '营业执照')
+        then '政企' else '公众' end  Zj_Name,
+        count(*) bb_Amt, count(case when A.XB_DT &lt; #{endDate}  then 1 else null end) bb_Amt_Com,
+        SUM(CASE WHEN A.XB_DT &gt;= #{endDate} or A.XB_DT is null THEN 1 ELSE 0 END)     bb_Amt_Uncom,
+        trunc(count(case when A.XB_DT &lt; #{endDate}  then 1 else null end)/count(*),3)*100.00||'%'  bb_Com_Rate,
+        SUM(A.PER_MON_AMT) * 12 / 10000 bb_Income ,
+        SUM(CASE WHEN A.XB_DT &lt; #{endDate}  THEN(CASE WHEN A.XB_CDSC_TYPE_NAME = '融合优惠' THEN COALESCE(B.PROM_YGSR, 0) ELSE COALESCE(A.XB_PER_MON_AMT, 0) END)ELSE 0 END) * 12 / 10000 bb_Com_Income,
+        SUM(CASE WHEN A.XB_DT &gt;= #{endDate} or A.XB_DT is null THEN A.PER_MON_AMT ELSE 0 END) * 12 /10000          bb_Amt_Uncom_Income,
+        trunc((SUM(CASE WHEN A.XB_DT &lt; #{endDate}  THEN(CASE WHEN A.XB_CDSC_TYPE_NAME = '融合优惠' THEN COALESCE(B.PROM_YGSR, 0) ELSE COALESCE(A.XB_PER_MON_AMT, 0) END)ELSE 0 END) * 12 / 10000)/(SUM(A.PER_MON_AMT) * 12 / 10000 ),3)*100.00||'%' bb_Com_Rate_Income
+        FROM NBETL.RPT_BRD_EXP_ASSET_sbj@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM"  A
+        LEFT JOIN NBETL.RPT_RHFZ_LIST_sbj@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" B
+        ON A.ASSET_ROW_ID = B.ASSET_ROW_ID_KD
+        AND B.YW_TYPE = '单宽转融'
+        left join nbetl.rpt_par_cust_cur_v@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" C
+        on C.ccust_id=A.ccust_id
+        WHERE A.ARRIVE_MONTH = #{nowMonth}
+        and  A.telecom_area_name = '宁波鄞州分公司'
+        group  by case when C.ID_TYPE_NAME IN ('事业单位法人证书', '单位介绍信或单位公函', '机构代码', '社会团体法人登记证书', '统一社会信用代码证书', '单位介绍信或单位公函', '营业执照')
+        then '政企' else '公众' end
+    </select>
+
+
+</mapper>

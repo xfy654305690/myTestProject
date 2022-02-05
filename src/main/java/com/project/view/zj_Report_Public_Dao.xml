@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.view.zj_Report_Public_Dao">
+    <select id="selectZj_Report_Public"  resultType="com.project.model.zj_Report_Public">
+        select  a.Zj_Full_Name,
+                a.Zj_Abbr_Name,
+                a.Zj_Per_In_Cha,
+                a.Zj_Per_In_Cha_Ema
+        from XFY_REP_PUB_ZJ_PAR  a
+    </select>
+</mapper>

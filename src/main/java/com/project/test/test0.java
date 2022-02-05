@@ -1,40 +1,33 @@
 package com.project.test;
 
-import com.project.model.student;
-import com.project.model.xfy_zss_modelCp;
-import com.project.model.xfy_zss_modelXsp;
-import com.project.view.xfy_zss_modelCpDao;
-import com.project.view.xfy_zss_modelXspDao;
+import com.project.model.zj_Report_Xubao_Zj;
+
+import com.project.util.dealTime;
+import com.project.view.zj_Report_XubaoDao;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 public class test0 {
 
-//    public void xfy_zss_modelDetail() throws Exception {
-//        this.excleDoDetail();
-//        this.emailDoDetail();
-//
-//    }
+    public static void main(String[] args) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
-
-    //取数导出excle
-    public  static void main(String[] args) throws IOException, ParseException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
         String config="mybatis.xml";
         InputStream in= Resources.getResourceAsStream(config);
@@ -42,48 +35,43 @@ public class test0 {
         SqlSessionFactory factory = builder.build(in);
         SqlSession sqlSession=factory.openSession();
 
+        zj_Report_XubaoDao Zj_Report_XubaoDao = sqlSession.getMapper(zj_Report_XubaoDao.class);
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");//注意月份是MM
+        dealTime dealTime=new dealTime();
+        //获取下月一号，返回日期格式
+        Date endDate=dealTime.get_NextMonth_FirstDay_ByDate();
 
-        //产品
-        xfy_zss_modelCpDao xfy_zss_modelCpDao=sqlSession.getMapper(xfy_zss_modelCpDao.class);
-        List<xfy_zss_modelCp> xfy_zss_modelCpDaoList=xfy_zss_modelCpDao.selectXfy_zss_modelCp(simpleDateFormat.parse("2021-10-7"),simpleDateFormat.parse(simpleDateFormat.format(new Date())));
+        //获取当前日期YYYYMM格式
+        String nowMonth=dealTime.get_date_By_String_YYYYMM();
 
-        System.out.println(xfy_zss_modelCpDaoList.size());
-        //销售品
-        xfy_zss_modelXspDao xfy_zss_modelXspDao=sqlSession.getMapper(xfy_zss_modelXspDao.class);
-        List<xfy_zss_modelXsp> xfy_zss_modelXspDaoList=xfy_zss_modelXspDao.selectXfy_zss_modelXsp(simpleDateFormat.parse("2021-10-7"),simpleDateFormat.parse(simpleDateFormat.format(new Date())));
+        //续包支局数据
+        List<zj_Report_Xubao_Zj> zj_Report_XubaoList =
+                Zj_Report_XubaoDao.selectZj_Report_Xubao_Zj(endDate,nowMonth );
 
-        System.out.println(xfy_zss_modelXspDaoList.size());
+//        zj_Report_XubaoList.forEach(zj_Report_Xubao->{
+//                System.out.println(zj_Report_Xubao.toString()+"/n");
+//        });
 
-        in.close();
         sqlSession.close();
 
-        System.out.println("数据成功取出");
-
-        XSSFWorkbook xssf = new XSSFWorkbook(new FileInputStream("E:\\Test\\zss.xlsx"));
-        SXSSFWorkbook xssfWorkbook = new SXSSFWorkbook(xssf, 100);
-
-        System.out.println("读取EXCLE成功");
-        //第一个SHEET
-
-
         //获取行个数
-        int maxRow = xfy_zss_modelCpDaoList.size();
+        int maxRow = zj_Report_XubaoList.size();
         //获取列个数
-        xfy_zss_modelCp xfy_zss_modelCp=new xfy_zss_modelCp();
-        Field[] field=xfy_zss_modelCp.getClass().getDeclaredFields();
+        zj_Report_Xubao_Zj Zj_Report_Xubao_Zj=new zj_Report_Xubao_Zj();
+        Field[] field=Zj_Report_Xubao_Zj.getClass().getDeclaredFields();
         int maxCell=field.length;
 
-        XSSFSheet sheet = xssfWorkbook.getXSSFWorkbook().getSheetAt(0);
+        XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new FileInputStream("D:\\Test\\test.xlsx"));
 
-        for (int row =1; row <=maxRow; row++) {
+        XSSFSheet sheet = xssfWorkbook.getSheetAt(1);
+
+        for (int row = 0; row < maxRow; row++) {
             //获取最后单元格num，即总单元格数 ***注意：此处从1开始计数***
             /* int maxRol = sheet.getRow(row).getLastCellNum();*/
             XSSFRow rowCreat=sheet.createRow(row);
             //获取studentList具体类，并且
-            xfy_zss_modelCp xfy_zss_modelCpDetail=xfy_zss_modelCpDaoList.get(row-1);
-            Field[] fieldDeatil =xfy_zss_modelCpDetail.getClass().getDeclaredFields();
+            zj_Report_Xubao_Zj zj_Report_XubaoDetail=zj_Report_XubaoList.get(row);
+            Field[] fieldDeatil =zj_Report_XubaoDetail.getClass().getDeclaredFields();
 
             //操作列
             for (int rol = 0; rol <maxCell; rol++){
@@ -95,87 +83,62 @@ public class test0 {
                 // 将属性的首字符大写，方便构造get，set方法
                 name = name.substring(0, 1).toUpperCase() + name.substring(1);
                 // 获取属性的类型
-                Method m = xfy_zss_modelCpDetail.getClass().getMethod("get" + name);
-                if (fDetail.getGenericType().toString().equals("class java.lang.String")) {
+                String type = fDetail.getGenericType().toString();
+                Method m = zj_Report_XubaoDetail.getClass().getMethod("get" + name);
+                if (type.equals("class java.lang.String")) {
                     // 调用getter方法获取属性值
-                    if ( m.invoke(xfy_zss_modelCpDetail)!= null) {
-                        cellCreat.setCellValue((String) m.invoke(xfy_zss_modelCpDetail));
+                    String value = (String) m.invoke(zj_Report_XubaoDetail);
+                    if (value != null) {
+                        cellCreat.setCellValue(value);
+                    }
+                }
+                if (type.equals("class java.lang.Integer")) {
+                    Integer value = (Integer) m.invoke(zj_Report_XubaoDetail);
+                    if (value != null) {
+                        cellCreat.setCellValue(value);
+                    }
+                }
+                if (type.equals("class java.lang.Short")) {
+                    Short value = (Short) m.invoke(zj_Report_XubaoDetail);
+                    if (value != null) {
+                        cellCreat.setCellValue(value);
+                    }
+                }
+                if (type.equals("class java.lang.Double")) {
+                    Double value = (Double) m.invoke(zj_Report_XubaoDetail);
+                    if (value != null) {
+                        cellCreat.setCellValue(value);
+                    }
+                }
+                if (type.equals("class java.lang.Boolean")) {
+                    Boolean value = (Boolean) m.invoke(zj_Report_XubaoDetail);
+                    if (value != null) {
+                        cellCreat.setCellValue(value);
+                    }
+                }
+                if (type.equals("class java.util.Date")) {
+                    Date value = (Date) m.invoke(zj_Report_XubaoDetail);
+                    if (value != null) {
+                        cellCreat.setCellValue(value);
                     }
                 }
 
             }
         }
 
-        System.out.println("第一个SHEET成功");
-
-
-
-
-        //第二个SHEET
-
-        //获取行个数
-        int maxRowXsp = xfy_zss_modelXspDaoList.size();
-        //获取列个数
-        xfy_zss_modelXsp xfy_zss_modelXSp=new xfy_zss_modelXsp();
-        Field[] fieldxSP=xfy_zss_modelXSp.getClass().getDeclaredFields();
-        int maxCellXsp=fieldxSP.length;
-
-        XSSFSheet sheetXsp = xssfWorkbook.getXSSFWorkbook().getSheetAt(1);
-
-        for (int row = 1; row <= maxRowXsp; row++) {
-            //获取最后单元格num，即总单元格数 ***注意：此处从1开始计数***
-            /* int maxRol = sheet.getRow(row).getLastCellNum();*/
-            XSSFRow rowCreatXsp=sheetXsp.createRow(row);
-            //获取studentList具体类，并且
-            xfy_zss_modelXsp xfy_zss_modelXspDetail=xfy_zss_modelXspDaoList.get(row-1);
-            Field[] fieldDeatil =xfy_zss_modelXspDetail.getClass().getDeclaredFields();
-
-            //操作列
-            for (int rol = 0; rol <maxCellXsp; rol++){
-                XSSFCell cellCreat=rowCreatXsp.createCell(rol);
-                //反射列，将类的值置入列中
-                Field fDetailXsp = fieldDeatil[rol];
-                // 获取属性的名字
-                String name = fDetailXsp.getName();
-                // 将属性的首字符大写，方便构造get，set方法
-                name = name.substring(0, 1).toUpperCase() + name.substring(1);
-                // 获取属性的类型
-                Method m = xfy_zss_modelXspDetail.getClass().getMethod("get" + name);
-                if (fDetailXsp.getGenericType().toString().equals("class java.lang.String")) {
-                    // 调用getter方法获取属性值
-                    if (m.invoke(xfy_zss_modelXspDetail) != null) {
-                        cellCreat.setCellValue((String)m.invoke(xfy_zss_modelXspDetail));
-                    }
-                }
-            }
-        }
-
-        System.out.println("第二个SHEET成功");
-
-        //第三个SHEET
-        SimpleDateFormat simpleDateFormatNewDate = new SimpleDateFormat("yyyy/MM/dd");
-        SimpleDateFormat simpleDateFormatNewDateTime = new SimpleDateFormat("HH:MM:ss");
-
-        XSSFSheet sheetDateDetail = xssfWorkbook.getXSSFWorkbook().getSheetAt(2);
-        //当日
-        sheetDateDetail.createRow(0).createCell(0).setCellValue(simpleDateFormatNewDate.format(new Date()));
-        //当时
-        sheetDateDetail.createRow(0).createCell(1).setCellValue(simpleDateFormatNewDateTime.format(new Date()));
 
         // 刷新公式
-        //xssfWorkbook.setForceFormulaRecalculation(true);
+        xssfWorkbook.setForceFormulaRecalculation(true);
         //使用evaluateFormulaCell对函数单元格进行强行更新计算
-        //xssfWorkbook.getCreationHelper().createFormulaEvaluator().evaluateAll();
-
-        System.out.println("替换成功");
+        xssfWorkbook.getCreationHelper().createFormulaEvaluator().evaluateAll();
 
         //导出
-        BufferedOutputStream fos=new BufferedOutputStream(new FileOutputStream("E:\\Test\\testXfy_zss_modelZssNew.xlsx"));
+        FileOutputStream fos=new FileOutputStream("D:\\Test\\test.xlsx");
+
         xssfWorkbook.write(fos);
-        xssfWorkbook.dispose();
-        fos.flush();
         fos.close();
-        System.out.println("导出成功");
+
 
     }
+
 }
