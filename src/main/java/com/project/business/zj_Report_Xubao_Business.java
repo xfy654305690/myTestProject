@@ -1,5 +1,6 @@
 package com.project.business;
 
+import com.project.model.zj_Report_Public;
 import com.project.model.zj_Report_Xubao_Tx;
 import com.project.model.zj_Report_Xubao_Xf;
 import com.project.model.zj_Report_Xubao_Zj;
@@ -84,7 +85,12 @@ public class zj_Report_Xubao_Business {
         // 1是文字，2是图片
         DealSendMessage.searchMyFriendAndSend("aiaiai",2,"D:\\test\\ToImg.png");
 
-        //文字后续在加，不急
+        //文字后续在加，不急，预留
+
+        //获取支局长邮箱地址
+        List<zj_Report_Public> zj_Report_Public_List =zj_Report_Public_Business.zj_Report_Public_Business();
+
+        //发送附件图片
 
 
 
@@ -93,7 +99,13 @@ public class zj_Report_Xubao_Business {
     //处理支局奖扣
     public static void report_Xubao_Zj_DoDetail( List<zj_Report_Xubao_Zj>  zj_Report_Xubao_Zj_List)  {
 
+        zj_Report_Xubao_Zj_List.forEach((e) -> {
+            //计算缺口
+            e.setBb_Amt_gap(String.valueOf(Math.ceil(Integer.getInteger(e.getBb_Amt())*0.83)));
+            //计算奖扣
 
+
+        });
 
 
 

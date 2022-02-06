@@ -1,19 +1,37 @@
 package com.project.business;
 
+import com.project.model.zj_Report_Public;
+
+import com.project.view.zj_Report_Public_Dao;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+import java.util.List;
+
 public class zj_Report_Public_Business {
 
-    public void zj_Report_Public_Business() throws Exception {
+    public static  final  String config="mybatis.xml";
 
-        //取出公共支局数据
-        //this.
-        //取出通报数据
-        //this.excleDoDetail();
-        //取出的数据处理EXCLE
-        //this.emailDoDetail();
-        //把EXLCE处理成图片
+    public static List<zj_Report_Public> zj_Report_Public_Business() throws IOException {
 
-        //发送图片数据
-        //发送微信
+        InputStream in= Resources.getResourceAsStream(config);
+        SqlSessionFactoryBuilder builder=new SqlSessionFactoryBuilder();
+        SqlSessionFactory factory = builder.build(in);
+        SqlSession sqlSession=factory.openSession();
+
+        zj_Report_Public_Dao Zj_Report_Public_Dao = sqlSession.getMapper(zj_Report_Public_Dao.class);
+
+        //公共数据
+        List<zj_Report_Public> zj_Report_Public_List =
+                Zj_Report_Public_Dao.selectZj_Report_Public();
+
+        sqlSession.close();
+        return zj_Report_Public_List;
 
     }
 
