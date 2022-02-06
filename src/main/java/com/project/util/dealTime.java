@@ -40,5 +40,15 @@ public class dealTime {
     }
 
 
+    //获取当前日期DD格式
+    public String get_date_By_String_DD(){
+
+        SimpleDateFormat simpleDateFormatYMD = new SimpleDateFormat("dd");
+        Date nowMonthDate = new Date();// 获取当前时间
+        String nowMonth=simpleDateFormatYMD.format(nowMonthDate);
+
+        return nowMonth;
+    }
+
 
 }

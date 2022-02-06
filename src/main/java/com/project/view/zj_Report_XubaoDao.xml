@@ -142,5 +142,37 @@
         then '政企' else '公众' end
     </select>
 
+    <select id="selectZj_Report_Xubao_Data"  resultType="com.project.model.zj_Report_Xubao_Data">
+
+        select s.* from (
+                            SELECT a.*,B.PROM_YGSR,
+
+                                   ROW_NUMBER() OVER(PARTITION BY A.ASSET_ROW_ID ORDER BY B.CPL_DT DESC) RANK,
+
+                                    case when C.ID_TYPE_NAME IN ('事业单位法人证书', '单位介绍信或单位公函', '机构代码', '社会团体法人登记证书', '统一社会信用代码证书', '单位介绍信或单位公函', '营业执照')
+
+                                             then '政企' else '公众' end  AS KHQ
+
+                            FROM NBetl.RPT_BRD_EXP_ASSET_sbj@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" a
+
+                                     LEFT JOIN NBETL.RPT_RHFZ_LIST_sbj@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" B
+
+                                               ON A.ASSET_ROW_ID = B.ASSET_ROW_ID_KD
+
+                                     left join nbetl.rpt_par_cust_cur_v@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM"  C
+
+                                               on C.ccust_id=A.ccust_id
+
+                                                   AND B.YW_TYPE = '单宽转融'
+
+                            where a.ARRIVE_MONTH = #{nowMonth}
+                              and a.telecon_area_name='宁波鄞州分公司'
+                              and a.ZJ_AREA_NAME like concat('%', #{zj_name}, '%')
+
+        )s
+        where  RANK = 1;
+
+    </select>
+
 
 </mapper>

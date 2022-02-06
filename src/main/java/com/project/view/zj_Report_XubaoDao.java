@@ -1,6 +1,7 @@
 package com.project.view;
 
 
+import com.project.model.zj_Report_Xubao_Data;
 import com.project.model.zj_Report_Xubao_Tx;
 import com.project.model.zj_Report_Xubao_Xf;
 import com.project.model.zj_Report_Xubao_Zj;
@@ -18,6 +19,7 @@ public interface zj_Report_XubaoDao {
 
     public List<zj_Report_Xubao_Tx> selectZj_Report_Xubao_Tx (@Param("endDate") Date endDate , @Param("nowMonth")String nowMonth);
 
+    public List<zj_Report_Xubao_Data> selectZj_Report_Xubao_Data ( @Param("nowMonth")String nowMonth,@Param("nowMonth")String zj_name);
 
 
 }
