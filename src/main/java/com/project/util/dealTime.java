@@ -28,9 +28,19 @@ public class dealTime {
         return nowMonth;
     }
 
+    //获取当前日期YYYYMM格式
+    public String get_date_By_String_YYYYMMDD(){
+
+        SimpleDateFormat simpleDateFormatYM = new SimpleDateFormat("yyyyMMDD");//注意月份是MM
+        Date nowMonthDate = new Date();// 获取当前时间
+        String nowMonth=simpleDateFormatYM.format(nowMonthDate);
+
+        return nowMonth;
+    }
+
 
     //获取当前日期YYYYMMDD格式
-    public String get_date_By_String_YYYYMMDD(){
+    public String get_date_By_String_YYYY_MM_DD(){
 
         SimpleDateFormat simpleDateFormatYMD = new SimpleDateFormat("yyyy-MM-dd");
         Date nowMonthDate = new Date();// 获取当前时间

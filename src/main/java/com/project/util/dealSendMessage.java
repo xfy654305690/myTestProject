@@ -57,11 +57,11 @@ public class dealSendMessage {
 
         if(type == 1){
             // 发送消息
-            sendPicture(UrlOrMessage);
+            sendMessage(UrlOrMessage);
         }
         if(type == 2){
-            // 发送消息
-            sendMessage(UrlOrMessage);
+            // 发送图片
+            sendPicture(UrlOrMessage);
         }
 
         // 以下两行按下了ctrl+v，完成粘贴功能

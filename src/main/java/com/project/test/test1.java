@@ -1,3 +1,4 @@
+/*
 package com.project.test;
 
 import com.project.model.student;
@@ -33,8 +34,10 @@ public class test1 {
         SqlSessionFactoryBuilder builder=new SqlSessionFactoryBuilder();
         SqlSessionFactory factory = builder.build(in);
         SqlSession sqlSession=factory.openSession();
-        /*String sqpId="com.project.view.studentDao"+"."+"selectStduent";
-        List<student> sudentList=sqlSession.selectList(sqpId);*/
+        */
+/*String sqpId="com.project.view.studentDao"+"."+"selectStduent";
+        List<student> sudentList=sqlSession.selectList(sqpId);*//*
+
         studentDao stuDao=sqlSession.getMapper(studentDao.class);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");//注意月份是MM
         List<student> sudentList=stuDao.selectStduent(simpleDateFormat.parse("2021-08-23"),simpleDateFormat.parse("2021-08-23"));
@@ -54,7 +57,9 @@ public class test1 {
 
         for (int row = 0; row < maxRow; row++) {
             //获取最后单元格num，即总单元格数 ***注意：此处从1开始计数***
-            /* int maxRol = sheet.getRow(row).getLastCellNum();*/
+            */
+/* int maxRol = sheet.getRow(row).getLastCellNum();*//*
+
             XSSFRow rowCreat=sheet.createRow(row);
             //获取studentList具体类，并且
             student stuDetail=sudentList.get(row);
@@ -129,3 +134,4 @@ public class test1 {
     }
 
 }
+*/

@@ -9,10 +9,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -31,10 +28,49 @@ public class dealExcle {
         //获取列个数
         Field[] field=object.getClass().getDeclaredFields();
         int maxCell=field.length;
+        if(inFileName == null ){
+            XSSFWorkbook xssfWorkbook = new XSSFWorkbook();
 
-        XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new FileInputStream(inFileName));
+            XSSFSheet sheet = xssfWorkbook.createSheet();
+            //循环复制值
+            copyData(sheet,maxCell,maxRow,list);
 
-        XSSFSheet sheet = xssfWorkbook.getSheetAt(dex);
+            // 刷新公式
+            xssfWorkbook.setForceFormulaRecalculation(true);
+            //使用evaluateFormulaCell对函数单元格进行强行更新计算
+            xssfWorkbook.getCreationHelper().createFormulaEvaluator().evaluateAll();
+
+            //导出
+            FileOutputStream fos=new FileOutputStream(outFileName);
+
+            xssfWorkbook.write(fos);
+            fos.close();
+
+        }
+        if(inFileName != null){
+            XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new FileInputStream(inFileName));
+
+            XSSFSheet sheet = xssfWorkbook.getSheetAt(dex);
+            //循环复制值
+            copyData(sheet,maxCell,maxRow,list);
+
+            // 刷新公式
+            xssfWorkbook.setForceFormulaRecalculation(true);
+            //使用evaluateFormulaCell对函数单元格进行强行更新计算
+            xssfWorkbook.getCreationHelper().createFormulaEvaluator().evaluateAll();
+
+            //导出
+            FileOutputStream fos=new FileOutputStream(outFileName);
+
+            xssfWorkbook.write(fos);
+            fos.close();
+        }
+
+    }
+
+
+    //复制值
+    public void copyData(XSSFSheet sheet,int maxCell,int maxRow,List list ) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
 
         for (int row = 0; row < maxRow; row++) {
             //获取最后单元格num，即总单元格数 ***注意：此处从1开始计数***
@@ -97,16 +133,6 @@ public class dealExcle {
             }
         }
 
-        // 刷新公式
-        xssfWorkbook.setForceFormulaRecalculation(true);
-        //使用evaluateFormulaCell对函数单元格进行强行更新计算
-        xssfWorkbook.getCreationHelper().createFormulaEvaluator().evaluateAll();
-
-        //导出
-        FileOutputStream fos=new FileOutputStream(outFileName);
-
-        xssfWorkbook.write(fos);
-        fos.close();
 
     }
 

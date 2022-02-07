@@ -9,7 +9,7 @@ public class zj_Report_Xubao_Data {
     //到达日期
     public  String arrive_MONTH;
     //线路标志
-    public  String std_PRD_LV4_NAME;
+    public  String std_PRD_LVL4_NAME;
     //线路种类
     public  String std_USER_TYPE_LVL2_NAME;
     //支局
@@ -91,12 +91,12 @@ public class zj_Report_Xubao_Data {
         this.arrive_MONTH = arrive_MONTH;
     }
 
-    public String getStd_PRD_LV4_NAME() {
-        return std_PRD_LV4_NAME;
+    public String getStd_PRD_LVL4_NAME() {
+        return std_PRD_LVL4_NAME;
     }
 
-    public void setStd_PRD_LV4_NAME(String std_PRD_LV4_NAME) {
-        this.std_PRD_LV4_NAME = std_PRD_LV4_NAME;
+    public void setStd_PRD_LVL4_NAME(String std_PRD_LVL4_NAME) {
+        this.std_PRD_LVL4_NAME = std_PRD_LVL4_NAME;
     }
 
     public String getStd_USER_TYPE_LVL2_NAME() {
