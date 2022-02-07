@@ -9,8 +9,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
@@ -47,13 +46,13 @@ public class dealEmail {
             //发件人
             message.setFrom(new InternetAddress("13362851058@189.cn"));
             //收件人*******************************************************
-            String InternetAddress=new String();
+            String InternetAddressString=new String();
             for (int i=0;i<zj_Report_Public.size();i++){
-                InternetAddress=InternetAddress+zj_Report_Public.get(i).getZj_Person_In_Charge_Email()+",";
+                InternetAddressString=InternetAddressString+zj_Report_Public.get(i).getZj_Per_In_Cha_Ema()+",";
             }
-            InternetAddress=InternetAddress+"654305690@qq.com"+",";
-            InternetAddress=InternetAddress.substring(0,InternetAddress.length()-1);
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress(InternetAddress));
+            InternetAddressString=InternetAddressString+"654305690@qq.com"+",";
+            InternetAddressString=InternetAddressString.substring(0,InternetAddressString.length()-1);
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(InternetAddressString));
             //message.setRecipient(Message.RecipientType.TO, new InternetAddress("654305690@qq.com"));
             //邮件标题
             message.setSubject(title);
@@ -79,7 +78,7 @@ public class dealEmail {
             //将创建的Email写入到E盘存储
             //message.writeTo(new FileOutputStream("E:\\Test\\mail\\attachMail.eml"));
             //5、发送邮件
-            //ts.sendMessage(message, message.getAllRecipients());
+            ts.sendMessage(message, message.getAllRecipients());
 
 
 

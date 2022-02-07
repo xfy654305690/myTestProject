@@ -157,9 +157,10 @@ public class zj_Report_Xubao_Business {
     public static List<zj_Report_Xubao_Zj> report_Xubao_Zj_DoDetail( List<zj_Report_Xubao_Zj>  zj_Report_Xubao_Zj_List)  {
 
         zj_Report_Xubao_Zj_List.forEach((e) -> {
-            //计算缺口
-            //e.setBb_Amt_gap(String.valueOf(Math.ceil(Integer.getInteger(e.getBb_Amt())*0.83)));
-            //计算奖扣
+
+
+                //计算缺口
+                e.setBb_Amt_gap((int) Math.ceil(e.getBb_Amt()*0.83));
 
 
         });
