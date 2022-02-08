@@ -63,19 +63,23 @@ public class zj_Report_Xubao_Business {
         List<zj_Report_Xubao_Tx> zj_Report_XubaoList_Tx =
                 Zj_Report_XubaoDao.selectZj_Report_Xubao_Tx(endDate,nowMonth );
 
+        //续包时间数据
+        String maxTime=Zj_Report_XubaoDao.selectZj_Report_Xubao_MaxTime();
+
 
         sqlSession.close();
 
         zj_Report_Xubao_Zj Zj_Report_Xubao_Zj=new zj_Report_Xubao_Zj();
         zj_Report_Xubao_Xf Zj_Report_Xubao_Xf=new zj_Report_Xubao_Xf();
         zj_Report_Xubao_Tx Zj_Report_Xubao_Tx=new zj_Report_Xubao_Tx();
+        zj_Report_Xubao_Time Zj_Report_Xubao_Time=new zj_Report_Xubao_Time();
 
         dealExcle DealExcle =new dealExcle();
         dealSendMessage DealSendMessage=new dealSendMessage();
         dealEmail DealEmail=new dealEmail();
 
         //处理支局奖扣（1.处理缺口2.处理奖扣）
-        //report_Xubao_Zj_DoDetail(zj_Report_XubaoList_Zj);
+        report_Xubao_Zj_DoDetail(zj_Report_XubaoList_Zj);
 
         //处理EXCLE 支局1
         DealExcle.cpoyToExcle(zj_Report_XubaoList_Zj,inExcleFile,OutExcleFile,1,Zj_Report_Xubao_Zj);
@@ -86,6 +90,9 @@ public class zj_Report_Xubao_Business {
         //处理EXCLE 条线3
         DealExcle.cpoyToExcle(zj_Report_XubaoList_Tx,inExcleFile,OutExcleFile,3,Zj_Report_Xubao_Tx);
 
+        //处理EXCLE 时间4
+        DealExcle.cpoyToExcleSingle(maxTime,inExcleFile,OutExcleFile,4);
+
         System.out.println("数据处理成功");
 
         //将exlce处理成图片
@@ -95,7 +102,7 @@ public class zj_Report_Xubao_Business {
 
         //将图片发送微信
         // 1是文字，2是图片
-        DealSendMessage.searchMyFriendAndSend(wechartSendName,2,wechartPictureAdress);
+        //DealSendMessage.searchMyFriendAndSend(wechartSendName,2,wechartPictureAdress);
 
         System.out.println("发送微信成功");
 
@@ -106,8 +113,8 @@ public class zj_Report_Xubao_Business {
 
         String title ="续包通报"+nowMonth+"详见附件";
         String content="续包通报"+nowMonth+"详见附件";
-        //邮件发送附件图片
-        DealEmail.ctreatMailMore(zj_Report_Public_List,null,null,title,content,wechartPictureAdress);
+        //邮件发送附件图片*****************************
+        //DealEmail.ctreatMailMore(zj_Report_Public_List,null,null,title,content,wechartPictureAdress);
 
         System.out.println("邮件发送成功");
 
@@ -158,10 +165,205 @@ public class zj_Report_Xubao_Business {
 
         zj_Report_Xubao_Zj_List.forEach((e) -> {
 
+            if(e.getZj_Name().equals("鄞州潘火政企支局")||e.getZj_Name().equals("鄞州南商政企支局")||e.getZj_Name().equals("鄞州政企部")){
+
+                //计算缺口
+                e.setBb_Amt_gap((int) Math.ceil(e.getBb_Amt()*(0.83+0.03)));
+                //奖励
+                if(e.getBb_Com_Rate()>=(0.83+0.03)){
+                    if(e.getBb_Com_Rate_Income()>=0.93){
+                        e.setReward((int)Math.floor(e.getBb_Amt_Com()*10*1.2));
+                    }
+                    if(e.getBb_Com_Rate_Income()>=0.9&&e.getBb_Com_Rate_Income()<0.93){
+                        e.setReward((int)Math.floor(e.getBb_Amt_Com()*10*1));
+                    }
+                    if(e.getBb_Com_Rate_Income()>=0.85&&e.getBb_Com_Rate_Income()<0.9){
+                        e.setReward((int)Math.floor(e.getBb_Amt_Com()*10*0.8));
+                    }
+                    if(e.getBb_Com_Rate_Income()>=0.8&&e.getBb_Com_Rate_Income()<0.85){
+                        e.setReward((int)Math.floor(e.getBb_Amt_Com()*10*0.5));
+                    }
+                    if(e.getBb_Com_Rate_Income()<0.8){
+                        e.setReward((int)Math.floor(e.getBb_Amt_Com()*10*0.3));
+                    }
+                }
+                //扣罚 83
+                if(e.getBb_Com_Rate()<(0.83+0.03)&&e.getBb_Com_Rate()>(0.7+0.03)){
+                    if(e.getBb_Com_Rate_Income()>=0.93){
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.3));
+                    }
+                    if(e.getBb_Com_Rate_Income()>=0.9&&e.getBb_Com_Rate_Income()<0.93){
+
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.5));
+                    }
+                    if(e.getBb_Com_Rate_Income()>=0.85&&e.getBb_Com_Rate_Income()<0.9){
+
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.8));
+                    }
+                    if(e.getBb_Com_Rate_Income()>=0.8&&e.getBb_Com_Rate_Income()<0.85){
+
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*1));
+                    }
+                    if(e.getBb_Com_Rate_Income()<0.8){
+
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*1.2));
+                    }
+                }
+
+                //扣罚 70
+                if(e.getBb_Com_Rate()<(0.7+0.03)){
+                    if(e.getBb_Com_Rate_Income()>=0.93){
+
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.3));
+                    }
+                    if(e.getBb_Com_Rate_Income()>=0.9&&e.getBb_Com_Rate_Income()<0.93){
+
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.5));
+                    }
+                    if(e.getBb_Com_Rate_Income()>=0.88&&e.getBb_Com_Rate_Income()<0.9){
+
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.8));
+                    }
+                    if(e.getBb_Com_Rate_Income()<0.88){
+
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*3));
+                    }
+                }
+
+            }else if(e.getZj_Name().equals("鄞州潘火综合支局")){
+
+
+                //计算缺口
+                e.setBb_Amt_gap((int) Math.ceil(e.getBb_Amt()*(0.83-0.03)));
+                //奖励
+                if(e.getBb_Com_Rate()>=(0.83-0.03)){
+                    if(e.getBb_Com_Rate_Income()>=0.93){
+                        e.setReward((int)Math.floor(e.getBb_Amt_Com()*10*1.2));
+                    }
+                    if(e.getBb_Com_Rate_Income()>=0.9&&e.getBb_Com_Rate_Income()<0.93){
+                        e.setReward((int)Math.floor(e.getBb_Amt_Com()*10*1));
+                    }
+                    if(e.getBb_Com_Rate_Income()>=0.85&&e.getBb_Com_Rate_Income()<0.9){
+                        e.setReward((int)Math.floor(e.getBb_Amt_Com()*10*0.8));
+                    }
+                    if(e.getBb_Com_Rate_Income()>=0.8&&e.getBb_Com_Rate_Income()<0.85){
+                        e.setReward((int)Math.floor(e.getBb_Amt_Com()*10*0.5));
+                    }
+                    if(e.getBb_Com_Rate_Income()<0.8){
+                        e.setReward((int)Math.floor(e.getBb_Amt_Com()*10*0.3));
+                    }
+                }
+                //扣罚 83
+                if(e.getBb_Com_Rate()<(0.83-0.03)&&e.getBb_Com_Rate()>(0.7-0.03)){
+                    if(e.getBb_Com_Rate_Income()>=0.93){
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.3));
+                    }
+                    if(e.getBb_Com_Rate_Income()>=0.9&&e.getBb_Com_Rate_Income()<0.93){
+
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.5));
+                    }
+                    if(e.getBb_Com_Rate_Income()>=0.85&&e.getBb_Com_Rate_Income()<0.9){
+
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.8));
+                    }
+                    if(e.getBb_Com_Rate_Income()>=0.8&&e.getBb_Com_Rate_Income()<0.85){
+
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*1));
+                    }
+                    if(e.getBb_Com_Rate_Income()<0.8){
+
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*1.2));
+                    }
+                }
+
+                //扣罚 70
+                if(e.getBb_Com_Rate()<(0.7-0.03)){
+                    if(e.getBb_Com_Rate_Income()>=0.93){
+
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.3));
+                    }
+                    if(e.getBb_Com_Rate_Income()>=0.9&&e.getBb_Com_Rate_Income()<0.93){
+
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.5));
+                    }
+                    if(e.getBb_Com_Rate_Income()>=0.88&&e.getBb_Com_Rate_Income()<0.9){
+
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.8));
+                    }
+                    if(e.getBb_Com_Rate_Income()<0.88){
+
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*3));
+                    }
+                }
+
+
+            }else {
 
                 //计算缺口
                 e.setBb_Amt_gap((int) Math.ceil(e.getBb_Amt()*0.83));
+                //奖励
+                if(e.getBb_Com_Rate()>=0.83){
+                    if(e.getBb_Com_Rate_Income()>=0.93){
+                        e.setReward((int)Math.floor(e.getBb_Amt_Com()*10*1.2));
+                    }
+                    if(e.getBb_Com_Rate_Income()>=0.9&&e.getBb_Com_Rate_Income()<0.93){
+                        e.setReward((int)Math.floor(e.getBb_Amt_Com()*10*1));
+                    }
+                    if(e.getBb_Com_Rate_Income()>=0.85&&e.getBb_Com_Rate_Income()<0.9){
+                        e.setReward((int)Math.floor(e.getBb_Amt_Com()*10*0.8));
+                    }
+                    if(e.getBb_Com_Rate_Income()>=0.8&&e.getBb_Com_Rate_Income()<0.85){
+                        e.setReward((int)Math.floor(e.getBb_Amt_Com()*10*0.5));
+                    }
+                    if(e.getBb_Com_Rate_Income()<0.8){
+                        e.setReward((int)Math.floor(e.getBb_Amt_Com()*10*0.3));
+                    }
+                }
+                //扣罚 83
+                if(e.getBb_Com_Rate()<0.83&&e.getBb_Com_Rate()>0.7){
+                    if(e.getBb_Com_Rate_Income()>=0.93){
 
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.3));
+                    }
+                    if(e.getBb_Com_Rate_Income()>=0.9&&e.getBb_Com_Rate_Income()<0.93){
+
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.5));
+                    }
+                    if(e.getBb_Com_Rate_Income()>=0.85&&e.getBb_Com_Rate_Income()<0.9){
+
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.8));
+                    }
+                    if(e.getBb_Com_Rate_Income()>=0.8&&e.getBb_Com_Rate_Income()<0.85){
+
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*1));
+                    }
+                    if(e.getBb_Com_Rate_Income()<0.8){
+
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*1.2));
+                    }
+                }
+
+                //扣罚 70
+                if(e.getBb_Com_Rate()<0.7){
+                    if(e.getBb_Com_Rate_Income()>=0.93){
+
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.3));
+                    }
+                    if(e.getBb_Com_Rate_Income()>=0.9&&e.getBb_Com_Rate_Income()<0.93){
+
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.5));
+                    }
+                    if(e.getBb_Com_Rate_Income()>=0.88&&e.getBb_Com_Rate_Income()<0.9){
+
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.8));
+                    }
+                    if(e.getBb_Com_Rate_Income()<0.88){
+
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*3));
+                    }
+                }
+
+            }
 
         });
 

@@ -137,6 +137,34 @@ public class dealExcle {
     }
 
     //复制值toExcle
+    public void cpoyToExcleSingle(String maxTime, String inFileName, String outFileName, int dex) throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+
+        XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new FileInputStream(inFileName));
+        XSSFSheet sheet = xssfWorkbook.getSheetAt(dex);
+        //循环复制值
+        //获取最后单元格num，即总单元格数 ***注意：此处从1开始计数***
+        /* int maxRol = sheet.getRow(row).getLastCellNum();*/
+        XSSFRow rowCreat=sheet.createRow(0);
+        XSSFCell cellCreat=rowCreat.createCell(0);
+        // 调用getter方法获取属性值
+        if (maxTime != null) {
+            cellCreat.setCellValue(maxTime);
+        }
+
+        // 刷新公式
+        xssfWorkbook.setForceFormulaRecalculation(true);
+        //使用evaluateFormulaCell对函数单元格进行强行更新计算
+        xssfWorkbook.getCreationHelper().createFormulaEvaluator().evaluateAll();
+
+        //导出
+        FileOutputStream fos=new FileOutputStream(outFileName);
+
+        xssfWorkbook.write(fos);
+        fos.close();
+
+    }
+
+    //复制值toExcle
     public void excleToPng( String inFileName, String outFileName)  {
     //加载Excel工作表
         Workbook wb = new Workbook();
