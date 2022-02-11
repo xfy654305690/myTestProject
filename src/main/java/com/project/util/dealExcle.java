@@ -72,12 +72,27 @@ public class dealExcle {
     //复制值
     public void copyData(XSSFSheet sheet,int maxCell,int maxRow,List list ) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
 
-        for (int row = 0; row < maxRow; row++) {
+        XSSFRow rowCreatFirst=sheet.createRow(0);
+        //获取studentList具体类，并且
+        Object objectListFirst=list.get(0);
+        Field[] fieldDeatilFirst =objectListFirst.getClass().getDeclaredFields();
+
+        //操作列
+        for (int rol = 0; rol <maxCell; rol++){
+            XSSFCell cellCreat=rowCreatFirst.createCell(rol);
+            //反射列，将类的值置入列中
+            Field fDetail = fieldDeatilFirst[rol];
+            // 获取属性的名字
+            String name = fDetail.getName();
+            cellCreat.setCellValue(name);
+        }
+
+        for (int row = 1; row < maxRow+1; row++) {
             //获取最后单元格num，即总单元格数 ***注意：此处从1开始计数***
             /* int maxRol = sheet.getRow(row).getLastCellNum();*/
             XSSFRow rowCreat=sheet.createRow(row);
             //获取studentList具体类，并且
-            Object objectList=list.get(row);
+            Object objectList=list.get(row-1);
             Field[] fieldDeatil =objectList.getClass().getDeclaredFields();
 
             //操作列

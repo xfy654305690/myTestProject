@@ -23,14 +23,14 @@ import java.util.List;
 public class zj_Report_Xubao_Business {
 
     public static  final  String config="mybatis.xml";
-    public static  final  String inExcleFile="E:\\Test\\test.xlsx";
-    public static  final  String OutExcleFile="E:\\Test\\test.xlsx";
-    public static  final  String inPictureFile="E:\\Test\\test.xlsx";
-    public static  final  String OutPictureFile="E:\\test\\ToImg.png";
+    public static  final  String inExcleFile="D:\\Test\\XB\\test.xlsx";
+    public static  final  String OutExcleFile="D:\\Test\\XB\\test.xlsx";
+    public static  final  String inPictureFile="D:\\Test\\XB\\test.xlsx";
+    public static  final  String OutPictureFile="D:\\test\\XB\\PICTURE\\";
     public static  final  String wechartSendName="aiaiai";
-    public static  final  String wechartPictureAdress="E:\\test\\ToImg.png";
-    public static  final  String inExcleDataFile="E:\\Test\\test.xlsx";
-    public static  final  String OutExcleDataFile="E:\\Test\\";
+    public static  final  String wechartPictureAdress="D:\\test\\XB\\tToImg.png";
+    public static  final  String inExcleDataFile="D:\\Test\\XB\\test.xlsx";
+    public static  final  String OutExcleDataFile="D:\\Test\\XB\\DATA\\";
 
     //取数导出excle
     public static void report_Xubao_Zj() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
@@ -42,13 +42,18 @@ public class zj_Report_Xubao_Business {
 
         zj_Report_XubaoDao Zj_Report_XubaoDao = sqlSession.getMapper(zj_Report_XubaoDao.class);
 
-
         dealTime dealTime=new dealTime();
         //获取下月一号，返回日期格式
         Date endDate=dealTime.get_NextMonth_FirstDay_ByDate();
 
         //获取当前日期YYYYMM格式
         String nowMonth=dealTime.get_date_By_String_YYYYMM();
+
+        //获取当前日期DD格式
+        String nowDay=dealTime.get_date_By_String_DD();
+
+        //获取当前日期DD格式
+        String nowDayYYYYMMDD=dealTime.get_date_By_String_YYYYMMDD();
 
         //续包支局数据
         List<zj_Report_Xubao_Zj> zj_Report_XubaoList_Zj =
@@ -66,16 +71,13 @@ public class zj_Report_Xubao_Business {
         //续包时间数据
         String maxTime=Zj_Report_XubaoDao.selectZj_Report_Xubao_MaxTime();
 
-
         sqlSession.close();
 
         zj_Report_Xubao_Zj Zj_Report_Xubao_Zj=new zj_Report_Xubao_Zj();
         zj_Report_Xubao_Xf Zj_Report_Xubao_Xf=new zj_Report_Xubao_Xf();
         zj_Report_Xubao_Tx Zj_Report_Xubao_Tx=new zj_Report_Xubao_Tx();
-        zj_Report_Xubao_Time Zj_Report_Xubao_Time=new zj_Report_Xubao_Time();
 
         dealExcle DealExcle =new dealExcle();
-        dealSendMessage DealSendMessage=new dealSendMessage();
         dealEmail DealEmail=new dealEmail();
 
         //处理支局奖扣（1.处理缺口2.处理奖扣）
@@ -95,14 +97,16 @@ public class zj_Report_Xubao_Business {
 
         System.out.println("数据处理成功");
 
+        String OutPictureFileNew=OutPictureFile+"picture"+nowDayYYYYMMDD+".png";
+
         //将exlce处理成图片
-        DealExcle.excleToPng(inPictureFile,OutPictureFile);
+        //DealExcle.excleToPng(inPictureFile,OutPictureFileNew);
 
         System.out.println("图片转化成功");
 
         //将图片发送微信
         // 1是文字，2是图片
-        //DealSendMessage.searchMyFriendAndSend(wechartSendName,2,wechartPictureAdress);
+        //DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
 
         System.out.println("发送微信成功");
 
@@ -117,12 +121,6 @@ public class zj_Report_Xubao_Business {
         //DealEmail.ctreatMailMore(zj_Report_Public_List,null,null,title,content,wechartPictureAdress);
 
         System.out.println("邮件发送成功");
-
-        //获取当前日期DD格式
-        String nowDay=dealTime.get_date_By_String_DD();
-
-        //获取当前日期DD格式
-        String nowDayYYYYMMDD=dealTime.get_date_By_String_YYYYMMDD();
 
         //发送数据给支局长 *********这里乱码没有结解决
         if (nowDay.equals("5")||nowDay.equals("10")||nowDay.equals("15")||nowDay.equals("20")||nowDay.equals("25")){
@@ -157,7 +155,6 @@ public class zj_Report_Xubao_Business {
 
         }
 
-
     }
 
     //处理支局奖扣
@@ -168,7 +165,7 @@ public class zj_Report_Xubao_Business {
             if(e.getZj_Name().equals("鄞州潘火政企支局")||e.getZj_Name().equals("鄞州南商政企支局")||e.getZj_Name().equals("鄞州政企部")){
 
                 //计算缺口
-                e.setBb_Amt_gap((int) Math.ceil(e.getBb_Amt()*(0.83+0.03)));
+                e.setBb_Amt_gap((int) Math.ceil(e.getBb_Amt()*(0.83+0.03))-e.getBb_Amt_Com());
                 //奖励
                 if(e.getBb_Com_Rate()>=(0.83+0.03)){
                     if(e.getBb_Com_Rate_Income()>=0.93){
@@ -190,23 +187,23 @@ public class zj_Report_Xubao_Business {
                 //扣罚 83
                 if(e.getBb_Com_Rate()<(0.83+0.03)&&e.getBb_Com_Rate()>(0.7+0.03)){
                     if(e.getBb_Com_Rate_Income()>=0.93){
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.3));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.3));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.9&&e.getBb_Com_Rate_Income()<0.93){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.5));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.5));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.85&&e.getBb_Com_Rate_Income()<0.9){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.8));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.8));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.8&&e.getBb_Com_Rate_Income()<0.85){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*1));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*1));
                     }
                     if(e.getBb_Com_Rate_Income()<0.8){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*1.2));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*1.2));
                     }
                 }
 
@@ -214,27 +211,26 @@ public class zj_Report_Xubao_Business {
                 if(e.getBb_Com_Rate()<(0.7+0.03)){
                     if(e.getBb_Com_Rate_Income()>=0.93){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.3));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.3));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.9&&e.getBb_Com_Rate_Income()<0.93){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.5));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.5));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.88&&e.getBb_Com_Rate_Income()<0.9){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.8));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.8));
                     }
                     if(e.getBb_Com_Rate_Income()<0.88){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*3));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*3));
                     }
                 }
 
             }else if(e.getZj_Name().equals("鄞州潘火综合支局")){
 
-
                 //计算缺口
-                e.setBb_Amt_gap((int) Math.ceil(e.getBb_Amt()*(0.83-0.03)));
+                e.setBb_Amt_gap((int) Math.ceil(e.getBb_Amt()*(0.83-0.03)-e.getBb_Amt_Com()));
                 //奖励
                 if(e.getBb_Com_Rate()>=(0.83-0.03)){
                     if(e.getBb_Com_Rate_Income()>=0.93){
@@ -256,23 +252,23 @@ public class zj_Report_Xubao_Business {
                 //扣罚 83
                 if(e.getBb_Com_Rate()<(0.83-0.03)&&e.getBb_Com_Rate()>(0.7-0.03)){
                     if(e.getBb_Com_Rate_Income()>=0.93){
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.3));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.3));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.9&&e.getBb_Com_Rate_Income()<0.93){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.5));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.5));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.85&&e.getBb_Com_Rate_Income()<0.9){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.8));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.8));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.8&&e.getBb_Com_Rate_Income()<0.85){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*1));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*1));
                     }
                     if(e.getBb_Com_Rate_Income()<0.8){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*1.2));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*1.2));
                     }
                 }
 
@@ -280,19 +276,19 @@ public class zj_Report_Xubao_Business {
                 if(e.getBb_Com_Rate()<(0.7-0.03)){
                     if(e.getBb_Com_Rate_Income()>=0.93){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.3));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.3));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.9&&e.getBb_Com_Rate_Income()<0.93){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.5));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.5));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.88&&e.getBb_Com_Rate_Income()<0.9){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.8));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.8));
                     }
                     if(e.getBb_Com_Rate_Income()<0.88){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*3));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*3));
                     }
                 }
 
@@ -300,7 +296,7 @@ public class zj_Report_Xubao_Business {
             }else {
 
                 //计算缺口
-                e.setBb_Amt_gap((int) Math.ceil(e.getBb_Amt()*0.83));
+                e.setBb_Amt_gap((int) Math.ceil(e.getBb_Amt()*0.83)-e.getBb_Amt_Com());
                 //奖励
                 if(e.getBb_Com_Rate()>=0.83){
                     if(e.getBb_Com_Rate_Income()>=0.93){
@@ -323,23 +319,23 @@ public class zj_Report_Xubao_Business {
                 if(e.getBb_Com_Rate()<0.83&&e.getBb_Com_Rate()>0.7){
                     if(e.getBb_Com_Rate_Income()>=0.93){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.3));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.3));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.9&&e.getBb_Com_Rate_Income()<0.93){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.5));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.5));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.85&&e.getBb_Com_Rate_Income()<0.9){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.8));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.8));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.8&&e.getBb_Com_Rate_Income()<0.85){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*1));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*1));
                     }
                     if(e.getBb_Com_Rate_Income()<0.8){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*1.2));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*1.2));
                     }
                 }
 
@@ -347,19 +343,19 @@ public class zj_Report_Xubao_Business {
                 if(e.getBb_Com_Rate()<0.7){
                     if(e.getBb_Com_Rate_Income()>=0.93){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.3));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.3));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.9&&e.getBb_Com_Rate_Income()<0.93){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.5));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.5));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.88&&e.getBb_Com_Rate_Income()<0.9){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*0.8));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.8));
                     }
                     if(e.getBb_Com_Rate_Income()<0.88){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*-1*3));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*3));
                     }
                 }
 

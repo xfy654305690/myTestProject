@@ -22,6 +22,8 @@ public class zj_Report_Xubao_Tx {
     public  Double bb_Amt_Uncom_Income;
     //收入完成率 broadband_Completion_Rate_Income
     public  Double bb_Com_Rate_Income;
+    //预计奖扣  reward
+    public  Integer reward;
 
     public String getZj_Name() {
         return Zj_Name;
@@ -95,18 +97,27 @@ public class zj_Report_Xubao_Tx {
         this.bb_Com_Rate_Income = bb_Com_Rate_Income;
     }
 
+    public Integer getReward() {
+        return reward;
+    }
+
+    public void setReward(Integer reward) {
+        this.reward = reward;
+    }
+
     @Override
     public String toString() {
         return "zj_Report_Xubao_Tx{" +
                 "Zj_Name='" + Zj_Name + '\'' +
-                ", bb_Amt='" + bb_Amt + '\'' +
-                ", bb_Amt_Com='" + bb_Amt_Com + '\'' +
-                ", bb_Amt_Uncom='" + bb_Amt_Uncom + '\'' +
-                ", bb_Com_Rate='" + bb_Com_Rate + '\'' +
-                ", bb_Income='" + bb_Income + '\'' +
-                ", bb_Com_Income='" + bb_Com_Income + '\'' +
-                ", bb_Amt_Uncom_Income='" + bb_Amt_Uncom_Income + '\'' +
-                ", bb_Com_Rate_Income='" + bb_Com_Rate_Income + '\'' +
+                ", bb_Amt=" + bb_Amt +
+                ", bb_Amt_Com=" + bb_Amt_Com +
+                ", bb_Amt_Uncom=" + bb_Amt_Uncom +
+                ", bb_Com_Rate=" + bb_Com_Rate +
+                ", bb_Income=" + bb_Income +
+                ", bb_Com_Income=" + bb_Com_Income +
+                ", bb_Amt_Uncom_Income=" + bb_Amt_Uncom_Income +
+                ", bb_Com_Rate_Income=" + bb_Com_Rate_Income +
+                ", reward=" + reward +
                 '}';
     }
 }
