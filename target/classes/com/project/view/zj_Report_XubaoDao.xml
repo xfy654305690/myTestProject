@@ -197,5 +197,8 @@
 
     </select>
 
+    <select id="selectZj_Report_Xubao_MaxTime"  resultType="STRING">
+        select  max(XB_DT) FROM NBetl.RPT_BRD_EXP_ASSET_sbj@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" a
+    </select>
 
 </mapper>
