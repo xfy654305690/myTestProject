@@ -22,6 +22,8 @@ public class zj_Report_Xubao_Tx {
     public  Double bb_Amt_Uncom_Income;
     //收入完成率 broadband_Completion_Rate_Income
     public  Double bb_Com_Rate_Income;
+    //缺口  broadband_Completion_Rate_gap
+    public  Integer bb_Amt_gap;
     //预计奖扣  reward
     public  Integer reward;
 
@@ -103,6 +105,14 @@ public class zj_Report_Xubao_Tx {
 
     public void setReward(Integer reward) {
         this.reward = reward;
+    }
+
+    public Integer getBb_Amt_gap() {
+        return bb_Amt_gap;
+    }
+
+    public void setBb_Amt_gap(Integer bb_Amt_gap) {
+        this.bb_Amt_gap = bb_Amt_gap;
     }
 
     @Override

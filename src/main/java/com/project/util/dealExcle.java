@@ -151,7 +151,7 @@ public class dealExcle {
 
     }
 
-    //复制值toExcle
+    //复制值toExcleSingle
     public void cpoyToExcleSingle(String maxTime, String inFileName, String outFileName, int dex) throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
 
         XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new FileInputStream(inFileName));
@@ -192,6 +192,20 @@ public class dealExcle {
         sheet.saveToImage(outFileName);
         //调用方法，将指定Excel单元格数据范围保存为图片
         //sheet.saveToImage("ToImg2.png",8,1,30,7);
+    }
+
+
+    //复制EXCLE给另一个EXCLE
+    public void copyExcleToOtherExcle( String inFileName, String outFileName) throws IOException {
+        //加载Excel工作表
+        XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new FileInputStream(inFileName));
+
+        //导出
+        FileOutputStream fos=new FileOutputStream(outFileName);
+
+        xssfWorkbook.write(fos);
+        fos.close();
+
     }
 
 

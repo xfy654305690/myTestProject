@@ -23,14 +23,23 @@ import java.util.List;
 public class zj_Report_Xubao_Business {
 
     public static  final  String config="mybatis.xml";
+    //读取EXCLE目录
     public static  final  String inExcleFile="D:\\Test\\XB\\test.xlsx";
+    //输出EXCLE目录
     public static  final  String OutExcleFile="D:\\Test\\XB\\test.xlsx";
+    //转化图片源文件
     public static  final  String inPictureFile="D:\\Test\\XB\\test.xlsx";
+    //图片地址跟目录
     public static  final  String OutPictureFile="D:\\test\\XB\\PICTURE\\";
+    //微信群名称
     public static  final  String wechartSendName="aiaiai";
-    public static  final  String wechartPictureAdress="D:\\test\\XB\\tToImg.png";
+    public static  final  String wechartPictureAdress="D:\\test\\XB\\";
+    //微信群名称
     public static  final  String inExcleDataFile="D:\\Test\\XB\\test.xlsx";
+    //导出数据地址
     public static  final  String OutExcleDataFile="D:\\Test\\XB\\DATA\\";
+    //复制导出文件地址
+    public static  final  String OutExcleSouceFile="D:\\Test\\XB\\SOUCE\\";
 
     //取数导出excle
     public static void report_Xubao_Zj() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
@@ -79,6 +88,7 @@ public class zj_Report_Xubao_Business {
 
         dealExcle DealExcle =new dealExcle();
         dealEmail DealEmail=new dealEmail();
+        dealSendMessage DealSendMessage=new dealSendMessage();
 
         //处理支局奖扣（1.处理缺口2.处理奖扣）
         report_Xubao_Zj_DoDetail(zj_Report_XubaoList_Zj);
@@ -89,6 +99,9 @@ public class zj_Report_Xubao_Business {
         //处理EXCLE 县份2
         DealExcle.cpoyToExcle(zj_Report_XubaoList_Xf,inExcleFile,OutExcleFile,2,Zj_Report_Xubao_Xf);
 
+        //处理条线奖扣（1.处理缺口2.处理奖扣）
+        report_Xubao_Tx_DoDetail(zj_Report_XubaoList_Tx);
+
         //处理EXCLE 条线3
         DealExcle.cpoyToExcle(zj_Report_XubaoList_Tx,inExcleFile,OutExcleFile,3,Zj_Report_Xubao_Tx);
 
@@ -97,16 +110,21 @@ public class zj_Report_Xubao_Business {
 
         System.out.println("数据处理成功");
 
+        //
+        String OutExcleSouceFilenew =OutExcleSouceFile+"续包"+nowDayYYYYMMDD+".xlsx";
+        DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleSouceFilenew);
+        System.out.println("复制文件成功成功");
+
         String OutPictureFileNew=OutPictureFile+"picture"+nowDayYYYYMMDD+".png";
 
         //将exlce处理成图片
-        //DealExcle.excleToPng(inPictureFile,OutPictureFileNew);
+        DealExcle.excleToPng(inPictureFile,OutPictureFileNew);
 
         System.out.println("图片转化成功");
 
         //将图片发送微信
         // 1是文字，2是图片
-        //DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
+        DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
 
         System.out.println("发送微信成功");
 
@@ -117,13 +135,15 @@ public class zj_Report_Xubao_Business {
 
         String title ="续包通报"+nowMonth+"详见附件";
         String content="续包通报"+nowMonth+"详见附件";
+
         //邮件发送附件图片*****************************
-        //DealEmail.ctreatMailMore(zj_Report_Public_List,null,null,title,content,wechartPictureAdress);
+        //DealEmail.ctreatMailMore(zj_Report_Public_List,null,null,title,content,OutPictureFileNew);
 
         System.out.println("邮件发送成功");
 
         //发送数据给支局长 *********这里乱码没有结解决
-        if (nowDay.equals("5")||nowDay.equals("10")||nowDay.equals("15")||nowDay.equals("20")||nowDay.equals("25")){
+        //if (nowDay.equals("5")||nowDay.equals("10")||nowDay.equals("15")||nowDay.equals("20")||nowDay.equals("25")){
+        if (0>1){
 
             InputStream inDealData= Resources.getResourceAsStream(config);
             SqlSessionFactoryBuilder builderDealData=new SqlSessionFactoryBuilder();
@@ -133,9 +153,11 @@ public class zj_Report_Xubao_Business {
 
             for (int i=0;i<zj_Report_Public_List.size();i++){
 
+                System.out.println(zj_Report_Public_List.get(i).getZj_Abbr_Name());
+
                 //续包县份数据
                 List<zj_Report_Xubao_Data> zj_Report_Xubao_Data =
-                        Zj_Report_XubaoDaoDealData.selectZj_Report_Xubao_Data(nowMonth,zj_Report_Public_List.get(i).getZj_Full_Name());
+                        Zj_Report_XubaoDaoDealData.selectZj_Report_Xubao_Data(nowMonth,zj_Report_Public_List.get(i).getZj_Abbr_Name());
 
                 String str = new String(zj_Report_Public_List.get(i).getZj_Full_Name().getBytes(),"UTF-8");
 
@@ -144,6 +166,9 @@ public class zj_Report_Xubao_Business {
                 String contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"续包数据详见附件";
                 System.out.println(OutExcleDataFileNew);
                 System.out.println(titleMailSingle);
+                zj_Report_Xubao_Data.forEach(zj_Report_Xubao->{
+                        System.out.println(zj_Report_Xubao.toString()+"/n");
+                        });
 
                 //复制值,并且另存为
                 DealExcle.cpoyToExcle(zj_Report_Xubao_Data,null,OutExcleDataFileNew,0,zj_Report_Xubao_Data);
@@ -361,11 +386,55 @@ public class zj_Report_Xubao_Business {
 
             }
 
+            //最后加一个奖扣最多3000
+            if (e.getReward()>3000){
+                e.setReward(3000);
+            }
+            if (e.getReward()<-3000){
+                e.setReward(-3000);
+            }
+
         });
 
         return zj_Report_Xubao_Zj_List;
 
 
     }
+
+    //处理条线奖扣
+    public static List<zj_Report_Xubao_Tx> report_Xubao_Tx_DoDetail( List<zj_Report_Xubao_Tx>  zj_Report_Xubao_Tx_List)  {
+
+        zj_Report_Xubao_Tx_List.forEach((e) -> {
+           if(e.getZj_Name().equals("公众")){
+               //奖励
+               if(e.getBb_Com_Rate()>=0.86 ){
+                    e.setReward(2000);
+               }else if(e.getBb_Com_Rate()>=0.8){
+                   e.setReward(1000);
+               }else {
+                   e.setReward(0);
+               }
+               //缺口
+               e.setBb_Amt_gap((int) Math.ceil(e.getBb_Amt()*(0.83-0.03))-e.getBb_Amt_Com());
+
+           }
+           else
+           if(e.getZj_Name().equals("政企")){
+               //奖励
+                if(e.getBb_Com_Rate()>=0.92 ){
+                    e.setReward(2000);
+                }else if(e.getBb_Com_Rate()>=0.86){
+                    e.setReward(1000);
+                }else {
+                    e.setReward(0);
+                }
+               //缺口
+               e.setBb_Amt_gap((int) Math.ceil(e.getBb_Amt()*(0.83+0.03))-e.getBb_Amt_Com());
+
+           }
+        });
+
+        return zj_Report_Xubao_Tx_List;
+        }
 
 }

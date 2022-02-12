@@ -81,7 +81,6 @@ public class dealEmail {
             ts.sendMessage(message, message.getAllRecipients());
 
 
-
     }
 
 
@@ -107,7 +106,8 @@ public class dealEmail {
         //发件人
         message.setFrom(new InternetAddress("13362851058@189.cn"));
         //收件人
-        message.setRecipient(Message.RecipientType.TO, new InternetAddress("654305690@qq.com"));
+        message.setRecipient(Message.RecipientType.TO, new InternetAddress(Zj_Report_Public.getZj_Per_In_Cha()));
+        //message.setRecipient(Message.RecipientType.TO, new InternetAddress("654305690@qq.com"));
         //邮件标题
         message.setSubject(title);
 

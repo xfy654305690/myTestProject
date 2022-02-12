@@ -43,19 +43,19 @@
                        FROM (
                                 SELECT A.*,
                                        B.PROM_YGSR,
-                                       C.ID_TYPE_NAME,
+                                       --C.ID_TYPE_NAME,
                                        D.Zj_Old as  ZJ_AREA_NAME_OLD,
                                        ROW_NUMBER() OVER(PARTITION BY A.ASSET_ROW_ID ORDER BY B.CPL_DT DESC) RANK
-                                FROM NBETL.RPT_BRD_EXP_ASSET_sbj@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" A
-                                         LEFT JOIN NBETL.RPT_RHFZ_LIST_sbj@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" B
+                                FROM XFY_RPT_BRD_EXP_ASSET A
+                                         LEFT JOIN XFY_RPT_RHFZ_LIST B
                                                    ON A.ASSET_ROW_ID = B.ASSET_ROW_ID_KD
-                                                       AND B.YW_TYPE = '单宽转融'
-                                         left join NBETL.rpt_par_cust_cur_v@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" C
-                                                   on C.ccust_id = A.ccust_id
+                                                       --AND B.YW_TYPE = '单宽转融'
+                                         --left join NBETL.rpt_par_cust_cur_v@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" C
+                                                   --on C.ccust_id = A.ccust_id
                                          left join XFY_REP_PUB_ZJ_CON D
                                                    on D.Zj_New = A.ZJ_AREA_NAME
                                 WHERE A.ARRIVE_MONTH = #{nowMonth}
-                                  and A.telecom_area_name = '宁波鄞州分公司'
+                                  --and A.telecom_area_name = '宁波鄞州分公司'
                             )
                        WHERE RANK = 1
                        GROUP BY ZJ_AREA_NAME_OLD)
@@ -103,16 +103,16 @@
                FROM (
                         SELECT A.*,
                                B.PROM_YGSR,
-                               C.ID_TYPE_NAME,
+                               --C.ID_TYPE_NAME,
                                ROW_NUMBER() OVER(PARTITION BY A.ASSET_ROW_ID ORDER BY B.CPL_DT DESC) RANK
-                        FROM NBETL.RPT_BRD_EXP_ASSET_sbj@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" A
-                                 LEFT JOIN NBETL.RPT_RHFZ_LIST_sbj@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" B
+                        FROM XFY_RPT_BRD_EXP_ASSET A
+                                 LEFT JOIN XFY_RPT_RHFZ_LIST B
                                            ON A.ASSET_ROW_ID = B.ASSET_ROW_ID_KD
-                                               AND B.YW_TYPE = '单宽转融'
-                                 left join NBETL.rpt_par_cust_cur_v@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" C
-                                           on C.ccust_id = A.ccust_id
+                                               --AND B.YW_TYPE = '单宽转融'
+                                 --left join NBETL.rpt_par_cust_cur_v@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" C
+                                           --on C.ccust_id = A.ccust_id
                         WHERE A.ARRIVE_MONTH = #{nowMonth}
-                          and A.telecom_area_name = '宁波鄞州分公司'
+                          --and A.telecom_area_name = '宁波鄞州分公司'
                     )
                WHERE RANK = 1)
 
@@ -121,8 +121,9 @@
 
     <select id="selectZj_Report_Xubao_Tx"  resultType="com.project.model.zj_Report_Xubao_Tx">
         select
-        case when C.ID_TYPE_NAME IN ('事业单位法人证书', '单位介绍信或单位公函', '机构代码', '社会团体法人登记证书', '统一社会信用代码证书', '单位介绍信或单位公函', '营业执照')
-        then '政企' else '公众' end  Zj_Name,
+        --case when C.ID_TYPE_NAME IN ('事业单位法人证书', '单位介绍信或单位公函', '机构代码', '社会团体法人登记证书', '统一社会信用代码证书', '单位介绍信或单位公函', '营业执照')
+        --then '政企' else '公众' end
+         a.ccust_type   Zj_Name,
         count(*) bb_Amt, count(case when A.XB_DT &lt; #{endDate}  then 1 else null end) bb_Amt_Com,
         SUM(CASE WHEN A.XB_DT &gt;= #{endDate} or A.XB_DT is null THEN 1 ELSE 0 END)     bb_Amt_Uncom,
         trunc(count(case when A.XB_DT &lt; #{endDate}  then 1 else null end)/count(*),3)  bb_Com_Rate,
@@ -130,16 +131,15 @@
         SUM(CASE WHEN A.XB_DT &lt; #{endDate}  THEN(CASE WHEN A.XB_CDSC_TYPE_NAME = '融合优惠' THEN COALESCE(B.PROM_YGSR, 0) ELSE COALESCE(A.XB_PER_MON_AMT, 0) END)ELSE 0 END) * 12 / 10000 bb_Com_Income,
         SUM(CASE WHEN A.XB_DT &gt;= #{endDate} or A.XB_DT is null THEN A.PER_MON_AMT ELSE 0 END) * 12 /10000          bb_Amt_Uncom_Income,
         trunc((SUM(CASE WHEN A.XB_DT &lt; #{endDate}  THEN(CASE WHEN A.XB_CDSC_TYPE_NAME = '融合优惠' THEN COALESCE(B.PROM_YGSR, 0) ELSE COALESCE(A.XB_PER_MON_AMT, 0) END)ELSE 0 END) * 12 / 10000)/(SUM(A.PER_MON_AMT) * 12 / 10000 ),3) bb_Com_Rate_Income
-        FROM NBETL.RPT_BRD_EXP_ASSET_sbj@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM"  A
-        LEFT JOIN NBETL.RPT_RHFZ_LIST_sbj@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" B
+        FROM XFY_RPT_BRD_EXP_ASSET A
+                 LEFT JOIN XFY_RPT_RHFZ_LIST B
         ON A.ASSET_ROW_ID = B.ASSET_ROW_ID_KD
-        AND B.YW_TYPE = '单宽转融'
-        left join nbetl.rpt_par_cust_cur_v@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" C
-        on C.ccust_id=A.ccust_id
+        --AND B.YW_TYPE = '单宽转融'
+        --left join nbetl.rpt_par_cust_cur_v@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" C
+        --on C.ccust_id=A.ccust_id
         WHERE A.ARRIVE_MONTH = #{nowMonth}
-        and  A.telecom_area_name = '宁波鄞州分公司'
-        group  by case when C.ID_TYPE_NAME IN ('事业单位法人证书', '单位介绍信或单位公函', '机构代码', '社会团体法人登记证书', '统一社会信用代码证书', '单位介绍信或单位公函', '营业执照')
-        then '政企' else '公众' end
+        --and  A.telecom_area_name = '宁波鄞州分公司'
+        group  by a.ccust_type
     </select>
 
     <select id="selectZj_Report_Xubao_Data"  resultType="com.project.model.zj_Report_Xubao_Data">
@@ -180,25 +180,22 @@
                     (
                             SELECT a.*,B.PROM_YGSR,
                                    ROW_NUMBER() OVER(PARTITION BY A.ASSET_ROW_ID ORDER BY B.CPL_DT DESC) RANK,
-                                    case when C.ID_TYPE_NAME IN ('事业单位法人证书', '单位介绍信或单位公函', '机构代码', '社会团体法人登记证书', '统一社会信用代码证书', '单位介绍信或单位公函', '营业执照')
-                                             then '政企' else '公众' end  AS KHQ
-                            FROM NBetl.RPT_BRD_EXP_ASSET_sbj@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" a
-                                     LEFT JOIN NBETL.RPT_RHFZ_LIST_sbj@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" B
+                                    a.ccust_type   AS KHQ
+                            FROM XFY_RPT_BRD_EXP_ASSET A
+                                     LEFT JOIN XFY_RPT_RHFZ_LIST B
                                                ON A.ASSET_ROW_ID = B.ASSET_ROW_ID_KD
-                                     left join nbetl.rpt_par_cust_cur_v@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM"  C
-                                               on C.ccust_id=A.ccust_id
-                                                   AND B.YW_TYPE = '单宽转融'
                             where a.ARRIVE_MONTH = #{nowMonth}
-                              and a.telecom_area_name='宁波鄞州分公司'
-                              and a.ZJ_AREA_NAME like '%' || #{zj_name} ||'%'
-
+                              and a.ZJ_AREA_NAME  in (
+                                select D.zj_new from XFY_REP_PUB_ZJ_CON D
+                                where d.zj_old = #{zj_name}
+                            )
         ) s
         where  RANK = 1
 
     </select>
 
     <select id="selectZj_Report_Xubao_MaxTime"  resultType="STRING">
-        select  max(XB_DT) FROM NBetl.RPT_BRD_EXP_ASSET_sbj@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" a
+        select  MAX_XB_DT FROM XFY_RPT_BRD_EXP_ASSET_MAXTIME a
     </select>
 
 </mapper>
