@@ -28,5 +28,6 @@
     <mappers>
         <mapper resource="com\project\view\zj_Report_Public_Dao.xml" />
         <mapper resource="com\project\view\zj_Report_XubaoDao.xml" />
+        <mapper resource="com\project\view\zj_Report_TcfDao.xml" />
     </mappers>
 </configuration>

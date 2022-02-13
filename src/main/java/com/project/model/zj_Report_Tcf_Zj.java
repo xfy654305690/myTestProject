@@ -13,9 +13,9 @@ public class zj_Report_Tcf_Zj {
     //其中调测费收取率
     public  Double tcf_amt_rate;
     //其中调测费缺口
-    public  Double tcf_amt_gap;
+    public  Integer tcf_amt_gap;
     //其中调测费奖扣
-    public  Double reward;
+    public  Integer reward;
 
     public String getZj_Name() {
         return Zj_Name;
@@ -57,19 +57,19 @@ public class zj_Report_Tcf_Zj {
         this.tcf_amt_rate = tcf_amt_rate;
     }
 
-    public Double getTcf_amt_gap() {
+    public Integer getTcf_amt_gap() {
         return tcf_amt_gap;
     }
 
-    public void setTcf_amt_gap(Double tcf_amt_gap) {
+    public void setTcf_amt_gap(Integer tcf_amt_gap) {
         this.tcf_amt_gap = tcf_amt_gap;
     }
 
-    public Double getReward() {
+    public Integer getReward() {
         return reward;
     }
 
-    public void setReward(Double reward) {
+    public void setReward(Integer reward) {
         this.reward = reward;
     }
 

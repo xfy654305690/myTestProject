@@ -17,6 +17,48 @@ public class dealTime {
         return endDate;
     }
 
+    //获取前月一号，返回日期格式
+    public Date get_lastMonth_FirstDay_ByDate(){
+
+        Calendar   calendar=Calendar.getInstance();//获取当前日期
+        calendar.add(Calendar.MONTH, -1);
+        calendar.set(Calendar.DAY_OF_MONTH,1);//设置为1号,当前日期既为本月第一天
+        Date endDate=calendar.getTime();
+
+        return endDate;
+    }
+
+    //获取前月最后一号，返回日期格式
+    public Date get_lastMonth_LastDay_ByDate(){
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH,0);//设置为1号,当前日期既为本月第一天
+        Date endDate=calendar.getTime();
+
+        return endDate;
+    }
+
+
+    //获取当月一号，返回日期格式
+    public Date get_nowMonth_FirstDay_ByDate(){
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, 0);
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        Date endDate=calendar.getTime();
+
+        return endDate;
+    }
+
+    //获取当月最后一号，返回日期格式
+    public Date get_nowMonth_LastDay_ByDate(){
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        Date endDate=calendar.getTime();
+
+        return endDate;
+    }
 
     //获取当前日期YYYYMM格式
     public String get_date_By_String_YYYYMM(){

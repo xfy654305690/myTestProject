@@ -5,39 +5,42 @@
 <mapper namespace="com.project.view.zj_Report_TcfDao">
 
     <select id="selectZj_Report_Tcf_Kd_Zj"  resultType="com.project.model.zj_Report_Tcf_Zj">
-        select * from  (
+        select   Zj_Name ,tcf_amt,tcf_amt_cha,tcf_amt_uncha,tcf_amt_rate from  (
         select B.ZJ as Zj_Name , count(*) tcf_amt, sum( case when a.xztc_amt &gt;=50 then 1 else 0 end ) tcf_amt_cha , sum( case when a.xztc_amt&lt;50 then 1 else 0 end ) tcf_amt_uncha,
         sum( case when a.xztc_amt &gt;= 50 then 1 else 0 end )/count(*)  tcf_amt_rate
         from   XFY_RPT_KD_ORDER_DETAIL a
-        LEFT JOIN XFY_REP_PUB_CDRY b
+        left JOIN XFY_REP_PUB_CDRY b
         ON A.MKT_EMPLOYEE_ID=B.MKT_NAME
-        where a.IOM_FLG='I' and cpl_dt &gt;= #{startDate}  and cpl_dt &lt;= #{endDate}
+        where cpl_dt &gt;= #{startDate}  and cpl_dt &lt;= #{endDate}
         and ( a.CDSC_NAME is null or  a.CDSC_NAME &lt;&gt;'IPTV纯装宽带零月租_ZJ' )
         and  a.CDSC_NAME&lt;&gt;'201801融合套餐100M宽带包月30元（第二条宽带专用）（产品）_ZJ'
-        and a.CCUST_ROW_ID&lt;&gt;'4-54ECROW'
         group by B.ZJ
         order by  sum( case when a.xztc_amt&gt;=50 then 1 else 0 end )/count(*)  desc)P
+        inner join XFY_REP_PUB_ZJ_PAR p2
+        on p.Zj_Name=p2.Zj_Abbr_Name
         union all
-        select * from (select '合计' as Zj_Name, count(*) tcf_amt, sum( case when a.xztc_amt&gt;=50 then 1 else 0 end ) tcf_amt_cha , sum( case when a.xztc_amt&lt;50 then 1 else 0 end ) tcf_amt_uncha,
+        select * from (select '鄞州宽带合计' as Zj_Name, count(*) tcf_amt, sum( case when a.xztc_amt&gt;=50 then 1 else 0 end ) tcf_amt_cha , sum( case when a.xztc_amt&lt;50 then 1 else 0 end ) tcf_amt_uncha,
         sum( case when a.xztc_amt&gt;=50 then 1 else 0 end )/count(*)  tcf_amt_rate
-        from   XFY_RPT_KD_ORDER_DETAIL a where a.IOM_FLG='I' and cpl_dt &gt;= #{startDate}  and cpl_dt &lt;= #{endDate}
+        from   XFY_RPT_KD_ORDER_DETAIL a where  cpl_dt &gt;= #{startDate}  and cpl_dt &lt;= #{endDate}
         and ( a.CDSC_NAME is null or  a.CDSC_NAME&lt;&gt;'IPTV纯装宽带零月租_ZJ' )
-        and  a.CDSC_NAME&lt;&gt;'201801融合套餐100M宽带包月30元（第二条宽带专用）（产品）_ZJ'  and a.CCUST_ROW_ID&lt;&gt;'4-54ECROW') Q;
+        and  a.CDSC_NAME&lt;&gt;'201801融合套餐100M宽带包月30元（第二条宽带专用）（产品）_ZJ'  ) Q
     </select>
 
     <select id="selectZj_Report_Tcf_Itv_Zj"  resultType="com.project.model.zj_Report_Tcf_Zj">
-        select * from  (
+        select Zj_Name,tcf_amt,tcf_amt_cha,tcf_amt_uncha,tcf_amt_rate from  (
         select B.ZJ as Zj_Name ,count(*) tcf_amt,sum( case when a.khf_amt&gt;=50 then 1 else 0 end ) tcf_amt_cha ,sum( case when a.khf_amt&lt;50 then 1 else 0 end ) tcf_amt_uncha, sum( case when a.khf_amt&gt;=50 then 1 else 0 end )/count(*)  tcf_amt_rate
         from   XFY_RPT_ITV_ORDER_DETAIL a
-        LEFT JOIN XFY_REP_PUB_CDRY b
+        inner JOIN XFY_REP_PUB_CDRY b
         ON A.MKT_EMPLOYEE_ID=B.MKT_NAME
-        where a.IOM_FLG='I'   and  GROUP_VAL &lt;&gt; '酒店个性化高清分组'  and cpl_dt &gt;= #{startDate}  and cpl_dt &lt;= #{endDate}
+        where   GROUP_VAL &lt;&gt; '酒店个性化高清分组'  and cpl_dt &gt;= #{startDate}  and cpl_dt &lt;= #{endDate}
         group by B.ZJ
         order by  sum( case when a.khf_amt&gt;=50 then 1 else 0 end )/count(*)  desc)P
+        inner join XFY_REP_PUB_ZJ_PAR p2
+        on p.Zj_Name=p2.Zj_Abbr_Name
         union all
-        select * from (select  '合计' Zj_Name , count(*) tcf_amt  ,sum( case when a.khf_amt&gt;=50 then 1 else 0 end ) tcf_amt_cha , sum( case when a.khf_amt&lt;50 then 1 else 0 end ) tcf_amt_uncha,
+        select * from (select  '鄞州ITV合计' Zj_Name , count(*) tcf_amt  ,sum( case when a.khf_amt&gt;=50 then 1 else 0 end ) tcf_amt_cha , sum( case when a.khf_amt&lt;50 then 1 else 0 end ) tcf_amt_uncha,
         sum( case when a.khf_amt&gt;=50 then 1 else 0 end )/count(*)  tcf_amt_rate
-        from   XFY_RPT_ITV_ORDER_DETAIL a where a.IOM_FLG='I'  and  GROUP_VAL &lt;&gt; '酒店个性化高清分组' and cpl_dt &gt;= #{startDate}  and cpl_dt &lt;= #{endDate}) Q;
+        from   XFY_RPT_ITV_ORDER_DETAIL a where  GROUP_VAL &lt;&gt; '酒店个性化高清分组' and cpl_dt &gt;= #{startDate}  and cpl_dt &lt;= #{endDate}) Q
     </select>
 
 
@@ -48,10 +51,9 @@
         FROM  XFY_RPT_KD_ORDER_DETAIL b
         LEFT JOIN XFY_REP_PUB_CDRY c
          ON B.MKT_EMPLOYEE_ID=c.MKT_NAME
-        where a.IOM_FLG='I' and cpl_dt &gt;= #{startDate}  and cpl_dt &lt;= #{endDate}
+        where  cpl_dt &gt;= #{startDate}  and cpl_dt &lt;= #{endDate}
           and ( a.CDSC_NAME is null or  a.CDSC_NAME &lt;&gt;'IPTV纯装宽带零月租_ZJ' )
           and  a.CDSC_NAME&lt;&gt;'201801融合套餐100M宽带包月30元（第二条宽带专用）（产品）_ZJ'
-          and a.CCUST_ROW_ID&lt;&gt;'4-54ECROW'
           and a.xztc_amt&lt;50
         and C.ZJ in (
             select D.zj_new from XFY_REP_PUB_ZJ_CON D
@@ -67,7 +69,7 @@
         FROM  XFY_RPT_ITV_ORDER_DETAIL b
                   LEFT JOIN XFY_REP_PUB_CDRY c
                             ON B.MKT_EMPLOYEE_ID=c.MKT_NAME
-        where  b.IOM_FLG='I' and b.cpl_dt &gt;= #{startDate}  and  b.cpl_dt &lt;= #{endDate}
+        where   b.cpl_dt &gt;= #{startDate}  and  b.cpl_dt &lt;= #{endDate}
           and  b.GROUP_VAL &lt;&gt; '酒店个性化高清分组'
           and b.khf_amt&lt;50
           and C.ZJ in (
@@ -76,7 +78,11 @@
         )
     </select>
 
+    <select id="selectZj_Report_Tcf_Itv_MaxTime"  resultType="String">
 
+       select max(CPL_DT)  from XFY_RPT_KD_ORDER_DETAIL a
+
+    </select>
 
 
 

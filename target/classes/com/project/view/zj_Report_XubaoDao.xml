@@ -49,13 +49,9 @@
                                 FROM XFY_RPT_BRD_EXP_ASSET A
                                          LEFT JOIN XFY_RPT_RHFZ_LIST B
                                                    ON A.ASSET_ROW_ID = B.ASSET_ROW_ID_KD
-                                                       --AND B.YW_TYPE = '单宽转融'
-                                         --left join NBETL.rpt_par_cust_cur_v@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" C
-                                                   --on C.ccust_id = A.ccust_id
                                          left join XFY_REP_PUB_ZJ_CON D
                                                    on D.Zj_New = A.ZJ_AREA_NAME
                                 WHERE A.ARRIVE_MONTH = #{nowMonth}
-                                  --and A.telecom_area_name = '宁波鄞州分公司'
                             )
                        WHERE RANK = 1
                        GROUP BY ZJ_AREA_NAME_OLD)
@@ -108,11 +104,7 @@
                         FROM XFY_RPT_BRD_EXP_ASSET A
                                  LEFT JOIN XFY_RPT_RHFZ_LIST B
                                            ON A.ASSET_ROW_ID = B.ASSET_ROW_ID_KD
-                                               --AND B.YW_TYPE = '单宽转融'
-                                 --left join NBETL.rpt_par_cust_cur_v@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" C
-                                           --on C.ccust_id = A.ccust_id
                         WHERE A.ARRIVE_MONTH = #{nowMonth}
-                          --and A.telecom_area_name = '宁波鄞州分公司'
                     )
                WHERE RANK = 1)
 
@@ -134,11 +126,7 @@
         FROM XFY_RPT_BRD_EXP_ASSET A
                  LEFT JOIN XFY_RPT_RHFZ_LIST B
         ON A.ASSET_ROW_ID = B.ASSET_ROW_ID_KD
-        --AND B.YW_TYPE = '单宽转融'
-        --left join nbetl.rpt_par_cust_cur_v@"XFK.REGRESS.RDBMS.DEV.US.ORACLE.COM" C
-        --on C.ccust_id=A.ccust_id
         WHERE A.ARRIVE_MONTH = #{nowMonth}
-        --and  A.telecom_area_name = '宁波鄞州分公司'
         group  by a.ccust_type
     </select>
 
