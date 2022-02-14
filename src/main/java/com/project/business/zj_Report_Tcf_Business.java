@@ -64,13 +64,17 @@ public class zj_Report_Tcf_Business {
         List<zj_Report_Tcf_Zj> zj_Report_Tcf_KDList_Zj =
                 Zj_Report_TcfDao.selectZj_Report_Tcf_Kd_Zj(startDate,endDate);
 
-        zj_Report_Tcf_KDList_Zj.forEach(zj_Report_Tcf_Zj->{
-            System.out.println(zj_Report_Tcf_Zj.toString()+"/n");
-        });
+//        zj_Report_Tcf_KDList_Zj.forEach(zj_Report_Tcf_Zj->{
+//            System.out.println(zj_Report_Tcf_Zj.toString()+"/n");
+//        });
 
         //调测费数据-ITV
         List<zj_Report_Tcf_Zj> zj_Report_Tcf_ItvList_Zj =
                 Zj_Report_TcfDao.selectZj_Report_Tcf_Itv_Zj(startDate,endDate);
+
+        zj_Report_Tcf_ItvList_Zj.forEach(zj_Report_Tcf_Zj->{
+            System.out.println(zj_Report_Tcf_Zj.toString()+"/n");
+        });
 
         String maxDate=Zj_Report_TcfDao.selectZj_Report_Tcf_Itv_MaxTime();
 
@@ -87,12 +91,11 @@ public class zj_Report_Tcf_Business {
         //宽带奖扣 1
         DealExcle.cpoyToExcle(zj_Report_Tcf_KDList_Zj_New,inExcleFile,OutExcleFile,1,Zj_Report_Tcf_Zj);
 
+        //处理支局奖扣
+        List<zj_Report_Tcf_Zj> zj_Report_Tcf_ItvList_Zj_New =report_Tcf_Zj_DoDetail(zj_Report_Tcf_ItvList_Zj);
 
-//        //处理支局奖扣
-//        List<zj_Report_Tcf_Zj> zj_Report_Tcf_ItvList_Zj_New =report_Tcf_Zj_DoDetail(zj_Report_Tcf_ItvList_Zj);
-//
-//        //ITV奖扣 2
-//        DealExcle.cpoyToExcle(zj_Report_Tcf_ItvList_Zj_New,inExcleFile,OutExcleFile,2,Zj_Report_Tcf_Zj);
+        //ITV奖扣 2
+        DealExcle.cpoyToExcle(zj_Report_Tcf_ItvList_Zj_New,inExcleFile,OutExcleFile,2,Zj_Report_Tcf_Zj);
 
         //处理时间
         DealExcle.cpoyToExcleSingle(maxDate,inExcleFile,OutExcleFile, 3);
@@ -100,7 +103,7 @@ public class zj_Report_Tcf_Business {
         System.out.println("数据处理成功");
 
         //复制文件
-        String OutExcleSouceFilenew =OutExcleSouceFile+"续包"+nowDayYYYYMMDD+".xlsx";
+        String OutExcleSouceFilenew =OutExcleSouceFile+"调测费"+nowDayYYYYMMDD+".xlsx";
         DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleSouceFilenew);
         System.out.println("复制文件成功成功");
 
@@ -113,7 +116,7 @@ public class zj_Report_Tcf_Business {
 
         //将图片发送微信
         // 1是文字，2是图片
-        DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
+        //DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
 
         System.out.println("发送微信成功");
 
@@ -210,7 +213,9 @@ public class zj_Report_Tcf_Business {
             zj_Report_Tcf_List_Zj.get(i).setTcf_amt_gap((int) Math.ceil(zj_Report_Tcf_List_Zj.get(i).getTcf_Amt()*(0.95)-zj_Report_Tcf_List_Zj.get(i).getTcf_amt_cha()));
             //计算扣罚
             if(zj_Report_Tcf_List_Zj.get(i).getTcf_amt_rate()<0.95){
-                zj_Report_Tcf_List_Zj.get(i).setReward(zj_Report_Tcf_List_Zj.get(i).getTcf_amt_gap()*50);
+                zj_Report_Tcf_List_Zj.get(i).setReward(zj_Report_Tcf_List_Zj.get(i).getTcf_amt_gap()*50*-1);
+            }else{
+                zj_Report_Tcf_List_Zj.get(i).setReward(0);
             }
 
         }

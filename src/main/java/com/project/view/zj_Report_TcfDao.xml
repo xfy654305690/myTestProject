@@ -5,7 +5,7 @@
 <mapper namespace="com.project.view.zj_Report_TcfDao">
 
     <select id="selectZj_Report_Tcf_Kd_Zj"  resultType="com.project.model.zj_Report_Tcf_Zj">
-        select   Zj_Name ,tcf_amt,tcf_amt_cha,tcf_amt_uncha,tcf_amt_rate from  (
+        select * from (select  p3.Zj_Abbr_Name Zj_Name ,nvl(tcf_amt,0) tcf_amt,nvl(tcf_amt_cha,0) tcf_amt_cha,nvl(tcf_amt_uncha,0) tcf_amt_uncha,nvl(tcf_amt_rate,0)tcf_amt_rate from  (
         select B.ZJ as Zj_Name , count(*) tcf_amt, sum( case when a.xztc_amt &gt;=50 then 1 else 0 end ) tcf_amt_cha , sum( case when a.xztc_amt&lt;50 then 1 else 0 end ) tcf_amt_uncha,
         sum( case when a.xztc_amt &gt;= 50 then 1 else 0 end )/count(*)  tcf_amt_rate
         from   XFY_RPT_KD_ORDER_DETAIL a
@@ -14,12 +14,13 @@
         where cpl_dt &gt;= #{startDate}  and cpl_dt &lt;= #{endDate}
         and ( a.CDSC_NAME is null or  a.CDSC_NAME &lt;&gt;'IPTV纯装宽带零月租_ZJ' )
         and  a.CDSC_NAME&lt;&gt;'201801融合套餐100M宽带包月30元（第二条宽带专用）（产品）_ZJ'
-        group by B.ZJ
-        order by  sum( case when a.xztc_amt&gt;=50 then 1 else 0 end )/count(*)  desc)P
-        inner join XFY_REP_PUB_ZJ_PAR p2
-        on p.Zj_Name=p2.Zj_Abbr_Name
+        group by B.ZJ)P
+        right join XFY_REP_PUB_ZJ_PAR  p3
+        on p.Zj_Name=p3.Zj_Abbr_Name
+        order by  p3.Zj_Abbr_Name  desc) q3
         union all
-        select * from (select '鄞州宽带合计' as Zj_Name, count(*) tcf_amt, sum( case when a.xztc_amt&gt;=50 then 1 else 0 end ) tcf_amt_cha , sum( case when a.xztc_amt&lt;50 then 1 else 0 end ) tcf_amt_uncha,
+        select Zj_Name ,nvl(tcf_amt,0) tcf_amt,nvl(tcf_amt_cha,0) tcf_amt_cha,nvl(tcf_amt_uncha,0) tcf_amt_uncha,nvl(tcf_amt_rate,0)tcf_amt_rate
+        from (select '鄞州宽带合计' as Zj_Name, count(*) tcf_amt, sum( case when a.xztc_amt&gt;=50 then 1 else 0 end ) tcf_amt_cha , sum( case when a.xztc_amt&lt;50 then 1 else 0 end ) tcf_amt_uncha,
         sum( case when a.xztc_amt&gt;=50 then 1 else 0 end )/count(*)  tcf_amt_rate
         from   XFY_RPT_KD_ORDER_DETAIL a where  cpl_dt &gt;= #{startDate}  and cpl_dt &lt;= #{endDate}
         and ( a.CDSC_NAME is null or  a.CDSC_NAME&lt;&gt;'IPTV纯装宽带零月租_ZJ' )
@@ -27,18 +28,19 @@
     </select>
 
     <select id="selectZj_Report_Tcf_Itv_Zj"  resultType="com.project.model.zj_Report_Tcf_Zj">
-        select Zj_Name,tcf_amt,tcf_amt_cha,tcf_amt_uncha,tcf_amt_rate from  (
+        select * from (select p3.Zj_Abbr_Name Zj_Name ,nvl(tcf_amt,0) tcf_amt,nvl(tcf_amt_cha,0) tcf_amt_cha,nvl(tcf_amt_uncha,0) tcf_amt_uncha,nvl(tcf_amt_rate,0)tcf_amt_rate  from  (
         select B.ZJ as Zj_Name ,count(*) tcf_amt,sum( case when a.khf_amt&gt;=50 then 1 else 0 end ) tcf_amt_cha ,sum( case when a.khf_amt&lt;50 then 1 else 0 end ) tcf_amt_uncha, sum( case when a.khf_amt&gt;=50 then 1 else 0 end )/count(*)  tcf_amt_rate
         from   XFY_RPT_ITV_ORDER_DETAIL a
-        inner JOIN XFY_REP_PUB_CDRY b
+        left JOIN XFY_REP_PUB_CDRY b
         ON A.MKT_EMPLOYEE_ID=B.MKT_NAME
         where   GROUP_VAL &lt;&gt; '酒店个性化高清分组'  and cpl_dt &gt;= #{startDate}  and cpl_dt &lt;= #{endDate}
-        group by B.ZJ
-        order by  sum( case when a.khf_amt&gt;=50 then 1 else 0 end )/count(*)  desc)P
-        inner join XFY_REP_PUB_ZJ_PAR p2
-        on p.Zj_Name=p2.Zj_Abbr_Name
+        group by B.ZJ)P
+        right join XFY_REP_PUB_ZJ_PAR  p3
+        on p.Zj_Name=p3.Zj_Abbr_Name
+        order by  p3.Zj_Abbr_Name  desc) q3
         union all
-        select * from (select  '鄞州ITV合计' Zj_Name , count(*) tcf_amt  ,sum( case when a.khf_amt&gt;=50 then 1 else 0 end ) tcf_amt_cha , sum( case when a.khf_amt&lt;50 then 1 else 0 end ) tcf_amt_uncha,
+        select Zj_Name ,nvl(tcf_amt,0) tcf_amt,nvl(tcf_amt_cha,0) tcf_amt_cha,nvl(tcf_amt_uncha,0) tcf_amt_uncha,nvl(tcf_amt_rate,0)tcf_amt_rate
+        from (select  '鄞州ITV合计' Zj_Name , count(*) tcf_amt  ,sum( case when a.khf_amt&gt;=50 then 1 else 0 end ) tcf_amt_cha , sum( case when a.khf_amt&lt;50 then 1 else 0 end ) tcf_amt_uncha,
         sum( case when a.khf_amt&gt;=50 then 1 else 0 end )/count(*)  tcf_amt_rate
         from   XFY_RPT_ITV_ORDER_DETAIL a where  GROUP_VAL &lt;&gt; '酒店个性化高清分组' and cpl_dt &gt;= #{startDate}  and cpl_dt &lt;= #{endDate}) Q
     </select>
