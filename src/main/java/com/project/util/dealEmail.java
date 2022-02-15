@@ -117,15 +117,14 @@ public class dealEmail {
         text.setContent(content, "text/html;charset=UTF-8");
         //创建容器描述数据关系
         MimeMultipart mp = new MimeMultipart();
-        if(enclosureAdress!=null&&!"".equals(enclosureAdress)){
-            //创建邮件附件
-            MimeBodyPart attach = new MimeBodyPart();
+        //创建邮件附件
+        MimeBodyPart attach = new MimeBodyPart();
+        if(enclosureAdress!=null){
             DataHandler dh = new DataHandler(new FileDataSource(enclosureAdress));
             attach.setDataHandler(dh);
             attach.setFileName(dh.getName());  //
             mp.addBodyPart(attach);
         }
-
         mp.addBodyPart(text);
         mp.setSubType("mixed");
         message.setContent(mp);
