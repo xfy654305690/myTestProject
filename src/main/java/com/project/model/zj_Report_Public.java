@@ -10,6 +10,10 @@ public class zj_Report_Public {
     public  String Zj_Per_In_Cha;
     //支局长邮箱
     public  String Zj_Per_In_Cha_Ema;
+    //支局属性
+    public  String ZJ_PROPERTY;
+    //动车组领导名字
+    public  String ZJ_LEAD_NAME;
 
     public String getZj_Full_Name() {
         return Zj_Full_Name;
@@ -43,6 +47,23 @@ public class zj_Report_Public {
         Zj_Per_In_Cha_Ema = zj_Per_In_Cha_Ema;
     }
 
+
+    public String getZJ_PROPERTY() {
+        return ZJ_PROPERTY;
+    }
+
+    public void setZJ_PROPERTY(String ZJ_PROPERTY) {
+        this.ZJ_PROPERTY = ZJ_PROPERTY;
+    }
+
+    public String getZJ_LEAD_NAME() {
+        return ZJ_LEAD_NAME;
+    }
+
+    public void setZJ_LEAD_NAME(String ZJ_LEAD_NAME) {
+        this.ZJ_LEAD_NAME = ZJ_LEAD_NAME;
+    }
+
     @Override
     public String toString() {
         return "zj_Report_Public{" +
@@ -50,6 +71,8 @@ public class zj_Report_Public {
                 ", Zj_Abbr_Name='" + Zj_Abbr_Name + '\'' +
                 ", Zj_Per_In_Cha='" + Zj_Per_In_Cha + '\'' +
                 ", Zj_Per_In_Cha_Ema='" + Zj_Per_In_Cha_Ema + '\'' +
+                ", ZJ_PROPERTY='" + ZJ_PROPERTY + '\'' +
+                ", ZJ_LEAD_NAME='" + ZJ_LEAD_NAME + '\'' +
                 '}';
     }
 }

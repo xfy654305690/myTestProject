@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.view.zj_Report_WyjDao">
+
+    <select id="selectZj_Report_Wyj_Zj"  resultType="com.project.model.zj_Report_Wyj_Zj">
+        select p3.Zj_Abbr_Name,Amt_Com,Amt_Rate_Target,Amt_UnCom,Amt_Rate
+               from (select  p3.Zj_Abbr_Name Zj_Name ,nvl(Amt_Com,0) Amt_Com,p4.ZJ_WYJ Amt_Rate_Target
+                            ,p4.ZJ_WYJ-nvl(Amt_Com,0)  Amt_UnCom,nvl(Amt_Com,0)/p4.ZJ_WYJ  Amt_Rate from  (
+           select B.ZJ as Zj_Name , sum(a.val) Amt_Com
+           from   XFY_RPT_WYJJM_DETAIL a
+                      left JOIN XFY_REP_PUB_CDRY b
+                                ON A.MKT_EMPLOYEE_ID=B.MKT_NAME
+           where cpl_dt &gt;= #{startDate}  and cpl_dt &lt;= #{endDate}
+           group by B.ZJ)P
+           right join XFY_REP_PUB_ZJ_PAR  p3
+            on p.Zj_Name=p3.Zj_Abbr_Name
+           LEFT JOIN XFY_REP_PUB_TARGET P4
+            ON  P4.Zj_Abbr_Name=P3.Zj_Abbr_Name
+           order by  p3.Zj_Abbr_Name  desc) q3
+        union all
+        select Q.Zj_Name Zj_Name ,nvl(Q.Amt_Com,0) Amt_Com,Q.ZJ_WYJ Amt_Rate_Target
+                                       ,Q.ZJ_WYJ-nvl(Amt_Com,0)  Amt_UnCom,nvl(Q.Amt_Com,0)/Q.ZJ_WYJ from (
+        (select '合计' as Zj_Name , sum(a.val) Amt_Com,p4.ZJ_WYJ
+              from   XFY_RPT_WYJJM_DETAIL a  where  cpl_dt &gt;= #{startDate}  and cpl_dt &lt;= #{endDate} )  z1
+            LEFT JOIN XFY_REP_PUB_TARGET P4
+            ON  P4.Zj_Abbr_Name=z1.Zj_Name
+            ) Q
+    </select>
+
+    <select id="selectZj_Report_Wyj_Data"  resultType="com.project.model.zj_Report_Wyj_Data">
+        SELECT C.ZJ AS ZJ_AREA_NAME ,
+                b.ASSET_ROW_ID,b.ASSET_INTEG_ID,b.PRD_NAME,b.HM,b.STAT_NAME,b.SERV_START_DT,
+                b.SERV_END_DT,b.FJ_NAME,b.FJ_NAME,b.ZJ_AREA_NAME,b.ORDER_ID,b.CPL_DT,b.MKT_EMPLOYEE_ID,b.MKT_EMPLOYEE_NAME,b.SALES_EMPLOYEE_ID,
+                b.SALES_EMPLOYEE_NAME,b.SALES_DEPT_NAME,b.YYT_FJ,b.YYT_ZJ,b.VAL_TYPE_NAME,b.VAL
+        FROM  XFY_RPT_WYJJM_DETAIL b
+        LEFT JOIN XFY_REP_PUB_CDRY c
+         ON B.MKT_EMPLOYEE_ID=c.MKT_NAME
+        where  b.cpl_dt &gt;= #{startDate}  and b.cpl_dt &lt;= #{endDate}
+        and C.ZJ in (
+            select D.zj_new from XFY_REP_PUB_ZJ_CON D
+            where d.zj_old = #{zj_name}
+            )
+    </select>
+
+    <select id="selectZj_Report_Wyj_MaxTime"  resultType="String">
+
+       select max(CPL_DT)  from XFY_RPT_WYJJM_DETAIL a
+
+    </select>
+
+
+
+</mapper>

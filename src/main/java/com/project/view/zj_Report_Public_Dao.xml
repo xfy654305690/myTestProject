@@ -7,7 +7,9 @@
         select  a.Zj_Full_Name,
                 a.Zj_Abbr_Name,
                 a.Zj_Per_In_Cha,
-                a.Zj_Per_In_Cha_Ema
+                a.Zj_Per_In_Cha_Ema,
+                a.ZJ_PROPERTY,
+                a.ZJ_LEAD_NAME
         from XFY_REP_PUB_ZJ_PAR  a
     </select>
 </mapper>
