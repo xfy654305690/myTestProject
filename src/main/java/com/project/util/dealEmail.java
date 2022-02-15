@@ -1,6 +1,7 @@
 package com.project.util;
 
 import com.project.model.zj_Report_Public;
+import org.apache.commons.codec.binary.StringUtils;
 
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
@@ -114,21 +115,22 @@ public class dealEmail {
         //创建邮件正文，为了避免邮件正文中文乱码问题，需要使用charset=UTF-8指明字符编码
         MimeBodyPart text = new MimeBodyPart();
         text.setContent(content, "text/html;charset=UTF-8");
-
-        //创建邮件附件
-        MimeBodyPart attach = new MimeBodyPart();
-        DataHandler dh = new DataHandler(new FileDataSource(enclosureAdress));
-        attach.setDataHandler(dh);
-        attach.setFileName(dh.getName());  //
-
         //创建容器描述数据关系
         MimeMultipart mp = new MimeMultipart();
-        mp.addBodyPart(text);
-        mp.addBodyPart(attach);
-        mp.setSubType("mixed");
+        if(enclosureAdress!=null&&!"".equals(enclosureAdress)){
+            //创建邮件附件
+            MimeBodyPart attach = new MimeBodyPart();
+            DataHandler dh = new DataHandler(new FileDataSource(enclosureAdress));
+            attach.setDataHandler(dh);
+            attach.setFileName(dh.getName());  //
+            mp.addBodyPart(attach);
+        }
 
+        mp.addBodyPart(text);
+        mp.setSubType("mixed");
         message.setContent(mp);
         message.saveChanges();
+
         //将创建的Email写入到E盘存储
         //message.writeTo(new FileOutputStream("E:\\Test\\mail\\attachMail.eml"));
         //5、发送邮件

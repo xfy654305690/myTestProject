@@ -53,10 +53,10 @@
         FROM  XFY_RPT_KD_ORDER_DETAIL b
         LEFT JOIN XFY_REP_PUB_CDRY c
          ON B.MKT_EMPLOYEE_ID=c.MKT_NAME
-        where  cpl_dt &gt;= #{startDate}  and cpl_dt &lt;= #{endDate}
-          and ( a.CDSC_NAME is null or  a.CDSC_NAME &lt;&gt;'IPTV纯装宽带零月租_ZJ' )
-          and  a.CDSC_NAME&lt;&gt;'201801融合套餐100M宽带包月30元（第二条宽带专用）（产品）_ZJ'
-          and a.xztc_amt&lt;50
+        where  b.cpl_dt &gt;= #{startDate}  and b.cpl_dt &lt;= #{endDate}
+          and ( b.CDSC_NAME is null or  b.CDSC_NAME &lt;&gt;'IPTV纯装宽带零月租_ZJ' )
+          and  b.CDSC_NAME&lt;&gt;'201801融合套餐100M宽带包月30元（第二条宽带专用）（产品）_ZJ'
+          and b.xztc_amt&lt;50
         and C.ZJ in (
             select D.zj_new from XFY_REP_PUB_ZJ_CON D
             where d.zj_old = #{zj_name}
