@@ -53,7 +53,7 @@ public class zj_Report_Wyj_Business {
         dealTime dealTime=new dealTime();
 
         //获取当前季度一号，返回日期格式
-        Date startDate=dealTime.get_nowMonth_FirstDay_ByDate();
+        Date startDate=dealTime.get_nowQuarter_FirstDay_ByDate();
         //获取当前季度最后一号，返回日期格式
         Date endDate=dealTime.get_nowQuarter_LastDay_ByDate();
 
@@ -75,6 +75,8 @@ public class zj_Report_Wyj_Business {
         dealEmail DealEmail=new dealEmail();
         dealSendMessage DealSendMessage=new dealSendMessage();
 
+        //处理支局奖扣（1.处理缺口2.处理奖扣）
+        //report_Xubao_Zj_DoDetail(zj_Report_XubaoList_Zj);
 
         //宽带奖扣 1
         DealExcle.cpoyToExcle(zj_Report_Wyj_List_Zj,inExcleFile,OutExcleFile,1,Zj_Report_Wyj_Zj);
@@ -91,7 +93,7 @@ public class zj_Report_Wyj_Business {
         String OutPictureFileNew=OutPictureFile+"picture"+nowDayYYYYMMDD+".png";
 
         //将exlce处理成图片
-        DealExcle.excleToPng(inPictureFile,OutPictureFileNew);
+        //DealExcle.excleToPng(inPictureFile,OutPictureFileNew);
 
         System.out.println("图片转化成功");
 
@@ -116,8 +118,7 @@ public class zj_Report_Wyj_Business {
 
         //发送数据给支局长 *********这里乱码没有结解决
 //        //if (nowDay.equals("5")||nowDay.equals("10")||nowDay.equals("15")||nowDay.equals("20")||nowDay.equals("25")){
-          //if (0>1){
-//
+          if (0>1){
             InputStream inDealData= Resources.getResourceAsStream(config);
             SqlSessionFactoryBuilder builderDealData=new SqlSessionFactoryBuilder();
             SqlSessionFactory factoryDealData = builderDealData.build(inDealData);
@@ -163,7 +164,7 @@ public class zj_Report_Wyj_Business {
 
             sqlSession.close();
 
-        //}
+        }
 
     }
 
