@@ -113,8 +113,6 @@
 
     <select id="selectZj_Report_Xubao_Tx"  resultType="com.project.model.zj_Report_Xubao_Tx">
         select
-        --case when C.ID_TYPE_NAME IN ('事业单位法人证书', '单位介绍信或单位公函', '机构代码', '社会团体法人登记证书', '统一社会信用代码证书', '单位介绍信或单位公函', '营业执照')
-        --then '政企' else '公众' end
          a.ccust_type   Zj_Name,
         count(*) bb_Amt, count(case when A.XB_DT &lt; #{endDate}  then 1 else null end) bb_Amt_Com,
         SUM(CASE WHEN A.XB_DT &gt;= #{endDate} or A.XB_DT is null THEN 1 ELSE 0 END)     bb_Amt_Uncom,

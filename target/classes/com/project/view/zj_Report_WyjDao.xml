@@ -6,8 +6,8 @@
 
     <select id="selectZj_Report_Wyj_Zj"  resultType="com.project.model.zj_Report_Wyj_Zj">
         select q3.Zj_Name,Amt_Com,Amt_Rate_Target,Amt_UnCom,Amt_Rate
-               from (select  p3.Zj_Abbr_Name Zj_Name ,nvl(Amt_Com,0) Amt_Com,p4.ZJ_WYJ Amt_Rate_Target
-                            ,p4.ZJ_WYJ-nvl(Amt_Com,0)  Amt_UnCom,nvl(Amt_Com,0)*-1/p4.ZJ_WYJ  Amt_Rate from  (
+               from (select  p3.Zj_Abbr_Name Zj_Name ,nvl(Amt_Com,0)*-1 Amt_Com,p4.ZJ_WYJ Amt_Rate_Target
+                            ,p4.ZJ_WYJ-nvl(Amt_Com,0)*-1 Amt_UnCom,nvl(Amt_Com,0)*-1/p4.ZJ_WYJ  Amt_Rate from  (
            select B.ZJ as Zj_Name , sum(a.val) Amt_Com
            from   XFY_RPT_WYJJM_DETAIL a
                       left JOIN XFY_REP_PUB_CDRY b
@@ -20,8 +20,8 @@
             ON  P4.Zj_Abbr_Name=P3.Zj_Abbr_Name
            order by  p3.Zj_Abbr_Name  desc) q3
         union all
-        select Q.Zj_Name Zj_Name ,nvl(Q.Amt_Com,0) Amt_Com,Q.ZJ_WYJ Amt_Rate_Target
-                                       ,Q.ZJ_WYJ-nvl(Amt_Com,0)  Amt_UnCom,nvl(Q.Amt_Com,0)*-1/Q.ZJ_WYJ from (
+        select Q.Zj_Name Zj_Name ,nvl(Q.Amt_Com,0)*-1 Amt_Com,Q.ZJ_WYJ Amt_Rate_Target
+                                       ,Q.ZJ_WYJ-nvl(Amt_Com,0)*-1  Amt_UnCom,nvl(Q.Amt_Com,0)*-1/Q.ZJ_WYJ from (
                                         select z1.*,p4.ZJ_WYJ  from(
             select '合计' as Zj_Name , sum(a.val) Amt_Com
               from   XFY_RPT_WYJJM_DETAIL a  where  cpl_dt &gt;= #{startDate}  and cpl_dt &lt;= #{endDate} )  z1
