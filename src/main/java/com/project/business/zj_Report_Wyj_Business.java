@@ -23,22 +23,22 @@ public class zj_Report_Wyj_Business {
 
     public static  final  String config="mybatis.xml";
     //读取EXCLE目录
-    public static  final  String inExcleFile="D:\\Test\\WYJ\\test.xlsx";
+    public static  final  String inExcleFile="C:\\Test\\WYJ\\test.xlsx";
     //输出EXCLE目录
-    public static  final  String OutExcleFile="D:\\Test\\WYJ\\test.xlsx";
+    public static  final  String OutExcleFile="C:\\Test\\WYJ\\test.xlsx";
     //转化图片源文件
-    public static  final  String inPictureFile="D:\\Test\\WYJ\\test.xlsx";
+    public static  final  String inPictureFile="C:\\Test\\WYJ\\test.xlsx";
     //图片地址跟目录
-    public static  final  String OutPictureFile="D:\\test\\WYJ\\PICTURE\\";
+    public static  final  String OutPictureFile="C:\\test\\WYJ\\PICTURE\\";
     //微信群名称
     public static  final  String wechartSendName="aiaiai";
-    public static  final  String wechartPictureAdress="D:\\test\\Tcf\\";
+    public static  final  String wechartPictureAdress="C:\\test\\Tcf\\";
     //微信群名称
-    public static  final  String inExcleDataFile="D:\\Test\\WYJ\\test.xlsx";
+    public static  final  String inExcleDataFile="C:\\Test\\WYJ\\test.xlsx";
     //导出数据地址
-    public static  final  String OutExcleDataFile="D:\\Test\\WYJ\\DATA\\";
+    public static  final  String OutExcleDataFile="C:\\Test\\WYJ\\DATA\\";
     //复制导出文件地址
-    public static  final  String OutExcleSouceFile="D:\\Test\\WYJ\\SOUCE\\";
+    public static  final  String OutExcleSouceFile="C:\\Test\\WYJ\\SOUCE\\";
 
     //取数导出excle
     public static void report_Wyj_Zj() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
@@ -76,7 +76,7 @@ public class zj_Report_Wyj_Business {
         dealSendMessage DealSendMessage=new dealSendMessage();
 
         //处理支局奖扣（1.处理缺口2.处理奖扣）
-        //report_Xubao_Zj_DoDetail(zj_Report_XubaoList_Zj);
+        report_Wyj_Zj_DoDetail(zj_Report_Wyj_List_Zj);
 
         //宽带奖扣 1
         DealExcle.cpoyToExcle(zj_Report_Wyj_List_Zj,inExcleFile,OutExcleFile,1,Zj_Report_Wyj_Zj);
@@ -167,6 +167,26 @@ public class zj_Report_Wyj_Business {
         }
 
     }
+
+
+    //处理支局奖扣
+    public static List<zj_Report_Wyj_Zj> report_Wyj_Zj_DoDetail( List<zj_Report_Wyj_Zj> zj_Report_Wyj_List_Zj)  {
+
+        for(int i=0;i<zj_Report_Wyj_List_Zj.size();i++){
+            if (!zj_Report_Wyj_List_Zj.get(i).getZj_Name().equals("合计")){
+                //计算缺口
+                if(zj_Report_Wyj_List_Zj.get(i).getAmt_UnCom()>0){
+                    zj_Report_Wyj_List_Zj.get(i).setReward(0);
+                }else {
+                    zj_Report_Wyj_List_Zj.get(i).setReward(zj_Report_Wyj_List_Zj.get(i).getAmt_UnCom());
+                }
+            }
+
+        }
+        return zj_Report_Wyj_List_Zj;
+
+    }
+
 
 
 }

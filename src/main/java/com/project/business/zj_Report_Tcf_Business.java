@@ -23,22 +23,22 @@ public class zj_Report_Tcf_Business {
 
     public static  final  String config="mybatis.xml";
     //读取EXCLE目录
-    public static  final  String inExcleFile="D:\\Test\\Tcf\\test.xlsx";
+    public static  final  String inExcleFile="C:\\Test\\Tcf\\test.xlsx";
     //输出EXCLE目录
-    public static  final  String OutExcleFile="D:\\Test\\Tcf\\test.xlsx";
+    public static  final  String OutExcleFile="C:\\Test\\Tcf\\test.xlsx";
     //转化图片源文件
-    public static  final  String inPictureFile="D:\\Test\\Tcf\\test.xlsx";
+    public static  final  String inPictureFile="C:\\Test\\Tcf\\test.xlsx";
     //图片地址跟目录
-    public static  final  String OutPictureFile="D:\\test\\Tcf\\PICTURE\\";
+    public static  final  String OutPictureFile="C:\\test\\Tcf\\PICTURE\\";
     //微信群名称
     public static  final  String wechartSendName="aiaiai";
-    public static  final  String wechartPictureAdress="D:\\test\\Tcf\\";
+    public static  final  String wechartPictureAdress="C:\\test\\Tcf\\";
     //微信群名称
-    public static  final  String inExcleDataFile="D:\\Test\\Tcf\\test.xlsx";
+    public static  final  String inExcleDataFile="C:\\Test\\Tcf\\test.xlsx";
     //导出数据地址
-    public static  final  String OutExcleDataFile="D:\\Test\\Tcf\\DATA\\";
+    public static  final  String OutExcleDataFile="C:\\Test\\Tcf\\DATA\\";
     //复制导出文件地址
-    public static  final  String OutExcleSouceFile="D:\\Test\\Tcf\\SOUCE\\";
+    public static  final  String OutExcleSouceFile="C:\\Test\\Tcf\\SOUCE\\";
 
     //取数导出excle
     public static void report_Tcf_Zj() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
@@ -244,20 +244,6 @@ public class zj_Report_Tcf_Business {
         }
 
 
-//        zj_Report_Tcf_List_Zj.forEach((e) -> {
-//
-//            if (e.getZj_Name().equals("合计")){
-//             //计算缺口
-//             e.setTcf_amt_gap((int) Math.ceil(e.getTcf_Amt()*(0.9)-e.getTcf_amt_cha()));
-//
-//            }
-//            //计算缺口
-//            e.setTcf_amt_gap((int) Math.ceil(e.getTcf_Amt()*(0.95)-e.getTcf_amt_cha()));
-//            //计算扣罚
-//            if(e.getTcf_amt_rate()<0.95){
-//                e.setReward(e.getTcf_amt_gap()*50);
-//            }
-//        });
 
         return zj_Report_Tcf_List_Zj;
 
