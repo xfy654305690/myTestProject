@@ -46,7 +46,7 @@
 
     <select id="selectZj_Report_Wyj_MaxTime"  resultType="String">
 
-       select max(CPL_DT)  from XFY_RPT_WYJJM_DETAIL_MAXTIME a
+       select max(CPL_DT)  from XFY_RPT_WYJJM_DETAIL a
 
     </select>
 

@@ -9,7 +9,7 @@
       <jdbc-url>jdbc:oracle:thin:@localhost:1521:orcl</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="jifen" uuid="1efe3b66-55aa-4462-9b07-c7175d0401f3">
+    <data-source source="LOCAL" name="jifen" uuid="7f2f69f1-9498-4dd1-9cfa-2cea36ce01d7">
       <driver-ref>oracle.19</driver-ref>
       <synchronize>true</synchronize>
       <auto-commit>false</auto-commit>

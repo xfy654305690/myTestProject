@@ -168,10 +168,6 @@ public class zj_Report_Xubao_Business {
                 String contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"续包数据详见附件";
                 System.out.println(OutExcleDataFileNew);
                 System.out.println(titleMailSingle);
-//                zj_Report_Xubao_Data.forEach(zj_Report_Xubao->{
-//                        System.out.println(zj_Report_Xubao.toString()+"/n");
-//                        });
-
                 //复制值,并且另存为
                 DealExcle.cpoyToExcle(zj_Report_Xubao_Data_List,null,OutExcleDataFileNew,0,Zj_Report_Xubao_Data);
                 //读取附件并且发送
