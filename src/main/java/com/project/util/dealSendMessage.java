@@ -64,6 +64,8 @@ public class dealSendMessage {
             sendPicture(UrlOrMessage);
         }
 
+        robot.delay(10000);
+
         // 以下两行按下了ctrl+v，完成粘贴功能
         robot.keyPress(KeyEvent.VK_CONTROL);
         robot.keyPress(KeyEvent.VK_V);

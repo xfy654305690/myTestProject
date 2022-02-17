@@ -43,7 +43,6 @@
                        FROM (
                                 SELECT A.*,
                                        B.PROM_YGSR,
-                                       --C.ID_TYPE_NAME,
                                        D.Zj_Old as  ZJ_AREA_NAME_OLD,
                                        ROW_NUMBER() OVER(PARTITION BY A.ASSET_ROW_ID ORDER BY B.CPL_DT DESC) RANK
                                 FROM XFY_RPT_BRD_EXP_ASSET A
@@ -99,7 +98,6 @@
                FROM (
                         SELECT A.*,
                                B.PROM_YGSR,
-                               --C.ID_TYPE_NAME,
                                ROW_NUMBER() OVER(PARTITION BY A.ASSET_ROW_ID ORDER BY B.CPL_DT DESC) RANK
                         FROM XFY_RPT_BRD_EXP_ASSET A
                                  LEFT JOIN XFY_RPT_RHFZ_LIST B
