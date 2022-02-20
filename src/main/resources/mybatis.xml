@@ -30,5 +30,7 @@
         <mapper resource="com\project\view\zj_Report_XubaoDao.xml" />
         <mapper resource="com\project\view\zj_Report_TcfDao.xml" />
         <mapper resource="com\project\view\zj_Report_WyjDao.xml" />
+        <mapper resource="com\project\view\zj_Report_KdDao.xml" />
+        <mapper resource="com\project\view\zj_Report_ZtDao.xml" />
     </mappers>
 </configuration>

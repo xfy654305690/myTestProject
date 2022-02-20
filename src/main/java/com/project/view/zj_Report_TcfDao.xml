@@ -5,8 +5,9 @@
 <mapper namespace="com.project.view.zj_Report_TcfDao">
 
     <select id="selectZj_Report_Tcf_Kd_Zj"  resultType="com.project.model.zj_Report_Tcf_Zj">
-        select * from (select  p3.Zj_Abbr_Name Zj_Name ,nvl(tcf_amt,0) tcf_amt,nvl(tcf_amt_cha,0) tcf_amt_cha,nvl(tcf_amt_uncha,0) tcf_amt_uncha,nvl(tcf_amt_rate,1)tcf_amt_rate from  (
-        select B.ZJ as Zj_Name , count(*) tcf_amt, sum( case when a.xztc_amt &gt;=50 then 1 else 0 end ) tcf_amt_cha , sum( case when a.xztc_amt&lt;50 then 1 else 0 end ) tcf_amt_uncha,
+        select * from
+                      (select  p3.Zj_Abbr_Name Zj_Name ,nvl(tcf_amt,0) tcf_amt,nvl(tcf_amt_cha,0) tcf_amt_cha,nvl(tcf_amt_uncha,0) tcf_amt_uncha,nvl(tcf_amt_rate,1)tcf_amt_rate
+                      from  (select B.ZJ as Zj_Name , count(*) tcf_amt, sum( case when a.xztc_amt &gt;=50 then 1 else 0 end ) tcf_amt_cha , sum( case when a.xztc_amt&lt;50 then 1 else 0 end ) tcf_amt_uncha,
         sum( case when a.xztc_amt &gt;= 50 then 1 else 0 end )/count(*)  tcf_amt_rate
         from   XFY_RPT_KD_ORDER_DETAIL a
         left JOIN XFY_REP_PUB_CDRY b

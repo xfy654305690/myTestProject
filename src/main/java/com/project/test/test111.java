@@ -19,25 +19,31 @@ import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 public class test111 {
 
-    public static void main(String[] args) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public static void main(String[] args) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, ParseException {
 
-        //获取当前季度一号，返回日期格式
-        Date startDate=dealTime.get_nowQuarter_FirstDay_ByDate();
-        //获取当前季度最后一号，返回日期格式
-        Date endDate=dealTime.get_nowQuarter_LastDay_ByDate();
+        dealTime dealTime=new dealTime();
+        Calendar aCalendar = Calendar.getInstance();
+        aCalendar.setTime(dealTime.get_nowMonth_FirstDay_ByDate());
+        String dateString ="202-02-16";
 
-        SimpleDateFormat simpleDateFormatYM = new SimpleDateFormat("yyyyMMdd");//注意月份是MM
-        String startDateString=simpleDateFormatYM.format(startDate);
-        String endDateString=simpleDateFormatYM.format(endDate);
-        System.out.printf(startDateString);
-        System.out.printf(endDateString);
+        SimpleDateFormat simpleDateFormatYMD = new SimpleDateFormat("yyyy-MM-dd");
+        Date date =  simpleDateFormatYMD.parse(dateString);
+        int day1 = aCalendar.get(Calendar.DAY_OF_YEAR);
+        aCalendar.setTime(date);
+        int day2 = aCalendar.get(Calendar.DAY_OF_YEAR);
+        int day=day2 - day1;
+        System.out.println(day);
+
 
     }
+
 
 }

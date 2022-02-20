@@ -5,12 +5,12 @@ public class zj_Report_Kd_New_Zj {
     //支局全程 Zj_Abbr_Name
     public  String Zj_Name;
     //宽带新增数量
-    public  Integer bb_Amt;
+    public  Double bb_Amt;
     //宽带新增日均数量
     public  Double  bb_Amt_Avg;
     //宽带新增指标
-    public  Double  bb_Amt_Tar;
-    //宽宽带新增日均指标
+    public  Integer  bb_Amt_Tar;
+    //宽带新增日均指标
     public  Double  bb_Amt_Avg_Tar;
     //宽带新增缺口
     public  Integer  bb_Amt_Gap;
@@ -27,11 +27,11 @@ public class zj_Report_Kd_New_Zj {
         Zj_Name = zj_Name;
     }
 
-    public Integer getBb_Amt() {
+    public Double getBb_Amt() {
         return bb_Amt;
     }
 
-    public void setBb_Amt(Integer bb_Amt) {
+    public void setBb_Amt(Double bb_Amt) {
         this.bb_Amt = bb_Amt;
     }
 
@@ -43,11 +43,11 @@ public class zj_Report_Kd_New_Zj {
         this.bb_Amt_Avg = bb_Amt_Avg;
     }
 
-    public Double getBb_Amt_Tar() {
+    public Integer getBb_Amt_Tar() {
         return bb_Amt_Tar;
     }
 
-    public void setBb_Amt_Tar(Double bb_Amt_Tar) {
+    public void setBb_Amt_Tar(Integer bb_Amt_Tar) {
         this.bb_Amt_Tar = bb_Amt_Tar;
     }
 
