@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.view.zj_Report_ZtDao">
+
+    <select id="selectZj_Report_Zt_Kd_Zj"  resultType="com.project.model.zj_Report_Zt_Kd_Zj">
+        SELECT Q1.ZJ_ABBR_NAME Zj_Name,Q1.bb_Last_Amt,Q1.bb_Las_amt_act,Q1.bb_Las_amt_unact,Q1.bb_Las_Amt_act_rate,Q2.bb_Now_Amt,Q2.bb_Now_amt_act,Q2.bb_Now_amt_unact,Q2.bb_Now_Amt_act_rate,Q3.ZJ_ZT_REWARD_KD bb_Last_Reward
+        FROM (
+        (SELECT S2.ZJ_ABBR_NAME,NVL(S3.bb_Last_Amt,0) bb_Last_Amt,NVL(S3.bb_Las_amt_act,0) bb_Las_amt_act,NVL(S3.bb_Las_amt_unact,0)bb_Las_amt_unact,NVL(S3.bb_Las_Amt_act_rate,1)bb_Las_Amt_act_rate
+        FROM (select s1.ZJ_AREA_NAME,count(*) bb_Last_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)bb_Las_amt_act,
+        sum(case when s1.ACT_FLG=0 then 1 else 0 end)bb_Las_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*) bb_Las_Amt_act_rate
+        from XFY_RPT_ZLYW_ACT_ASSET s1
+        where  s1.SERV_START_DT&gt;= #{lastStartDate}
+        and s1.SERV_START_DT&lt;= #{lastEndDate}
+        and s1.type='KD'
+        group by s1.ZJ_AREA_NAME)S3
+        right join  XFY_REP_PUB_TARGET S2
+        ON S3.ZJ_AREA_NAME=S2.ZJ_ABBR_NAME) Q1
+        LEFT JOIN
+        (SELECT S2.ZJ_ABBR_NAME,NVL(S3.bb_Now_Amt,0)bb_Now_Amt,NVL(S3.bb_Now_amt_act,0)bb_Now_amt_act,NVL(S3.bb_Now_amt_unact,0)bb_Now_amt_unact,NVL(S3.bb_Now_Amt_act_rate,1)bb_Now_Amt_act_rate
+        FROM (select s1.ZJ_AREA_NAME,count(*) bb_Now_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)bb_Now_amt_act,
+        sum(case when s1.ACT_FLG=0 then 1 else 0 end)bb_Now_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*)bb_Now_Amt_act_rate
+        from XFY_RPT_ZLYW_ACT_ASSET s1
+        where s1.SERV_START_DT&gt;= #{nowStartDate}
+        and s1.SERV_START_DT&lt;= #{nowEndDate}
+        and s1.type='KD'
+        group by s1.ZJ_AREA_NAME)S3
+        right join  XFY_REP_PUB_TARGET S2
+        ON S3.ZJ_AREA_NAME=S2.ZJ_ABBR_NAME) Q2
+        ON q1.ZJ_ABBR_NAME=Q2.ZJ_ABBR_NAME)
+        left join XFY_REP_PUB_TARGET Q3
+        ON Q2.ZJ_ABBR_NAME=Q3.ZJ_ABBR_NAME
+        where q2.ZJ_ABBR_NAME not in ('合计','鄞州政企部')
+        union all
+        select Q4.Zj_Name,Q4.bb_Last_Amt,Q4.bb_Las_amt_unact,Q4.bb_Las_amt_act,Q4.bb_Las_Amt_act_rate,Q5.bb_Now_Amt,Q5.bb_Now_amt_act,Q5.bb_Now_amt_unact,Q5.bb_Now_Amt_act_rate,0 as bb_Last_Reward
+        from (select '合计' Zj_Name,count(*) bb_Last_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)bb_Las_amt_act,
+        sum(case when s1.ACT_FLG=0 then 1 else 0 end)bb_Las_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*) bb_Las_Amt_act_rate
+        from XFY_RPT_ZLYW_ACT_ASSET s1
+        where s1.SERV_START_DT&gt;= #{lastStartDate}
+        and s1.SERV_START_DT&lt;= #{lastEndDate}
+        and s1.type='KD')Q4
+        LEFT JOIN
+        (select '合计' Zj_Name,count(*) bb_Now_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)bb_Now_amt_act,
+        sum(case when s1.ACT_FLG=0 then 1 else 0 end)bb_Now_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*)bb_Now_Amt_act_rate
+        from XFY_RPT_ZLYW_ACT_ASSET s1
+        where s1.SERV_START_DT&gt;= #{nowStartDate}
+          and s1.SERV_START_DT&lt;= #{nowEndDate}
+        and s1.type='KD') Q5
+        ON Q4.Zj_Name=Q5.Zj_Name
+    </select>
+
+    <select id="selectZj_Report_Zt_Cmda_Zj"  resultType="com.project.model.zj_Report_Zt_Cdma_Zj">
+        SELECT Q1.ZJ_ABBR_NAME Zj_Name,Q1.Cdma_Last_Amt,Q1.Cdma_Las_amt_unact,Q1.Cdma_Las_Amt_act_rate,Q2.Cdma_Now_Amt,Q2.Cdma_Now_amt_act,Q2.Cdma_Now_amt_unact,Q2.Cdma_Now_Amt_act_rate,Q3.ZJ_ZT_REWARD_CDMA Cdma_Last_Reward
+        FROM (
+                 (SELECT S2.ZJ_ABBR_NAME,NVL(S3.Cdma_Last_Amt,0) Cdma_Last_Amt,NVL(S3.Cdma_Las_amt_unact,0) Cdma_Las_amt_unact,NVL(S3.Cdma_Las_amt_act,0)Cdma_Las_amt_act,NVL(S3.Cdma_Las_Amt_act_rate,1)Cdma_Las_Amt_act_rate
+                  FROM (select s1.ZJ_AREA_NAME,count(*) Cdma_Last_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)Cdma_Las_amt_act,
+                               sum(case when s1.ACT_FLG=0 then 1 else 0 end)Cdma_Las_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*) Cdma_Las_Amt_act_rate
+                        from XFY_RPT_ZLYW_ACT_ASSET s1
+                        where  s1.SERV_START_DT&gt;= #{lastStartDate}
+                          and s1.SERV_START_DT&lt;= #{lastEndDate}
+                          and s1.type='CDMA'
+                        group by s1.ZJ_AREA_NAME)S3
+                           right join  XFY_REP_PUB_TARGET S2
+                                       ON S3.ZJ_AREA_NAME=S2.ZJ_ABBR_NAME) Q1
+                     LEFT JOIN
+                     (SELECT S2.ZJ_ABBR_NAME,NVL(S3.Cdma_Now_Amt,0)Cdma_Now_Amt,NVL(S3.Cdma_Now_amt_unact,0)Cdma_Now_amt_unact,NVL(S3.Cdma_Now_amt_act,0)Cdma_Now_amt_act,NVL(S3.Cdma_Now_Amt_act_rate,1)Cdma_Now_Amt_act_rate
+                      FROM (select s1.ZJ_AREA_NAME,count(*) Cdma_Now_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)Cdma_Now_amt_act,
+                                   sum(case when s1.ACT_FLG=0 then 1 else 0 end)Cdma_Now_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*)Cdma_Now_Amt_act_rate
+                            from XFY_RPT_ZLYW_ACT_ASSET s1
+                            where s1.SERV_START_DT&gt;= #{nowStartDate}
+                              and s1.SERV_START_DT&lt;= #{nowEndDate}
+                              and s1.type='CDMA'
+                            group by s1.ZJ_AREA_NAME)S3
+                               right join  XFY_REP_PUB_TARGET S2
+                                           ON S3.ZJ_AREA_NAME=S2.ZJ_ABBR_NAME) Q2
+                     ON q1.ZJ_ABBR_NAME=Q2.ZJ_ABBR_NAME)
+                 left join XFY_REP_PUB_TARGET Q3
+                           ON Q2.ZJ_ABBR_NAME=Q3.ZJ_ABBR_NAME
+        where q2.ZJ_ABBR_NAME not in ('合计','鄞州政企部')
+        union all
+        select Q4.Zj_Name,Q4.Cdma_Last_Amt,Q4.Cdma_Las_amt_unact,Q4.Cdma_Las_Amt_act_rate,Q5.Cdma_Now_Amt,Q5.Cdma_Now_amt_act,Q5.Cdma_Now_amt_unact,Q5.Cdma_Now_Amt_act_rate,0 as  Cdma_Last_Reward
+        from (select '合计' Zj_Name,count(*) Cdma_Last_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)Cdma_Las_amt_act,
+                     sum(case when s1.ACT_FLG=0 then 1 else 0 end)Cdma_Las_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*) Cdma_Las_Amt_act_rate
+              from XFY_RPT_ZLYW_ACT_ASSET s1
+              where s1.SERV_START_DT&gt;= #{lastStartDate}
+                and s1.SERV_START_DT&lt;= #{lastEndDate}
+                and s1.type='CDMA')Q4
+                 LEFT JOIN
+             (select '合计' Zj_Name,count(*) Cdma_Now_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)Cdma_Now_amt_act,
+                     sum(case when s1.ACT_FLG=0 then 1 else 0 end)Cdma_Now_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*)Cdma_Now_Amt_act_rate
+              from XFY_RPT_ZLYW_ACT_ASSET s1
+              where s1.SERV_START_DT&gt;= #{nowStartDate}
+                and s1.SERV_START_DT&lt;= #{nowEndDate}
+                and s1.type='CDMA') Q5
+             ON Q4.Zj_Name=Q5.Zj_Name
+    </select>
+
+    <select id="selectZj_Report_Zt_Itv_Zj"  resultType="com.project.model.zj_Report_Zt_Itv_Zj">
+        SELECT Q1.ZJ_ABBR_NAME Zj_Name,Q1.Itv_Last_Amt,Q1.Itv_Las_amt_act,Q1.Itv_Las_amt_unact,Q1.Itv_Las_Amt_act_rate,Q2.Itv_Now_Amt,Q2.Itv_Now_amt_act,Q2.Itv_Now_amt_unact,Q2.Itv_Now_Amt_act_rate,Q3.ZJ_ZT_REWARD_KD AS Itv_Last_Reward
+        FROM (
+                 (SELECT S2.ZJ_ABBR_NAME,NVL(S3.Itv_Last_Amt,0) Itv_Last_Amt,NVL(S3.Itv_Las_amt_unact,0) Itv_Las_amt_unact,NVL(S3.Itv_Las_amt_act,0)Itv_Las_amt_act,NVL(S3.Itv_Las_Amt_act_rate,1)Itv_Las_Amt_act_rate
+                  FROM (select s1.ZJ_AREA_NAME,count(*) Itv_Last_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)Itv_Las_amt_act,
+                               sum(case when s1.ACT_FLG=0 then 1 else 0 end)Itv_Las_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*) Itv_Las_Amt_act_rate
+                        from XFY_RPT_ZLYW_ACT_ASSET s1
+                        where  s1.SERV_START_DT&gt;= #{lastStartDate}
+                          and s1.SERV_START_DT&lt;= #{lastEndDate}
+                          and s1.type='ITV'
+                        group by s1.ZJ_AREA_NAME)S3
+                           right join  XFY_REP_PUB_TARGET S2
+                                       ON S3.ZJ_AREA_NAME=S2.ZJ_ABBR_NAME) Q1
+                     LEFT JOIN
+                     (SELECT S2.ZJ_ABBR_NAME,NVL(S3.Itv_Now_Amt,0)Itv_Now_Amt,NVL(S3.Itv_Now_amt_unact,0)Itv_Now_amt_unact,NVL(S3.Itv_Now_amt_act,0)Itv_Now_amt_act,NVL(S3.Itv_Now_Amt_act_rate,1)Itv_Now_Amt_act_rate
+                      FROM (select s1.ZJ_AREA_NAME,count(*) Itv_Now_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)Itv_Now_amt_act,
+                                   sum(case when s1.ACT_FLG=0 then 1 else 0 end)Itv_Now_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*)Itv_Now_Amt_act_rate
+                            from XFY_RPT_ZLYW_ACT_ASSET s1
+                            where s1.SERV_START_DT&gt;= #{nowStartDate}
+                              and s1.SERV_START_DT&lt;= #{nowEndDate}
+                              and s1.type='ITV'
+                            group by s1.ZJ_AREA_NAME)S3
+                               right join  XFY_REP_PUB_TARGET S2
+                                           ON S3.ZJ_AREA_NAME=S2.ZJ_ABBR_NAME) Q2
+                     ON q1.ZJ_ABBR_NAME=Q2.ZJ_ABBR_NAME)
+                 left join XFY_REP_PUB_TARGET Q3
+                           ON Q2.ZJ_ABBR_NAME=Q3.ZJ_ABBR_NAME
+        where q2.ZJ_ABBR_NAME not in ('合计','鄞州政企部')
+        union all
+        select Q4.Zj_Name,Q4.Itv_Last_Amt,Q4.Itv_Las_amt_unact,Q4.Itv_Las_amt_act,Q4.Itv_Las_Amt_act_rate,Q5.Itv_Now_Amt,Q5.Itv_Now_amt_act,Q5.Itv_Now_amt_unact,Q5.Itv_Now_Amt_act_rate,0 AS Itv_Last_Reward
+        from (select '合计' Zj_Name,count(*) Itv_Last_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)Itv_Las_amt_act,
+                     sum(case when s1.ACT_FLG=0 then 1 else 0 end)Itv_Las_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*) Itv_Las_Amt_act_rate
+              from XFY_RPT_ZLYW_ACT_ASSET s1
+              where s1.SERV_START_DT&gt;= #{lastStartDate}
+                and s1.SERV_START_DT&lt;= #{lastEndDate}
+                and s1.type='ITV')Q4
+                 LEFT JOIN
+             (select '合计' Zj_Name,count(*) Itv_Now_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)Itv_Now_amt_act,
+                     sum(case when s1.ACT_FLG=0 then 1 else 0 end)Itv_Now_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*)Itv_Now_Amt_act_rate
+              from XFY_RPT_ZLYW_ACT_ASSET s1
+              where s1.SERV_START_DT&gt;= #{nowStartDate}
+                and s1.SERV_START_DT&lt;= #{nowEndDate}
+                and s1.type='ITV') Q5
+             ON Q4.Zj_Name=Q5.Zj_Name
+    </select>
+    <select id="selectZj_Report_Zt_Data"  resultType="com.project.model.zj_Report_Zt_Data">
+        SELECT S1.ZJ_AREA_NAME Zj_Name,S1.DATE_CD,S1.ASSET_ROW_ID,S1.ACCS_NBR,S1.DATA_USER_NAME,S1.PROM_NAME,S1.PROM_AMT,
+               S1.SERV_START_DT,S1.STAT_NAME,S1.XZ_FLG,S1.ACT_FLG,S1.TYPE,S1.ACT_DAYS,S1.CCUST_ID,S1.MKT_EMPLOYEE_ID,S1.MKT_EMPLOYEE_NAME,S1.MIX_COMB_NBR_FLG
+        FROM  XFY_RPT_ZLYW_ACT_ASSET S1
+        where  s1.SERV_START_DT&gt;= #{startDate}
+          and s1.SERV_START_DT&lt;= #{endDate}
+          and S1.ZJ_AREA_NAME in (
+            select D.zj_new from XFY_REP_PUB_ZJ_CON D
+            where d.zj_old = #{zj_name}
+        )
+    </select>
+
+</mapper>
