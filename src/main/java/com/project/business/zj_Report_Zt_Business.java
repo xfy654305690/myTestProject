@@ -123,7 +123,7 @@ public class zj_Report_Zt_Business {
 
         //将图片发送微信
         // 1是文字，2是图片
-        //DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
+        DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
 
         System.out.println("发送微信成功");
 
@@ -164,8 +164,8 @@ public class zj_Report_Zt_Business {
                 String contentMailSingle;
 
                 if(Zj_Report_Zt_Data_List.size()!=0){
-                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"宽带净增中离网、拆机、移出清单详见附件";
-                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"宽带净增中离网、拆机、移出清单详见附件";
+                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"宽带净增中离网、拆机、移出清单详见附件"+nowDayYYYYMMDD;
+                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"宽带净增中离网、拆机、移出清单详见附件"+nowDayYYYYMMDD;
                     OutExcleDataFileNew=OutExcleDataFile+str+"ZT"+nowDayYYYYMMDD+".xlsx";
                     System.out.printf(OutExcleDataFileNew);
                     //复制值,并且另存为
@@ -175,8 +175,8 @@ public class zj_Report_Zt_Business {
                     DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
 
                 }else{
-                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"暂无质态清单数据";
-                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"暂无质态清单数据";
+                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"暂无质态清单数据"+nowDayYYYYMMDD;
+                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"暂无质态清单数据"+nowDayYYYYMMDD;
                     OutExcleDataFileNew=null;
                     //读取附件并且发送
                     DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);

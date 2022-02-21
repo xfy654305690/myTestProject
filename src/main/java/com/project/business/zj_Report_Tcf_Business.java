@@ -64,10 +64,6 @@ public class zj_Report_Tcf_Business {
         List<zj_Report_Tcf_Zj> zj_Report_Tcf_KDList_Zj =
                 Zj_Report_TcfDao.selectZj_Report_Tcf_Kd_Zj(startDate,endDate);
 
-//        zj_Report_Tcf_KDList_Zj.forEach(zj_Report_Tcf_Zj->{
-//            System.out.println(zj_Report_Tcf_Zj.toString()+"/n");
-//        });
-
         //调测费数据-ITV
         List<zj_Report_Tcf_Zj> zj_Report_Tcf_ItvList_Zj =
                 Zj_Report_TcfDao.selectZj_Report_Tcf_Itv_Zj(startDate,endDate);
@@ -115,7 +111,7 @@ public class zj_Report_Tcf_Business {
 
         //将图片发送微信
         // 1是文字，2是图片
-        //DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
+        DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
 
         System.out.println("发送微信成功");
 
@@ -159,8 +155,8 @@ public class zj_Report_Tcf_Business {
                 String contentMailSingle;
 
                 if(zj_Report_Tcf_Kd_Data_List.size()!=0){
-                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"调测费宽带未收数据详见附件";
-                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"调测费宽带未收数据详见附件";
+                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"调测费宽带未收数据详见附件"+nowDayYYYYMMDD;
+                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"调测费宽带未收数据详见附件"+nowDayYYYYMMDD;
                     OutExcleDataFileNew=OutExcleDataFile+str+"KD"+nowDayYYYYMMDD+".xlsx";
                     System.out.printf(OutExcleDataFileNew);
                     //复制值,并且另存为
@@ -170,8 +166,8 @@ public class zj_Report_Tcf_Business {
                     DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
 
                 }else{
-                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本月暂无宽带未收调测费清单";
-                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本月暂无宽带未收调测费清单";
+                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本月暂无宽带未收调测费清单"+nowDayYYYYMMDD;
+                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本月暂无宽带未收调测费清单"+nowDayYYYYMMDD;
                     OutExcleDataFileNew=null;
                     //读取附件并且发送
                     DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
@@ -180,8 +176,6 @@ public class zj_Report_Tcf_Business {
             }
 
             for (int i=0;i<zj_Report_Public_List.size();i++){
-
-                //System.out.println(zj_Report_Public_List.get(i).getZj_Abbr_Name());
 
                 zj_Report_Tcf_Itv_Data Zj_Report_Tcf_Itv_Data=new zj_Report_Tcf_Itv_Data();
 
@@ -196,16 +190,16 @@ public class zj_Report_Tcf_Business {
                 String contentMailSingle;
 
                 if(zj_Report_Tcf_Itv_Data_List.size()!=0) {
-                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"调测费ITV未收数据详见附件";
-                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"调测费ITV未收数据详见附件";
+                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"调测费ITV未收数据详见附件"+nowDayYYYYMMDD;
+                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"调测费ITV未收数据详见附件"+nowDayYYYYMMDD;
                     OutExcleDataFileNew=OutExcleDataFile+str+"KD"+nowDayYYYYMMDD+".xlsx";
                     //复制值,并且另存为
                     DealExcle.cpoyToExcle(zj_Report_Tcf_Itv_Data_List,null,OutExcleDataFileNew,0,Zj_Report_Tcf_Itv_Data);
                     //读取附件并且发送
                     DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
                 }else{
-                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本月暂无ITV未收调测费清单";
-                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本月暂无ITV未收调测费清单";
+                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本月暂无ITV未收调测费清单"+nowDayYYYYMMDD;
+                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本月暂无ITV未收调测费清单"+nowDayYYYYMMDD;
                     OutExcleDataFileNew=null;
                     //读取附件并且发送
                     DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);

@@ -93,13 +93,13 @@ public class zj_Report_Wyj_Business {
         String OutPictureFileNew=OutPictureFile+"picture"+nowDayYYYYMMDD+".png";
 
         //将exlce处理成图片
-        //DealExcle.excleToPng(inPictureFile,OutPictureFileNew);
+        DealExcle.excleToPng(inPictureFile,OutPictureFileNew);
 
         System.out.println("图片转化成功");
 
         //将图片发送微信
         // 1是文字，2是图片
-        //DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
+        DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
 
         System.out.println("发送微信成功");
 
@@ -127,10 +127,7 @@ public class zj_Report_Wyj_Business {
 
             for (int i=0;i<zj_Report_Public_List.size();i++){
 
-                //System.out.println(zj_Report_Public_List.get(i).getZj_Abbr_Name());
-
                 zj_Report_Wyj_Data Zj_Report_Wyj_Data=new zj_Report_Wyj_Data();
-
 
                 List<zj_Report_Wyj_Data> Zj_Report_Wyj_Data_List =
                         Zj_Report_WyjDaoDealData.selectZj_Report_Wyj_Data(startDate,endDate,zj_Report_Public_List.get(i).getZj_Abbr_Name());
@@ -142,8 +139,8 @@ public class zj_Report_Wyj_Business {
                 String contentMailSingle;
 
                 if(Zj_Report_Wyj_Data_List.size()!=0){
-                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"违约金产生数据详见附件";
-                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"违约金产生数据详见附件";
+                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"违约金产生数据详见附件"+nowDayYYYYMMDD;
+                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"违约金产生数据详见附件"+nowDayYYYYMMDD;
                     OutExcleDataFileNew=OutExcleDataFile+str+"Wyj"+nowDayYYYYMMDD+".xlsx";
                     System.out.printf(OutExcleDataFileNew);
                     //复制值,并且另存为
@@ -153,8 +150,8 @@ public class zj_Report_Wyj_Business {
                     DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
 
                 }else{
-                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本月暂无违约金减免清单";
-                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本月暂无违约金减免清单";
+                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本月暂无违约金减免清单"+nowDayYYYYMMDD;
+                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本月暂无违约金减免清单"+nowDayYYYYMMDD;
                     OutExcleDataFileNew=null;
                     //读取附件并且发送
                     DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);

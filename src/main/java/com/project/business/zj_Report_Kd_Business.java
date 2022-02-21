@@ -118,13 +118,13 @@ public class zj_Report_Kd_Business {
         String OutPictureFileNew=OutPictureFile+"picture"+nowDayYYYYMMDD+".png";
 
         //将exlce处理成图片
-        //DealExcle.excleToPng(inPictureFile,OutPictureFileNew);
+        DealExcle.excleToPng(inPictureFile,OutPictureFileNew);
 
         System.out.println("图片转化成功");
 
         //将图片发送微信
         // 1是文字，2是图片
-        //DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
+        DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
 
         System.out.println("发送微信成功");
 
@@ -137,7 +137,7 @@ public class zj_Report_Kd_Business {
         String content="宽带新增净增通报"+nowDayYYYYMMDD+"详见附件";
 
         //邮件发送附件图片*****************************
-        DealEmail.ctreatMailMore(zj_Report_Public_List,null,null,title,content,OutPictureFileNew);
+        //DealEmail.ctreatMailMore(zj_Report_Public_List,null,null,title,content,OutPictureFileNew);
 
         System.out.println("邮件发送成功");
 
@@ -168,8 +168,8 @@ public class zj_Report_Kd_Business {
                 String contentMailSingle;
 
                 if(zj_Report_Tcf_Kd_Data_List.size()!=0){
-                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"宽带净增中离网、拆机、移出清单详见附件";
-                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"宽带净增中离网、拆机、移出清单详见附件";
+                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"宽带净增中离网、拆机、移出清单详见附件"+nowDayYYYYMMDD;
+                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"宽带净增中离网、拆机、移出清单详见附件"+nowDayYYYYMMDD;
                     OutExcleDataFileNew=OutExcleDataFile+str+"KDJZ"+nowDayYYYYMMDD+".xlsx";
                     System.out.printf(OutExcleDataFileNew);
                     //复制值,并且另存为
@@ -179,8 +179,8 @@ public class zj_Report_Kd_Business {
                     DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
 
                 }else{
-                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"宽带暂无离网、拆机、移出清单数据";
-                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"宽带暂无离网、拆机、移出清单数据";
+                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"宽带暂无离网、拆机、移出清单数据"+nowDayYYYYMMDD;
+                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"宽带暂无离网、拆机、移出清单数据"+nowDayYYYYMMDD;
                     OutExcleDataFileNew=null;
                     //读取附件并且发送
                     DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);

@@ -124,7 +124,7 @@ public class zj_Report_Xubao_Business {
 
         //将图片发送微信
         // 1是文字，2是图片
-        //DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
+        DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
 
         System.out.println("发送微信成功");
 
@@ -164,8 +164,8 @@ public class zj_Report_Xubao_Business {
                 String str = new String(zj_Report_Public_List.get(i).getZj_Full_Name().getBytes(),"UTF-8");
 
                 String  OutExcleDataFileNew=OutExcleDataFile+str+nowDayYYYYMMDD+".xlsx";
-                String titleMailSingle =zj_Report_Public_List.get(i).getZj_Full_Name()+"续包数据详见附件";
-                String contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"续包数据详见附件";
+                String titleMailSingle =zj_Report_Public_List.get(i).getZj_Full_Name()+"续包数据详见附件"+nowDayYYYYMMDD;
+                String contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"续包数据详见附件"+nowDayYYYYMMDD;
                 System.out.println(OutExcleDataFileNew);
                 System.out.println(titleMailSingle);
                 //复制值,并且另存为
