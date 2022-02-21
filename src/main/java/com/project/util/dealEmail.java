@@ -11,6 +11,7 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
@@ -41,44 +42,43 @@ public class dealEmail {
     //连接邮件，暂时先默认账号密码,循环发送
     public static void ctreatAttachMail(List<zj_Report_Public>zj_Report_Public,Session session,Transport ts,String title,String content,String enclosureAdress) throws MessagingException, IOException {
 
-
             MimeMessage message = new MimeMessage(session);
             //设置邮件的基本信息
             //发件人
             message.setFrom(new InternetAddress("13362851058@189.cn"));
             //收件人*******************************************************
-            String InternetAddressString=new String();
-            for (int i=0;i<zj_Report_Public.size();i++){
-                //message.setRecipient(Message.RecipientType.TO, new InternetAddress(zj_Report_Public.get(i).getZj_Per_In_Cha_Ema()));
-                message.setRecipient(Message.RecipientType.TO, new InternetAddress("654305690@qq.com"));
-                //邮件标题
-                message.setSubject(title);
+            /*InternetAddress[] sendTo = new InternetAddress[zj_Report_Public.size()];
 
-                //创建邮件正文，为了避免邮件正文中文乱码问题，需要使用charset=UTF-8指明字符编码
-                MimeBodyPart text = new MimeBodyPart();
-                text.setContent(content, "text/html;charset=UTF-8");
-
-                //创建邮件附件
-                MimeBodyPart attach = new MimeBodyPart();
-                DataHandler dh = new DataHandler(new FileDataSource(enclosureAdress));
-                attach.setDataHandler(dh);
-                attach.setFileName(dh.getName());  //
-
-                //创建容器描述数据关系
-                MimeMultipart mp = new MimeMultipart();
-                mp.addBodyPart(text);
-                mp.addBodyPart(attach);
-                mp.setSubType("mixed");
-
-                message.setContent(mp);
-                message.saveChanges();
-                //将创建的Email写入到E盘存储
-                //message.writeTo(new FileOutputStream("E:\\Test\\mail\\attachMail.eml"));
-                //5、发送邮件
-                ts.sendMessage(message, message.getAllRecipients());
-
-
+            for(int i = 0; i < zj_Report_Public.size(); i++){
+                sendTo[i]=new InternetAddress(zj_Report_Public.get(i).getZj_Per_In_Cha_Ema());
             }
+            message.setRecipients(Message.RecipientType.TO, sendTo);*/
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress("654305690@qq.com"));
+            //邮件标题
+            message.setSubject(title);
+
+            //创建邮件正文，为了避免邮件正文中文乱码问题，需要使用charset=UTF-8指明字符编码
+            MimeBodyPart text = new MimeBodyPart();
+            text.setContent(content, "text/html;charset=UTF-8");
+
+            //创建邮件附件
+            MimeBodyPart attach = new MimeBodyPart();
+            DataHandler dh = new DataHandler(new FileDataSource(enclosureAdress));
+            attach.setDataHandler(dh);
+            attach.setFileName(dh.getName());  //
+
+            //创建容器描述数据关系
+            MimeMultipart mp = new MimeMultipart();
+            mp.addBodyPart(text);
+            mp.addBodyPart(attach);
+            mp.setSubType("mixed");
+
+            message.setContent(mp);
+            message.saveChanges();
+            //将创建的Email写入到E盘存储
+            message.writeTo(new FileOutputStream("C:\\Test\\mail\\souce\\"+title+".eml"));
+            //5、发送邮件
+            ts.sendMessage(message, message.getAllRecipients());
 
     }
 
@@ -129,7 +129,7 @@ public class dealEmail {
         message.saveChanges();
 
         //将创建的Email写入到E盘存储
-        //message.writeTo(new FileOutputStream("E:\\Test\\mail\\attachMail.eml"));
+        message.writeTo(new FileOutputStream("C:\\Test\\mail\\DATA\\"+title+".eml"));
         //5、发送邮件
         ts.sendMessage(message, message.getAllRecipients());
         ts.close();

@@ -45,7 +45,7 @@ public class zj_Report_Kd_Business {
     public static  final  String tableName="XFY_KD_ASSET_BAK_BEF";
 
     //取数导出excle
-    public static void report_Tcf_Zj() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException, ParseException {
+    public static void report_Kd_Zj() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException, ParseException {
 
         InputStream in= Resources.getResourceAsStream(config);
         SqlSessionFactoryBuilder builder=new SqlSessionFactoryBuilder();
@@ -104,7 +104,7 @@ public class zj_Report_Kd_Business {
         //处理支局奖扣
         List<zj_Report_Kd_Jz_Zj> selectZj_Report_Kd_Jz_List_Zj_Deal =  report_Kd_Jz_DoDetail(selectZj_Report_Kd_Jz_List_Zj,differenceDay,quarterDay);
         //宽带净增 2
-        DealExcle.cpoyToExcle(selectZj_Report_Kd_Jz_List_Zj_Deal,inExcleFile,OutExcleFile,2,Zj_Report_Kd_New_Zj);
+        DealExcle.cpoyToExcle(selectZj_Report_Kd_Jz_List_Zj_Deal,inExcleFile,OutExcleFile,2,Zj_Report_Kd_Jz_Zj);
 
         //处理时间
         DealExcle.cpoyToExcleSingle(maxDateString,inExcleFile,OutExcleFile, 3);
@@ -112,13 +112,13 @@ public class zj_Report_Kd_Business {
         System.out.println("数据处理成功");
 
         //复制文件
-        String OutExcleSouceFilenew =OutExcleSouceFile+"调测费"+nowDayYYYYMMDD+".xlsx";
+        String OutExcleSouceFilenew =OutExcleSouceFile+"宽带新增净增通报"+nowDayYYYYMMDD+".xlsx";
         DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleSouceFilenew);
         System.out.println("复制文件成功成功");
         String OutPictureFileNew=OutPictureFile+"picture"+nowDayYYYYMMDD+".png";
 
         //将exlce处理成图片
-        DealExcle.excleToPng(inPictureFile,OutPictureFileNew);
+        //DealExcle.excleToPng(inPictureFile,OutPictureFileNew);
 
         System.out.println("图片转化成功");
 
@@ -133,11 +133,11 @@ public class zj_Report_Kd_Business {
         //获取支局长邮箱地址
         List<zj_Report_Public> zj_Report_Public_List =zj_Report_Public_Business.zj_Report_Public_Business();
 
-        String title ="调测费通报"+nowDayYYYYMMDD+"详见附件";
-        String content="调测费通报"+nowDayYYYYMMDD+"详见附件";
+        String title ="宽带新增净增通报"+nowDayYYYYMMDD+"详见附件";
+        String content="宽带新增净增通报"+nowDayYYYYMMDD+"详见附件";
 
         //邮件发送附件图片*****************************
-        //DealEmail.ctreatMailMore(zj_Report_Public_List,null,null,title,content,OutPictureFileNew);
+        DealEmail.ctreatMailMore(zj_Report_Public_List,null,null,title,content,OutPictureFileNew);
 
         System.out.println("邮件发送成功");
 

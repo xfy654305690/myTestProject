@@ -28,6 +28,14 @@ public class dealSendMessage {
         Robot robot = getRobot();
         //打开微信 Ctrl+Alt+W
         assert robot != null;
+
+        //回到桌面
+        robot.keyPress(KeyEvent.VK_WINDOWS);
+        robot.keyPress(KeyEvent.VK_D);
+        robot.keyRelease(KeyEvent.VK_WINDOWS);
+
+        robot.delay(1000);
+
         robot.keyPress(KeyEvent.VK_CONTROL);
         robot.keyPress(KeyEvent.VK_ALT);
         robot.keyPress(KeyEvent.VK_W);

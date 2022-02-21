@@ -124,7 +124,7 @@ public class zj_Report_Xubao_Business {
 
         //将图片发送微信
         // 1是文字，2是图片
-        DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
+        //DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
 
         System.out.println("发送微信成功");
 
@@ -143,7 +143,7 @@ public class zj_Report_Xubao_Business {
 
         //发送数据给支局长 *********这里乱码没有结解决
         //if (nowDay.equals("5")||nowDay.equals("10")||nowDay.equals("15")||nowDay.equals("20")||nowDay.equals("25")){
-        //if (0>1){
+        if (0>1){
 
             InputStream inDealData= Resources.getResourceAsStream(config);
             SqlSessionFactoryBuilder builderDealData=new SqlSessionFactoryBuilder();
@@ -176,7 +176,7 @@ public class zj_Report_Xubao_Business {
             }
             sqlSession.close();
 
-        //}
+        }
 
     }
 

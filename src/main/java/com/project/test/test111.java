@@ -12,6 +12,8 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -27,21 +29,37 @@ import java.util.List;
 
 public class test111 {
 
+    public static Robot getRobot(){
+        // 创建Robot对象
+        Robot robot = null;
+        try {
+            robot = new Robot();
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
+        return robot;
+    }
+
     public static void main(String[] args) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, ParseException {
 
-        dealTime dealTime=new dealTime();
-        Calendar aCalendar = Calendar.getInstance();
-        aCalendar.setTime(dealTime.get_nowMonth_FirstDay_ByDate());
-        String dateString ="202-02-16";
+        // 创建Robot对象
+        Robot robot = getRobot();
+        //打开微信 Ctrl+Alt+W
+        assert robot != null;
 
-        SimpleDateFormat simpleDateFormatYMD = new SimpleDateFormat("yyyy-MM-dd");
-        Date date =  simpleDateFormatYMD.parse(dateString);
-        int day1 = aCalendar.get(Calendar.DAY_OF_YEAR);
-        aCalendar.setTime(date);
-        int day2 = aCalendar.get(Calendar.DAY_OF_YEAR);
-        int day=day2 - day1;
-        System.out.println(day);
+        robot.keyPress(KeyEvent.VK_WINDOWS);
+        robot.keyPress(KeyEvent.VK_D);
 
+        robot.keyRelease(KeyEvent.VK_WINDOWS);
+
+        robot.delay(1000);
+
+        robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_ALT);
+        robot.keyPress(KeyEvent.VK_W);
+        //释放Ctrl按键，像Ctrl，退格键，删除键这样的功能性按键，在按下后一定要释放
+        robot.keyRelease(KeyEvent.VK_CONTROL);
+        robot.keyRelease(KeyEvent.VK_ALT);
 
     }
 
