@@ -67,6 +67,8 @@ public class zj_Report_Kd_Business {
         String nowDayYYYYMMDD=dealTime.get_date_By_String_YYYYMMDD();
         //获取下月一号，返回日期格式
         Date nowMonthFirstDay =dealTime.get_nowMonth_FirstDay_ByDate();
+        //获取当前日期DD格式
+        String nowDay=dealTime.get_date_By_String_DD();
 
         //宽带新增数据-KD
         List<zj_Report_Kd_New_Zj> selectZj_Report_Kd_New_List_Zj =
@@ -149,17 +151,15 @@ public class zj_Report_Kd_Business {
             SqlSessionFactoryBuilder builderDealData=new SqlSessionFactoryBuilder();
             SqlSessionFactory factoryDealData = builderDealData.build(inDealData);
             SqlSession sqlSessionDealData=factoryDealData.openSession();
-            zj_Report_TcfDao Zj_Report_TcfDaoDealData = sqlSessionDealData.getMapper(zj_Report_TcfDao.class);
+            zj_Report_KdDao Zj_Report_KdDaoDealData = sqlSession.getMapper(zj_Report_KdDao.class);
 
             for (int i=0;i<zj_Report_Public_List.size();i++){
 
-                //System.out.println(zj_Report_Public_List.get(i).getZj_Abbr_Name());
-
-                zj_Report_Tcf_Kd_Data Zj_Report_Tcf_Kd_Data=new zj_Report_Tcf_Kd_Data();
+                zj_Report_Kd_Jz_Data Zj_report_kd_jz_data=new zj_Report_Kd_Jz_Data();
 
 
-                List<zj_Report_Tcf_Kd_Data> zj_Report_Tcf_Kd_Data_List =
-                        Zj_Report_TcfDaoDealData.selectZj_Report_Tcf_Kd_Data(startDate,endDate,zj_Report_Public_List.get(i).getZj_Abbr_Name());
+                List<zj_Report_Kd_Jz_Data> Zj_report_kd_jz_data_List =
+                        Zj_Report_KdDaoDealData.selectZj_Report_Kd_Jz_Data(tableNameNew,zj_Report_Public_List.get(i).getZj_Abbr_Name());
 
                 String str = new String(zj_Report_Public_List.get(i).getZj_Full_Name().getBytes(),"UTF-8");
 
@@ -167,13 +167,13 @@ public class zj_Report_Kd_Business {
                 String titleMailSingle ;
                 String contentMailSingle;
 
-                if(zj_Report_Tcf_Kd_Data_List.size()!=0){
+                if(Zj_report_kd_jz_data_List.size()!=0){
                     titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"宽带净增中离网、拆机、移出清单详见附件"+nowDayYYYYMMDD;
                     contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"宽带净增中离网、拆机、移出清单详见附件"+nowDayYYYYMMDD;
                     OutExcleDataFileNew=OutExcleDataFile+str+"KDJZ"+nowDayYYYYMMDD+".xlsx";
                     System.out.printf(OutExcleDataFileNew);
                     //复制值,并且另存为
-                    DealExcle.cpoyToExcle(zj_Report_Tcf_Kd_Data_List,null,OutExcleDataFileNew,0,Zj_Report_Tcf_Kd_Data);
+                    DealExcle.cpoyToExcle(Zj_report_kd_jz_data_List,null,OutExcleDataFileNew,0,Zj_report_kd_jz_data);
                     System.out.printf("复制成功");
                     //读取附件并且发送
                     DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);

@@ -59,6 +59,8 @@ public class zj_Report_Tcf_Business {
 
         //获取当前日期DD格式
         String nowDayYYYYMMDD=dealTime.get_date_By_String_YYYYMMDD();
+        //获取当前日期DD格式
+        String nowDay=dealTime.get_date_By_String_DD();
 
         //调测费数据-KD
         List<zj_Report_Tcf_Zj> zj_Report_Tcf_KDList_Zj =

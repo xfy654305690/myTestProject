@@ -6,12 +6,19 @@ import java.util.Date;
 
 public class dealTime {
 
-
     //获取下月一号，返回日期格式
     public static Date get_NextMonth_FirstDay_ByDate(){
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_MONTH, 1);
+        //将小时至0
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        //将分钟至0
+        calendar.set(Calendar.MINUTE, 0);
+        //将秒至0
+        calendar.set(Calendar.SECOND,0);
+        //将毫秒至0
+        calendar.set(Calendar.MILLISECOND, 0);
         calendar.add(Calendar.MONTH, 1);
         Date endDate=calendar.getTime();// 获取下月一号
 
@@ -24,6 +31,14 @@ public class dealTime {
         Calendar   calendar=Calendar.getInstance();//获取当前日期
         calendar.add(Calendar.MONTH, -1);
         calendar.set(Calendar.DAY_OF_MONTH,1);//设置为1号,当前日期既为本月第一天
+        //将小时至0
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        //将分钟至0
+        calendar.set(Calendar.MINUTE, 0);
+        //将秒至0
+        calendar.set(Calendar.SECOND,0);
+        //将毫秒至0
+        calendar.set(Calendar.MILLISECOND, 0);
         Date endDate=calendar.getTime();
 
         return endDate;
@@ -33,6 +48,14 @@ public class dealTime {
     public static Date get_lastMonth_LastDay_ByDate(){
 
         Calendar calendar = Calendar.getInstance();
+        //将小时至0
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        //将分钟至0
+        calendar.set(Calendar.MINUTE, 59);
+        //将秒至0
+        calendar.set(Calendar.SECOND,59);
+        //将毫秒至0
+        calendar.set(Calendar.MILLISECOND, 59);
         calendar.set(Calendar.DAY_OF_MONTH,0);//设置为1号,当前日期既为本月第一天
         Date endDate=calendar.getTime();
 
@@ -61,6 +84,14 @@ public class dealTime {
             calendar.set(Calendar.MONTH,9);
             calendar.set(Calendar.DATE,1);
         }
+        //将小时至0
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        //将分钟至0
+        calendar.set(Calendar.MINUTE, 0);
+        //将秒至0
+        calendar.set(Calendar.SECOND,0);
+        //将毫秒至0
+        calendar.set(Calendar.MILLISECOND, 0);
         Date endDate=calendar.getTime();
         return endDate;
     }
@@ -71,6 +102,14 @@ public class dealTime {
         calendar.setTime(get_nowQuarter_FirstDay_ByDate());
         calendar.add(Calendar.MONTH,2);
         calendar.set(Calendar.DAY_OF_MONTH,calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        //将小时至0
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        //将分钟至0
+        calendar.set(Calendar.MINUTE, 59);
+        //将秒至0
+        calendar.set(Calendar.SECOND,59);
+        //将毫秒至0
+        calendar.set(Calendar.MILLISECOND, 59);
         return calendar.getTime();
     }
 
@@ -99,6 +138,14 @@ public class dealTime {
             calendar.set(Calendar.DATE,1);
             calendar.add(Calendar.DAY_OF_MONTH, -1);
         }
+        //将小时至0
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        //将分钟至0
+        calendar.set(Calendar.MINUTE, 0);
+        //将秒至0
+        calendar.set(Calendar.SECOND,0);
+        //将毫秒至0
+        calendar.set(Calendar.MILLISECOND, 0);
         Date endDate=calendar.getTime();
         SimpleDateFormat simpleDateFormatYM = new SimpleDateFormat("yyyyMM");//注意月份是MM
         String dateMonth=simpleDateFormatYM.format(endDate);
@@ -113,6 +160,14 @@ public class dealTime {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_MONTH, 0);
         calendar.add(Calendar.DAY_OF_MONTH, 1);
+        //将小时至0
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        //将分钟至0
+        calendar.set(Calendar.MINUTE, 0);
+        //将秒至0
+        calendar.set(Calendar.SECOND,0);
+        //将毫秒至0
+        calendar.set(Calendar.MILLISECOND, 0);
         Date endDate=calendar.getTime();
 
         return endDate;
@@ -123,6 +178,14 @@ public class dealTime {
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        //将小时至0
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        //将分钟至0
+        calendar.set(Calendar.MINUTE, 59);
+        //将秒至0
+        calendar.set(Calendar.SECOND,59);
+        //将毫秒至0
+        calendar.set(Calendar.MILLISECOND, 59);
         Date endDate=calendar.getTime();
 
         return endDate;
@@ -181,6 +244,5 @@ public class dealTime {
         int day=day2 - day1;
         return day;
     }
-
 
 }

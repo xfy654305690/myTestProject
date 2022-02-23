@@ -66,6 +66,8 @@ public class zj_Report_Zt_Business {
         Date nowEndDate=dealTime.get_nowMonth_LastDay_ByDate();
         //获取当前日期DD格式
         String nowDayYYYYMMDD=dealTime.get_date_By_String_YYYYMMDD();
+        //获取当前日期DD格式
+        String nowDay=dealTime.get_date_By_String_DD();
 
         //宽带质态
         List<zj_Report_Zt_Kd_Zj> selectZj_Report_Zt_Kd_Zj =
