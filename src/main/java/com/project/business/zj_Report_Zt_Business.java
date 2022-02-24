@@ -138,7 +138,7 @@ public class zj_Report_Zt_Business {
         String content="质态通报"+nowDayYYYYMMDD+"详见附件";
 
         //邮件发送附件图片*****************************
-        //DealEmail.ctreatMailMore(zj_Report_Public_List,null,null,title,content,OutPictureFileNew);
+        DealEmail.ctreatMailMore(zj_Report_Public_List,null,null,title,content,OutPictureFileNew);
 
         System.out.println("邮件发送成功");
 
@@ -237,7 +237,7 @@ public class zj_Report_Zt_Business {
             }
             selectZj_Report_Zt_Cmda_Zj.get(i).setCdma_Grade(grade);
             //上月奖扣
-            if(selectZj_Report_Zt_Cmda_Zj.get(i).getCdma_Las_Amt_act_rate()>0.9){
+            if(selectZj_Report_Zt_Cmda_Zj.get(i).getCdma_Las_Amt_act_rate()>0.8){
                 selectZj_Report_Zt_Cmda_Zj.get(i).setCdma_Last_Reward((double) 0);
             }else {
                 selectZj_Report_Zt_Cmda_Zj.get(i).setCdma_Last_Reward(-1*selectZj_Report_Zt_Cmda_Zj.get(i).getCdma_Last_Reward());
@@ -267,7 +267,7 @@ public class zj_Report_Zt_Business {
             }
             selectZj_Report_Zt_Itv_Zj.get(i).setItv_Grade(grade);
             //上月奖扣
-            if(selectZj_Report_Zt_Itv_Zj.get(i).getItv_Las_Amt_act_rate()>0.9){
+            if(selectZj_Report_Zt_Itv_Zj.get(i).getItv_Las_Amt_act_rate()>0.8){
                 selectZj_Report_Zt_Itv_Zj.get(i).setItv_Last_Reward((double) 0);
             }else {
                 selectZj_Report_Zt_Itv_Zj.get(i).setItv_Last_Reward(-1*selectZj_Report_Zt_Itv_Zj.get(i).getItv_Last_Reward());

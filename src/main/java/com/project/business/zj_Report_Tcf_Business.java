@@ -126,7 +126,7 @@ public class zj_Report_Tcf_Business {
         String content="调测费通报"+nowDayYYYYMMDD+"详见附件";
 
         //邮件发送附件图片*****************************
-        //DealEmail.ctreatMailMore(zj_Report_Public_List,null,null,title,content,OutPictureFileNew);
+        DealEmail.ctreatMailMore(zj_Report_Public_List,null,null,title,content,OutPictureFileNew);
 
         System.out.println("邮件发送成功");
 
@@ -141,8 +141,6 @@ public class zj_Report_Tcf_Business {
             zj_Report_TcfDao Zj_Report_TcfDaoDealData = sqlSessionDealData.getMapper(zj_Report_TcfDao.class);
 
             for (int i=0;i<zj_Report_Public_List.size();i++){
-
-                //System.out.println(zj_Report_Public_List.get(i).getZj_Abbr_Name());
 
                 zj_Report_Tcf_Kd_Data Zj_Report_Tcf_Kd_Data=new zj_Report_Tcf_Kd_Data();
 

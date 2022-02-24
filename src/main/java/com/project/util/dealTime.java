@@ -201,6 +201,27 @@ public class dealTime {
         return nowMonth;
     }
 
+    //获取前月一号，返回日期格式
+    public static Date get_lastMonth_By_String_YYYYMM(){
+
+        SimpleDateFormat simpleDateFormatYM = new SimpleDateFormat("yyyyMM");//注意月份是MM
+
+        Calendar   calendar=Calendar.getInstance();//获取当前日期
+        calendar.add(Calendar.MONTH, -1);
+        calendar.set(Calendar.DAY_OF_MONTH,1);//设置为1号,当前日期既为本月第一天
+        //将小时至0
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        //将分钟至0
+        calendar.set(Calendar.MINUTE, 0);
+        //将秒至0
+        calendar.set(Calendar.SECOND,0);
+        //将毫秒至0
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date endDate=calendar.getTime();
+
+        return endDate;
+    }
+
     //获取当前日期YYYYMM格式
     public static String get_date_By_String_YYYYMMDD(){
 
