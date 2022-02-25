@@ -262,7 +262,7 @@ public class zj_Report_Xubao_Business {
                 DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
 
             }
-            sqlSession.close();
+            sqlSessionDealData.close();
 
         }
 

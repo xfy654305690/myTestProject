@@ -186,7 +186,7 @@ public class zj_Report_Zt_Business {
 
             }
 
-            sqlSession.close();
+            sqlSessionDealData.close();
 
         }
 

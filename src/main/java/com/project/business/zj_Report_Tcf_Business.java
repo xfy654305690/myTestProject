@@ -206,7 +206,7 @@ public class zj_Report_Tcf_Business {
                 }
             }
 
-            sqlSession.close();
+            sqlSessionDealData.close();
 
         }
 

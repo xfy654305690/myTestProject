@@ -161,7 +161,7 @@ public class zj_Report_Wyj_Business {
 
             }
 
-            sqlSession.close();
+              sqlSessionDealData.close();
 
         }
 
