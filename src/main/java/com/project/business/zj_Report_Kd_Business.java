@@ -151,7 +151,7 @@ public class zj_Report_Kd_Business {
             SqlSessionFactoryBuilder builderDealData=new SqlSessionFactoryBuilder();
             SqlSessionFactory factoryDealData = builderDealData.build(inDealData);
             SqlSession sqlSessionDealData=factoryDealData.openSession();
-            zj_Report_KdDao Zj_Report_KdDaoDealData = sqlSession.getMapper(zj_Report_KdDao.class);
+            zj_Report_KdDao Zj_Report_KdDaoDealData = sqlSessionDealData.getMapper(zj_Report_KdDao.class);
 
             for (int i=0;i<zj_Report_Public_List.size();i++){
 
@@ -187,6 +187,8 @@ public class zj_Report_Kd_Business {
                 }
 
             }
+
+            sqlSession.close();
 
         }
 

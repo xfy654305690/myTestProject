@@ -186,6 +186,8 @@ public class zj_Report_Zt_Business {
 
             }
 
+            sqlSession.close();
+
         }
 
     }
@@ -210,7 +212,7 @@ public class zj_Report_Zt_Business {
             }
             selectZj_Report_Zt_Kd_Zj.get(i).setBb_Grade(grade);
             //上月奖扣
-            if(selectZj_Report_Zt_Kd_Zj.get(i).getBb_Las_Amt_act_rate()>0.9){
+            if(selectZj_Report_Zt_Kd_Zj.get(i).getBb_Las_Amt_act_rate()>=0.9){
                 selectZj_Report_Zt_Kd_Zj.get(i).setBb_Last_Reward((double) 0);
             }else {
                 selectZj_Report_Zt_Kd_Zj.get(i).setBb_Last_Reward(-1*selectZj_Report_Zt_Kd_Zj.get(i).getBb_Last_Reward());
@@ -237,7 +239,7 @@ public class zj_Report_Zt_Business {
             }
             selectZj_Report_Zt_Cmda_Zj.get(i).setCdma_Grade(grade);
             //上月奖扣
-            if(selectZj_Report_Zt_Cmda_Zj.get(i).getCdma_Las_Amt_act_rate()>0.8){
+            if(selectZj_Report_Zt_Cmda_Zj.get(i).getCdma_Las_Amt_act_rate()>=0.8){
                 selectZj_Report_Zt_Cmda_Zj.get(i).setCdma_Last_Reward((double) 0);
             }else {
                 selectZj_Report_Zt_Cmda_Zj.get(i).setCdma_Last_Reward(-1*selectZj_Report_Zt_Cmda_Zj.get(i).getCdma_Last_Reward());
@@ -267,7 +269,7 @@ public class zj_Report_Zt_Business {
             }
             selectZj_Report_Zt_Itv_Zj.get(i).setItv_Grade(grade);
             //上月奖扣
-            if(selectZj_Report_Zt_Itv_Zj.get(i).getItv_Las_Amt_act_rate()>0.8){
+            if(selectZj_Report_Zt_Itv_Zj.get(i).getItv_Las_Amt_act_rate()>=0.8){
                 selectZj_Report_Zt_Itv_Zj.get(i).setItv_Last_Reward((double) 0);
             }else {
                 selectZj_Report_Zt_Itv_Zj.get(i).setItv_Last_Reward(-1*selectZj_Report_Zt_Itv_Zj.get(i).getItv_Last_Reward());
