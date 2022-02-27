@@ -206,7 +206,7 @@ public class dealTime {
     }
 
 
-    //获取前月一号，返回日期格式
+    //获取前月，返回日期格式
     public static String get_lastMonth_By_String_YYYYMM(){
 
         SimpleDateFormat simpleDateFormatYM = new SimpleDateFormat("yyyyMM");//注意月份是MM

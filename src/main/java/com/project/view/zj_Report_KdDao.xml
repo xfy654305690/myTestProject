@@ -44,7 +44,7 @@
         order by  p3.Zj_Name  desc)
         union all
         select Q6.*,Q7.ZJ_KD_JZ  bb_Amt_Avg_Tar_Jz from (SELECT '合计' Zj_Name,Q4.AMT_NOW-Q5.AMT_OLD bb_Amt_Jz  from
-        (select COUNT(*)AMT_NOW  FROM XFY_KD_ASSET) Q4,(select COUNT(*)AMT_OLD  FROM XFY_KD_ASSET_BAK_BEF202112)Q5) Q6
+        (select COUNT(*)AMT_NOW  FROM XFY_KD_ASSET) Q4,(select COUNT(*)AMT_OLD  FROM ${tableName})Q5) Q6
         left join XFY_REP_PUB_TARGET  Q7
         on Q6.Zj_Name=Q7.ZJ_ABBR_NAME
     </select>

@@ -42,6 +42,8 @@ public class zj_Report_Zt_Business {
     public static  final  String OutExcleDataFile="C:\\Test\\ZT\\DATA\\";
     //复制导出文件地址
     public static  final  String OutExcleSouceFile="C:\\Test\\ZT\\SOUCE\\";
+    //到达备份名称
+    public static  final  String tableName="XFY_RPT_ZLYW_ACT_ASSET";
 
     public static void report_Zt_Zj_All() throws MessagingException, IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, ParseException {
 
@@ -74,16 +76,18 @@ public class zj_Report_Zt_Business {
         Date nowEndDate=dealTime.get_nowMonth_LastDay_ByDate();
         //获取当前日期DD格式
         String nowDayYYYYMMDD=dealTime.get_date_By_String_YYYYMMDD();
-
+        String lastMonth=dealTime.get_lastMonth_By_String_YYYYMM();
+        //表明
+        String tableNameNew=tableName+lastMonth;
         //宽带质态
         List<zj_Report_Zt_Kd_Zj> selectZj_Report_Zt_Kd_Zj =
-                Zj_Report_ZtDao.selectZj_Report_Zt_Kd_Zj(lastStartDate,lastEndDate,nowStartDate,nowEndDate);
+                Zj_Report_ZtDao.selectZj_Report_Zt_Kd_Zj_Js(lastStartDate,lastEndDate,nowStartDate,nowEndDate,tableNameNew);
         //宽带净增数据-KD
         List<zj_Report_Zt_Cdma_Zj> selectZj_Report_Zt_Cmda_Zj =
-                Zj_Report_ZtDao.selectZj_Report_Zt_Cmda_Zj(lastStartDate,lastEndDate,nowStartDate,nowEndDate);
+                Zj_Report_ZtDao.selectZj_Report_Zt_Cmda_Zj_Js(lastStartDate,lastEndDate,nowStartDate,nowEndDate,tableNameNew);
         //宽带ITV数据-KD
         List<zj_Report_Zt_Itv_Zj> selectZj_Report_Zt_Itv_Zj =
-                Zj_Report_ZtDao.selectZj_Report_Zt_Itv_Zj(lastStartDate,lastEndDate,nowStartDate,nowEndDate);
+                Zj_Report_ZtDao.selectZj_Report_Zt_Itv_Zj_Js(lastStartDate,lastEndDate,nowStartDate,nowEndDate,tableNameNew);
 
         String maxTime=dealTime.get_firstDate_By_String_YYYY_MM_DD();
         sqlSession.close();
