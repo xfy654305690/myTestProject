@@ -7,6 +7,7 @@ import com.project.util.dealSendMessage;
 import com.project.util.dealTime;
 import com.project.view.zj_Report_TcfDao;
 import com.project.view.zj_Report_WyjDao;
+import com.project.view.zj_Report_XubaoDao;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -39,6 +40,67 @@ public class zj_Report_Wyj_Business {
     public static  final  String OutExcleDataFile="C:\\Test\\WYJ\\DATA\\";
     //复制导出文件地址
     public static  final  String OutExcleSouceFile="C:\\Test\\WYJ\\SOUCE\\";
+    //复制导出文件地址
+    public static  final  String OutExcleAccountsFile="C:\\Test\\WYJ\\ACCOUNT\\";
+
+    public static void report_Wyj_Zj_All() throws MessagingException, IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+
+        //获取当前日期DD格式
+        String nowDay=dealTime.get_date_By_String_DD();
+        if (nowDay.equals("5")){
+            report_Wyj_Zj_Js();
+        }
+        report_Wyj_Zj();
+
+    }
+
+    public static void report_Wyj_Zj_Js() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
+
+        InputStream in= Resources.getResourceAsStream(config);
+        SqlSessionFactoryBuilder builder=new SqlSessionFactoryBuilder();
+        SqlSessionFactory factory = builder.build(in);
+        SqlSession sqlSession=factory.openSession();
+
+        zj_Report_WyjDao Zj_Report_WyjDao = sqlSession.getMapper(zj_Report_WyjDao.class);
+
+        dealTime dealTime=new dealTime();
+
+        //获取当前季度一号，返回日期格式
+        Date startDate=dealTime.getLastQuarterFirstDay();
+        //获取当前季度最后一号，返回日期格式
+        Date endDate=dealTime.getLastQuarterLastDay();
+        //获取当前日期DD格式
+        String nowDayYYYYMMDD=dealTime.get_date_By_String_YYYYMMDD();
+        //获取当前日期DD格式
+
+        //违约金
+        List<zj_Report_Wyj_Zj> zj_Report_Wyj_List_Zj =
+                Zj_Report_WyjDao.selectZj_Report_Wyj_Zj(startDate,endDate);
+
+        //续包时间数据
+        String maxTime=dealTime.get_firstDate_By_String_YYYY_MM_DD();
+
+        sqlSession.close();
+
+        zj_Report_Wyj_Zj Zj_Report_Wyj_Zj=new zj_Report_Wyj_Zj();
+
+        dealExcle DealExcle =new dealExcle();
+
+        //处理支局奖扣（1.处理缺口2.处理奖扣）
+        report_Wyj_Zj_DoDetail(zj_Report_Wyj_List_Zj);
+
+        //宽带奖扣 1
+        DealExcle.cpoyToExcle(zj_Report_Wyj_List_Zj,inExcleFile,OutExcleFile,1,Zj_Report_Wyj_Zj);
+
+        //处理时间
+        DealExcle.cpoyToExcleSingle(maxTime,inExcleFile,OutExcleFile, 2);
+
+        System.out.println("数据处理成功");
+
+        //复制文件
+        String OutExcleAccountsFileNew =OutExcleAccountsFile+"违约金"+nowDayYYYYMMDD+".xlsx";
+        DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleAccountsFileNew);
+    }
 
     //取数导出excle
     public static void report_Wyj_Zj() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {

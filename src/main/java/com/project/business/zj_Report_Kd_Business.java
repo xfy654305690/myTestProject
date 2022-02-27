@@ -44,6 +44,83 @@ public class zj_Report_Kd_Business {
     //到达备份名称
     public static  final  String tableName="XFY_KD_ASSET_BAK_BEF";
 
+
+    public static void report_Kd_Zj_All() throws MessagingException, IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, ParseException {
+        //获取当前日期DD格式
+        String nowDay=dealTime.get_date_By_String_DD();
+        if (nowDay.equals("5")){
+            report_Kd_Zj_Js();
+        }
+        //report_Kd_Zj();
+
+    }
+
+    //取数导出excle
+    public static void report_Kd_Zj_Js() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException, ParseException {
+
+        InputStream in= Resources.getResourceAsStream(config);
+        SqlSessionFactoryBuilder builder=new SqlSessionFactoryBuilder();
+        SqlSessionFactory factory = builder.build(in);
+        SqlSession sqlSession=factory.openSession();
+
+        zj_Report_KdDao Zj_Report_KdDao = sqlSession.getMapper(zj_Report_KdDao.class);
+
+        dealTime dealTime=new dealTime();
+
+        //获取当前季度一号，返回日期格式
+        Date startDate=dealTime.get_nowQuarter_FirstDay_ByDate();
+        //获取当前季度最后一日，返回日期格式
+        Date endDate=dealTime.get_nowQuarter_LastDay_ByDate();
+        //上上个季度的最后一天
+        String lastQuarterMonth =dealTime.get_lastLastQuarter_LastDay_ByDate_YYYYMM();
+        //获取当前日期DD格式
+        String nowDayYYYYMMDD=dealTime.get_date_By_String_YYYYMMDD();
+
+        //宽带新增数据-KD
+        List<zj_Report_Kd_New_Zj> selectZj_Report_Kd_New_List_Zj =
+                Zj_Report_KdDao.selectZj_Report_Kd_New_Zj(startDate,endDate);
+        //表明
+        String tableNameNew=tableName+lastQuarterMonth;
+        //宽带净增数据-KD
+        List<zj_Report_Kd_Jz_Zj> selectZj_Report_Kd_Jz_List_Zj =
+                Zj_Report_KdDao.selectZj_Report_Kd_Jz_Zj(tableNameNew);
+
+        //系统时间
+        String maxDateString=dealTime.get_firstDate_By_String_YYYY_MM_DD();
+
+        sqlSession.close();
+
+        zj_Report_Kd_New_Zj Zj_Report_Kd_New_Zj=new zj_Report_Kd_New_Zj();
+        zj_Report_Kd_Jz_Zj Zj_Report_Kd_Jz_Zj=new zj_Report_Kd_Jz_Zj();
+
+        dealExcle DealExcle =new dealExcle();
+
+        //处理时间差
+        Integer differenceDay=dealTime.get_date_Difference_Values(startDate,endDate);
+        //处理季度日期差
+        Integer quarterDay=dealTime.get_date_Difference_Values(dealTime.get_nowQuarter_FirstDay_ByDate(),dealTime.get_nowQuarter_LastDay_ByDate());
+
+        //处理支局新增
+        List<zj_Report_Kd_New_Zj> selectZj_Report_Kd_New_List_Zj_Deal =  report_Kd_New_DoDetail(selectZj_Report_Kd_New_List_Zj,differenceDay,quarterDay);
+        //宽带新增 1
+        DealExcle.cpoyToExcle(selectZj_Report_Kd_New_List_Zj_Deal,inExcleFile,OutExcleFile,1,Zj_Report_Kd_New_Zj);
+
+        //处理支局奖扣
+        List<zj_Report_Kd_Jz_Zj> selectZj_Report_Kd_Jz_List_Zj_Deal =  report_Kd_Jz_DoDetail(selectZj_Report_Kd_Jz_List_Zj,differenceDay,quarterDay);
+        //宽带净增 2
+        DealExcle.cpoyToExcle(selectZj_Report_Kd_Jz_List_Zj_Deal,inExcleFile,OutExcleFile,2,Zj_Report_Kd_Jz_Zj);
+
+        //处理时间
+        DealExcle.cpoyToExcleSingle(maxDateString,inExcleFile,OutExcleFile, 3);
+
+        System.out.println("数据处理成功");
+
+        //复制文件
+        String OutExcleSouceFilenew =OutExcleSouceFile+"宽带新增净增通报"+nowDayYYYYMMDD+".xlsx";
+        DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleSouceFilenew);
+
+    }
+
     //取数导出excle
     public static void report_Kd_Zj() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException, ParseException {
 
@@ -57,10 +134,10 @@ public class zj_Report_Kd_Business {
 
         dealTime dealTime=new dealTime();
 
-        //获取下月一号，返回日期格式
+        //获取当前季度一号，返回日期格式
         Date startDate=dealTime.get_nowQuarter_FirstDay_ByDate();
-        //获取下月一号，返回日期格式
-        Date endDate=dealTime.get_nowMonth_LastDay_ByDate();
+        //获取当前季度最后一日，返回日期格式
+        Date endDate=dealTime.get_nowQuarter_LastDay_ByDate();
         //上个季度的最后一天
         String lastQuarterMonth =dealTime.get_lastQuarter_LastDay_ByDate_YYYYMM();
         //获取当前日期DD格式

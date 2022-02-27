@@ -12,8 +12,7 @@ public class zj_Report_Xubao_Controller {
     public static void main(String[] args) throws Exception {
 
         zj_Report_Xubao_Business Zj_Report_Xubao_Business=new zj_Report_Xubao_Business();
-        Zj_Report_Xubao_Business.report_Xubao_Zj();
-
+        Zj_Report_Xubao_Business.report_Xubao_Zj_All();
 
     }
 

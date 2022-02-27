@@ -43,14 +43,14 @@ public class zj_Report_Xubao_Business {
     //复制导出文件地址
     public static  final  String OutExcleAccountsFile="C:\\Test\\XB\\ACCOUNT\\";
 
-    public static void report_Xubao_Zj_All(){
+    public static void report_Xubao_Zj_All() throws MessagingException, IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
 
         //获取当前日期DD格式
         String nowDay=dealTime.get_date_By_String_DD();
         if (nowDay.equals("5")){
-
+            report_Xubao_Zj_Js();
         }
-
+        report_Xubao_Zj();
     }
 
     public static void report_Xubao_Zj_Js() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
@@ -61,35 +61,27 @@ public class zj_Report_Xubao_Business {
         SqlSession sqlSession=factory.openSession();
 
         zj_Report_XubaoDao Zj_Report_XubaoDao = sqlSession.getMapper(zj_Report_XubaoDao.class);
-
         dealTime dealTime=new dealTime();
         //获取当月一号，返回日期格式
         Date endDate=dealTime.get_nowMonth_FirstDay_ByDate();
-
-        //获取当前日期YYYYMM格式
-        String nowMonth=dealTime.get_date_By_String_YYYYMM();
-
-        //获取当前日期DD格式
-        String nowDay=dealTime.get_date_By_String_DD();
-
+        //获取上月日期YYYYMM格式
+        String lastMonth=dealTime.get_lastMonth_By_String_YYYYMM();
         //获取当前日期DD格式
         String nowDayYYYYMMDD=dealTime.get_date_By_String_YYYYMMDD();
 
         //续包支局数据
         List<zj_Report_Xubao_Zj> zj_Report_XubaoList_Zj =
-                Zj_Report_XubaoDao.selectZj_Report_Xubao_Zj(endDate,nowMonth );
-
+                Zj_Report_XubaoDao.selectZj_Report_Xubao_Zj(endDate,lastMonth );
 
         //续包县份数据
         List<zj_Report_Xubao_Xf> zj_Report_XubaoList_Xf =
-                Zj_Report_XubaoDao.selectZj_Report_Xubao_Xf(endDate,nowMonth );
+                Zj_Report_XubaoDao.selectZj_Report_Xubao_Xf(endDate,lastMonth );
 
         //续包条线数据
         List<zj_Report_Xubao_Tx> zj_Report_XubaoList_Tx =
-                Zj_Report_XubaoDao.selectZj_Report_Xubao_Tx(endDate,nowMonth );
+                Zj_Report_XubaoDao.selectZj_Report_Xubao_Tx(endDate,lastMonth );
 
-        //续包时间数据
-        String maxTime=Zj_Report_XubaoDao.selectZj_Report_Xubao_MaxTime();
+        String maxTime=dealTime.get_firstDate_By_String_YYYY_MM_DD();
 
         sqlSession.close();
 
@@ -98,8 +90,6 @@ public class zj_Report_Xubao_Business {
         zj_Report_Xubao_Tx Zj_Report_Xubao_Tx=new zj_Report_Xubao_Tx();
 
         dealExcle DealExcle =new dealExcle();
-        dealEmail DealEmail=new dealEmail();
-        dealSendMessage DealSendMessage=new dealSendMessage();
 
         //处理支局奖扣（1.处理缺口2.处理奖扣）
         report_Xubao_Zj_DoDetail(zj_Report_XubaoList_Zj);
@@ -121,12 +111,9 @@ public class zj_Report_Xubao_Business {
 
         System.out.println("数据处理成功");
 
-        //
-        String OutExcleSouceFilenew =OutExcleSouceFile+"续包"+nowDayYYYYMMDD+".xlsx";
-        DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleSouceFilenew);
+        String OutExcleAccountsFileNew =OutExcleAccountsFile+"续包"+nowDayYYYYMMDD+".xlsx";
+        DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleAccountsFileNew);
         System.out.println("复制文件成功成功");
-
-
 
     }
 

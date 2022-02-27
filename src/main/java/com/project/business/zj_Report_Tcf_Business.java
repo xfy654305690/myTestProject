@@ -39,6 +39,77 @@ public class zj_Report_Tcf_Business {
     public static  final  String OutExcleDataFile="C:\\Test\\Tcf\\DATA\\";
     //复制导出文件地址
     public static  final  String OutExcleSouceFile="C:\\Test\\Tcf\\SOUCE\\";
+    //复制导出文件地址
+    public static  final  String OutExcleAccountsFile="C:\\Test\\Tcf\\ACCOUNT\\";
+
+
+    public static void report_Tcf_Zj_All() throws MessagingException, IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+
+        //获取当前日期DD格式
+        String nowDay=dealTime.get_date_By_String_DD();
+        if (nowDay.equals("5")){
+            report_Tcf_Zj_Js();
+        }
+        //report_Tcf_Zj();
+
+    }
+
+    //取数导出excle
+    public static void report_Tcf_Zj_Js() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
+
+        InputStream in= Resources.getResourceAsStream(config);
+        SqlSessionFactoryBuilder builder=new SqlSessionFactoryBuilder();
+        SqlSessionFactory factory = builder.build(in);
+        SqlSession sqlSession=factory.openSession();
+
+        zj_Report_TcfDao Zj_Report_TcfDao = sqlSession.getMapper(zj_Report_TcfDao.class);
+
+        dealTime dealTime=new dealTime();
+
+        //获取上月一号，返回日期格式
+        Date startDate=dealTime.get_lastMonth_FirstDay_ByDate();
+        //获取上月最后一号，返回日期格式
+        Date endDate=dealTime.get_lastMonth_LastDay_ByDate();
+        //获取当前日期DD格式
+        String nowDayYYYYMMDD=dealTime.get_date_By_String_YYYYMMDD();
+
+        //调测费数据-KD
+        List<zj_Report_Tcf_Zj> zj_Report_Tcf_KDList_Zj =
+                Zj_Report_TcfDao.selectZj_Report_Tcf_Kd_Zj(startDate,endDate);
+
+        //调测费数据-ITV
+        List<zj_Report_Tcf_Zj> zj_Report_Tcf_ItvList_Zj =
+                Zj_Report_TcfDao.selectZj_Report_Tcf_Itv_Zj(startDate,endDate);
+
+        String maxTime=dealTime.get_firstDate_By_String_YYYY_MM_DD();
+
+        sqlSession.close();
+
+        zj_Report_Tcf_Zj Zj_Report_Tcf_Zj=new zj_Report_Tcf_Zj();
+
+        dealExcle DealExcle =new dealExcle();
+
+        //处理支局奖扣
+        List<zj_Report_Tcf_Zj> zj_Report_Tcf_KDList_Zj_New =  report_Tcf_Zj_DoDetail(zj_Report_Tcf_KDList_Zj);
+        //宽带奖扣 1
+        DealExcle.cpoyToExcle(zj_Report_Tcf_KDList_Zj_New,inExcleFile,OutExcleFile,1,Zj_Report_Tcf_Zj);
+
+        //处理支局奖扣
+        List<zj_Report_Tcf_Zj> zj_Report_Tcf_ItvList_Zj_New =report_Tcf_Zj_DoDetail(zj_Report_Tcf_ItvList_Zj);
+
+        //ITV奖扣 2
+        DealExcle.cpoyToExcle(zj_Report_Tcf_ItvList_Zj_New,inExcleFile,OutExcleFile,2,Zj_Report_Tcf_Zj);
+
+        //处理时间
+        DealExcle.cpoyToExcleSingle(maxTime,inExcleFile,OutExcleFile, 3);
+
+        System.out.println("数据处理成功");
+
+        //复制文件
+        String OutExcleAccountsFileNew =OutExcleAccountsFile+"调测费"+nowDayYYYYMMDD+".xlsx";
+        DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleAccountsFileNew);
+
+    }
 
     //取数导出excle
     public static void report_Tcf_Zj() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
@@ -52,9 +123,9 @@ public class zj_Report_Tcf_Business {
 
         dealTime dealTime=new dealTime();
 
-        //获取下月一号，返回日期格式
+        //获取当月一号，返回日期格式
         Date startDate=dealTime.get_nowMonth_FirstDay_ByDate();
-        //获取下月一号，返回日期格式
+        //获取当月最后一号，返回日期格式
         Date endDate=dealTime.get_nowMonth_LastDay_ByDate();
 
         //获取当前日期DD格式

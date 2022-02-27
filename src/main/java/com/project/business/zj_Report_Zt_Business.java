@@ -43,8 +43,85 @@ public class zj_Report_Zt_Business {
     //复制导出文件地址
     public static  final  String OutExcleSouceFile="C:\\Test\\ZT\\SOUCE\\";
 
+    public static void report_Zt_Zj_All() throws MessagingException, IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, ParseException {
+
+        //获取当前日期DD格式
+        String nowDay=dealTime.get_date_By_String_DD();
+        if (nowDay.equals("6")){
+            report_Zt_Zj_Js();
+        }
+        report_Zt_Zj();
+    }
+
     //取数导出excle
-    public static void report_Tcf_Zj() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException, ParseException {
+    public static void report_Zt_Zj_Js() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException, ParseException {
+
+        InputStream in= Resources.getResourceAsStream(config);
+        SqlSessionFactoryBuilder builder=new SqlSessionFactoryBuilder();
+        SqlSessionFactory factory = builder.build(in);
+        SqlSession sqlSession=factory.openSession();
+
+        zj_Report_ZtDao Zj_Report_ZtDao = sqlSession.getMapper(zj_Report_ZtDao.class);
+        dealTime dealTime=new dealTime();
+
+        //获取上月一号，返回日期格式
+        Date lastStartDate=dealTime.get_lastMonth_FirstDay_ByDate();
+        //获取上月最后一号，返回日期格式
+        Date lastEndDate=dealTime.get_lastMonth_LastDay_ByDate();
+        //获取本月一号，返回日期格式
+        Date nowStartDate=dealTime.get_nowMonth_FirstDay_ByDate();
+        //获取本月最后一号，返回日期格式
+        Date nowEndDate=dealTime.get_nowMonth_LastDay_ByDate();
+        //获取当前日期DD格式
+        String nowDayYYYYMMDD=dealTime.get_date_By_String_YYYYMMDD();
+
+        //宽带质态
+        List<zj_Report_Zt_Kd_Zj> selectZj_Report_Zt_Kd_Zj =
+                Zj_Report_ZtDao.selectZj_Report_Zt_Kd_Zj(lastStartDate,lastEndDate,nowStartDate,nowEndDate);
+        //宽带净增数据-KD
+        List<zj_Report_Zt_Cdma_Zj> selectZj_Report_Zt_Cmda_Zj =
+                Zj_Report_ZtDao.selectZj_Report_Zt_Cmda_Zj(lastStartDate,lastEndDate,nowStartDate,nowEndDate);
+        //宽带ITV数据-KD
+        List<zj_Report_Zt_Itv_Zj> selectZj_Report_Zt_Itv_Zj =
+                Zj_Report_ZtDao.selectZj_Report_Zt_Itv_Zj(lastStartDate,lastEndDate,nowStartDate,nowEndDate);
+
+        String maxTime=dealTime.get_firstDate_By_String_YYYY_MM_DD();
+        sqlSession.close();
+
+        zj_Report_Zt_Kd_Zj Zj_Report_Zt_Kd_Zj=new zj_Report_Zt_Kd_Zj();
+        zj_Report_Zt_Cdma_Zj Zj_Report_Zt_Cdma_Zj=new zj_Report_Zt_Cdma_Zj();
+        zj_Report_Zt_Itv_Zj Zj_Report_Zt_Itv_Zj=new zj_Report_Zt_Itv_Zj();
+
+        dealExcle DealExcle =new dealExcle();
+
+        //处理支局KD
+        List<zj_Report_Zt_Kd_Zj>selectZj_Report_Zt_Kd_Zj_Deal = report_Kd_Zt_DoDetail(selectZj_Report_Zt_Kd_Zj);
+        //宽带 1
+        DealExcle.cpoyToExcle(selectZj_Report_Zt_Kd_Zj_Deal,inExcleFile,OutExcleFile,1,Zj_Report_Zt_Kd_Zj);
+
+        //处理支局CDMA
+        List<zj_Report_Zt_Cdma_Zj>selectZj_Report_Zt_Cmda_Zj_Deal =report_Cdma_Zt_DoDetail(selectZj_Report_Zt_Cmda_Zj);
+        //CDMA 2
+        DealExcle.cpoyToExcle(selectZj_Report_Zt_Cmda_Zj_Deal,inExcleFile,OutExcleFile,2,Zj_Report_Zt_Cdma_Zj);
+
+        //处理支局ITV
+        List<zj_Report_Zt_Itv_Zj>selectZj_Report_Zt_Itv_Zj_Deal =report_Itv_Zt_DoDetail(selectZj_Report_Zt_Itv_Zj);
+        //ITV 3
+        DealExcle.cpoyToExcle(selectZj_Report_Zt_Itv_Zj_Deal,inExcleFile,OutExcleFile,3,Zj_Report_Zt_Itv_Zj);
+
+        //处理时间
+        DealExcle.cpoyToExcleSingle(maxTime,inExcleFile,OutExcleFile, 4);
+        System.out.println("数据处理成功");
+
+        //复制文件
+        String OutExcleSouceFilenew =OutExcleSouceFile+"质态"+nowDayYYYYMMDD+".xlsx";
+        DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleSouceFilenew);
+
+    }
+
+
+    //取数导出excle
+    public static void report_Zt_Zj() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException, ParseException {
 
         InputStream in= Resources.getResourceAsStream(config);
         SqlSessionFactoryBuilder builder=new SqlSessionFactoryBuilder();

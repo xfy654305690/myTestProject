@@ -6,19 +6,41 @@ import java.util.Date;
 
 public class dealTime {
 
+    /**
+     * 最小时间
+     *
+     * @param calendar
+     */
+    private static void setMinTime(Calendar calendar) {
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+    }
+
+    /**
+     * 最大时间
+     *
+     * @param calendar
+     */
+    private static void setMaxTime(Calendar calendar) {
+        //将小时至0
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        //将分钟至0
+        calendar.set(Calendar.MINUTE, 59);
+        //将秒至0
+        calendar.set(Calendar.SECOND,59);
+        //将毫秒至0
+        calendar.set(Calendar.MILLISECOND, 59);
+    }
+
+
     //获取下月一号，返回日期格式
     public static Date get_NextMonth_FirstDay_ByDate(){
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_MONTH, 1);
-        //将小时至0
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        //将分钟至0
-        calendar.set(Calendar.MINUTE, 0);
-        //将秒至0
-        calendar.set(Calendar.SECOND,0);
-        //将毫秒至0
-        calendar.set(Calendar.MILLISECOND, 0);
+        setMinTime(calendar);
         calendar.add(Calendar.MONTH, 1);
         Date endDate=calendar.getTime();// 获取下月一号
 
@@ -31,14 +53,7 @@ public class dealTime {
         Calendar   calendar=Calendar.getInstance();//获取当前日期
         calendar.add(Calendar.MONTH, -1);
         calendar.set(Calendar.DAY_OF_MONTH,1);//设置为1号,当前日期既为本月第一天
-        //将小时至0
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        //将分钟至0
-        calendar.set(Calendar.MINUTE, 0);
-        //将秒至0
-        calendar.set(Calendar.SECOND,0);
-        //将毫秒至0
-        calendar.set(Calendar.MILLISECOND, 0);
+        setMinTime(calendar);
         Date endDate=calendar.getTime();
 
         return endDate;
@@ -48,19 +63,33 @@ public class dealTime {
     public static Date get_lastMonth_LastDay_ByDate(){
 
         Calendar calendar = Calendar.getInstance();
-        //将小时至0
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
-        //将分钟至0
-        calendar.set(Calendar.MINUTE, 59);
-        //将秒至0
-        calendar.set(Calendar.SECOND,59);
-        //将毫秒至0
-        calendar.set(Calendar.MILLISECOND, 59);
+        setMaxTime(calendar);
         calendar.set(Calendar.DAY_OF_MONTH,0);//设置为1号,当前日期既为本月第一天
         Date endDate=calendar.getTime();
 
         return endDate;
     }
+
+    //获取上个季度第一日，返回日期格式
+    public static Date getLastQuarterFirstDay() {
+        Calendar startCalendar = Calendar.getInstance();
+        startCalendar.set(Calendar.MONTH, ((int) startCalendar.get(Calendar.MONTH) / 3 - 1) * 3);
+        startCalendar.set(Calendar.DAY_OF_MONTH, 1);
+        setMinTime(startCalendar);
+
+        return startCalendar.getTime();
+    }
+
+    //获取上个季度最后一日，返回日期格式
+    public static Date getLastQuarterLastDay() {
+        Calendar endCalendar = Calendar.getInstance();
+        endCalendar.set(Calendar.MONTH, ((int) endCalendar.get(Calendar.MONTH) / 3 - 1) * 3 + 2);
+        endCalendar.set(Calendar.DAY_OF_MONTH, endCalendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        setMaxTime(endCalendar);
+
+        return endCalendar.getTime();
+    }
+
 
 
     //获取当季度一号，返回日期格式
@@ -84,14 +113,7 @@ public class dealTime {
             calendar.set(Calendar.MONTH,9);
             calendar.set(Calendar.DATE,1);
         }
-        //将小时至0
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        //将分钟至0
-        calendar.set(Calendar.MINUTE, 0);
-        //将秒至0
-        calendar.set(Calendar.SECOND,0);
-        //将毫秒至0
-        calendar.set(Calendar.MILLISECOND, 0);
+        setMinTime(calendar);
         Date endDate=calendar.getTime();
         return endDate;
     }
@@ -102,19 +124,12 @@ public class dealTime {
         calendar.setTime(get_nowQuarter_FirstDay_ByDate());
         calendar.add(Calendar.MONTH,2);
         calendar.set(Calendar.DAY_OF_MONTH,calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-        //将小时至0
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
-        //将分钟至0
-        calendar.set(Calendar.MINUTE, 59);
-        //将秒至0
-        calendar.set(Calendar.SECOND,59);
-        //将毫秒至0
-        calendar.set(Calendar.MILLISECOND, 59);
+        setMaxTime(calendar);
         return calendar.getTime();
     }
 
 
-    //获取当季度一号，返回日期格式
+    //获取上季度最后一号，返回日期格式
     public static String get_lastQuarter_LastDay_ByDate_YYYYMM(){
         Calendar calendar = Calendar.getInstance();
         int month=calendar.get(Calendar.MONTH)+1;
@@ -138,14 +153,7 @@ public class dealTime {
             calendar.set(Calendar.DATE,1);
             calendar.add(Calendar.DAY_OF_MONTH, -1);
         }
-        //将小时至0
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        //将分钟至0
-        calendar.set(Calendar.MINUTE, 0);
-        //将秒至0
-        calendar.set(Calendar.SECOND,0);
-        //将毫秒至0
-        calendar.set(Calendar.MILLISECOND, 0);
+        setMinTime(calendar);
         Date endDate=calendar.getTime();
         SimpleDateFormat simpleDateFormatYM = new SimpleDateFormat("yyyyMM");//注意月份是MM
         String dateMonth=simpleDateFormatYM.format(endDate);
@@ -153,6 +161,16 @@ public class dealTime {
         return dateMonth;
     }
 
+    //获取上季度最后一号，返回日期格式
+    public static String get_lastLastQuarter_LastDay_ByDate_YYYYMM(){
+        Calendar endCalendar = Calendar.getInstance();
+        endCalendar.set(Calendar.MONTH, ((int) endCalendar.get(Calendar.MONTH) / 3 - 1) * 3 + 2);
+        endCalendar.set(Calendar.DAY_OF_MONTH, endCalendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        endCalendar.add(Calendar.DAY_OF_MONTH, -1);
+        SimpleDateFormat simpleDateFormatYM = new SimpleDateFormat("yyyyMM");//注意月份是MM
+        String dateMonth=simpleDateFormatYM.format(endCalendar.getTime());
+        return dateMonth;
+    }
 
     //获取当月一号，返回日期格式
     public static Date get_nowMonth_FirstDay_ByDate(){
@@ -160,14 +178,7 @@ public class dealTime {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_MONTH, 0);
         calendar.add(Calendar.DAY_OF_MONTH, 1);
-        //将小时至0
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        //将分钟至0
-        calendar.set(Calendar.MINUTE, 0);
-        //将秒至0
-        calendar.set(Calendar.SECOND,0);
-        //将毫秒至0
-        calendar.set(Calendar.MILLISECOND, 0);
+        setMinTime(calendar);
         Date endDate=calendar.getTime();
 
         return endDate;
@@ -178,14 +189,7 @@ public class dealTime {
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-        //将小时至0
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
-        //将分钟至0
-        calendar.set(Calendar.MINUTE, 59);
-        //将秒至0
-        calendar.set(Calendar.SECOND,59);
-        //将毫秒至0
-        calendar.set(Calendar.MILLISECOND, 59);
+        setMaxTime(calendar);
         Date endDate=calendar.getTime();
 
         return endDate;
@@ -201,25 +205,16 @@ public class dealTime {
         return nowMonth;
     }
 
+
     //获取前月一号，返回日期格式
-    public static Date get_lastMonth_By_String_YYYYMM(){
+    public static String get_lastMonth_By_String_YYYYMM(){
 
         SimpleDateFormat simpleDateFormatYM = new SimpleDateFormat("yyyyMM");//注意月份是MM
-
-        Calendar   calendar=Calendar.getInstance();//获取当前日期
+        Calendar  calendar=Calendar.getInstance();//获取当前日期
         calendar.add(Calendar.MONTH, -1);
-        calendar.set(Calendar.DAY_OF_MONTH,1);//设置为1号,当前日期既为本月第一天
-        //将小时至0
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        //将分钟至0
-        calendar.set(Calendar.MINUTE, 0);
-        //将秒至0
-        calendar.set(Calendar.SECOND,0);
-        //将毫秒至0
-        calendar.set(Calendar.MILLISECOND, 0);
-        Date endDate=calendar.getTime();
+        String lastMonth=simpleDateFormatYM.format(calendar.getTime());
 
-        return endDate;
+        return lastMonth;
     }
 
     //获取当前日期YYYYMM格式
@@ -241,6 +236,17 @@ public class dealTime {
         String nowMonth=simpleDateFormatYMD.format(nowMonthDate);
 
         return nowMonth;
+    }
+
+    //获取当前日期YYYYMMDD格式
+    public static String get_firstDate_By_String_YYYY_MM_DD(){
+
+        SimpleDateFormat simpleDateFormatYMD = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar  calendar=Calendar.getInstance();//获取当前日期
+        calendar.add(Calendar.MONTH, -1);
+        String firstDay=simpleDateFormatYMD.format(calendar.getTime());
+
+        return firstDay;
     }
 
 
