@@ -48,18 +48,9 @@
         left join XFY_REP_PUB_TARGET  Q7
         on Q6.Zj_Name=Q7.ZJ_ABBR_NAME
     </select>
-    <select id="selectZj_Report_Kd_Jz_Data"  resultType="com.project.model.zj_Report_Kd_Jz_Zj">
---         select P1.ZJ_AREA_NAME,p1.DATA_USER_NAME,p1.CDSC_NAME,p1.STAT_NAME,p1.ASSET_ROW_ID,p1.CACCT_ID,p1.BIL_FLG,p1.DATE_CD as bilTime
---         from XFY_KD_ASSET P1
---                  LEFT JOIN #{tableName} P2
---                            ON P1.ASSET_ROW_ID=P2.ASSET_ROW_ID
---         WHERE P2.ASSET_ROW_ID IS NULL
---           AND P1.ZJ_AREA_NAME IN
---               (SELECT p3.ZJ_NEW FROM  XFY_REP_PUB_ZJ_CON P3
---                WHERE  P3.ZJ_OLD = #{zjName})
---         union all
+    <select id="selectZj_Report_Kd_Jz_Data"  resultType="com.project.model.zj_Report_Kd_Jz_Data">
         select q1.ZJ_AREA_NAME_NEW,q1.DATA_USER_NAME,q1.CDSC_NAME,q1.STAT_NAME,q1.ASSET_ROW_ID,q1.CACCT_ID,q1.BIL_FLG,q1.BIL_MONTH as bilTime
-        from #{tableName}  q1
+        from ${tableName}  q1
                  left join XFY_KD_ASSET q2
                            on q1.ASSET_ROW_ID=q2.ASSET_ROW_ID
         where q2.ASSET_ROW_ID is null
