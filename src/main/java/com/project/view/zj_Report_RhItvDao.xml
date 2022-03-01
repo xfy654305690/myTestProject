@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.view.zj_Report_RhItvDao">
     <select id="select_zj_Report_RhItv_Zj"  resultType="com.project.model.zj_Report_RhItv_Zj">
-        SELECT * FROM (select p.Zj_Name,p.rh_Add_Amt,p.rh_Unadd_Amt,p.rh_Amt,p.rh_Add_rate from (
+        SELECT * FROM (select p.Zj_Name,p.rh_Amt,p.rh_Add_Amt,p.rh_Unadd_Amt,p.rh_Add_rate from (
         select case when p1.ZJ is null then S.BRANCH_AREA_NAME else p1.ZJ end Zj_Name,count(*) rh_Amt,
         sum(case when s.ITV_ASSET_ROW_ID is not null then 1 else 0 end ) rh_Add_Amt,
         sum(case when s.ITV_ASSET_ROW_ID is null then 1 else 0 end ) rh_Unadd_Amt,
@@ -34,12 +34,13 @@
          b.CPL_DT,b.ACCS_NBR_ZK,b.PROM_AMT,b.ZK_STAT_NAME,b.YW_TYPE,b.SALES_DEPT_NAME,b.MKT_EMPLOYEE_ID,
                b.MKT_EMPLOYEE_NAME,b.ACCS_NBR_FK1,b.ACCS_NBR_FK2,b.ACCS_NBR_FK3,b.ACCS_NBR_FK4,
                b.PROM_TYPE_BD,b.KD_ASSET_ROW_ID,b.ITV_ASSET_ROW_ID,b.KHQ
-        FROM  from XFY_RPT_RH_ORDER_ASSET b
+        FROM  XFY_RPT_RH_ORDER_ASSET b
                   LEFT JOIN XFY_REP_PUB_CDRY c
                             ON B.MKT_EMPLOYEE_ID=c.MKT_NAME
         where   b.cpl_dt &gt;= #{startDate}  and  b.cpl_dt &lt;= #{endDate}
-            nd s.KHQ='公众'
-          and C.ZJ in (
+            and b.KHQ='公众'
+          AND B.ITV_ASSET_ROW_ID IS NULL
+          and case when C.ZJ is null then b.BRANCH_AREA_NAME else C.ZJ end in (
             select D.zj_new from XFY_REP_PUB_ZJ_CON D
             where d.zj_old = #{zj_name}
         )

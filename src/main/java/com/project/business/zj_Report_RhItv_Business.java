@@ -136,7 +136,7 @@ public class zj_Report_RhItv_Business {
 
         //发送数据给支局长 *********这里乱码没有结解决
         //if (nowDay.equals("5")||nowDay.equals("10")||nowDay.equals("15")||nowDay.equals("20")||nowDay.equals("25")){
-        if (0>1){
+        //if (0>1){
             InputStream inDealData= Resources.getResourceAsStream(config);
             SqlSessionFactoryBuilder builderDealData=new SqlSessionFactoryBuilder();
             SqlSessionFactory factoryDealData = builderDealData.build(inDealData);
@@ -145,7 +145,7 @@ public class zj_Report_RhItv_Business {
 
             for (int i=0;i<zj_Report_Public_List.size();i++){
 
-                zj_Report_Kd_Jz_Data zj_Report_Kd_Jz_Data=new zj_Report_Kd_Jz_Data();
+                zj_Report_RhItv_Data zj_Report_RhItv_Data=new zj_Report_RhItv_Data();
 
                 List<zj_Report_RhItv_Data> Zj_Report_RhItv_Data_List =
                         zj_Report_RhItvDaoDealData.select_Zj_Report_RhItv_Data(startDate,endDate,zj_Report_Public_List.get(i).getZj_Abbr_Name());
@@ -159,10 +159,10 @@ public class zj_Report_RhItv_Business {
                 if(Zj_Report_RhItv_Data_List.size()!=0){
                     titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"融合未渗透ITV数据详见附件"+nowDayYYYYMMDD;
                     contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"融合未渗透ITV数据详见附件"+nowDayYYYYMMDD;
-                    OutExcleDataFileNew=OutExcleDataFile+str+"Wyj"+nowDayYYYYMMDD+".xlsx";
+                    OutExcleDataFileNew=OutExcleDataFile+str+"RhItv"+nowDayYYYYMMDD+".xlsx";
                     System.out.printf(OutExcleDataFileNew);
                     //复制值,并且另存为
-                    DealExcle.cpoyToExcle(Zj_Report_RhItv_Data_List,null,OutExcleDataFileNew,0,zj_Report_Kd_Jz_Data);
+                    DealExcle.cpoyToExcle(Zj_Report_RhItv_Data_List,null,OutExcleDataFileNew,0,zj_Report_RhItv_Data);
                     System.out.printf("复制成功");
                     //读取附件并且发送
                     DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
@@ -179,7 +179,7 @@ public class zj_Report_RhItv_Business {
 
             sqlSessionDealData.close();
 
-        }
+        //}
 
     }
 

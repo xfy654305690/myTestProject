@@ -11,7 +11,7 @@ public class zj_Report_RhItv_Zj {
     //其中融合未添加ITV数量
     public  Integer rh_Unadd_Amt;
     //其中融合渗透率
-    public  Integer rh_Add_rate;
+    public  Double rh_Add_rate;
     //奖扣
     public  Integer rh_Reword;
 
@@ -47,11 +47,11 @@ public class zj_Report_RhItv_Zj {
         this.rh_Unadd_Amt = rh_Unadd_Amt;
     }
 
-    public Integer getRh_Add_rate() {
+    public Double getRh_Add_rate() {
         return rh_Add_rate;
     }
 
-    public void setRh_Add_rate(Integer rh_Add_rate) {
+    public void setRh_Add_rate(Double rh_Add_rate) {
         this.rh_Add_rate = rh_Add_rate;
     }
 
