@@ -117,7 +117,7 @@ public class zj_Report_RhItv_Business {
 
         //将图片发送微信
         // 1是文字，2是图片
-        //DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
+        DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
 
         System.out.println("发送微信成功");
 
@@ -130,13 +130,13 @@ public class zj_Report_RhItv_Business {
         String content="融合未渗透ITV"+nowDayYYYYMMDD+"详见附件";
 
         //邮件发送附件图片*****************************
-        //DealEmail.ctreatMailMore(zj_Report_Public_List,null,null,title,content,OutPictureFileNew);
+        DealEmail.ctreatMailMore(zj_Report_Public_List,null,null,title,content,OutPictureFileNew);
 
         System.out.println("邮件发送成功");
 
         //发送数据给支局长 *********这里乱码没有结解决
         //if (nowDay.equals("5")||nowDay.equals("10")||nowDay.equals("15")||nowDay.equals("20")||nowDay.equals("25")){
-        //if (0>1){
+        if (0>1){
             InputStream inDealData= Resources.getResourceAsStream(config);
             SqlSessionFactoryBuilder builderDealData=new SqlSessionFactoryBuilder();
             SqlSessionFactory factoryDealData = builderDealData.build(inDealData);
@@ -179,7 +179,7 @@ public class zj_Report_RhItv_Business {
 
             sqlSessionDealData.close();
 
-        //}
+        }
 
     }
 

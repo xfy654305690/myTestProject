@@ -33,5 +33,6 @@
         <mapper resource="com\project\view\zj_Report_KdDao.xml" />
         <mapper resource="com\project\view\zj_Report_ZtDao.xml" />
         <mapper resource="com\project\view\zj_Report_RhItvDao.xml" />
+        <mapper resource="com\project\view\zj_Report_OtherDoneDao.xml" />
     </mappers>
 </configuration>
