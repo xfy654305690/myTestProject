@@ -44,17 +44,6 @@ public class zj_Report_Kd_Business {
     //到达备份名称
     public static  final  String tableName="XFY_KD_ASSET_BAK_BEF";
 
-
-    public static void report_Kd_Zj_All() throws MessagingException, IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, ParseException {
-        //获取当前日期DD格式
-        String nowDay=dealTime.get_date_By_String_DD();
-        if (nowDay.equals("5")){
-            report_Kd_Zj_Js();
-        }
-        //report_Kd_Zj();
-
-    }
-
     //取数导出excle
     public static void report_Kd_Zj_Js() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException, ParseException {
 

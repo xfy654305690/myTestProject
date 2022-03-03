@@ -2,11 +2,9 @@ package com.project.model;
 
 public class zj_Report_OtherDone_Zd_Data {
 
-    public String order_id;
+    public String zj_area_name;
 
-    public String accs_nbr_zk;
-
-    public String cpl_dt;
+    public String accs_nbr;
 
     public String prom_name;
 
@@ -14,28 +12,22 @@ public class zj_Report_OtherDone_Zd_Data {
 
     public String sales_dept_name;
 
-    public String getOrder_id() {
-        return order_id;
+    public String prom_type;
+
+    public String getZj_area_name() {
+        return zj_area_name;
     }
 
-    public void setOrder_id(String order_id) {
-        this.order_id = order_id;
+    public void setZj_area_name(String zj_area_name) {
+        this.zj_area_name = zj_area_name;
     }
 
-    public String getAccs_nbr_zk() {
-        return accs_nbr_zk;
+    public String getAccs_nbr() {
+        return accs_nbr;
     }
 
-    public void setAccs_nbr_zk(String accs_nbr_zk) {
-        this.accs_nbr_zk = accs_nbr_zk;
-    }
-
-    public String getCpl_dt() {
-        return cpl_dt;
-    }
-
-    public void setCpl_dt(String cpl_dt) {
-        this.cpl_dt = cpl_dt;
+    public void setAccs_nbr(String accs_nbr) {
+        this.accs_nbr = accs_nbr;
     }
 
     public String getProm_name() {
@@ -62,15 +54,23 @@ public class zj_Report_OtherDone_Zd_Data {
         this.sales_dept_name = sales_dept_name;
     }
 
+    public String getProm_type() {
+        return prom_type;
+    }
+
+    public void setProm_type(String prom_type) {
+        this.prom_type = prom_type;
+    }
+
     @Override
     public String toString() {
         return "zj_Report_OtherDone_Zd_Data{" +
-                "order_id='" + order_id + '\'' +
-                ", accs_nbr_zk='" + accs_nbr_zk + '\'' +
-                ", cpl_dt='" + cpl_dt + '\'' +
+                "zj_area_name='" + zj_area_name + '\'' +
+                ", accs_nbr='" + accs_nbr + '\'' +
                 ", prom_name='" + prom_name + '\'' +
                 ", mkt_employee_name='" + mkt_employee_name + '\'' +
                 ", sales_dept_name='" + sales_dept_name + '\'' +
+                ", prom_type='" + prom_type + '\'' +
                 '}';
     }
 }

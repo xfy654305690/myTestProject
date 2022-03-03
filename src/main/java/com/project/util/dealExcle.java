@@ -50,6 +50,11 @@ public class dealExcle {
         if(inFileName != null){
             XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new FileInputStream(inFileName));
 
+            if(dex>(xssfWorkbook.getNumberOfSheets()-1)){
+                for (int i=xssfWorkbook.getNumberOfSheets();i<=dex;i++){
+                    xssfWorkbook.createSheet("sheet"+(xssfWorkbook.getNumberOfSheets()));
+                }
+            }
             XSSFSheet sheet = xssfWorkbook.getSheetAt(dex);
             //循环复制值
             copyData(sheet,maxCell,maxRow,list);
@@ -154,28 +159,65 @@ public class dealExcle {
     //复制值toExcleSingle
     public void cpoyToExcleSingle(String maxTime, String inFileName, String outFileName, int dex) throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
 
-        XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new FileInputStream(inFileName));
-        XSSFSheet sheet = xssfWorkbook.getSheetAt(dex);
-        //循环复制值
-        //获取最后单元格num，即总单元格数 ***注意：此处从1开始计数***
-        /* int maxRol = sheet.getRow(row).getLastCellNum();*/
-        XSSFRow rowCreat=sheet.createRow(0);
-        XSSFCell cellCreat=rowCreat.createCell(0);
-        // 调用getter方法获取属性值
-        if (maxTime != null) {
-            cellCreat.setCellValue(maxTime);
+        if(inFileName == null ){
+            XSSFWorkbook xssfWorkbook = new XSSFWorkbook();
+            XSSFSheet sheet = xssfWorkbook.createSheet();
+            //循环复制值
+            //获取最后单元格num，即总单元格数 ***注意：此处从1开始计数***
+            /* int maxRol = sheet.getRow(row).getLastCellNum();*/
+            XSSFRow rowCreat = sheet.createRow(0);
+            XSSFCell cellCreat = rowCreat.createCell(0);
+            // 调用getter方法获取属性值
+            if (maxTime != null) {
+                cellCreat.setCellValue(maxTime);
+            }
+
+            // 刷新公式
+            xssfWorkbook.setForceFormulaRecalculation(true);
+            //使用evaluateFormulaCell对函数单元格进行强行更新计算
+            xssfWorkbook.getCreationHelper().createFormulaEvaluator().evaluateAll();
+
+            //导出
+            FileOutputStream fos = new FileOutputStream(outFileName);
+
+            xssfWorkbook.write(fos);
+            fos.close();
+
         }
 
-        // 刷新公式
-        xssfWorkbook.setForceFormulaRecalculation(true);
-        //使用evaluateFormulaCell对函数单元格进行强行更新计算
-        xssfWorkbook.getCreationHelper().createFormulaEvaluator().evaluateAll();
 
-        //导出
-        FileOutputStream fos=new FileOutputStream(outFileName);
+        if(inFileName != null) {
 
-        xssfWorkbook.write(fos);
-        fos.close();
+            XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new FileInputStream(inFileName));
+            if (dex > (xssfWorkbook.getNumberOfSheets() - 1)) {
+                for (int i = xssfWorkbook.getNumberOfSheets(); i <= dex; i++) {
+                    xssfWorkbook.createSheet("sheet" + (xssfWorkbook.getNumberOfSheets()));
+                }
+            }
+
+            XSSFSheet sheet = xssfWorkbook.getSheetAt(dex);
+            //循环复制值
+            //获取最后单元格num，即总单元格数 ***注意：此处从1开始计数***
+            /* int maxRol = sheet.getRow(row).getLastCellNum();*/
+            XSSFRow rowCreat = sheet.createRow(0);
+            XSSFCell cellCreat = rowCreat.createCell(0);
+            // 调用getter方法获取属性值
+            if (maxTime != null) {
+                cellCreat.setCellValue(maxTime);
+            }
+
+            // 刷新公式
+            xssfWorkbook.setForceFormulaRecalculation(true);
+            //使用evaluateFormulaCell对函数单元格进行强行更新计算
+            xssfWorkbook.getCreationHelper().createFormulaEvaluator().evaluateAll();
+
+            //导出
+            FileOutputStream fos = new FileOutputStream(outFileName);
+
+            xssfWorkbook.write(fos);
+            fos.close();
+
+        }
 
     }
 

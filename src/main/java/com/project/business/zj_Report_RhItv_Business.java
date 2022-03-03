@@ -45,17 +45,6 @@ public class zj_Report_RhItv_Business {
     public static  final  String OutExcleSouceFile="C:\\Test\\RhItv\\SOUCE\\";
 
 
-    public static void report_RhItv_Zj_All() throws MessagingException, IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
-
-        //获取当前日期DD格式
-        String nowDay=dealTime.get_date_By_String_DD();
-        if (nowDay.equals("5")){
-
-        }
-        report_RhItv_Zj();
-
-    }
-
     //取数导出excle
     public static void report_RhItv_Zj() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
 

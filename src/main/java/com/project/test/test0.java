@@ -48,9 +48,6 @@ public class test0 {
         List<zj_Report_Xubao_Zj> zj_Report_XubaoList =
                 Zj_Report_XubaoDao.selectZj_Report_Xubao_Zj(endDate,nowMonth );
 
-//        zj_Report_XubaoList.forEach(zj_Report_Xubao->{
-//                System.out.println(zj_Report_Xubao.toString()+"/n");
-//        });
 
         sqlSession.close();
 

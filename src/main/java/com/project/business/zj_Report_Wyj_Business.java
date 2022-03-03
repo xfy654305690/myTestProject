@@ -43,16 +43,6 @@ public class zj_Report_Wyj_Business {
     //复制导出文件地址
     public static  final  String OutExcleAccountsFile="C:\\Test\\WYJ\\ACCOUNT\\";
 
-    public static void report_Wyj_Zj_All() throws MessagingException, IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
-
-        //获取当前日期DD格式
-        String nowDay=dealTime.get_date_By_String_DD();
-        if (nowDay.equals("5")){
-            report_Wyj_Zj_Js();
-        }
-        report_Wyj_Zj();
-
-    }
 
     public static void report_Wyj_Zj_Js() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
 

@@ -4,28 +4,32 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.view.zj_Report_OtherDoneDao">
     <select id="selectZj_Report_OtherDone_Cdma_Data"  resultType="com.project.model.zj_Report_OtherDone_Cdma_Data">
-        select branch_area_name,accs_nbr,cpl_dt,mkt_employee_name,mkt_dept_name from chunkaicdma2022 where cpl_dt>=to_date('20220121','yyyymmdd')
-        and cpl_dt&lt;= #{endDate} and mkt_employee_id not in
+        select branch_area_name,accs_nbr,cpl_dt,mkt_employee_name,mkt_dept_name from chunkaicdma2022
+        where cpl_dt&gt;= #{startDate}
+          and cpl_dt&lt;= #{endDate} and mkt_employee_id not in
         (select yxgh from ck_gr_2022 where zj=#{zj_name})
         and branch_area_name=#{zj_name}
     </select>
     <select id="selectZj_Report_OtherDone_Kd_Data"  resultType="com.project.model.zj_Report_OtherDone_Kd_Data">
-        select zj_area_name,'宽带帐号:'||data_user_name as data_user_name,cpl_dt,mkt_employee_name,mkt_dept_name,area_merge_name,down_speed,amount from chunkaikd2022 where cpl_dt>=to_date('20220121','yyyymmdd')
-        and cpl_dt&lt;= #{endDate} and mkt_employee_id not in
+        select zj_area_name,'宽带帐号:'||data_user_name as data_user_name,cpl_dt,mkt_employee_name,mkt_dept_name,area_merge_name,down_speed,amount from chunkaikd2022
+        where cpl_dt&gt;= #{startDate}
+          and cpl_dt&lt;= #{endDate} and mkt_employee_id not in
         (select yxgh from ck_gr_2022 where zj=#{zj_name})
         and zj_area_name=#{zj_name} order by area_merge_name
     </select>
     <select id="selectZj_Report_OtherDone_Gt_Data"  resultType="com.project.model.zj_Report_OtherDone_Gt_Data">
-        select branch_area_name,'订单:'||order_id as order_id,accs_nbr_zk,cpl_dt,prom_name,mkt_employee_name,sales_dept_name
-        from chunkaigt2022 where cpl_dt>=to_date('20220121','yyyymmdd')
-        and cpl_dt&lt;= #{endDate}  and mkt_employee_id not in
-        (select yxgh from ck_gr_2022 where zj=#{zj_name})
-        and branch_area_name=#{zj_name}  order by sales_dept_name                                                                                                                                                   and zj_area_name=#{zj_name} order by area_merge_name;
+        select branch_area_name,'订单编号:'||order_id as order_id,accs_nbr_zk,cpl_dt,prom_name,mkt_employee_name,sales_dept_name
+        from chunkaigt2022
+         where cpl_dt&gt;= #{startDate}
+          and cpl_dt&lt;= #{endDate} and mkt_employee_id not in
+          (select yxgh from ck_gr_2022 where zj=#{zj_name})
+          and branch_area_name=#{zj_name} order by sales_dept_name
     </select>
+
     <select id="selectZj_Report_OtherDone_Zd_Data"  resultType="com.project.model.zj_Report_OtherDone_Zd_Data">
         select zj_area_name,accs_nbr,prom_name,mkt_employee_name,sales_dept_name,prom_type
-        from chunkaizd2022 where cpl_dt>=to_date('20220121','yyyymmdd')
-        and cpl_dt&lt;= #{endDate}  and mkt_employee_id not in
+        from chunkaizd2022 where cpl_dt&gt;= #{startDate}
+                             and cpl_dt&lt;= #{endDate}  and mkt_employee_id not in
         (select yxgh from ck_gr_2022 where zj=#{zj_name})
         and zj_area_name=#{zj_name} order by sales_dept_name
     </select>

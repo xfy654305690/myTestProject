@@ -45,16 +45,6 @@ public class zj_Report_Zt_Business {
     //到达备份名称
     public static  final  String tableName="XFY_RPT_ZLYW_ACT_ASSET";
 
-    public static void report_Zt_Zj_All() throws MessagingException, IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, ParseException {
-
-        //获取当前日期DD格式
-        String nowDay=dealTime.get_date_By_String_DD();
-        if (nowDay.equals("6")){
-            //report_Zt_Zj_Js();
-        }
-        report_Zt_Zj();
-    }
-
     //取数导出excle
     public static void report_Zt_Zj_Js() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException, ParseException {
 

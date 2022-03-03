@@ -43,17 +43,6 @@ public class zj_Report_Tcf_Business {
     public static  final  String OutExcleAccountsFile="C:\\Test\\Tcf\\ACCOUNT\\";
 
 
-    public static void report_Tcf_Zj_All() throws MessagingException, IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
-
-        //获取当前日期DD格式
-        String nowDay=dealTime.get_date_By_String_DD();
-        if (nowDay.equals("5")){
-            report_Tcf_Zj_Js();
-        }
-        //report_Tcf_Zj();
-
-    }
-
     //取数导出excle
     public static void report_Tcf_Zj_Js() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
 
