@@ -15,6 +15,10 @@ public class doDetail {
             zj_Report_Zt_Controller zj_Report_Zt_Controller=new zj_Report_Zt_Controller();
             zj_Report_OtherDone_Controller zj_Report_OtherDone_Controller=new zj_Report_OtherDone_Controller();
 
+            //增加定时功能
+
+
+
             //获取当前日期DD格式
             String nowDay= dealTime.get_date_By_String_DD();
             if (Integer.valueOf(nowDay)>=5){
@@ -37,7 +41,7 @@ public class doDetail {
                 zj_Report_Zt_Controller.report_Zt_Zj();
             }
 
-            //后续把发送数据也搞过来这边方法拿出来，判断日期，如果日期到了，就发送，不到就不发送。
+//            //后续把发送数据也搞过来这边方法拿出来，判断日期，如果日期到了，就发送，不到就不发送。
 
 
         }
