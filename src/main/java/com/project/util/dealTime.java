@@ -70,6 +70,30 @@ public class dealTime {
         return endDate;
     }
 
+    //获取前月一号，返回日期格式
+    public static Date get_lastlastMonth_FirstDay_ByDate(){
+
+        Calendar   calendar=Calendar.getInstance();//获取当前日期
+        calendar.add(Calendar.MONTH, -2);
+        calendar.set(Calendar.DAY_OF_MONTH,1);//设置为1号,当前日期既为本月第一天
+        setMinTime(calendar);
+        Date endDate=calendar.getTime();
+
+        return endDate;
+    }
+
+    //获取前月最后一号，返回日期格式
+    public static Date get_lastlastMonth_LastDay_ByDate(){
+
+        Calendar calendar = Calendar.getInstance();
+        setMaxTime(calendar);
+        calendar.add(Calendar.MONTH, -1);
+        calendar.set(Calendar.DAY_OF_MONTH,0);//设置为1号,当前日期既为本月第一天
+        Date endDate=calendar.getTime();
+
+        return endDate;
+    }
+
     //获取上个季度第一日，返回日期格式
     public static Date getLastQuarterFirstDay() {
         Calendar startCalendar = Calendar.getInstance();

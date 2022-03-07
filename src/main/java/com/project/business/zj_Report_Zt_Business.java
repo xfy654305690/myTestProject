@@ -42,6 +42,8 @@ public class zj_Report_Zt_Business {
     public static  final  String OutExcleDataFile="C:\\Test\\ZT\\DATA\\";
     //复制导出文件地址
     public static  final  String OutExcleSouceFile="C:\\Test\\ZT\\SOUCE\\";
+    //复制导出文件地址
+    public static  final  String OutExcleAccountsFile="C:\\Test\\ZT\\ACCOUNT\\";
     //到达备份名称
     public static  final  String tableName="XFY_RPT_ZLYW_ACT_ASSET";
 
@@ -57,13 +59,13 @@ public class zj_Report_Zt_Business {
         dealTime dealTime=new dealTime();
 
         //获取上月一号，返回日期格式
-        Date lastStartDate=dealTime.get_lastMonth_FirstDay_ByDate();
+        Date lastStartDate=dealTime.get_lastlastMonth_FirstDay_ByDate();
         //获取上月最后一号，返回日期格式
-        Date lastEndDate=dealTime.get_lastMonth_LastDay_ByDate();
+        Date lastEndDate=dealTime.get_lastlastMonth_LastDay_ByDate();
         //获取本月一号，返回日期格式
-        Date nowStartDate=dealTime.get_nowMonth_FirstDay_ByDate();
+        Date nowStartDate=dealTime.get_lastMonth_FirstDay_ByDate();
         //获取本月最后一号，返回日期格式
-        Date nowEndDate=dealTime.get_nowMonth_LastDay_ByDate();
+        Date nowEndDate=dealTime.get_lastMonth_LastDay_ByDate();
         //获取当前日期DD格式
         String nowDayYYYYMMDD=dealTime.get_date_By_String_YYYYMMDD();
         String lastMonth=dealTime.get_lastMonth_By_String_YYYYMM();
@@ -108,8 +110,9 @@ public class zj_Report_Zt_Business {
         System.out.println("数据处理成功");
 
         //复制文件
-        String OutExcleSouceFilenew =OutExcleSouceFile+"质态"+nowDayYYYYMMDD+".xlsx";
-        DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleSouceFilenew);
+        String OutExcleAccountsFileNew =OutExcleAccountsFile+"质态"+nowDayYYYYMMDD+".xlsx";
+        DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleAccountsFileNew);
+
 
     }
 
