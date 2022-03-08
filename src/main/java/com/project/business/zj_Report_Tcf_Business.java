@@ -203,43 +203,10 @@ public class zj_Report_Tcf_Business {
             for (int i=0;i<zj_Report_Public_List.size();i++){
 
                 zj_Report_Tcf_Kd_Data Zj_Report_Tcf_Kd_Data=new zj_Report_Tcf_Kd_Data();
-
-
                 List<zj_Report_Tcf_Kd_Data> zj_Report_Tcf_Kd_Data_List =
                         Zj_Report_TcfDaoDealData.selectZj_Report_Tcf_Kd_Data(startDate,endDate,zj_Report_Public_List.get(i).getZj_Abbr_Name());
 
-                String str = new String(zj_Report_Public_List.get(i).getZj_Full_Name().getBytes(),"UTF-8");
-
-                String  OutExcleDataFileNew;
-                String titleMailSingle ;
-                String contentMailSingle;
-
-                if(zj_Report_Tcf_Kd_Data_List.size()!=0){
-                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"调测费宽带未收数据详见附件"+nowDayYYYYMMDD;
-                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"调测费宽带未收数据详见附件"+nowDayYYYYMMDD;
-                    OutExcleDataFileNew=OutExcleDataFile+str+"KD"+nowDayYYYYMMDD+".xlsx";
-                    System.out.printf(OutExcleDataFileNew);
-                    //复制值,并且另存为
-                    DealExcle.cpoyToExcle(zj_Report_Tcf_Kd_Data_List,null,OutExcleDataFileNew,0,Zj_Report_Tcf_Kd_Data);
-                    System.out.printf("复制成功");
-                    //读取附件并且发送
-                    DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
-
-                }else{
-                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本月暂无宽带未收调测费清单"+nowDayYYYYMMDD;
-                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本月暂无宽带未收调测费清单"+nowDayYYYYMMDD;
-                    OutExcleDataFileNew=null;
-                    //读取附件并且发送
-                    DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
-                }
-
-            }
-
-            for (int i=0;i<zj_Report_Public_List.size();i++){
-
                 zj_Report_Tcf_Itv_Data Zj_Report_Tcf_Itv_Data=new zj_Report_Tcf_Itv_Data();
-
-                //续包县份数据
                 List<zj_Report_Tcf_Itv_Data> zj_Report_Tcf_Itv_Data_List =
                         Zj_Report_TcfDaoDealData.selectZj_Report_Tcf_Itv_Data(startDate,endDate,zj_Report_Public_List.get(i).getZj_Abbr_Name());
 
@@ -248,23 +215,91 @@ public class zj_Report_Tcf_Business {
                 String  OutExcleDataFileNew;
                 String titleMailSingle ;
                 String contentMailSingle;
+                titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"调测费宽带、ITV未收数据详见附件"+nowDayYYYYMMDD;
+                contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"调测费宽带、ITV未收数据详见附件"+nowDayYYYYMMDD;
+                OutExcleDataFileNew=OutExcleDataFile+str+"TCF"+nowDayYYYYMMDD+".xlsx";
+
+                if(zj_Report_Tcf_Kd_Data_List.size()!=0){
+                    DealExcle.cpoyToExcle(zj_Report_Tcf_Kd_Data_List,null,OutExcleDataFileNew,0,Zj_Report_Tcf_Kd_Data);
+                }else{
+                    //处理时间
+                    DealExcle.cpoyToExcleSingle("暂无宽带未收数据",null,OutExcleDataFileNew, 0);
+                }
 
                 if(zj_Report_Tcf_Itv_Data_List.size()!=0) {
-                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"调测费ITV未收数据详见附件"+nowDayYYYYMMDD;
-                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"调测费ITV未收数据详见附件"+nowDayYYYYMMDD;
-                    OutExcleDataFileNew=OutExcleDataFile+str+"KD"+nowDayYYYYMMDD+".xlsx";
                     //复制值,并且另存为
-                    DealExcle.cpoyToExcle(zj_Report_Tcf_Itv_Data_List,null,OutExcleDataFileNew,0,Zj_Report_Tcf_Itv_Data);
-                    //读取附件并且发送
-                    DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
+                    DealExcle.cpoyToExcle(zj_Report_Tcf_Itv_Data_List,OutExcleDataFileNew,OutExcleDataFileNew,1,Zj_Report_Tcf_Itv_Data);
                 }else{
-                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本月暂无ITV未收调测费清单"+nowDayYYYYMMDD;
-                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本月暂无ITV未收调测费清单"+nowDayYYYYMMDD;
-                    OutExcleDataFileNew=null;
-                    //读取附件并且发送
-                    DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
+                    //处理时间
+                    DealExcle.cpoyToExcleSingle("暂无ITV未收数据",OutExcleDataFileNew,OutExcleDataFileNew, 1);
                 }
+                //读取附件并且发送
+                DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
             }
+
+//            for (int i=0;i<zj_Report_Public_List.size();i++){
+//
+//                zj_Report_Tcf_Kd_Data Zj_Report_Tcf_Kd_Data=new zj_Report_Tcf_Kd_Data();
+//
+//                List<zj_Report_Tcf_Kd_Data> zj_Report_Tcf_Kd_Data_List =
+//                        Zj_Report_TcfDaoDealData.selectZj_Report_Tcf_Kd_Data(startDate,endDate,zj_Report_Public_List.get(i).getZj_Abbr_Name());
+//
+//                String str = new String(zj_Report_Public_List.get(i).getZj_Full_Name().getBytes(),"UTF-8");
+//
+//                String  OutExcleDataFileNew;
+//                String titleMailSingle ;
+//                String contentMailSingle;
+//
+//                if(zj_Report_Tcf_Kd_Data_List.size()!=0){
+//                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"调测费宽带未收数据详见附件"+nowDayYYYYMMDD;
+//                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"调测费宽带未收数据详见附件"+nowDayYYYYMMDD;
+//                    OutExcleDataFileNew=OutExcleDataFile+str+"KD"+nowDayYYYYMMDD+".xlsx";
+//                    System.out.printf(OutExcleDataFileNew);
+//                    //复制值,并且另存为
+//                    DealExcle.cpoyToExcle(zj_Report_Tcf_Kd_Data_List,null,OutExcleDataFileNew,0,Zj_Report_Tcf_Kd_Data);
+//                    System.out.printf("复制成功");
+//                    //读取附件并且发送
+//                    DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
+//
+//                }else{
+//                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本月暂无宽带未收调测费清单"+nowDayYYYYMMDD;
+//                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本月暂无宽带未收调测费清单"+nowDayYYYYMMDD;
+//                    OutExcleDataFileNew=null;
+//                    //读取附件并且发送
+//                    DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
+//                }
+//
+//            }
+
+//            for (int i=0;i<zj_Report_Public_List.size();i++){
+//
+//                zj_Report_Tcf_Itv_Data Zj_Report_Tcf_Itv_Data=new zj_Report_Tcf_Itv_Data();
+//                //续包县份数据
+//                List<zj_Report_Tcf_Itv_Data> zj_Report_Tcf_Itv_Data_List =
+//                        Zj_Report_TcfDaoDealData.selectZj_Report_Tcf_Itv_Data(startDate,endDate,zj_Report_Public_List.get(i).getZj_Abbr_Name());
+//
+//                String str = new String(zj_Report_Public_List.get(i).getZj_Full_Name().getBytes(),"UTF-8");
+//
+//                String  OutExcleDataFileNew;
+//                String titleMailSingle ;
+//                String contentMailSingle;
+//
+//                if(zj_Report_Tcf_Itv_Data_List.size()!=0) {
+//                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"调测费ITV未收数据详见附件"+nowDayYYYYMMDD;
+//                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"调测费ITV未收数据详见附件"+nowDayYYYYMMDD;
+//                    OutExcleDataFileNew=OutExcleDataFile+str+"KD"+nowDayYYYYMMDD+".xlsx";
+//                    //复制值,并且另存为
+//                    DealExcle.cpoyToExcle(zj_Report_Tcf_Itv_Data_List,null,OutExcleDataFileNew,0,Zj_Report_Tcf_Itv_Data);
+//                    //读取附件并且发送
+//                    DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
+//                }else{
+//                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本月暂无ITV未收调测费清单"+nowDayYYYYMMDD;
+//                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本月暂无ITV未收调测费清单"+nowDayYYYYMMDD;
+//                    OutExcleDataFileNew=null;
+//                    //读取附件并且发送
+//                    DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
+//                }
+//            }
 
             sqlSessionDealData.close();
 
