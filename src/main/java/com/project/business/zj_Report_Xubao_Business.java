@@ -315,7 +315,7 @@ public class zj_Report_Xubao_Business {
                     }
                 }
 
-            }else if(e.getZj_Name().equals("鄞州潘火综合支局")){
+            }else if(e.getZj_Name().equals("鄞州潘火公众支局")){
 
                 //计算缺口
                 e.setBb_Amt_gap((int) Math.ceil(e.getBb_Amt()*(0.83-0.03)-e.getBb_Amt_Com()));
