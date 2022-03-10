@@ -275,23 +275,23 @@ public class zj_Report_Xubao_Business {
                 //扣罚 83
                 if(e.getBb_Com_Rate()<(0.83+0.03)&&e.getBb_Com_Rate()>(0.7+0.03)){
                     if(e.getBb_Com_Rate_Income()>=0.93){
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.3));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap())*-1*50*0.3));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.9&&e.getBb_Com_Rate_Income()<0.93){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.5));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap())*-1*50*0.5));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.85&&e.getBb_Com_Rate_Income()<0.9){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.8));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap())*-1*50*0.8));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.8&&e.getBb_Com_Rate_Income()<0.85){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*1));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap())*-1*50*1));
                     }
                     if(e.getBb_Com_Rate_Income()<0.8){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*1.2));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap())*-1*50*1.2));
                     }
                 }
 
@@ -299,19 +299,19 @@ public class zj_Report_Xubao_Business {
                 if(e.getBb_Com_Rate()<(0.7+0.03)){
                     if(e.getBb_Com_Rate_Income()>=0.93){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.3));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap())*-1*50*0.3));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.9&&e.getBb_Com_Rate_Income()<0.93){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.5));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap())*-1*50*0.5));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.88&&e.getBb_Com_Rate_Income()<0.9){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.8));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap())*-1*50*0.8));
                     }
                     if(e.getBb_Com_Rate_Income()<0.88){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*3));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap())*-1*50*3));
                     }
                 }
 
@@ -340,23 +340,23 @@ public class zj_Report_Xubao_Business {
                 //扣罚 83
                 if(e.getBb_Com_Rate()<(0.83-0.03)&&e.getBb_Com_Rate()>(0.7-0.03)){
                     if(e.getBb_Com_Rate_Income()>=0.93){
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.3));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap())*50*0.3*-1));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.9&&e.getBb_Com_Rate_Income()<0.93){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.5));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap())*50*0.5*-1));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.85&&e.getBb_Com_Rate_Income()<0.9){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.8));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap())*50*0.8*-1));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.8&&e.getBb_Com_Rate_Income()<0.85){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*1));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap())*50*1*-1));
                     }
                     if(e.getBb_Com_Rate_Income()<0.8){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*1.2));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap())*50*1.2*-1));
                     }
                 }
 
@@ -364,19 +364,19 @@ public class zj_Report_Xubao_Business {
                 if(e.getBb_Com_Rate()<(0.7-0.03)){
                     if(e.getBb_Com_Rate_Income()>=0.93){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.3));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap())*50*0.3*-1));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.9&&e.getBb_Com_Rate_Income()<0.93){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.5));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap())*50*0.5*-1));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.88&&e.getBb_Com_Rate_Income()<0.9){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.8));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap())*50*0.8*-1));
                     }
                     if(e.getBb_Com_Rate_Income()<0.88){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*3));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap())*50*3*-1));
                     }
                 }
 
@@ -407,23 +407,23 @@ public class zj_Report_Xubao_Business {
                 if(e.getBb_Com_Rate()<0.83&&e.getBb_Com_Rate()>0.7){
                     if(e.getBb_Com_Rate_Income()>=0.93){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.3));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap())*50*0.3*-1));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.9&&e.getBb_Com_Rate_Income()<0.93){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.5));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap())*50*0.5*-1));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.85&&e.getBb_Com_Rate_Income()<0.9){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.8));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap())*50*0.8*-1));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.8&&e.getBb_Com_Rate_Income()<0.85){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*1));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap())*50*1*-1));
                     }
                     if(e.getBb_Com_Rate_Income()<0.8){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*1.2));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap())*50*1.2*-1));
                     }
                 }
 
@@ -431,19 +431,19 @@ public class zj_Report_Xubao_Business {
                 if(e.getBb_Com_Rate()<0.7){
                     if(e.getBb_Com_Rate_Income()>=0.93){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.3));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap())*50*0.3*-1));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.9&&e.getBb_Com_Rate_Income()<0.93){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.5));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap())*50*0.5*-1));
                     }
                     if(e.getBb_Com_Rate_Income()>=0.88&&e.getBb_Com_Rate_Income()<0.9){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*0.8));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap())*50*0.8*-1));
                     }
                     if(e.getBb_Com_Rate_Income()<0.88){
 
-                        e.setReward((int)Math.ceil((e.getBb_Amt_gap()-e.getBb_Amt_Uncom())*50*3));
+                        e.setReward((int)Math.ceil((e.getBb_Amt_gap())*50*3*-1));
                     }
                 }
 
