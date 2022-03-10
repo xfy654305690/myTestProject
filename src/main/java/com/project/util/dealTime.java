@@ -267,7 +267,8 @@ public class dealTime {
 
         SimpleDateFormat simpleDateFormatYMD = new SimpleDateFormat("yyyy-MM-dd");
         Calendar  calendar=Calendar.getInstance();//获取当前日期
-        calendar.add(Calendar.MONTH, -1);
+        calendar.set(Calendar.DAY_OF_MONTH, 0);
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
         String firstDay=simpleDateFormatYMD.format(calendar.getTime());
 
         return firstDay;

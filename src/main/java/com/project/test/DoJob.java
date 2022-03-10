@@ -11,7 +11,7 @@ public class DoJob  implements Job {
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         doDetail doDetail=new  doDetail();
         try {
-            //doDetail.doDetailTest();
+            doDetail.doDetailTest();
             System.out.println("开始了");
         } catch (Exception e) {
             e.printStackTrace();

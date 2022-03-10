@@ -210,7 +210,7 @@
                                 (SELECT S2.ZJ_ABBR_NAME,NVL(S3.Cdma_Last_Amt,0) Cdma_Last_Amt,NVL(S3.Cdma_Las_amt_unact,0) Cdma_Las_amt_unact,NVL(S3.Cdma_Las_amt_act,0)Cdma_Las_amt_act,NVL(S3.Cdma_Las_Amt_act_rate,1)Cdma_Las_Amt_act_rate
                                  FROM (select s1.ZJ_AREA_NAME,count(*) Cdma_Last_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)Cdma_Las_amt_act,
                                               sum(case when s1.ACT_FLG=0 then 1 else 0 end)Cdma_Las_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*) Cdma_Las_Amt_act_rate
-                                       from ${tableName}s1
+                                       from ${tableName}  s1
                                        where  s1.SERV_START_DT&gt;= #{lastStartDate}
                                          and s1.SERV_START_DT&lt;= #{lastEndDate}
                                          and s1.type='CDMA'
