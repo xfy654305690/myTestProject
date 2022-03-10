@@ -61,8 +61,8 @@
         where  b.cpl_dt &gt;= #{startDate}  and b.cpl_dt &lt;= #{endDate}
           and ( b.CDSC_NAME is null or  b.CDSC_NAME &lt;&gt;'IPTV纯装宽带零月租_ZJ' )
           and  b.CDSC_NAME&lt;&gt;'201801融合套餐100M宽带包月30元（第二条宽带专用）（产品）_ZJ'
-          and a.remark_info not like '%中电信宁波市场联〔2022〕41号%'
-          and a.cacct_id not in ('2742039410352')
+          and b.remark_info not like '%中电信宁波市场联〔2022〕41号%'
+          and b.cacct_id not in ('2742039410352')
           and b.xztc_amt&lt;50
         and C.ZJ in (
             select D.zj_new from XFY_REP_PUB_ZJ_CON D

@@ -54,7 +54,7 @@
                             )
                        WHERE RANK = 1
                        GROUP BY ZJ_AREA_NAME_OLD)
-                 ORDER BY (CNT_XB / CNT_ALL) desc
+                 ORDER BY zj  desc
              )  p1
                  inner join XFY_REP_PUB_ZJ_PAR p2
                  on p1.Zj_Name=p2.Zj_Abbr_Name

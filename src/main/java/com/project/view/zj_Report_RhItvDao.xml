@@ -14,6 +14,7 @@
         ON s.MKT_EMPLOYEE_ID=P1.MKT_NAME
         where S.cpl_dt &gt;= #{startDate}  and S.cpl_dt &lt;= #{endDate}
         and s.KHQ='公众'
+        and s.prom_amt>=129
         group by case when p1.ZJ is null then S.BRANCH_AREA_NAME else p1.ZJ end)p
         right join XFY_REP_PUB_ZJ_PAR  p3
         on p.Zj_Name=p3.Zj_Abbr_Name
@@ -27,6 +28,7 @@
         from XFY_RPT_RH_ORDER_ASSET s
         where S.cpl_dt &gt;= #{startDate}  and S.cpl_dt &lt;= #{endDate}
         and s.KHQ='公众'
+        and s.prom_amt>=129
     </select>
 
     <select id="select_Zj_Report_RhItv_Data"  resultType="com.project.model.zj_Report_RhItv_Data">
@@ -39,6 +41,7 @@
                             ON B.MKT_EMPLOYEE_ID=c.MKT_NAME
         where   b.cpl_dt &gt;= #{startDate}  and  b.cpl_dt &lt;= #{endDate}
             and b.KHQ='公众'
+          and b.prom_amt>=129
           AND B.ITV_ASSET_ROW_ID IS NULL
           and case when C.ZJ is null then b.BRANCH_AREA_NAME else C.ZJ end in (
             select D.zj_new from XFY_REP_PUB_ZJ_CON D
