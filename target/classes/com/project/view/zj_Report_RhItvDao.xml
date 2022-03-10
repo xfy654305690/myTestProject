@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.view.zj_Report_RhItvDao">
+    <select id="select_zj_Report_RhItv_Zj"  resultType="com.project.model.zj_Report_RhItv_Zj">
+        SELECT * FROM (select p.Zj_Name,p.rh_Amt,p.rh_Add_Amt,p.rh_Unadd_Amt,p.rh_Add_rate from (
+        select case when p1.ZJ is null then S.BRANCH_AREA_NAME else p1.ZJ end Zj_Name,count(*) rh_Amt,
+        sum(case when s.ITV_ASSET_ROW_ID is not null then 1 else 0 end ) rh_Add_Amt,
+        sum(case when s.ITV_ASSET_ROW_ID is null then 1 else 0 end ) rh_Unadd_Amt,
+        sum(case when s.ITV_ASSET_ROW_ID is not null then 1 else 0 end )/count(*) rh_Add_rate
+        from XFY_RPT_RH_ORDER_ASSET s
+        left join XFY_REP_PUB_CDRY P1
+        ON s.MKT_EMPLOYEE_ID=P1.MKT_NAME
+        where S.cpl_dt &gt;= #{startDate}  and S.cpl_dt &lt;= #{endDate}
+        and s.KHQ='公众'
+        and s.prom_amt>=129
+        group by case when p1.ZJ is null then S.BRANCH_AREA_NAME else p1.ZJ end)p
+        right join XFY_REP_PUB_ZJ_PAR  p3
+        on p.Zj_Name=p3.Zj_Abbr_Name
+        WHERE p3.ZJ_ABBR_NAME NOT IN ('鄞州政企部','合计')
+        order by  p3.ZJ_ABBR_NAME  desc)
+        union all
+        select '合计' as Zj_Name,count(*) rh_Amt,
+        sum(case when s.ITV_ASSET_ROW_ID is not null then 1 else 0 end ) rh_Add_Amt,
+        sum(case when s.ITV_ASSET_ROW_ID is null then 1 else 0 end ) rh_Unadd_Amt,
+        sum(case when s.ITV_ASSET_ROW_ID is not null then 1 else 0 end )/count(*) rh_Add_rate
+        from XFY_RPT_RH_ORDER_ASSET s
+        where S.cpl_dt &gt;= #{startDate}  and S.cpl_dt &lt;= #{endDate}
+        and s.KHQ='公众'
+        and s.prom_amt>=129
+    </select>
+
+    <select id="select_Zj_Report_RhItv_Data"  resultType="com.project.model.zj_Report_RhItv_Data">
+        SELECT case when C.ZJ is null then b.BRANCH_AREA_NAME else C.ZJ end  AS BRANCH_AREA_NAME ,
+         b.CPL_DT,b.ACCS_NBR_ZK,b.PROM_AMT,b.ZK_STAT_NAME,b.YW_TYPE,b.SALES_DEPT_NAME,b.MKT_EMPLOYEE_ID,
+               b.MKT_EMPLOYEE_NAME,b.ACCS_NBR_FK1,b.ACCS_NBR_FK2,b.ACCS_NBR_FK3,b.ACCS_NBR_FK4,
+               b.PROM_TYPE_BD,b.KD_ASSET_ROW_ID,b.ITV_ASSET_ROW_ID,b.KHQ
+        FROM  XFY_RPT_RH_ORDER_ASSET b
+                  LEFT JOIN XFY_REP_PUB_CDRY c
+                            ON B.MKT_EMPLOYEE_ID=c.MKT_NAME
+        where   b.cpl_dt &gt;= #{startDate}  and  b.cpl_dt &lt;= #{endDate}
+            and b.KHQ='公众'
+          and b.prom_amt>=129
+          AND B.ITV_ASSET_ROW_ID IS NULL
+          and case when C.ZJ is null then b.BRANCH_AREA_NAME else C.ZJ end in (
+            select D.zj_new from XFY_REP_PUB_ZJ_CON D
+            where d.zj_old = #{zj_name}
+        )
+    </select>
+
+    <select id="select_zj_Report_RhItv_Zj_MaxTime"  resultType="String">
+        select max(CPL_DT)  from XFY_RPT_RH_ORDER_ASSET s
+    </select>
+
+</mapper>
