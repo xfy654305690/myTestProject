@@ -54,8 +54,8 @@
     <select id="selectZj_Report_Tcf_Kd_Data"  resultType="com.project.model.zj_Report_Tcf_Kd_Data">
          SELECT C.ZJ AS ZJ_AREA_NAME ,
                 b.ASSET_ROW_ID,b.CPL_DT,b.DATA_USER_NAME,b.STAT_NAME,b.SALES_DEPT_NAME,b.SALES_CHANNEL_NAME,
-                b.MKT_EMPLOYEE_NAME,b.MKT_EMPLOYEE_ID,b.CDSC_NAME,b.XZTC_AMT,b.KHF_AMT,b.CCUST_ID,b.WG_ID
-        FROM  XFY_RPT_KD_ORDER_DETAIL b
+                b.MKT_EMPLOYEE_NAME,b.MKT_EMPLOYEE_ID,b.CDSC_NAME,b.XZTC_AMT,b.KHF_AMT,b.CCUST_ID,b.WG_ID,b.cacct_id
+         FROM  XFY_RPT_KD_ORDER_DETAIL b
         LEFT JOIN XFY_REP_PUB_CDRY c
          ON B.MKT_EMPLOYEE_ID=c.MKT_NAME
         where  b.cpl_dt &gt;= #{startDate}  and b.cpl_dt &lt;= #{endDate}
