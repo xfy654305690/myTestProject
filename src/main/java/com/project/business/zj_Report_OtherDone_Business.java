@@ -35,8 +35,8 @@ public class zj_Report_OtherDone_Business {
         //获取支局长邮箱地址
         List<zj_Report_Public> zj_Report_Public_List =zj_Report_Public_Business.zj_Report_Public_Business();
         //发送数据给支局长 *********这里乱码没有结解决
-        //if (nowDay.equals("5")||nowDay.equals("10")||nowDay.equals("15")||nowDay.equals("20")||nowDay.equals("25")){
-        //if (0>1){
+        if (nowDay.equals("07")||nowDay.equals("11")||nowDay.equals("15")||nowDay.equals("19")||nowDay.equals("23")||nowDay.equals("26")||nowDay.equals("28")||nowDay.equals("30")){
+            //if (0>1){
             InputStream inDealData= Resources.getResourceAsStream(config);
             SqlSessionFactoryBuilder builderDealData=new SqlSessionFactoryBuilder();
             SqlSessionFactory factoryDealData = builderDealData.build(inDealData);
@@ -120,7 +120,7 @@ public class zj_Report_OtherDone_Business {
 
             sqlSessionDealData.close();
 
-        //}
+        }
 
     }
 
