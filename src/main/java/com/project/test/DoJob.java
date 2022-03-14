@@ -14,6 +14,7 @@ public class DoJob  implements Job {
             doDetail.doDetailTest();
             System.out.println("开始了");
         } catch (Exception e) {
+            System.out.println("报错了");
             e.printStackTrace();
         }
 
