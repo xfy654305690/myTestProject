@@ -240,8 +240,8 @@ public class zj_Report_Zt_Business {
                 String contentMailSingle;
 
                 if(Zj_Report_Zt_Data_List.size()!=0){
-                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"宽带净增中离网、拆机、移出清单详见附件"+nowDayYYYYMMDD;
-                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"宽带净增中离网、拆机、移出清单详见附件"+nowDayYYYYMMDD;
+                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"宽带质态不活跃清单详见附件"+nowDayYYYYMMDD;
+                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"宽带质态不活跃清单详见附件"+nowDayYYYYMMDD;
                     OutExcleDataFileNew=OutExcleDataFile+str+"ZT"+nowDayYYYYMMDD+".xlsx";
                     System.out.printf(OutExcleDataFileNew);
                     //复制值,并且另存为

@@ -32,7 +32,7 @@ public class doDetail {
                 System.out.printf("RHITV_COMPLETE");
                 zj_Report_Kd_Controller.report_Kd_Zj();
                 System.out.printf("KD_COMPLETE");
-                zj_Report_OtherDone_Controller.report_OtherDone_Zj();
+                //zj_Report_OtherDone_Controller.report_OtherDone_Zj();
                 System.out.printf("OtherDone_COMPLETE");
             }
 //            if (Integer.valueOf(nowDay)==6){
