@@ -205,14 +205,14 @@ public class zj_Report_RhItv_Business {
     //新增处理
     public static String report_RhItv_DoDetail_Context( List<zj_Report_RhItv_Zj> zj_Report_RhItv_List_Zj)  {
 
-        zj_Report_RhItv_Zj heji=zj_Report_RhItv_List_Zj.get(zj_Report_RhItv_List_Zj.size());
+        zj_Report_RhItv_Zj heji=zj_Report_RhItv_List_Zj.get(zj_Report_RhItv_List_Zj.size()-1);
 
         List<zj_Report_RhItv_Zj> detailDone =zj_Report_RhItv_List_Zj;
-        detailDone.remove(zj_Report_RhItv_List_Zj.size());
+        detailDone.remove(zj_Report_RhItv_List_Zj.size()-1);
 
         String context="";
-        for(int i=0;i<detailDone.size()-1;i++){//外层循环控制排序趟数
-            for(int j=0;j<detailDone.size()-1-i;j++){
+        for(int i=0;i<detailDone.size()-1-1;i++){//外层循环控制排序趟数
+            for(int j=0;j<detailDone.size()-1-1-i;j++){
                 //内层循环控制每一趟排序多少次
                 if(detailDone.get(j).getRh_Add_rate() > detailDone.get(j + 1).getRh_Add_rate()) {
                     zj_Report_RhItv_Zj temp= detailDone.get(j);
@@ -224,12 +224,12 @@ public class zj_Report_RhItv_Business {
         NumberFormat nf = NumberFormat.getPercentInstance();
         nf.setMaximumFractionDigits(1);
 
-        context="鄞州融合ITV渗透整体合计："+nf.format(heji.getRh_Add_rate())+"。"+"/n"+"渗透率前五支局："+
+        context="鄞州融合ITV渗透整体合计："+nf.format(heji.getRh_Add_rate())+"。"+"\n"+"融合ITV渗透率后五支局："+
                 detailDone.get(0).getZj_Name()+","+detailDone.get(1).getZj_Name()+","+detailDone.get(2).getZj_Name()+","
-                +detailDone.get(3).getZj_Name()+","+detailDone.get(4).getZj_Name()+"。/n"+"渗透率后五支局："+
-                detailDone.get(detailDone.size()).getZj_Name()+","+ detailDone.get(detailDone.size()-1).getZj_Name()+","
-                + detailDone.get(detailDone.size()-2).getZj_Name()+","+ detailDone.get(detailDone.size()-3).getZj_Name()+","
-                + detailDone.get(detailDone.size()-4).getZj_Name()+"。"
+                +detailDone.get(3).getZj_Name()+","+detailDone.get(4).getZj_Name()+"。\n"+"融合ITV渗透率前五支局："+
+                detailDone.get(detailDone.size()-1).getZj_Name()+","+ detailDone.get(detailDone.size()-2).getZj_Name()+","
+                + detailDone.get(detailDone.size()-3).getZj_Name()+","+ detailDone.get(detailDone.size()-4).getZj_Name()+","
+                + detailDone.get(detailDone.size()-5).getZj_Name()+"。"
         ;
         return context;
     }
