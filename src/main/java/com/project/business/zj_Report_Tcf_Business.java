@@ -6,7 +6,6 @@ import com.project.util.dealExcle;
 import com.project.util.dealSendMessage;
 import com.project.util.dealTime;
 import com.project.view.zj_Report_TcfDao;
-import com.project.view.zj_Report_XubaoDao;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -16,6 +15,7 @@ import javax.mail.MessagingException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.text.NumberFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -178,6 +178,10 @@ public class zj_Report_Tcf_Business {
         System.out.println("发送微信成功");
 
         //文字后续在加，不急，预留
+        String contextKd=report_KdTcf_DoDetail_Context(zj_Report_Tcf_KDList_Zj_New);
+        String contextItv=report_ItvTcf_DoDetail_Context(zj_Report_Tcf_ItvList_Zj_New);
+        String context=contextKd+"/n"+contextItv;
+        DealSendMessage.searchMyFriendAndSend(wechartSendName,1,context);
 
         //获取支局长邮箱地址
         List<zj_Report_Public> zj_Report_Public_List =zj_Report_Public_Business.zj_Report_Public_Business();
@@ -237,70 +241,6 @@ public class zj_Report_Tcf_Business {
                 DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
             }
 
-//            for (int i=0;i<zj_Report_Public_List.size();i++){
-//
-//                zj_Report_Tcf_Kd_Data Zj_Report_Tcf_Kd_Data=new zj_Report_Tcf_Kd_Data();
-//
-//                List<zj_Report_Tcf_Kd_Data> zj_Report_Tcf_Kd_Data_List =
-//                        Zj_Report_TcfDaoDealData.selectZj_Report_Tcf_Kd_Data(startDate,endDate,zj_Report_Public_List.get(i).getZj_Abbr_Name());
-//
-//                String str = new String(zj_Report_Public_List.get(i).getZj_Full_Name().getBytes(),"UTF-8");
-//
-//                String  OutExcleDataFileNew;
-//                String titleMailSingle ;
-//                String contentMailSingle;
-//
-//                if(zj_Report_Tcf_Kd_Data_List.size()!=0){
-//                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"调测费宽带未收数据详见附件"+nowDayYYYYMMDD;
-//                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"调测费宽带未收数据详见附件"+nowDayYYYYMMDD;
-//                    OutExcleDataFileNew=OutExcleDataFile+str+"KD"+nowDayYYYYMMDD+".xlsx";
-//                    System.out.printf(OutExcleDataFileNew);
-//                    //复制值,并且另存为
-//                    DealExcle.cpoyToExcle(zj_Report_Tcf_Kd_Data_List,null,OutExcleDataFileNew,0,Zj_Report_Tcf_Kd_Data);
-//                    System.out.printf("复制成功");
-//                    //读取附件并且发送
-//                    DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
-//
-//                }else{
-//                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本月暂无宽带未收调测费清单"+nowDayYYYYMMDD;
-//                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本月暂无宽带未收调测费清单"+nowDayYYYYMMDD;
-//                    OutExcleDataFileNew=null;
-//                    //读取附件并且发送
-//                    DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
-//                }
-//
-//            }
-
-//            for (int i=0;i<zj_Report_Public_List.size();i++){
-//
-//                zj_Report_Tcf_Itv_Data Zj_Report_Tcf_Itv_Data=new zj_Report_Tcf_Itv_Data();
-//                //续包县份数据
-//                List<zj_Report_Tcf_Itv_Data> zj_Report_Tcf_Itv_Data_List =
-//                        Zj_Report_TcfDaoDealData.selectZj_Report_Tcf_Itv_Data(startDate,endDate,zj_Report_Public_List.get(i).getZj_Abbr_Name());
-//
-//                String str = new String(zj_Report_Public_List.get(i).getZj_Full_Name().getBytes(),"UTF-8");
-//
-//                String  OutExcleDataFileNew;
-//                String titleMailSingle ;
-//                String contentMailSingle;
-//
-//                if(zj_Report_Tcf_Itv_Data_List.size()!=0) {
-//                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"调测费ITV未收数据详见附件"+nowDayYYYYMMDD;
-//                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"调测费ITV未收数据详见附件"+nowDayYYYYMMDD;
-//                    OutExcleDataFileNew=OutExcleDataFile+str+"KD"+nowDayYYYYMMDD+".xlsx";
-//                    //复制值,并且另存为
-//                    DealExcle.cpoyToExcle(zj_Report_Tcf_Itv_Data_List,null,OutExcleDataFileNew,0,Zj_Report_Tcf_Itv_Data);
-//                    //读取附件并且发送
-//                    DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
-//                }else{
-//                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本月暂无ITV未收调测费清单"+nowDayYYYYMMDD;
-//                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本月暂无ITV未收调测费清单"+nowDayYYYYMMDD;
-//                    OutExcleDataFileNew=null;
-//                    //读取附件并且发送
-//                    DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
-//                }
-//            }
-
             sqlSessionDealData.close();
 
         }
@@ -332,10 +272,65 @@ public class zj_Report_Tcf_Business {
 
         }
 
-
-
         return zj_Report_Tcf_List_Zj;
 
+    }
+    public static String report_KdTcf_DoDetail_Context( List<zj_Report_Tcf_Zj> zj_Report_Tcf_KDList_Zj)  {
+
+        zj_Report_Tcf_Zj heji=zj_Report_Tcf_KDList_Zj.get(zj_Report_Tcf_KDList_Zj.size());
+
+        List<zj_Report_Tcf_Zj> detailDone =zj_Report_Tcf_KDList_Zj;
+        detailDone.remove(zj_Report_Tcf_KDList_Zj.size());
+
+        String context="";
+        for(int i=0;i<detailDone.size()-1;i++){//外层循环控制排序趟数
+            for(int j=0;j<detailDone.size()-1-i;j++){
+                //内层循环控制每一趟排序多少次
+                if(detailDone.get(j).getTcf_amt_rate() > detailDone.get(j + 1).getTcf_amt_rate()) {
+                    zj_Report_Tcf_Zj temp= detailDone.get(j);
+                    detailDone.set(j, detailDone.get(j + 1));detailDone.set(j + 1, temp);
+                }
+            }
+        }
+
+        NumberFormat nf = NumberFormat.getPercentInstance();
+        nf.setMaximumFractionDigits(1);
+
+        context="鄞州宽带调测费整体合计："+nf.format(heji.getTcf_amt_rate())+"。"+"/n"+"完成率后五支局："+
+                detailDone.get(detailDone.size()).getZj_Name()+","+ detailDone.get(detailDone.size()-1).getZj_Name()+","
+                + detailDone.get(detailDone.size()-2).getZj_Name()+","+ detailDone.get(detailDone.size()-3).getZj_Name()+","
+                + detailDone.get(detailDone.size()-4).getZj_Name()+","
+        ;
+        return context;
+    }
+
+    public static String report_ItvTcf_DoDetail_Context( List<zj_Report_Tcf_Zj> zj_Report_Tcf_KDList_Zj)  {
+
+        zj_Report_Tcf_Zj heji=zj_Report_Tcf_KDList_Zj.get(zj_Report_Tcf_KDList_Zj.size());
+
+        List<zj_Report_Tcf_Zj> detailDone =zj_Report_Tcf_KDList_Zj;
+        detailDone.remove(zj_Report_Tcf_KDList_Zj.size());
+
+        String context="";
+        for(int i=0;i<detailDone.size()-1;i++){//外层循环控制排序趟数
+            for(int j=0;j<detailDone.size()-1-i;j++){
+                //内层循环控制每一趟排序多少次
+                if(detailDone.get(j).getTcf_amt_rate() > detailDone.get(j + 1).getTcf_amt_rate()) {
+                    zj_Report_Tcf_Zj temp= detailDone.get(j);
+                    detailDone.set(j, detailDone.get(j + 1));detailDone.set(j + 1, temp);
+                }
+            }
+        }
+
+        NumberFormat nf = NumberFormat.getPercentInstance();
+        nf.setMaximumFractionDigits(1);
+
+        context="鄞州ITV调测费整体合计："+nf.format(heji.getTcf_amt_rate())+"。"+"/n"+"收取率后五支局："+
+                detailDone.get(detailDone.size()).getZj_Name()+","+ detailDone.get(detailDone.size()-1).getZj_Name()+","
+                + detailDone.get(detailDone.size()-2).getZj_Name()+","+ detailDone.get(detailDone.size()-3).getZj_Name()+","
+                + detailDone.get(detailDone.size()-4).getZj_Name()+"。"
+        ;
+        return context;
     }
 
 }
