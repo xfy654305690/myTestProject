@@ -3,9 +3,91 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-<!--    <bean id="service" class="hello.MessagesService"></bean>-->
-<!--    <bean id="printer" class="hello.MessagePrinter">-->
-<!--        <property name="service" ref="service"></property>-->
+<!--    &lt;!&ndash;1.定义QuartzTask01&ndash;&gt;-->
+<!--    <bean name="task01" class="com.project.test.testQuatz1"/>-->
+<!--    &lt;!&ndash;2.定义JobDetailFactoryBean&ndash;&gt;-->
+<!--    <bean name="task02" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">-->
+<!--        <property name="jobClass" value="com.project.test.testQuatz2"/>-->
+<!--        <property name="jobDataAsMap">-->
+<!--            <map>-->
+<!--                <entry key="name" value="张三丰"/>-->
+<!--            </map>-->
+<!--        </property>-->
 <!--    </bean>-->
+<!--    &lt;!&ndash;3.定义CronTriggerFactoryBean&ndash;&gt;-->
+<!--    <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean" >-->
+<!--        <property name="jobDetail" ref="task02"/>-->
+<!--        &lt;!&ndash;  定义第二个任务的执行周期  每隔30秒钟执行一次 &ndash;&gt;-->
+<!--        <property name="cronExpression" value="/30 * * * * ?"/>-->
+<!--        &lt;!&ndash; cronExpression表达式定义Job的执行规则。 &ndash;&gt;-->
+<!--    </bean>-->
+<!--    &lt;!&ndash;4.定义MethodInvokingJobDetailFactoryBean&ndash;&gt;-->
+<!--    <bean name="methodInvokingJobDetailFactoryBean" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">-->
+<!--        <property name="targetObject" ref="task01"/>-->
+<!--        <property name="targetMethod" value="run"/>-->
+<!--        &lt;!&ndash; concurrent 指定这个methodInvokingJobDetailFactoryBean（多个同时执行)能否同时执行，默认为true。&ndash;&gt;-->
+<!--        <property name="concurrent" value="false"/>-->
+<!--    </bean>-->
+<!--    &lt;!&ndash; 5.每个定时任务类都需要一个CronTriggerFactoryBean&ndash;&gt;-->
+<!--    <bean id="repeatTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">-->
+<!--        <property name="jobDetail" ref="methodInvokingJobDetailFactoryBean"/>-->
+<!--        &lt;!&ndash; 定义第二个任务的执行周期  每隔10秒钟执行一次&ndash;&gt;-->
+<!--        <property name="cronExpression" value="/10 * * * * ?"/>-->
+<!--    </bean>-->
+
+<!--    &lt;!&ndash;6.最终把所有触发器添加到SchedulerFactoryBean&ndash;&gt;-->
+<!--    <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">-->
+<!--        <property name="triggers">-->
+<!--            <list>-->
+<!--                &lt;!&ndash;引入多个触发器&ndash;&gt;-->
+<!--                <ref bean="repeatTrigger"/>-->
+<!--                <ref bean="cronTrigger"/>-->
+<!--            </list>-->
+<!--        </property>-->
+<!--    </bean>-->
+
+        <!--1.定义QuartzTask01-->
+        <bean name="task01" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+            <property name="jobClass" value="com.project.test.testQuatz1"/>
+            <property name="jobDataAsMap">
+                <map>
+                    <entry key="name" value="风清扬"/>
+                </map>
+            </property>
+        </bean>
+        <!--2.定义JobDetailFactoryBean-->
+        <bean name="task02" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+            <property name="jobClass" value="com.project.test.testQuatz2"/>
+            <property name="jobDataAsMap">
+                <map>
+                    <entry key="name" value="张三丰"/>
+                </map>
+            </property>
+        </bean>
+        <!--3.定义CronTriggerFactoryBean-->
+        <bean id="cronTrigger2" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean" >
+            <property name="jobDetail" ref="task02"/>
+            <!--  定义第二个任务的执行周期  每隔30秒钟执行一次 -->
+            <property name="cronExpression" value="/30 * * * * ?"/>
+            <!-- cronExpression表达式定义Job的执行规则。 -->
+        </bean>
+        <bean id="cronTrigger1" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean" >
+            <property name="jobDetail" ref="task01"/>
+            <!--  定义第二个任务的执行周期  每隔30秒钟执行一次 -->
+            <property name="cronExpression" value="/10 * * * * ?"/>
+            <!-- cronExpression表达式定义Job的执行规则。 -->
+        </bean>
+
+        <!--6.最终把所有触发器添加到SchedulerFactoryBean-->
+        <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+            <property name="triggers">
+                <list>
+                    <!--引入多个触发器-->
+                    <ref bean="cronTrigger1"/>
+                    <ref bean="cronTrigger2"/>
+                </list>
+            </property>
+        </bean>
+
 
 </beans>

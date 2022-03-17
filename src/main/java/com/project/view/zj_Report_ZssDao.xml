@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.view.zj_Report_ZtDao">
+    <select id="selectZj_Report_Zt_Kd_Zj"  resultType="com.project.model.zj_Report_Zt_Kd_Zj">
+        select * from (select * from(select p2.ZJ_ABBR_NAME as Zj_Name,p1.cdmaNew,p1.bbNew,p1.rhNew,p1.itvNew
+        from (select B.ZJ,SUM(MSU_NEW_CDMA_CNT)AS cdmaNew,SUM(MSU_NEW_LAN_CNT)AS bbNew,SUM(MSU_MIX_169_CNT)AS rhNew,sum(MSU_NEW_ITV_CNT) as itvNew
+        from XFY_RPT_IO_DAY a
+        left join XFY_REP_PUB_CDRY B
+        ON A.MKT_EMPLOYEE_ID=B.MKT_NAME
+        WHERE A.APPLY_DT&gt;= #{nowStartDate}
+        AND A.APPLY_DT&lt;= #{nowEndDate}
+        group by B.ZJ
+        )p1
+        right join XFY_REP_PUB_ZJ_PAR  p2
+        on p1.ZJ=p2.ZJ_ABBR_NAME) p3
+        order by decode(p3.Zj_Name,'鄞州潘火公众支局',0,'鄞州潘火政企支局',1,'鄞州钟公庙综合支局',2,'鄞州长丰综合支局',3,'鄞州新城综合支局',4,'鄞州新城文化中心综合支局',5,'鄞州首南综合支局',6,'鄞州南商政企支局',7,
+        '鄞州东郊综合支局',8,'鄞州下应综合支局',9,'鄞州中河城东综合支局',10,'鄞州东柳综合支局',11,'鄞州福明综合支局',12,'鄞州中河城西综合支局',13,'鄞州明楼综合支局',14,'鄞州白鹤综合支局',15,
+        '鄞州东胜综合支局',16,'鄞州百丈综合支局',17,'鄞州姜山综合支局',18,'鄞州东钱湖综合支局',19,'鄞州邱隘综合支局',20,'鄞州五乡综合支局',21,'鄞州云龙综合支局',22,'鄞州横溪综合支局',23,
+        '鄞州塘溪综合支局',24,'鄞州瞻岐综合支局',25,'鄞州东吴综合支局',26,'鄞州咸祥综合支局',27)) p4
+        union all
+        select '合计'as ZJ,SUM(MSU_NEW_CDMA_CNT)AS cdmaNew,SUM(MSU_NEW_LAN_CNT)AS bbNew,SUM(MSU_MIX_169_CNT)AS rhNew,sum(MSU_NEW_ITV_CNT) as itvNew
+        from XFY_RPT_IO_DAY a
+        left join XFY_REP_PUB_CDRY B
+        ON A.MKT_EMPLOYEE_ID=B.MKT_NAME
+        WHERE A.APPLY_DT&gt;= #{nowStartDate}
+          AND A.APPLY_DT&lt;= #{nowEndDate}
+        ;
+    </select>
+
+
+
+</mapper>
