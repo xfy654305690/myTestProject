@@ -5,7 +5,10 @@ import com.project.util.dealEmail;
 import com.project.util.dealExcle;
 import com.project.util.dealSendMessage;
 import com.project.util.dealTime;
+import com.project.view.zj_Report_KdDao;
 import com.project.view.zj_Report_RhItvDao;
+import com.project.view.zj_Report_TcfDao;
+import com.project.view.zj_Report_WyjDao;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -16,6 +19,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -110,6 +115,7 @@ public class zj_Report_RhItv_Business {
         String context=report_RhItv_DoDetail_Context(zj_Report_RhItv_List_Zj);
         DealSendMessage.searchMyFriendAndSend(wechartSendName,1,context);
 
+
         //获取支局长邮箱地址
         List<zj_Report_Public> zj_Report_Public_List =zj_Report_Public_Business.zj_Report_Public_Business();
 
@@ -122,8 +128,8 @@ public class zj_Report_RhItv_Business {
         System.out.println("邮件发送成功");
 
         //发送数据给支局长 *********这里乱码没有结解决
-        //if (nowDay.equals("5")||nowDay.equals("10")||nowDay.equals("15")||nowDay.equals("20")||nowDay.equals("25")){
-        if (0>1){
+        if (nowDay.equals("07")||nowDay.equals("11")||nowDay.equals("15")||nowDay.equals("19")||nowDay.equals("23")||nowDay.equals("26")||nowDay.equals("28")||nowDay.equals("30")){
+            //if (0>1){
             InputStream inDealData= Resources.getResourceAsStream(config);
             SqlSessionFactoryBuilder builderDealData=new SqlSessionFactoryBuilder();
             SqlSessionFactory factoryDealData = builderDealData.build(inDealData);
@@ -199,14 +205,14 @@ public class zj_Report_RhItv_Business {
     //新增处理
     public static String report_RhItv_DoDetail_Context( List<zj_Report_RhItv_Zj> zj_Report_RhItv_List_Zj)  {
 
-        zj_Report_RhItv_Zj heji=zj_Report_RhItv_List_Zj.get(zj_Report_RhItv_List_Zj.size());
+        zj_Report_RhItv_Zj heji=zj_Report_RhItv_List_Zj.get(zj_Report_RhItv_List_Zj.size()-1);
 
         List<zj_Report_RhItv_Zj> detailDone =zj_Report_RhItv_List_Zj;
-        detailDone.remove(zj_Report_RhItv_List_Zj.size());
+        detailDone.remove(zj_Report_RhItv_List_Zj.size()-1);
 
         String context="";
-        for(int i=0;i<detailDone.size()-1;i++){//外层循环控制排序趟数
-            for(int j=0;j<detailDone.size()-1-i;j++){
+        for(int i=0;i<detailDone.size()-1-1;i++){//外层循环控制排序趟数
+            for(int j=0;j<detailDone.size()-1-1-i;j++){
                 //内层循环控制每一趟排序多少次
                 if(detailDone.get(j).getRh_Add_rate() > detailDone.get(j + 1).getRh_Add_rate()) {
                     zj_Report_RhItv_Zj temp= detailDone.get(j);
@@ -218,16 +224,14 @@ public class zj_Report_RhItv_Business {
         NumberFormat nf = NumberFormat.getPercentInstance();
         nf.setMaximumFractionDigits(1);
 
-        context="鄞州融合ITV渗透整体合计："+nf.format(heji.getRh_Add_rate())+"。"+"/n"+"渗透率前五支局："+
+        context="鄞州融合ITV渗透整体合计："+nf.format(heji.getRh_Add_rate())+"。"+"\n"+"融合ITV渗透率后五支局："+
                 detailDone.get(0).getZj_Name()+","+detailDone.get(1).getZj_Name()+","+detailDone.get(2).getZj_Name()+","
-                +detailDone.get(3).getZj_Name()+","+detailDone.get(4).getZj_Name()+"。/n"+"渗透率后五支局："+
-                detailDone.get(detailDone.size()).getZj_Name()+","+ detailDone.get(detailDone.size()-1).getZj_Name()+","
-                + detailDone.get(detailDone.size()-2).getZj_Name()+","+ detailDone.get(detailDone.size()-3).getZj_Name()+","
-                + detailDone.get(detailDone.size()-4).getZj_Name()+"。"
+                +detailDone.get(3).getZj_Name()+","+detailDone.get(4).getZj_Name()+"。\n"+"融合ITV渗透率前五支局："+
+                detailDone.get(detailDone.size()-1).getZj_Name()+","+ detailDone.get(detailDone.size()-2).getZj_Name()+","
+                + detailDone.get(detailDone.size()-3).getZj_Name()+","+ detailDone.get(detailDone.size()-4).getZj_Name()+","
+                + detailDone.get(detailDone.size()-5).getZj_Name()+"。"
         ;
         return context;
     }
-
-
 
 }

@@ -165,7 +165,7 @@ public class zj_Report_Kd_Business {
         //处理季度日期差
         Integer quarterDay=dealTime.get_date_Difference_Values(dealTime.get_nowQuarter_FirstDay_ByDate(),dealTime.get_nowQuarter_LastDay_ByDate());
 
-       //处理支局新增
+        //处理支局新增
         List<zj_Report_Kd_New_Zj> selectZj_Report_Kd_New_List_Zj_Deal =  report_Kd_New_DoDetail(selectZj_Report_Kd_New_List_Zj,differenceDay,quarterDay);
         //宽带新增 1
         DealExcle.cpoyToExcle(selectZj_Report_Kd_New_List_Zj_Deal,inExcleFile,OutExcleFile,1,Zj_Report_Kd_New_Zj);
@@ -200,10 +200,8 @@ public class zj_Report_Kd_Business {
         //文字后续在加，不急，预留
         String contextNew=report_Kd_New_DoDetail_Context(selectZj_Report_Kd_New_List_Zj_Deal);
         String contextJz=report_Kd_Jz_DoDetail_Context(selectZj_Report_Kd_Jz_List_Zj_Deal);
-        String context=contextNew+"/n"+contextJz;
+        String context=contextNew+"\n"+contextJz;
         DealSendMessage.searchMyFriendAndSend(wechartSendName,1,context);
-
-        //文字后续在加，不急，预留
 
         //获取支局长邮箱地址
         List<zj_Report_Public> zj_Report_Public_List =zj_Report_Public_Business.zj_Report_Public_Business();
@@ -217,8 +215,8 @@ public class zj_Report_Kd_Business {
         System.out.println("邮件发送成功");
 
         //发送数据给支局长 *********这里乱码没有结解决
-        //if (nowDay.equals("5")||nowDay.equals("10")||nowDay.equals("15")||nowDay.equals("20")||nowDay.equals("25")){
-        if (0>1){
+        if (nowDay.equals("07")||nowDay.equals("11")||nowDay.equals("15")||nowDay.equals("19")||nowDay.equals("23")||nowDay.equals("26")||nowDay.equals("28")||nowDay.equals("30")){
+            //if (0>1){
 
             InputStream inDealData= Resources.getResourceAsStream(config);
             SqlSessionFactoryBuilder builderDealData=new SqlSessionFactoryBuilder();
@@ -229,7 +227,6 @@ public class zj_Report_Kd_Business {
             for (int i=0;i<zj_Report_Public_List.size();i++){
 
                 zj_Report_Kd_Jz_Data Zj_report_kd_jz_data=new zj_Report_Kd_Jz_Data();
-
 
                 List<zj_Report_Kd_Jz_Data> Zj_report_kd_jz_data_List =
                         Zj_Report_KdDaoDealData.selectZj_Report_Kd_Jz_Data(tableNameNew,zj_Report_Public_List.get(i).getZj_Abbr_Name());
@@ -271,14 +268,14 @@ public class zj_Report_Kd_Business {
     public static List<zj_Report_Kd_New_Zj> report_Kd_New_DoDetail( List<zj_Report_Kd_New_Zj> Zj_Report_Kd_New_Zj,Integer differenceDay,Integer quarterDay)  {
 
         for(int i=0;i<Zj_Report_Kd_New_Zj.size();i++){
-                //日均新增
-                Zj_Report_Kd_New_Zj.get(i).setBb_Amt_Avg( (Zj_Report_Kd_New_Zj.get(i).getBb_Amt()/differenceDay));
-                //季度缺口
-                Zj_Report_Kd_New_Zj.get(i).setBb_Amt_Gap((int) Math.ceil(Zj_Report_Kd_New_Zj.get(i).getBb_Amt_Avg_Tar()*quarterDay-Zj_Report_Kd_New_Zj.get(i).getBb_Amt()));
-                //季度指标
-                Zj_Report_Kd_New_Zj.get(i).setBb_Amt_Tar((int) Math.ceil(Zj_Report_Kd_New_Zj.get(i).getBb_Amt_Avg_Tar() *quarterDay));
-                //完成率
-                Zj_Report_Kd_New_Zj.get(i).setBb_Amt_Rate(((Zj_Report_Kd_New_Zj.get(i).getBb_Amt()/differenceDay))/Zj_Report_Kd_New_Zj.get(i).getBb_Amt_Avg_Tar());
+            //日均新增
+            Zj_Report_Kd_New_Zj.get(i).setBb_Amt_Avg( (Zj_Report_Kd_New_Zj.get(i).getBb_Amt()/differenceDay));
+            //季度缺口
+            Zj_Report_Kd_New_Zj.get(i).setBb_Amt_Gap((int) Math.ceil(Zj_Report_Kd_New_Zj.get(i).getBb_Amt_Avg_Tar()*quarterDay-Zj_Report_Kd_New_Zj.get(i).getBb_Amt()));
+            //季度指标
+            Zj_Report_Kd_New_Zj.get(i).setBb_Amt_Tar((int) Math.ceil(Zj_Report_Kd_New_Zj.get(i).getBb_Amt_Avg_Tar() *quarterDay));
+            //完成率
+            Zj_Report_Kd_New_Zj.get(i).setBb_Amt_Rate(((Zj_Report_Kd_New_Zj.get(i).getBb_Amt()/differenceDay))/Zj_Report_Kd_New_Zj.get(i).getBb_Amt_Avg_Tar());
 
         }
         return Zj_Report_Kd_New_Zj;
@@ -305,14 +302,14 @@ public class zj_Report_Kd_Business {
     //新增处理
     public static String report_Kd_New_DoDetail_Context( List<zj_Report_Kd_New_Zj> selectZj_Report_Kd_New_List_Zj_Deal)  {
 
-        zj_Report_Kd_New_Zj heji=selectZj_Report_Kd_New_List_Zj_Deal.get(selectZj_Report_Kd_New_List_Zj_Deal.size());
+        zj_Report_Kd_New_Zj heji=selectZj_Report_Kd_New_List_Zj_Deal.get(selectZj_Report_Kd_New_List_Zj_Deal.size()-1);
 
         List<zj_Report_Kd_New_Zj> detailDone =selectZj_Report_Kd_New_List_Zj_Deal;
-        detailDone.remove(selectZj_Report_Kd_New_List_Zj_Deal.size());
+        detailDone.remove(selectZj_Report_Kd_New_List_Zj_Deal.size()-1);
 
         String context="";
-        for(int i=0;i<detailDone.size()-1;i++){//外层循环控制排序趟数
-            for(int j=0;j<detailDone.size()-1-i;j++){
+        for(int i=0;i<detailDone.size()-1-1;i++){//外层循环控制排序趟数
+            for(int j=0;j<detailDone.size()-1-1-i;j++){
                 //内层循环控制每一趟排序多少次
                 if(detailDone.get(j).getBb_Amt_Rate() > detailDone.get(j + 1).getBb_Amt_Rate()) {
                     zj_Report_Kd_New_Zj temp= detailDone.get(j);
@@ -323,27 +320,26 @@ public class zj_Report_Kd_Business {
         NumberFormat nf = NumberFormat.getPercentInstance();
         nf.setMaximumFractionDigits(1);
 
-        context="鄞州宽带整体新增共："+heji.getBb_Amt()+",整体完成率："+nf.format(heji.getBb_Amt_Rate())+"。"+"/n"+"完成率前五支局："+
+        context="鄞州宽带整体新增共："+(int) Math.floor(heji.getBb_Amt())+",整体完成率："+nf.format(heji.getBb_Amt_Rate())+"。"+"\n"+"新增完成率后五支局："+
                 detailDone.get(0).getZj_Name()+","+detailDone.get(1).getZj_Name()+","+detailDone.get(2).getZj_Name()+","
-                +detailDone.get(3).getZj_Name()+","+detailDone.get(4).getZj_Name()+"。/n"+"完成率后五支局："+
-                detailDone.get(detailDone.size()).getZj_Name()+","+ detailDone.get(detailDone.size()-1).getZj_Name()+","
-                + detailDone.get(detailDone.size()-2).getZj_Name()+","+ detailDone.get(detailDone.size()-3).getZj_Name()+","
-                + detailDone.get(detailDone.size()-4).getZj_Name()+"。"
-        ;
+                +detailDone.get(3).getZj_Name()+","+detailDone.get(4).getZj_Name()+"。\n"+"新增完成率前五支局："+
+                detailDone.get(detailDone.size()-1).getZj_Name()+","+ detailDone.get(detailDone.size()-2).getZj_Name()+","
+                + detailDone.get(detailDone.size()-3).getZj_Name()+","+ detailDone.get(detailDone.size()-4).getZj_Name()+","
+                + detailDone.get(detailDone.size()-5).getZj_Name()+"。";
         return context;
     }
 
     //新增处理
     public static String report_Kd_Jz_DoDetail_Context( List<zj_Report_Kd_Jz_Zj> selectZj_Report_Kd_Jz_List_Zj_Deal)  {
 
-        zj_Report_Kd_Jz_Zj heji=selectZj_Report_Kd_Jz_List_Zj_Deal.get(selectZj_Report_Kd_Jz_List_Zj_Deal.size());
+        zj_Report_Kd_Jz_Zj heji=selectZj_Report_Kd_Jz_List_Zj_Deal.get(selectZj_Report_Kd_Jz_List_Zj_Deal.size()-1);
 
         List<zj_Report_Kd_Jz_Zj> detailDone =selectZj_Report_Kd_Jz_List_Zj_Deal;
-        detailDone.remove(selectZj_Report_Kd_Jz_List_Zj_Deal.size());
+        detailDone.remove(selectZj_Report_Kd_Jz_List_Zj_Deal.size()-1);
 
         String context="";
-        for(int i=0;i<detailDone.size()-1;i++){//外层循环控制排序趟数
-            for(int j=0;j<detailDone.size()-1-i;j++){
+        for(int i=0;i<detailDone.size()-1-1;i++){//外层循环控制排序趟数
+            for(int j=0;j<detailDone.size()-1-1-i;j++){
                 //内层循环控制每一趟排序多少次
                 if(detailDone.get(j).getBb_Amt_Rate_Jz() > detailDone.get(j + 1).getBb_Amt_Rate_Jz()) {
                     zj_Report_Kd_Jz_Zj temp= detailDone.get(j);
@@ -354,15 +350,13 @@ public class zj_Report_Kd_Business {
         NumberFormat nf = NumberFormat.getPercentInstance();
         nf.setMaximumFractionDigits(1);
 
-        context="鄞州宽带整体净增共："+heji.getBb_Amt_Jz()+",整体完成率："+nf.format(heji.getBb_Amt_Rate_Jz())+"。"+"/n"+"完成率前五支局："+
+        context="鄞州宽带整体净增共："+(int) Math.floor(heji.getBb_Amt_Jz())+",整体完成率："+nf.format(heji.getBb_Amt_Rate_Jz())+"。"+"\n"+"净增完成率后五支局："+
                 detailDone.get(0).getZj_Name()+","+detailDone.get(1).getZj_Name()+","+detailDone.get(2).getZj_Name()+","
-                +detailDone.get(3).getZj_Name()+","+detailDone.get(4).getZj_Name()+"。/n"+"完成率后五支局："+
-                detailDone.get(detailDone.size()).getZj_Name()+","+ detailDone.get(detailDone.size()-1).getZj_Name()+","
-                + detailDone.get(detailDone.size()-2).getZj_Name()+","+ detailDone.get(detailDone.size()-3).getZj_Name()+","
-                + detailDone.get(detailDone.size()-4).getZj_Name()+"。"
-        ;
+                +detailDone.get(3).getZj_Name()+","+detailDone.get(4).getZj_Name()+"。\n"+"净增完成率前五支局："+
+                detailDone.get(detailDone.size()-1).getZj_Name()+","+ detailDone.get(detailDone.size()-2).getZj_Name()+","
+                + detailDone.get(detailDone.size()-3).getZj_Name()+","+ detailDone.get(detailDone.size()-4).getZj_Name()+","
+                + detailDone.get(detailDone.size()-5).getZj_Name()+"。";
         return context;
     }
-
 
 }

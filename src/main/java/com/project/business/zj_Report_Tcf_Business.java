@@ -6,6 +6,7 @@ import com.project.util.dealExcle;
 import com.project.util.dealSendMessage;
 import com.project.util.dealTime;
 import com.project.view.zj_Report_TcfDao;
+import com.project.view.zj_Report_XubaoDao;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -144,7 +145,7 @@ public class zj_Report_Tcf_Business {
         dealEmail DealEmail=new dealEmail();
         dealSendMessage DealSendMessage=new dealSendMessage();
 
-       //处理支局奖扣
+        //处理支局奖扣
         List<zj_Report_Tcf_Zj> zj_Report_Tcf_KDList_Zj_New =  report_Tcf_Zj_DoDetail(zj_Report_Tcf_KDList_Zj);
         //宽带奖扣 1
         DealExcle.cpoyToExcle(zj_Report_Tcf_KDList_Zj_New,inExcleFile,OutExcleFile,1,Zj_Report_Tcf_Zj);
@@ -180,7 +181,7 @@ public class zj_Report_Tcf_Business {
         //文字后续在加，不急，预留
         String contextKd=report_KdTcf_DoDetail_Context(zj_Report_Tcf_KDList_Zj_New);
         String contextItv=report_ItvTcf_DoDetail_Context(zj_Report_Tcf_ItvList_Zj_New);
-        String context=contextKd+"/n"+contextItv;
+        String context=contextKd+"\n"+contextItv;
         DealSendMessage.searchMyFriendAndSend(wechartSendName,1,context);
 
         //获取支局长邮箱地址
@@ -195,8 +196,8 @@ public class zj_Report_Tcf_Business {
         System.out.println("邮件发送成功");
 
         //发送数据给支局长 *********这里乱码没有结解决
-        //if (nowDay.equals("5")||nowDay.equals("10")||nowDay.equals("15")||nowDay.equals("20")||nowDay.equals("25")){
-        if (0>1){
+        if (nowDay.equals("07")||nowDay.equals("11")||nowDay.equals("15")||nowDay.equals("19")||nowDay.equals("23")||nowDay.equals("26")||nowDay.equals("28")||nowDay.equals("30")){
+            //if (0>1){
 
             InputStream inDealData= Resources.getResourceAsStream(config);
             SqlSessionFactoryBuilder builderDealData=new SqlSessionFactoryBuilder();
@@ -242,7 +243,6 @@ public class zj_Report_Tcf_Business {
             }
 
             sqlSessionDealData.close();
-
         }
 
     }
@@ -257,7 +257,7 @@ public class zj_Report_Tcf_Business {
         for(int i=0;i<zj_Report_Tcf_List_Zj.size();i++){
             if (zj_Report_Tcf_List_Zj.get(i).getZj_Name().equals("合计")){
 
-             //计算缺口
+                //计算缺口
                 zj_Report_Tcf_List_Zj.get(i).setTcf_amt_gap((int) Math.ceil(zj_Report_Tcf_List_Zj.get(i).getTcf_Amt()*(0.9)-zj_Report_Tcf_List_Zj.get(i).getTcf_amt_cha()));
 
             }
@@ -273,18 +273,18 @@ public class zj_Report_Tcf_Business {
         }
 
         return zj_Report_Tcf_List_Zj;
-
     }
+
     public static String report_KdTcf_DoDetail_Context( List<zj_Report_Tcf_Zj> zj_Report_Tcf_KDList_Zj)  {
 
-        zj_Report_Tcf_Zj heji=zj_Report_Tcf_KDList_Zj.get(zj_Report_Tcf_KDList_Zj.size());
+        zj_Report_Tcf_Zj heji=zj_Report_Tcf_KDList_Zj.get(zj_Report_Tcf_KDList_Zj.size()-1);
 
         List<zj_Report_Tcf_Zj> detailDone =zj_Report_Tcf_KDList_Zj;
-        detailDone.remove(zj_Report_Tcf_KDList_Zj.size());
+        detailDone.remove(zj_Report_Tcf_KDList_Zj.size()-1);
 
         String context="";
-        for(int i=0;i<detailDone.size()-1;i++){//外层循环控制排序趟数
-            for(int j=0;j<detailDone.size()-1-i;j++){
+        for(int i=0;i<detailDone.size()-1-1;i++){//外层循环控制排序趟数
+            for(int j=0;j<detailDone.size()-1-1-i;j++){
                 //内层循环控制每一趟排序多少次
                 if(detailDone.get(j).getTcf_amt_rate() > detailDone.get(j + 1).getTcf_amt_rate()) {
                     zj_Report_Tcf_Zj temp= detailDone.get(j);
@@ -296,24 +296,24 @@ public class zj_Report_Tcf_Business {
         NumberFormat nf = NumberFormat.getPercentInstance();
         nf.setMaximumFractionDigits(1);
 
-        context="鄞州宽带调测费整体合计："+nf.format(heji.getTcf_amt_rate())+"。"+"/n"+"完成率后五支局："+
-                detailDone.get(detailDone.size()).getZj_Name()+","+ detailDone.get(detailDone.size()-1).getZj_Name()+","
-                + detailDone.get(detailDone.size()-2).getZj_Name()+","+ detailDone.get(detailDone.size()-3).getZj_Name()+","
-                + detailDone.get(detailDone.size()-4).getZj_Name()+","
+        context="鄞州宽带调测费整体合计："+nf.format(heji.getTcf_amt_rate())+"。"+"\n"+"完成率后五支局："+
+                detailDone.get(0).getZj_Name()+","+ detailDone.get(1).getZj_Name()+","
+                + detailDone.get(2).getZj_Name()+","+ detailDone.get(3).getZj_Name()+","
+                + detailDone.get(4).getZj_Name()+","
         ;
         return context;
     }
 
     public static String report_ItvTcf_DoDetail_Context( List<zj_Report_Tcf_Zj> zj_Report_Tcf_KDList_Zj)  {
 
-        zj_Report_Tcf_Zj heji=zj_Report_Tcf_KDList_Zj.get(zj_Report_Tcf_KDList_Zj.size());
+        zj_Report_Tcf_Zj heji=zj_Report_Tcf_KDList_Zj.get(zj_Report_Tcf_KDList_Zj.size()-1);
 
         List<zj_Report_Tcf_Zj> detailDone =zj_Report_Tcf_KDList_Zj;
-        detailDone.remove(zj_Report_Tcf_KDList_Zj.size());
+        detailDone.remove(zj_Report_Tcf_KDList_Zj.size()-1);
 
         String context="";
-        for(int i=0;i<detailDone.size()-1;i++){//外层循环控制排序趟数
-            for(int j=0;j<detailDone.size()-1-i;j++){
+        for(int i=0;i<detailDone.size()-1-1;i++){//外层循环控制排序趟数
+            for(int j=0;j<detailDone.size()-1-1-i;j++){
                 //内层循环控制每一趟排序多少次
                 if(detailDone.get(j).getTcf_amt_rate() > detailDone.get(j + 1).getTcf_amt_rate()) {
                     zj_Report_Tcf_Zj temp= detailDone.get(j);
@@ -325,12 +325,14 @@ public class zj_Report_Tcf_Business {
         NumberFormat nf = NumberFormat.getPercentInstance();
         nf.setMaximumFractionDigits(1);
 
-        context="鄞州ITV调测费整体合计："+nf.format(heji.getTcf_amt_rate())+"。"+"/n"+"收取率后五支局："+
-                detailDone.get(detailDone.size()).getZj_Name()+","+ detailDone.get(detailDone.size()-1).getZj_Name()+","
-                + detailDone.get(detailDone.size()-2).getZj_Name()+","+ detailDone.get(detailDone.size()-3).getZj_Name()+","
-                + detailDone.get(detailDone.size()-4).getZj_Name()+"。"
+        context="鄞州ITV调测费整体合计："+nf.format(heji.getTcf_amt_rate())+"。"+"\n"+"收取率后五支局："+
+                detailDone.get(0).getZj_Name()+","+ detailDone.get(1).getZj_Name()+","
+                + detailDone.get(2).getZj_Name()+","+ detailDone.get(3).getZj_Name()+","
+                + detailDone.get(4).getZj_Name()+"。"
         ;
         return context;
     }
+
+
 
 }
