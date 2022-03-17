@@ -11,12 +11,12 @@ import java.text.ParseException;
 public class zj_Report_Kd_Controller {
 
 
-    public static void main(String[] args) throws Exception {
-
-        zj_Report_Kd_Business Zj_Report_Kd_Business=new zj_Report_Kd_Business();
-        Zj_Report_Kd_Business.report_Kd_Zj();
-
-    }
+//    public static void main(String[] args) throws Exception {
+//
+//        zj_Report_Kd_Business Zj_Report_Kd_Business=new zj_Report_Kd_Business();
+//        Zj_Report_Kd_Business.report_Kd_Zj();
+//
+//    }
     public static void report_Kd_Zj_Js() throws MessagingException, IOException, ParseException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
 
         zj_Report_Kd_Business Zj_Report_Kd_Business=new zj_Report_Kd_Business();
