@@ -19,6 +19,7 @@ public class DoJob  implements Job {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             System.out.println("JOB1陆小凤"+simpleDateFormat.format(date));
         } catch (Exception e) {
+            System.out.println("报错了");
             e.printStackTrace();
         }
 
