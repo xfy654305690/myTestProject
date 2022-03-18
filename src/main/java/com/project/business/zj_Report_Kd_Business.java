@@ -306,7 +306,12 @@ public class zj_Report_Kd_Business {
 
         List<zj_Report_Kd_New_Zj> detailDone =selectZj_Report_Kd_New_List_Zj_Deal;
         detailDone.remove(selectZj_Report_Kd_New_List_Zj_Deal.size()-1);
-
+        for(int i=0;i<detailDone.size();i++){
+            String s=detailDone.get(i).getZj_Name().replace("鄞州","");
+            s=s.replace("支局","");
+            s=s.replace("综合","");
+            detailDone.get(i).setZj_Name(s);
+        }
         String context="";
         for(int i=0;i<detailDone.size()-1;i++){//外层循环控制排序趟数
             for(int j=0;j<detailDone.size()-1-i;j++){
@@ -336,7 +341,12 @@ public class zj_Report_Kd_Business {
 
         List<zj_Report_Kd_Jz_Zj> detailDone =selectZj_Report_Kd_Jz_List_Zj_Deal;
         detailDone.remove(selectZj_Report_Kd_Jz_List_Zj_Deal.size()-1);
-
+        for(int i=0;i<detailDone.size();i++){
+            String s=detailDone.get(i).getZj_Name().replace("鄞州","");
+            s=s.replace("支局","");
+            s=s.replace("综合","");
+            detailDone.get(i).setZj_Name(s);
+        }
         String context="";
         for(int i=0;i<detailDone.size()-1;i++){//外层循环控制排序趟数
             for(int j=0;j<detailDone.size()-1-i;j++){
