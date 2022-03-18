@@ -247,8 +247,8 @@ public class zj_Report_Wyj_Business {
         detailDone.remove(zj_Report_Wyj_List_Zj.size()-1);
 
         String context="";
-        for(int i=0;i<detailDone.size()-1-1;i++){//外层循环控制排序趟数
-            for(int j=0;j<detailDone.size()-1-1-i;j++){
+        for(int i=0;i<detailDone.size()-1;i++){//外层循环控制排序趟数
+            for(int j=0;j<detailDone.size()-1-i;j++){
                 //内层循环控制每一趟排序多少次
                 if(detailDone.get(j).getAmt_Rate() > detailDone.get(j + 1).getAmt_Rate()) {
                     zj_Report_Wyj_Zj temp= detailDone.get(j);

@@ -211,8 +211,8 @@ public class zj_Report_RhItv_Business {
         detailDone.remove(zj_Report_RhItv_List_Zj.size()-1);
 
         String context="";
-        for(int i=0;i<detailDone.size()-1-1;i++){//外层循环控制排序趟数
-            for(int j=0;j<detailDone.size()-1-1-i;j++){
+        for(int i=0;i<detailDone.size()-1;i++){//外层循环控制排序趟数
+            for(int j=0;j<detailDone.size()-1-i;j++){
                 //内层循环控制每一趟排序多少次
                 if(detailDone.get(j).getRh_Add_rate() > detailDone.get(j + 1).getRh_Add_rate()) {
                     zj_Report_RhItv_Zj temp= detailDone.get(j);

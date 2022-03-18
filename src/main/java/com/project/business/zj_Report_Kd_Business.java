@@ -308,8 +308,8 @@ public class zj_Report_Kd_Business {
         detailDone.remove(selectZj_Report_Kd_New_List_Zj_Deal.size()-1);
 
         String context="";
-        for(int i=0;i<detailDone.size()-1-1;i++){//外层循环控制排序趟数
-             for(int j=0;j<detailDone.size()-1-1-i;j++){
+        for(int i=0;i<detailDone.size()-1;i++){//外层循环控制排序趟数
+             for(int j=0;j<detailDone.size()-1-i;j++){
                  //内层循环控制每一趟排序多少次
                  if(detailDone.get(j).getBb_Amt_Rate() > detailDone.get(j + 1).getBb_Amt_Rate()) {
                      zj_Report_Kd_New_Zj temp= detailDone.get(j);
@@ -338,8 +338,8 @@ public class zj_Report_Kd_Business {
         detailDone.remove(selectZj_Report_Kd_Jz_List_Zj_Deal.size()-1);
 
         String context="";
-        for(int i=0;i<detailDone.size()-1-1;i++){//外层循环控制排序趟数
-            for(int j=0;j<detailDone.size()-1-1-i;j++){
+        for(int i=0;i<detailDone.size()-1;i++){//外层循环控制排序趟数
+            for(int j=0;j<detailDone.size()-1-i;j++){
                 //内层循环控制每一趟排序多少次
                 if(detailDone.get(j).getBb_Amt_Rate_Jz() > detailDone.get(j + 1).getBb_Amt_Rate_Jz()) {
                     zj_Report_Kd_Jz_Zj temp= detailDone.get(j);
