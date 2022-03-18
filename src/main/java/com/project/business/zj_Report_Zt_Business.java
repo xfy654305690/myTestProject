@@ -17,6 +17,7 @@ import javax.mail.MessagingException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -205,6 +206,12 @@ public class zj_Report_Zt_Business {
 
         //文字后续在加，不急，预留
 
+        String contextKd=report_Kd_Zt_DoDetail_Context(selectZj_Report_Zt_Kd_Zj_Deal);
+        String contextCmda=report_Cdma_Zt_DoDetail_Context(selectZj_Report_Zt_Cmda_Zj_Deal);
+        String contextItv=report_Itv_Zt_DoDetail_Context(selectZj_Report_Zt_Itv_Zj_Deal);
+        String context=contextKd+contextCmda+contextItv;
+        DealSendMessage.searchMyFriendAndSend(wechartSendName,1,context);
+
         //获取支局长邮箱地址
         List<zj_Report_Public> zj_Report_Public_List =zj_Report_Public_Business.zj_Report_Public_Business();
 
@@ -352,4 +359,166 @@ public class zj_Report_Zt_Business {
         }
         return selectZj_Report_Zt_Itv_Zj;
     }
+
+    //新增处理
+    public static String report_Kd_Zt_DoDetail_Context( List<zj_Report_Zt_Kd_Zj> selectZj_Report_Zt_Kd_Zj_Deal)  {
+
+        zj_Report_Zt_Kd_Zj heji=selectZj_Report_Zt_Kd_Zj_Deal.get(selectZj_Report_Zt_Kd_Zj_Deal.size()-1);
+
+        List<zj_Report_Zt_Kd_Zj> detailDone =selectZj_Report_Zt_Kd_Zj_Deal;
+        detailDone.remove(selectZj_Report_Zt_Kd_Zj_Deal.size()-1);
+        for(int i=0;i<detailDone.size();i++){
+            String s=detailDone.get(i).getZj_Name().replace("鄞州","");
+            s=s.replace("支局","");
+            s=s.replace("综合","");
+            detailDone.get(i).setZj_Name(s);
+        }
+        String contextKdDy="";
+        String contextKdSy="";
+        String context="";
+        NumberFormat nf = NumberFormat.getPercentInstance();
+        nf.setMaximumFractionDigits(1);
+
+        for(int i=0;i<detailDone.size()-1;i++){//外层循环控制排序趟数
+            for(int j=0;j<detailDone.size()-1-i;j++){
+                //内层循环控制每一趟排序多少次
+                if(detailDone.get(j).getBb_Now_Amt_act_rate() > detailDone.get(j + 1).getBb_Now_Amt_act_rate()) {
+                    zj_Report_Zt_Kd_Zj temp= detailDone.get(j);
+                    detailDone.set(j, detailDone.get(j + 1));detailDone.set(j + 1, temp);
+                }
+            }
+        }
+
+        contextKdDy="鄞州当月宽带整体活跃率："+nf.format(heji.getBb_Now_Amt_act_rate())+"。"+"\n"+"当月宽带活跃率后五支局："+
+                detailDone.get(0).getZj_Name()+","+detailDone.get(1).getZj_Name()+","+detailDone.get(2).getZj_Name()+","
+                +detailDone.get(3).getZj_Name()+","+detailDone.get(4).getZj_Name()+"。\n";
+
+
+        for(int i=0;i<detailDone.size()-1;i++){//外层循环控制排序趟数
+            for(int j=0;j<detailDone.size()-1-i;j++){
+                //内层循环控制每一趟排序多少次
+                if(detailDone.get(j).getBb_Las_Amt_act_rate() > detailDone.get(j + 1).getBb_Las_Amt_act_rate()) {
+                    zj_Report_Zt_Kd_Zj temp= detailDone.get(j);
+                    detailDone.set(j, detailDone.get(j + 1));detailDone.set(j + 1, temp);
+                }
+            }
+        }
+
+        contextKdSy="鄞州上月宽带整体活跃率："+nf.format(heji.getBb_Las_Amt_act_rate())+"。"+"\n"+"上月宽带活跃率后五支局："+
+                detailDone.get(0).getZj_Name()+","+detailDone.get(1).getZj_Name()+","+detailDone.get(2).getZj_Name()+","
+                +detailDone.get(3).getZj_Name()+","+detailDone.get(4).getZj_Name()+"。\n";
+
+        context=contextKdDy+contextKdSy;
+
+        return context;
+    }
+
+    //新增处理
+    public static String report_Cdma_Zt_DoDetail_Context( List<zj_Report_Zt_Cdma_Zj>selectZj_Report_Zt_Cmda_Zj_Deal)  {
+
+        zj_Report_Zt_Cdma_Zj heji=selectZj_Report_Zt_Cmda_Zj_Deal.get(selectZj_Report_Zt_Cmda_Zj_Deal.size()-1);
+
+        List<zj_Report_Zt_Cdma_Zj> detailDone =selectZj_Report_Zt_Cmda_Zj_Deal;
+        detailDone.remove(selectZj_Report_Zt_Cmda_Zj_Deal.size()-1);
+        for(int i=0;i<detailDone.size();i++){
+            String s=detailDone.get(i).getZj_Name().replace("鄞州","");
+            s=s.replace("支局","");
+            s=s.replace("综合","");
+            detailDone.get(i).setZj_Name(s);
+        }
+        String contextKdDy="";
+        String contextKdSy="";
+        String context="";
+        NumberFormat nf = NumberFormat.getPercentInstance();
+        nf.setMaximumFractionDigits(1);
+
+        for(int i=0;i<detailDone.size()-1;i++){//外层循环控制排序趟数
+            for(int j=0;j<detailDone.size()-1-i;j++){
+                //内层循环控制每一趟排序多少次
+                if(detailDone.get(j).getCdma_Now_Amt_act_rate() > detailDone.get(j + 1).getCdma_Now_Amt_act_rate()) {
+                    zj_Report_Zt_Cdma_Zj temp= detailDone.get(j);
+                    detailDone.set(j, detailDone.get(j + 1));detailDone.set(j + 1, temp);
+                }
+            }
+        }
+
+        contextKdDy="鄞州当月C网整体活跃率："+nf.format(heji.getCdma_Now_Amt_act_rate())+"。"+"\n"+"当月宽C网活跃率后五支局："+
+                detailDone.get(0).getZj_Name()+","+detailDone.get(1).getZj_Name()+","+detailDone.get(2).getZj_Name()+","
+                +detailDone.get(3).getZj_Name()+","+detailDone.get(4).getZj_Name()+"。\n";
+
+
+        for(int i=0;i<detailDone.size()-1;i++){//外层循环控制排序趟数
+            for(int j=0;j<detailDone.size()-1-i;j++){
+                //内层循环控制每一趟排序多少次
+                if(detailDone.get(j).getCdma_Las_Amt_act_rate() > detailDone.get(j + 1).getCdma_Las_Amt_act_rate()) {
+                    zj_Report_Zt_Cdma_Zj temp= detailDone.get(j);
+                    detailDone.set(j, detailDone.get(j + 1));detailDone.set(j + 1, temp);
+                }
+            }
+        }
+
+        contextKdSy="鄞州上月C网整体活跃率："+nf.format(heji.getCdma_Las_Amt_act_rate())+"。"+"\n"+"上月C网活跃率后五支局："+
+                detailDone.get(0).getZj_Name()+","+detailDone.get(1).getZj_Name()+","+detailDone.get(2).getZj_Name()+","
+                +detailDone.get(3).getZj_Name()+","+detailDone.get(4).getZj_Name()+"。\n";
+
+        context=contextKdDy+contextKdSy;
+
+        return context;
+    }
+
+    //新增处理
+    public static String report_Itv_Zt_DoDetail_Context( List<zj_Report_Zt_Itv_Zj>selectZj_Report_Zt_Itv_Zj_Deal)  {
+
+        zj_Report_Zt_Itv_Zj heji=selectZj_Report_Zt_Itv_Zj_Deal.get(selectZj_Report_Zt_Itv_Zj_Deal.size()-1);
+
+        List<zj_Report_Zt_Itv_Zj> detailDone =selectZj_Report_Zt_Itv_Zj_Deal;
+        detailDone.remove(selectZj_Report_Zt_Itv_Zj_Deal.size()-1);
+        for(int i=0;i<detailDone.size();i++){
+            String s=detailDone.get(i).getZj_Name().replace("鄞州","");
+            s=s.replace("支局","");
+            s=s.replace("综合","");
+            detailDone.get(i).setZj_Name(s);
+        }
+        String contextKdDy="";
+        String contextKdSy="";
+        String context="";
+        NumberFormat nf = NumberFormat.getPercentInstance();
+        nf.setMaximumFractionDigits(1);
+
+        for(int i=0;i<detailDone.size()-1;i++){//外层循环控制排序趟数
+            for(int j=0;j<detailDone.size()-1-i;j++){
+                //内层循环控制每一趟排序多少次
+                if(detailDone.get(j).getItv_Now_Amt_act_rate() > detailDone.get(j + 1).getItv_Now_Amt_act_rate()) {
+                    zj_Report_Zt_Itv_Zj temp= detailDone.get(j);
+                    detailDone.set(j, detailDone.get(j + 1));detailDone.set(j + 1, temp);
+                }
+            }
+        }
+
+        contextKdDy="鄞州当月ITV整体活跃率："+nf.format(heji.getItv_Now_Amt_act_rate())+"。"+"\n"+"当月宽ITV活跃率后五支局："+
+                detailDone.get(0).getZj_Name()+","+detailDone.get(1).getZj_Name()+","+detailDone.get(2).getZj_Name()+","
+                +detailDone.get(3).getZj_Name()+","+detailDone.get(4).getZj_Name()+"。\n";
+
+
+        for(int i=0;i<detailDone.size()-1;i++){//外层循环控制排序趟数
+            for(int j=0;j<detailDone.size()-1-i;j++){
+                //内层循环控制每一趟排序多少次
+                if(detailDone.get(j).getItv_Las_Amt_act_rate() > detailDone.get(j + 1).getItv_Las_Amt_act_rate()) {
+                    zj_Report_Zt_Itv_Zj temp= detailDone.get(j);
+                    detailDone.set(j, detailDone.get(j + 1));detailDone.set(j + 1, temp);
+                }
+            }
+        }
+
+        contextKdSy="鄞州上月ITV整体活跃率："+nf.format(heji.getItv_Las_Amt_act_rate())+"。"+"\n"+"上月ITV活跃率后五支局："+
+                detailDone.get(0).getZj_Name()+","+detailDone.get(1).getZj_Name()+","+detailDone.get(2).getZj_Name()+","
+                +detailDone.get(3).getZj_Name()+","+detailDone.get(4).getZj_Name()+"。\n";
+
+        context=contextKdDy+contextKdSy;
+
+        return context;
+    }
+
+
+
 }

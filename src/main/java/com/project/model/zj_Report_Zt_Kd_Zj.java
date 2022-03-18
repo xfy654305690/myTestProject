@@ -12,19 +12,19 @@ public class zj_Report_Zt_Kd_Zj {
     public  Double bb_Las_amt_unact;
     //上月新增宽带活跃
     public  Double bb_Las_Amt_act_rate;
-    //上月新增宽带数量
+    //当月新增宽带数量
     public  Double bb_Now_Amt;
-    //上月新增宽带活跃数量
+    //当月新增宽带活跃数量
     public  Double bb_Now_amt_act;
-    //上月新增宽带不活跃数量
+    //当月新增宽带不活跃数量
     public  Double bb_Now_amt_unact;
-    //上月新增宽带活跃
+    //当月新增宽带活跃
     public  Double bb_Now_Amt_act_rate;
     //上月新增宽带奖励
     public  Double bb_Last_Reward;
     //当月新增宽带分数
     public  Double bb_Now_Grade;
-    //上月新增宽带分数
+    //当月新增宽带分数
     public  Double bb_Last_Grade;
     //两月新增宽带分数
     public  Double bb_Grade;
