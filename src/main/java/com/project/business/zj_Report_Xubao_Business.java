@@ -515,8 +515,8 @@ public class zj_Report_Xubao_Business {
         detailDone.remove(zj_Report_XubaoList_Zj.size()-1);
 
         String context="";
-        for(int i=0;i<detailDone.size()-1-1;i++){//外层循环控制排序趟数
-            for(int j=0;j<detailDone.size()-1-1-i;j++){
+        for(int i=0;i<detailDone.size()-1;i++){//外层循环控制排序趟数
+            for(int j=0;j<detailDone.size()-1-i;j++){
                 //内层循环控制每一趟排序多少次
                 if(detailDone.get(j).getBb_Com_Rate() > detailDone.get(j + 1).getBb_Com_Rate()) {
                     zj_Report_Xubao_Zj temp= detailDone.get(j);
