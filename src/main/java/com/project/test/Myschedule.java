@@ -22,8 +22,8 @@ public class Myschedule {
                 .usingJobData("trigger1", "这是jobDetail1的trigger")
                 .startNow()//立即生效
                 .startAt(startDate)
-                .withSchedule(CronScheduleBuilder.cronSchedule("/30 * * * * ?"))
-                //.withSchedule(CronScheduleBuilder.cronSchedule("0 45 10 * * ?"))
+                //.withSchedule(CronScheduleBuilder.cronSchedule("/30 * * * * ?"))
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 00 21 * * ?"))
                 .build();
         //4、执行
         scheduler.scheduleJob(jobDetail, cronTrigger);
