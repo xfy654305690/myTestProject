@@ -34,7 +34,7 @@ public class zj_Report_Kd_Business {
     //图片地址跟目录
     public static  final  String OutPictureFile="C:\\test\\KD\\PICTURE\\";
     //微信群名称
-    public static  final  String wechartSendName="春季营销冲锋行动（鄞战2022）";
+    public static  final  String wechartSendName="aiaiai";
     public static  final  String wechartPictureAdress="C:\\test\\KD\\";
     //微信群名称
     public static  final  String inExcleDataFile="C:\\Test\\KD\\test.xlsx";
@@ -210,7 +210,7 @@ public class zj_Report_Kd_Business {
         String content="宽带新增净增通报"+nowDayYYYYMMDD+"详见附件";
 
         //邮件发送附件图片*****************************
-        DealEmail.ctreatMailMore(zj_Report_Public_List,null,null,title,content,OutPictureFileNew);
+        //DealEmail.ctreatMailMore(zj_Report_Public_List,null,null,title,content,OutPictureFileNew);
 
         System.out.println("邮件发送成功");
 
@@ -306,6 +306,12 @@ public class zj_Report_Kd_Business {
 
         List<zj_Report_Kd_New_Zj> detailDone =selectZj_Report_Kd_New_List_Zj_Deal;
         detailDone.remove(selectZj_Report_Kd_New_List_Zj_Deal.size()-1);
+        for(int i=0;i<detailDone.size();i++){
+            String s=detailDone.get(i).getZj_Name().replace("鄞州","");
+            s=s.replace("支局","");
+            s=s.replace("综合","");
+            detailDone.get(i).setZj_Name(s);
+        }
 
         String context="";
         for(int i=0;i<detailDone.size()-1;i++){//外层循环控制排序趟数
@@ -336,6 +342,13 @@ public class zj_Report_Kd_Business {
 
         List<zj_Report_Kd_Jz_Zj> detailDone =selectZj_Report_Kd_Jz_List_Zj_Deal;
         detailDone.remove(selectZj_Report_Kd_Jz_List_Zj_Deal.size()-1);
+
+        for(int i=0;i<detailDone.size();i++){
+            String s=detailDone.get(i).getZj_Name().replace("鄞州","");
+            s=s.replace("支局","");
+            s=s.replace("综合","");
+            detailDone.get(i).setZj_Name(s);
+        }
 
         String context="";
         for(int i=0;i<detailDone.size()-1;i++){//外层循环控制排序趟数

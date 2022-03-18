@@ -514,6 +514,13 @@ public class zj_Report_Xubao_Business {
         List<zj_Report_Xubao_Zj> detailDone =zj_Report_XubaoList_Zj;
         detailDone.remove(zj_Report_XubaoList_Zj.size()-1);
 
+        for(int i=0;i<detailDone.size();i++){
+            String s=detailDone.get(i).getZj_Name().replace("鄞州","");
+            s=s.replace("支局","");
+            s=s.replace("综合","");
+            detailDone.get(i).setZj_Name(s);
+        }
+
         String context="";
         for(int i=0;i<detailDone.size()-1;i++){//外层循环控制排序趟数
             for(int j=0;j<detailDone.size()-1-i;j++){
@@ -543,6 +550,13 @@ public class zj_Report_Xubao_Business {
 
         List<zj_Report_Xubao_Zj> detailDone =zj_Report_XubaoList_Zj;
         detailDone.remove(zj_Report_XubaoList_Zj.size()-1);
+
+        for(int i=0;i<detailDone.size();i++){
+            String s=detailDone.get(i).getZj_Name().replace("鄞州","");
+            s=s.replace("支局","");
+            s=s.replace("综合","");
+            detailDone.get(i).setZj_Name(s);
+        }
 
         String context="";
         for(int i=0;i<detailDone.size()-1;i++){//外层循环控制排序趟数
