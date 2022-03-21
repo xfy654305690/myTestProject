@@ -195,10 +195,10 @@ public class zj_Report_Xubao_Business {
         System.out.println("发送微信成功");
 
         //文字后续在加，不急，预留
-
+        String contextXf=report_Heji_DoDetail_Context(zj_Report_XubaoList_Xf);
         String contextXb=report_Xubao_DoDetail_Context(zj_Report_XubaoList_Zj);
         String contextSb=report_shouBao_DoDetail_Context(zj_Report_XubaoList_Zj);
-        String context=contextXb+"\n"+contextSb;
+        String context=contextXf+"\n"+contextXb+"\n"+contextSb;
         DealSendMessage.searchMyFriendAndSend(wechartSendName,1,context);
 
         //获取支局长邮箱地址
@@ -214,7 +214,7 @@ public class zj_Report_Xubao_Business {
 
         //发送数据给支局长 *********这里乱码没有结解决
         if (nowDay.equals("07")||nowDay.equals("11")||nowDay.equals("15")||nowDay.equals("19")||nowDay.equals("23")||nowDay.equals("26")||nowDay.equals("28")||nowDay.equals("30")){
-        //if (0>1){
+            //if (0>1){
 
             InputStream inDealData= Resources.getResourceAsStream(config);
             SqlSessionFactoryBuilder builderDealData=new SqlSessionFactoryBuilder();
@@ -474,22 +474,22 @@ public class zj_Report_Xubao_Business {
     public static List<zj_Report_Xubao_Tx> report_Xubao_Tx_DoDetail( List<zj_Report_Xubao_Tx>  zj_Report_Xubao_Tx_List)  {
 
         zj_Report_Xubao_Tx_List.forEach((e) -> {
-           if(e.getZj_Name().equals("公众")){
-               //奖励
-               if(e.getBb_Com_Rate()>=0.86 ){
+            if(e.getZj_Name().equals("公众")){
+                //奖励
+                if(e.getBb_Com_Rate()>=0.86 ){
                     e.setReward(2000);
-               }else if(e.getBb_Com_Rate()>=0.8){
-                   e.setReward(1000);
-               }else {
-                   e.setReward(0);
-               }
-               //缺口
-               e.setBb_Amt_gap((int) Math.ceil(e.getBb_Amt()*(0.83-0.03))-e.getBb_Amt_Com());
+                }else if(e.getBb_Com_Rate()>=0.8){
+                    e.setReward(1000);
+                }else {
+                    e.setReward(0);
+                }
+                //缺口
+                e.setBb_Amt_gap((int) Math.ceil(e.getBb_Amt()*(0.83-0.03))-e.getBb_Amt_Com());
 
-           }
-           else
-           if(e.getZj_Name().equals("政企")){
-               //奖励
+            }
+            else
+            if(e.getZj_Name().equals("政企")){
+                //奖励
                 if(e.getBb_Com_Rate()>=0.92 ){
                     e.setReward(2000);
                 }else if(e.getBb_Com_Rate()>=0.86){
@@ -497,30 +497,39 @@ public class zj_Report_Xubao_Business {
                 }else {
                     e.setReward(0);
                 }
-               //缺口
-               e.setBb_Amt_gap((int) Math.ceil(e.getBb_Amt()*(0.83+0.03))-e.getBb_Amt_Com());
+                //缺口
+                e.setBb_Amt_gap((int) Math.ceil(e.getBb_Amt()*(0.83+0.03))-e.getBb_Amt_Com());
 
-           }
+            }
         });
 
         return zj_Report_Xubao_Tx_List;
-        }
+    }
+
+    public static String report_Heji_DoDetail_Context( List<zj_Report_Xubao_Xf> zj_Report_XubaoList_Xf)  {
+        String context="";
+        NumberFormat nf = NumberFormat.getPercentInstance();
+        nf.setMaximumFractionDigits(1);
+
+        context="鄞州整体续包率："+nf.format(zj_Report_XubaoList_Xf.get(0).getBb_Com_Rate())+"\n"+
+                "鄞州整体收保率："+nf.format(zj_Report_XubaoList_Xf.get(0).getBb_Com_Rate_Income())+"\n";
+
+        return context;
+    }
 
 
     public static String report_Xubao_DoDetail_Context( List<zj_Report_Xubao_Zj> zj_Report_XubaoList_Zj)  {
 
-        zj_Report_Xubao_Zj heji=zj_Report_XubaoList_Zj.get(zj_Report_XubaoList_Zj.size()-1);
+        //zj_Report_Xubao_Zj heji=zj_Report_XubaoList_Zj.get(zj_Report_XubaoList_Zj.size()-1);
 
         List<zj_Report_Xubao_Zj> detailDone =zj_Report_XubaoList_Zj;
         detailDone.remove(zj_Report_XubaoList_Zj.size()-1);
-
         for(int i=0;i<detailDone.size();i++){
             String s=detailDone.get(i).getZj_Name().replace("鄞州","");
             s=s.replace("支局","");
             s=s.replace("综合","");
             detailDone.get(i).setZj_Name(s);
         }
-
         String context="";
         for(int i=0;i<detailDone.size()-1;i++){//外层循环控制排序趟数
             for(int j=0;j<detailDone.size()-1-i;j++){
@@ -535,29 +544,29 @@ public class zj_Report_Xubao_Business {
         NumberFormat nf = NumberFormat.getPercentInstance();
         nf.setMaximumFractionDigits(1);
 
-        context="鄞州整体续包率："+nf.format(heji.getBb_Com_Rate())+"\n"+"续包率后五支局："+
-                detailDone.get(0).getZj_Name()+","+detailDone.get(1).getZj_Name()+","+detailDone.get(2).getZj_Name()+","
-                +detailDone.get(3).getZj_Name()+","+detailDone.get(4).getZj_Name()+"。\n"+"续包率前五支局："+
-                detailDone.get(detailDone.size()-1).getZj_Name()+","+ detailDone.get(detailDone.size()-2).getZj_Name()+","
-                + detailDone.get(detailDone.size()-3).getZj_Name()+","+ detailDone.get(detailDone.size()-4).getZj_Name()+","
-                + detailDone.get(detailDone.size()-5).getZj_Name()+"。"
+        context=
+                //"鄞州整体续包率："+nf.format(heji.getBb_Com_Rate())+"\n"+
+                "续包率后五支局："+
+                        detailDone.get(0).getZj_Name()+","+detailDone.get(1).getZj_Name()+","+detailDone.get(2).getZj_Name()+","
+                        +detailDone.get(3).getZj_Name()+","+detailDone.get(4).getZj_Name()+"。\n"+"续包率前五支局："+
+                        detailDone.get(detailDone.size()-1).getZj_Name()+","+ detailDone.get(detailDone.size()-2).getZj_Name()+","
+                        + detailDone.get(detailDone.size()-3).getZj_Name()+","+ detailDone.get(detailDone.size()-4).getZj_Name()+","
+                        + detailDone.get(detailDone.size()-5).getZj_Name()+"。"
         ;
         return context;
     }
     public static String report_shouBao_DoDetail_Context( List<zj_Report_Xubao_Zj> zj_Report_XubaoList_Zj)  {
 
-        zj_Report_Xubao_Zj heji=zj_Report_XubaoList_Zj.get(zj_Report_XubaoList_Zj.size()-1);
+        //zj_Report_Xubao_Zj heji=zj_Report_XubaoList_Zj.get(zj_Report_XubaoList_Zj.size()-1);
 
         List<zj_Report_Xubao_Zj> detailDone =zj_Report_XubaoList_Zj;
         detailDone.remove(zj_Report_XubaoList_Zj.size()-1);
-
         for(int i=0;i<detailDone.size();i++){
             String s=detailDone.get(i).getZj_Name().replace("鄞州","");
             s=s.replace("支局","");
             s=s.replace("综合","");
             detailDone.get(i).setZj_Name(s);
         }
-
         String context="";
         for(int i=0;i<detailDone.size()-1;i++){//外层循环控制排序趟数
             for(int j=0;j<detailDone.size()-1-i;j++){
@@ -572,12 +581,14 @@ public class zj_Report_Xubao_Business {
         NumberFormat nf = NumberFormat.getPercentInstance();
         nf.setMaximumFractionDigits(1);
 
-        context="鄞州整体收保率："+nf.format(heji.getBb_Com_Rate_Income())+"\n"+"收保率后五支局："+
-                detailDone.get(0).getZj_Name()+","+detailDone.get(1).getZj_Name()+","+detailDone.get(2).getZj_Name()+","
-                +detailDone.get(3).getZj_Name()+","+detailDone.get(4).getZj_Name()+"。\n"+"收保率前五支局："+
-                detailDone.get(detailDone.size()-1).getZj_Name()+","+ detailDone.get(detailDone.size()-2).getZj_Name()+","
-                + detailDone.get(detailDone.size()-3).getZj_Name()+","+ detailDone.get(detailDone.size()-4).getZj_Name()+","
-                + detailDone.get(detailDone.size()-5).getZj_Name()+"。"
+        context=
+                //"鄞州整体收保率："+nf.format(heji.getBb_Com_Rate_Income())+"\n"+
+                "收保率后五支局："+
+                        detailDone.get(0).getZj_Name()+","+detailDone.get(1).getZj_Name()+","+detailDone.get(2).getZj_Name()+","
+                        +detailDone.get(3).getZj_Name()+","+detailDone.get(4).getZj_Name()+"。\n"+"收保率前五支局："+
+                        detailDone.get(detailDone.size()-1).getZj_Name()+","+ detailDone.get(detailDone.size()-2).getZj_Name()+","
+                        + detailDone.get(detailDone.size()-3).getZj_Name()+","+ detailDone.get(detailDone.size()-4).getZj_Name()+","
+                        + detailDone.get(detailDone.size()-5).getZj_Name()+"。"
         ;
         return context;
     }
