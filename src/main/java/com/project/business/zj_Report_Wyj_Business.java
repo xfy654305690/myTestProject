@@ -204,8 +204,8 @@ public class zj_Report_Wyj_Business {
                     DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
 
                 }else{
-                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本月暂无违约金减免清单"+nowDayYYYYMMDD;
-                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本月暂无违约金减免清单"+nowDayYYYYMMDD;
+                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本季度暂无违约金减免清单"+nowDayYYYYMMDD;
+                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本季度暂无违约金减免清单"+nowDayYYYYMMDD;
                     OutExcleDataFileNew=null;
                     //读取附件并且发送
                     DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
@@ -214,6 +214,8 @@ public class zj_Report_Wyj_Business {
             }
 
             sqlSessionDealData.close();
+            DealSendMessage.searchMyFriendAndSend(wechartSendName,1,"违约金产生数据已经下发EIP邮件，请及时关注。");
+
 
         }
 

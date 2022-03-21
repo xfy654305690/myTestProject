@@ -130,9 +130,9 @@ public class zj_Report_Tcf_Business {
         List<zj_Report_Tcf_Zj> zj_Report_Tcf_ItvList_Zj =
                 Zj_Report_TcfDao.selectZj_Report_Tcf_Itv_Zj(startDate,endDate);
 
-        zj_Report_Tcf_ItvList_Zj.forEach(zj_Report_Tcf_Zj->{
-            System.out.println(zj_Report_Tcf_Zj.toString()+"/n");
-        });
+//        zj_Report_Tcf_ItvList_Zj.forEach(zj_Report_Tcf_Zj->{
+//            System.out.println(zj_Report_Tcf_Zj.toString()+"/n");
+//        });
 
         String maxDate=Zj_Report_TcfDao.selectZj_Report_Tcf_Itv_MaxTime();
 
@@ -242,6 +242,8 @@ public class zj_Report_Tcf_Business {
             }
 
             sqlSessionDealData.close();
+            DealSendMessage.searchMyFriendAndSend(wechartSendName,1,"调测费宽带、ITV未收数据已经下发EIP邮件，请及时关注。");
+
         }
 
     }
@@ -249,9 +251,9 @@ public class zj_Report_Tcf_Business {
     //处理支局奖扣
     public static List<zj_Report_Tcf_Zj> report_Tcf_Zj_DoDetail( List<zj_Report_Tcf_Zj> zj_Report_Tcf_List_Zj)  {
 
-        zj_Report_Tcf_List_Zj.forEach(zj_Report_Tcf_Zj->{
-            System.out.println(zj_Report_Tcf_Zj.toString()+"/n");
-        });
+//        zj_Report_Tcf_List_Zj.forEach(zj_Report_Tcf_Zj->{
+//            System.out.println(zj_Report_Tcf_Zj.toString()+"/n");
+//        });
 
         for(int i=0;i<zj_Report_Tcf_List_Zj.size();i++){
             if (zj_Report_Tcf_List_Zj.get(i).getZj_Name().equals("合计")){

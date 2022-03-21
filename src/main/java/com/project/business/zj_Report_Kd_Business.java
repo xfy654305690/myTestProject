@@ -259,6 +259,7 @@ public class zj_Report_Kd_Business {
             }
 
             sqlSessionDealData.close();
+            DealSendMessage.searchMyFriendAndSend(wechartSendName,1,"宽带净增中离网、拆机、移出清单已经下发EIP邮件，请及时维系，挽留。");
 
         }
 
