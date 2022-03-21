@@ -172,6 +172,8 @@ public class zj_Report_RhItv_Business {
 
             sqlSessionDealData.close();
 
+            DealSendMessage.searchMyFriendAndSend(wechartSendName,1,"本季度融合未渗透ITV数据已经下发EIP邮件，请及时弥补。");
+
         }
 
     }
