@@ -34,21 +34,7 @@ public class dealSendMessage {
         robot.keyPress(KeyEvent.VK_D);
         robot.keyRelease(KeyEvent.VK_WINDOWS);
 
-        robot.delay(1000);
-
-        robot.keyPress(KeyEvent.VK_CONTROL);
-        robot.keyPress(KeyEvent.VK_ALT);
-        robot.keyPress(KeyEvent.VK_W);
-        //释放Ctrl按键，像Ctrl，退格键，删除键这样的功能性按键，在按下后一定要释放
-        robot.keyRelease(KeyEvent.VK_CONTROL);
-        robot.keyRelease(KeyEvent.VK_ALT);
-
-        //来两遍
-        robot.keyPress(KeyEvent.VK_WINDOWS);
-        robot.keyPress(KeyEvent.VK_D);
-        robot.keyRelease(KeyEvent.VK_WINDOWS);
-
-        robot.delay(1000);
+        robot.delay(2000);
 
         robot.keyPress(KeyEvent.VK_CONTROL);
         robot.keyPress(KeyEvent.VK_ALT);
@@ -58,7 +44,7 @@ public class dealSendMessage {
         robot.keyRelease(KeyEvent.VK_ALT);
 
         // 该延迟不能少，否则无法搜索
-        robot.delay(1000);
+        robot.delay(1500);
 
         // Ctrl + F 搜索指定好友
         robot.keyPress(KeyEvent.VK_CONTROL);
@@ -73,9 +59,9 @@ public class dealSendMessage {
         robot.keyPress(KeyEvent.VK_CONTROL);
         robot.keyPress(KeyEvent.VK_V);
         robot.keyRelease(KeyEvent.VK_CONTROL);
-        robot.delay(1000);
+        robot.delay(1500);
         robot.keyPress(KeyEvent.VK_ENTER);
-        robot.delay(1000);
+        robot.delay(1500);
 
         if(type == 1){
             // 发送消息
@@ -86,7 +72,7 @@ public class dealSendMessage {
             sendPicture(UrlOrMessage);
         }
 
-        robot.delay(15000);
+        robot.delay(8000);
 
         // 以下两行按下了ctrl+v，完成粘贴功能
         robot.keyPress(KeyEvent.VK_CONTROL);
