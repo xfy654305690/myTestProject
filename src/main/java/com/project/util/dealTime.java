@@ -285,6 +285,25 @@ public class dealTime {
         return nowMonth;
     }
 
+    //获取当天0点，返回日期格式
+    public static Date get_date_ByNowDate_MinTime(){
+
+        Calendar calendar = Calendar.getInstance();
+        setMinTime(calendar);
+        Date endDate=calendar.getTime();// 获取下月一号
+        return endDate;
+    }
+
+    //获取当天12点，返回日期格式
+    public static Date get_date_ByNowDate_MaxTime(){
+
+        Calendar calendar = Calendar.getInstance();
+        setMaxTime(calendar);
+        Date endDate=calendar.getTime();// 获取下月一号
+        return endDate;
+    }
+
+
     //获取当前日期差额
     public static Integer get_date_Difference_Values(Date startDate, Date endDate){
         Calendar calendar1 = Calendar.getInstance();

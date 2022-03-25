@@ -251,9 +251,6 @@ public class zj_Report_Tcf_Business {
     //处理支局奖扣
     public static List<zj_Report_Tcf_Zj> report_Tcf_Zj_DoDetail( List<zj_Report_Tcf_Zj> zj_Report_Tcf_List_Zj)  {
 
-//        zj_Report_Tcf_List_Zj.forEach(zj_Report_Tcf_Zj->{
-//            System.out.println(zj_Report_Tcf_Zj.toString()+"/n");
-//        });
 
         for(int i=0;i<zj_Report_Tcf_List_Zj.size();i++){
             if (zj_Report_Tcf_List_Zj.get(i).getZj_Name().equals("合计")){
