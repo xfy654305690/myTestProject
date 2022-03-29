@@ -23,7 +23,7 @@ public class Myschedule {
                 .startNow()//立即生效
                 .startAt(startDate)
                 //.withSchedule(CronScheduleBuilder.cronSchedule("/30 * * * * ?"))
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 00 21 * * ?"))
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 30 23 * * ?"))
                 .build();
         //4、执行
         scheduler.scheduleJob(jobDetail, cronTrigger);

@@ -31,7 +31,7 @@ public class zj_Report_Zss_Business {
     //图片地址跟目录
     public static  final  String OutPictureFile="C:\\test\\ZSS\\PICTURE\\";
     //微信群名称
-    public static  final  String wechartSendName="春季营销冲锋行动（鄞战2022）";
+    public static  final  String wechartSendName="aiaiai";
     public static  final  String wechartPictureAdress="C:\\test\\Tcf\\";
     //微信群名称
     public static  final  String inExcleDataFile="C:\\Test\\ZSS\\test.xlsx";
@@ -43,7 +43,7 @@ public class zj_Report_Zss_Business {
     public static  final  String OutExcleAccountsFile="C:\\Test\\ZSS\\ACCOUNT\\";
 
     //取数导出excle
-    public static void report_Wyj_Zj() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
+    public static void report_Zss_Zj() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
 
         InputStream in= Resources.getResourceAsStream(config);
         SqlSessionFactoryBuilder builder=new SqlSessionFactoryBuilder();
@@ -319,12 +319,12 @@ public class zj_Report_Zss_Business {
         NumberFormat nf = NumberFormat.getPercentInstance();
         nf.setMaximumFractionDigits(1);
         zj_Report_Zss_Zj heji=zj_Report_Zss_Zj_List.get(zj_Report_Zss_Zj_List.size()-1);
-        String A_Front=null;
-        String A_Behind = null;
-        String B_Front= null;
-        String B_Behind= null;
-        String N_Front= null;
-        String N_Behind= null;
+        String A_Front="";
+        String A_Behind = "";
+        String B_Front= "";
+        String B_Behind= "";
+        String N_Front= "";
+        String N_Behind= "";
         for(int i=0;i<zj_Report_Zss_Zj_List.size()-1;i++){
             if(zj_Report_Zss_Zj_List.get(i).getZj_Property().equals("城市A")&&(zj_Report_Zss_Zj_List.get(i).getCom_Rank()<=2)){
                 A_Front=A_Front+zj_Report_Zss_Zj_List.get(i).getZj_Name()+",";
@@ -345,19 +345,26 @@ public class zj_Report_Zss_Business {
                 N_Behind=N_Behind+zj_Report_Zss_Zj_List.get(i).getZj_Name()+",";
             }
         }
-        A_Front.substring(0,A_Front.length()-1);
-        A_Behind.substring(0,A_Front.length()-1);
-        B_Front.substring(0,A_Front.length()-1);
-        B_Behind.substring(0,A_Front.length()-1);
-        N_Front.substring(0,A_Front.length()-1);
-        N_Behind.substring(0,A_Front.length()-1);
+        A_Front=DoStringDetail(A_Front);
+        A_Behind=DoStringDetail(A_Behind);
+        B_Front=DoStringDetail(B_Front);
+        B_Behind=DoStringDetail(B_Behind);
+        N_Front=DoStringDetail(N_Front);
+        N_Behind=DoStringDetail(N_Behind);
 
         context="当天综合（含终端）得分:"+nf.format(heji.getCom_Rate())+"，移动:"+heji.getCdmaNew()+"户，宽带:"+heji.getBbNew()
-                +"户，高套:"+heji.getGt_Amt_Rate()+"户、终端:"+heji.getZdNew()+"户。"+"\n"+
+                +"户，高套:"+heji.getGtNew()+"户、终端:"+heji.getZdNew()+"户。"+"\n"+
                 "当天排名："+"\n" +"城市A前二:"+A_Front+";"+"\n"+"城市A后三:"+A_Behind+";"+"\n"+"城市B前二:"+B_Front+";"+"\n"+"城市B后三:"+B_Behind+";"+"\n"
-                +"农村前三:"+A_Front+";"+"\n"+"农村后三:"+A_Behind+";"+"\n";
+                +"农村前三:"+N_Front+";"+"\n"+"农村后三:"+N_Behind+";"+"\n";
 
         return context;
+    }
+    public static String DoStringDetail( String s)  {
+        s=s.substring(0,s.length()-1);
+        s=s.replace("鄞州","");
+        s=s.replace("支局","");
+        s=s.replace("综合","");
+        return s;
     }
 
 
