@@ -271,7 +271,7 @@ public class zj_Report_Zss_Business {
         }
 
         //按照指定顺序排序
-        List regulationOrder = Arrays.asList("支局长","支局长助理","网格经理","营业员","智家工程师","行客经理","支局其他","商客经理");
+        List regulationOrder = Arrays.asList("支局长","支局长助理","网格经理","营业员","智家工程师","行客经理","支局其他","商客经理","特攻队");
         zj_Report_Zss_List_Tx.sort(Comparator.comparing(e -> regulationOrder.indexOf(e.getZj_Name())));
 
         return zj_Report_Zss_List_Tx;
