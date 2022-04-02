@@ -31,8 +31,8 @@ public class Myschedule {
                 .usingJobData("triggerZss1", "这是jobDetail1的triggerZss1")
                 .startNow()//立即生效
                 .startAt(startDate)
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 0/2 * * * ? "))
-                //.withSchedule(CronScheduleBuilder.cronSchedule("0 45 13,15,17,20 * * ? *"))
+                //.withSchedule(CronScheduleBuilder.cronSchedule("0 0/2 * * * ? "))
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 45 13,15,17,20 * * ? *"))
                 .build();
 
         //4、执行
