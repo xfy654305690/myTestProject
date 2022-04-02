@@ -124,12 +124,12 @@ public class zj_Report_Zss_Business {
             System.out.println("图片转化成功");
 
             //将图片发送微信
-            DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
+            //DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
             System.out.println("发送微信成功");
 
             //文字后续在加，不急，预留
             String context=report_Zss_DoDetail_Context(zj_Report_Zss_List_Zj_DealZj);
-            DealSendMessage.searchMyFriendAndSend(wechartSendName,1,context);
+            //DealSendMessage.searchMyFriendAndSend(wechartSendName,1,context);
             //获取支局长邮箱地址
 //            List<zj_Report_Public> zj_Report_Public_List =zj_Report_Public_Business.zj_Report_Public_Business();
 //            String title ="准实时通报"+nowDayYYYYMMDD+"详见附件";
@@ -150,7 +150,7 @@ public class zj_Report_Zss_Business {
         for(int i=0;i<zj_Report_Zss_List_Zj.size();i++){
             zj_Report_Zss_List_Zj.get(i).setCdma_Amt_Rate(zj_Report_Zss_List_Zj.get(i).getCdmaNew()/zj_Report_Zss_List_Zj.get(i).getCdry_Cdma_Target());
             zj_Report_Zss_List_Zj.get(i).setBb_Amt_Rate(zj_Report_Zss_List_Zj.get(i).getBbNew()/zj_Report_Zss_List_Zj.get(i).getCdry_Bb_Target());
-            zj_Report_Zss_List_Zj.get(i).setRh_Amt_Rate(zj_Report_Zss_List_Zj.get(i).getRhNew()/zj_Report_Zss_List_Zj.get(i).getCdry_Rh_Target());
+            //zj_Report_Zss_List_Zj.get(i).setRh_Amt_Rate(zj_Report_Zss_List_Zj.get(i).getRhNew()/zj_Report_Zss_List_Zj.get(i).getCdry_Rh_Target());
             zj_Report_Zss_List_Zj.get(i).setGt_Amt_Rate(zj_Report_Zss_List_Zj.get(i).getGtNew()/zj_Report_Zss_List_Zj.get(i).getCdry_Gt_Target());
             zj_Report_Zss_List_Zj.get(i).setZd_Amt_Rate(zj_Report_Zss_List_Zj.get(i).getZdNew()/zj_Report_Zss_List_Zj.get(i).getCdry_Zd_Target());
             zj_Report_Zss_List_Zj.get(i).setCom_Rate(zj_Report_Zss_List_Zj.get(i).getCdma_Amt_Rate()*0.2+zj_Report_Zss_List_Zj.get(i).getBb_Amt_Rate()*0.3
@@ -222,7 +222,7 @@ public class zj_Report_Zss_Business {
         zj_Report_Zss_List_Zj_new.add(zj_Report_Zss_Zj_Heji.get(0));
 
         //按照指定顺序排序
-        List regulationOrder = Arrays.asList("鄞州潘火公众支局","鄞州潘火政企支局","鄞州钟公庙综合支局","鄞州长丰综合支局","鄞州新城综合支局","鄞州新城文化中心综合支局","鄞州首南综合支局","鄞州南商政企支局",
+        List regulationOrder = Arrays.asList("鄞州潘火公众支局","鄞州潘火政企支局","鄞州钟公庙综合支局","鄞州长丰综合支局","鄞州新城综合支局","鄞州首南综合支局","鄞州南商政企支局",
                 "鄞州东郊综合支局","鄞州下应综合支局","鄞州中河城东综合支局","鄞州东柳综合支局","鄞州福明综合支局","鄞州中河城西综合支局","鄞州明楼综合支局","鄞州白鹤综合支局",
                 "鄞州东胜综合支局","鄞州百丈综合支局","鄞州姜山综合支局","鄞州东钱湖综合支局","鄞州邱隘综合支局","鄞州五乡综合支局","鄞州云龙综合支局","鄞州横溪综合支局",
                 "鄞州塘溪综合支局","鄞州瞻岐综合支局","鄞州东吴综合支局","鄞州咸祥综合支局","合计");
@@ -237,7 +237,7 @@ public class zj_Report_Zss_Business {
         for(int i=0;i<zj_Report_Zss_List_Tx.size();i++){
             zj_Report_Zss_List_Tx.get(i).setCdma_Amt_Rate(zj_Report_Zss_List_Tx.get(i).getCdmaNew()/zj_Report_Zss_List_Tx.get(i).getCdry_Cdma_Target());
             zj_Report_Zss_List_Tx.get(i).setBb_Amt_Rate(zj_Report_Zss_List_Tx.get(i).getBbNew()/zj_Report_Zss_List_Tx.get(i).getCdry_Bb_Target());
-            zj_Report_Zss_List_Tx.get(i).setRh_Amt_Rate(zj_Report_Zss_List_Tx.get(i).getRhNew()/zj_Report_Zss_List_Tx.get(i).getCdry_Rh_Target());
+            //zj_Report_Zss_List_Tx.get(i).setRh_Amt_Rate(zj_Report_Zss_List_Tx.get(i).getRhNew()/zj_Report_Zss_List_Tx.get(i).getCdry_Rh_Target());
             zj_Report_Zss_List_Tx.get(i).setGt_Amt_Rate(zj_Report_Zss_List_Tx.get(i).getGtNew()/zj_Report_Zss_List_Tx.get(i).getCdry_Gt_Target());
             if(!zj_Report_Zss_List_Tx.get(i).getCdry_Zd_Target().equals(Double.valueOf(0))){
                 zj_Report_Zss_List_Tx.get(i).setZd_Amt_Rate(zj_Report_Zss_List_Tx.get(i).getZdNew()/zj_Report_Zss_List_Tx.get(i).getCdry_Zd_Target());
@@ -271,7 +271,7 @@ public class zj_Report_Zss_Business {
         }
 
         //按照指定顺序排序
-        List regulationOrder = Arrays.asList("支局长","支局长助理","客户经理","网格经理","营业员","智家工程师","支局其他人员");
+        List regulationOrder = Arrays.asList("支局长","支局长助理","网格经理","营业员","智家工程师","行客经理","支局其他","商客经理");
         zj_Report_Zss_List_Tx.sort(Comparator.comparing(e -> regulationOrder.indexOf(e.getZj_Name())));
 
         return zj_Report_Zss_List_Tx;
@@ -284,7 +284,8 @@ public class zj_Report_Zss_Business {
         for(int i=0;i<zj_Report_Zss_List_Leader.size();i++){
             zj_Report_Zss_List_Leader.get(i).setCdma_Amt_Rate(zj_Report_Zss_List_Leader.get(i).getCdmaNew()/zj_Report_Zss_List_Leader.get(i).getCdry_Cdma_Target());
             zj_Report_Zss_List_Leader.get(i).setBb_Amt_Rate(zj_Report_Zss_List_Leader.get(i).getBbNew()/zj_Report_Zss_List_Leader.get(i).getCdry_Bb_Target());
-            zj_Report_Zss_List_Leader.get(i).setRh_Amt_Rate(zj_Report_Zss_List_Leader.get(i).getRhNew()/zj_Report_Zss_List_Leader.get(i).getCdry_Rh_Target());
+            //
+            // zj_Report_Zss_List_Leader.get(i).setRh_Amt_Rate(zj_Report_Zss_List_Leader.get(i).getRhNew()/zj_Report_Zss_List_Leader.get(i).getCdry_Rh_Target());
             zj_Report_Zss_List_Leader.get(i).setGt_Amt_Rate(zj_Report_Zss_List_Leader.get(i).getGtNew()/zj_Report_Zss_List_Leader.get(i).getCdry_Gt_Target());
             zj_Report_Zss_List_Leader.get(i).setZd_Amt_Rate(zj_Report_Zss_List_Leader.get(i).getZdNew()/zj_Report_Zss_List_Leader.get(i).getCdry_Zd_Target());
             zj_Report_Zss_List_Leader.get(i).setCom_Rate(zj_Report_Zss_List_Leader.get(i).getCdma_Amt_Rate()*0.2+zj_Report_Zss_List_Leader.get(i).getBb_Amt_Rate()*0.3

@@ -10,9 +10,8 @@
                                  FROM (select s1.ZJ_AREA_NAME,count(*) bb_Last_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)bb_Las_amt_act,
                                               sum(case when s1.ACT_FLG=0 then 1 else 0 end)bb_Las_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*) bb_Las_Amt_act_rate
                                        from XFY_RPT_ZLYW_ACT_ASSET s1
-                                       where  s1.SERV_START_DT&gt;= #{lastStartDate}
-                                         and s1.SERV_START_DT&lt;= #{lastEndDate}
-                                         and s1.type='KD'
+                                       where s1.type='KD'
+                                         and  s1.XZ_FLG in('上月新增')
                                        group by s1.ZJ_AREA_NAME)S3
                                           right join  XFY_REP_PUB_TARGET S2
                                                       ON S3.ZJ_AREA_NAME=S2.ZJ_ABBR_NAME) Q1
@@ -21,9 +20,8 @@
                                      FROM (select s1.ZJ_AREA_NAME,count(*) bb_Now_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)bb_Now_amt_act,
                                                   sum(case when s1.ACT_FLG=0 then 1 else 0 end)bb_Now_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*)bb_Now_Amt_act_rate
                                            from XFY_RPT_ZLYW_ACT_ASSET s1
-                                           where s1.SERV_START_DT&gt;= #{nowStartDate}
-                                             and s1.SERV_START_DT&lt;= #{nowEndDate}
-                                             and s1.type='KD'
+                                           where s1.type='KD'
+                                            and  s1.XZ_FLG in('当月新增')
                                            group by s1.ZJ_AREA_NAME)S3
                                               right join  XFY_REP_PUB_TARGET S2
                                                           ON S3.ZJ_AREA_NAME=S2.ZJ_ABBR_NAME) Q2
@@ -37,16 +35,16 @@
         from (select '合计' Zj_Name,count(*) bb_Last_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)bb_Las_amt_act,
                      sum(case when s1.ACT_FLG=0 then 1 else 0 end)bb_Las_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*) bb_Las_Amt_act_rate
               from XFY_RPT_ZLYW_ACT_ASSET s1
-              where s1.SERV_START_DT&gt;= #{lastStartDate}
-                and s1.SERV_START_DT&lt;= #{lastEndDate}
-                and s1.type='KD')Q4
+              where  s1.type='KD'
+                and  s1.XZ_FLG in('上月新增')
+            )Q4
                  LEFT JOIN
              (select '合计' Zj_Name,count(*) bb_Now_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)bb_Now_amt_act,
                      sum(case when s1.ACT_FLG=0 then 1 else 0 end)bb_Now_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*)bb_Now_Amt_act_rate
               from XFY_RPT_ZLYW_ACT_ASSET s1
-              where s1.SERV_START_DT&gt;= #{nowStartDate}
-                and s1.SERV_START_DT&lt;= #{nowEndDate}
-                and s1.type='KD') Q5
+              where s1.type='KD'
+              and  s1.XZ_FLG in('当月新增')
+                 ) Q5
              ON Q4.Zj_Name=Q5.Zj_Name
     </select>
 
@@ -57,9 +55,8 @@
                                  FROM (select s1.ZJ_AREA_NAME,count(*) Cdma_Last_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)Cdma_Las_amt_act,
                                               sum(case when s1.ACT_FLG=0 then 1 else 0 end)Cdma_Las_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*) Cdma_Las_Amt_act_rate
                                        from XFY_RPT_ZLYW_ACT_ASSET s1
-                                       where  s1.SERV_START_DT&gt;= #{lastStartDate}
-                                         and s1.SERV_START_DT&lt;= #{lastEndDate}
-                                         and s1.type='CDMA'
+                                       where   s1.type='CDMA'
+                                         and  s1.XZ_FLG in('上月新增')
                                        group by s1.ZJ_AREA_NAME)S3
                                           right join  XFY_REP_PUB_TARGET S2
                                                       ON S3.ZJ_AREA_NAME=S2.ZJ_ABBR_NAME) Q1
@@ -68,9 +65,8 @@
                                      FROM (select s1.ZJ_AREA_NAME,count(*) Cdma_Now_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)Cdma_Now_amt_act,
                                                   sum(case when s1.ACT_FLG=0 then 1 else 0 end)Cdma_Now_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*)Cdma_Now_Amt_act_rate
                                            from XFY_RPT_ZLYW_ACT_ASSET s1
-                                           where s1.SERV_START_DT&gt;= #{nowStartDate}
-                                             and s1.SERV_START_DT&lt;= #{nowEndDate}
-                                             and s1.type='CDMA'
+                                           where s1.type='CDMA'
+                                             and  s1.XZ_FLG in('当月新增')
                                            group by s1.ZJ_AREA_NAME)S3
                                               right join  XFY_REP_PUB_TARGET S2
                                                           ON S3.ZJ_AREA_NAME=S2.ZJ_ABBR_NAME) Q2
@@ -84,16 +80,14 @@
         from (select '合计' Zj_Name,count(*) Cdma_Last_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)Cdma_Las_amt_act,
                      sum(case when s1.ACT_FLG=0 then 1 else 0 end)Cdma_Las_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*) Cdma_Las_Amt_act_rate
               from XFY_RPT_ZLYW_ACT_ASSET s1
-              where s1.SERV_START_DT&gt;= #{lastStartDate}
-                and s1.SERV_START_DT&lt;= #{lastEndDate}
-                and s1.type='CDMA')Q4
+              where s1.type='CDMA'
+                and  s1.XZ_FLG in('上月新增'))Q4
                  LEFT JOIN
              (select '合计' Zj_Name,count(*) Cdma_Now_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)Cdma_Now_amt_act,
                      sum(case when s1.ACT_FLG=0 then 1 else 0 end)Cdma_Now_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*)Cdma_Now_Amt_act_rate
               from XFY_RPT_ZLYW_ACT_ASSET s1
-              where s1.SERV_START_DT&gt;= #{nowStartDate}
-                and s1.SERV_START_DT&lt;= #{nowEndDate}
-                and s1.type='CDMA') Q5
+              where s1.type='CDMA'
+                and  s1.XZ_FLG in('当月新增')) Q5
              ON Q4.Zj_Name=Q5.Zj_Name
     </select>
 
@@ -104,9 +98,8 @@
                                  FROM (select s1.ZJ_AREA_NAME,count(*) Itv_Last_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)Itv_Las_amt_act,
                                               sum(case when s1.ACT_FLG=0 then 1 else 0 end)Itv_Las_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*) Itv_Las_Amt_act_rate
                                        from XFY_RPT_ZLYW_ACT_ASSET s1
-                                       where  s1.SERV_START_DT&gt;= #{lastStartDate}
-                                         and s1.SERV_START_DT&lt;= #{lastEndDate}
-                                         and s1.type='ITV'
+                                       where   s1.type='ITV'
+                                         and  s1.XZ_FLG in('上月新增')
                                        group by s1.ZJ_AREA_NAME)S3
                                           right join  XFY_REP_PUB_TARGET S2
                                                       ON S3.ZJ_AREA_NAME=S2.ZJ_ABBR_NAME) Q1
@@ -115,9 +108,8 @@
                                      FROM (select s1.ZJ_AREA_NAME,count(*) Itv_Now_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)Itv_Now_amt_act,
                                                   sum(case when s1.ACT_FLG=0 then 1 else 0 end)Itv_Now_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*)Itv_Now_Amt_act_rate
                                            from XFY_RPT_ZLYW_ACT_ASSET s1
-                                           where s1.SERV_START_DT&gt;= #{nowStartDate}
-                                             and s1.SERV_START_DT&lt;= #{nowEndDate}
-                                             and s1.type='ITV'
+                                           where  s1.type='ITV'
+                                             and  s1.XZ_FLG in('当月新增')
                                            group by s1.ZJ_AREA_NAME)S3
                                               right join  XFY_REP_PUB_TARGET S2
                                                           ON S3.ZJ_AREA_NAME=S2.ZJ_ABBR_NAME) Q2
@@ -131,25 +123,22 @@
         from (select '合计' Zj_Name,count(*) Itv_Last_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)Itv_Las_amt_act,
                      sum(case when s1.ACT_FLG=0 then 1 else 0 end)Itv_Las_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*) Itv_Las_Amt_act_rate
               from XFY_RPT_ZLYW_ACT_ASSET s1
-              where s1.SERV_START_DT&gt;= #{lastStartDate}
-                and s1.SERV_START_DT&lt;= #{lastEndDate}
-                and s1.type='ITV')Q4
+              where s1.type='ITV'
+                and  s1.XZ_FLG in('上月新增'))Q4
                  LEFT JOIN
              (select '合计' Zj_Name,count(*) Itv_Now_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)Itv_Now_amt_act,
                      sum(case when s1.ACT_FLG=0 then 1 else 0 end)Itv_Now_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*)Itv_Now_Amt_act_rate
               from XFY_RPT_ZLYW_ACT_ASSET s1
-              where s1.SERV_START_DT&gt;= #{nowStartDate}
-                and s1.SERV_START_DT&lt;= #{nowEndDate}
-                and s1.type='ITV') Q5
+              where s1.type='ITV'
+                and  s1.XZ_FLG in('当月新增')) Q5
              ON Q4.Zj_Name=Q5.Zj_Name
     </select>
     <select id="selectZj_Report_Zt_Data"  resultType="com.project.model.zj_Report_Zt_Data">
         SELECT S1.ZJ_AREA_NAME Zj_Name,S1.DATE_CD,S1.ASSET_ROW_ID,S1.ACCS_NBR,S1.DATA_USER_NAME,S1.PROM_NAME,S1.PROM_AMT,
                S1.SERV_START_DT,S1.STAT_NAME,S1.XZ_FLG,S1.ACT_FLG,S1.TYPE,S1.ACT_DAYS,S1.CCUST_ID,S1.MKT_EMPLOYEE_ID,S1.MKT_EMPLOYEE_NAME,S1.MIX_COMB_NBR_FLG
         FROM  XFY_RPT_ZLYW_ACT_ASSET S1
-        where  s1.SERV_START_DT&gt;= #{startDate}
-          and s1.SERV_START_DT&lt;= #{endDate}
-          and s1.act_flg='0'
+        where  s1.act_flg='0'
+          and  a.XZ_FLG in('上月新增','当月新增')
           and S1.ZJ_AREA_NAME in (
             select D.zj_new from XFY_REP_PUB_ZJ_CON D
             where d.zj_old = #{zj_name}
@@ -164,9 +153,8 @@
                                  FROM (select s1.ZJ_AREA_NAME,count(*) bb_Last_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)bb_Las_amt_act,
                                               sum(case when s1.ACT_FLG=0 then 1 else 0 end)bb_Las_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*) bb_Las_Amt_act_rate
                                        from ${tableName}  s1
-                                       where  s1.SERV_START_DT&gt;= #{lastStartDate}
-                                         and s1.SERV_START_DT&lt;= #{lastEndDate}
-                                         and s1.type='KD'
+                                       where   s1.type='KD'
+                                         and  s1.XZ_FLG in('上月新增')
                                        group by s1.ZJ_AREA_NAME)S3
                                           right join  XFY_REP_PUB_TARGET S2
                                                       ON S3.ZJ_AREA_NAME=S2.ZJ_ABBR_NAME) Q1
@@ -175,9 +163,8 @@
                                      FROM (select s1.ZJ_AREA_NAME,count(*) bb_Now_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)bb_Now_amt_act,
                                                   sum(case when s1.ACT_FLG=0 then 1 else 0 end)bb_Now_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*)bb_Now_Amt_act_rate
                                            from ${tableName}  s1
-                                           where s1.SERV_START_DT&gt;= #{nowStartDate}
-                                             and s1.SERV_START_DT&lt;= #{nowEndDate}
-                                             and s1.type='KD'
+                                           where  s1.type='KD'
+                                             and  s1.XZ_FLG in('当月新增')
                                            group by s1.ZJ_AREA_NAME)S3
                                               right join  XFY_REP_PUB_TARGET S2
                                                           ON S3.ZJ_AREA_NAME=S2.ZJ_ABBR_NAME) Q2
@@ -191,16 +178,16 @@
         from (select '合计' Zj_Name,count(*) bb_Last_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)bb_Las_amt_act,
                      sum(case when s1.ACT_FLG=0 then 1 else 0 end)bb_Las_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*) bb_Las_Amt_act_rate
               from ${tableName}  s1
-              where s1.SERV_START_DT&gt;= #{lastStartDate}
-                and s1.SERV_START_DT&lt;= #{lastEndDate}
-                and s1.type='KD')Q4
+              where  s1.type='KD'
+                and  s1.XZ_FLG in('上月新增')
+            )Q4
                  LEFT JOIN
              (select '合计' Zj_Name,count(*) bb_Now_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)bb_Now_amt_act,
                      sum(case when s1.ACT_FLG=0 then 1 else 0 end)bb_Now_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*)bb_Now_Amt_act_rate
               from ${tableName}  s1
-              where s1.SERV_START_DT&gt;= #{nowStartDate}
-                and s1.SERV_START_DT&lt;= #{nowEndDate}
-                and s1.type='KD') Q5
+              where s1.type='KD'
+                and  s1.XZ_FLG in('当月新增')
+                 ) Q5
              ON Q4.Zj_Name=Q5.Zj_Name
     </select>
 
@@ -211,9 +198,8 @@
                                  FROM (select s1.ZJ_AREA_NAME,count(*) Cdma_Last_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)Cdma_Las_amt_act,
                                               sum(case when s1.ACT_FLG=0 then 1 else 0 end)Cdma_Las_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*) Cdma_Las_Amt_act_rate
                                        from ${tableName}  s1
-                                       where  s1.SERV_START_DT&gt;= #{lastStartDate}
-                                         and s1.SERV_START_DT&lt;= #{lastEndDate}
-                                         and s1.type='CDMA'
+                                       where  s1.type='CDMA'
+                                         and  s1.XZ_FLG in('上月新增')
                                        group by s1.ZJ_AREA_NAME)S3
                                           right join  XFY_REP_PUB_TARGET S2
                                                       ON S3.ZJ_AREA_NAME=S2.ZJ_ABBR_NAME) Q1
@@ -222,9 +208,8 @@
                                      FROM (select s1.ZJ_AREA_NAME,count(*) Cdma_Now_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)Cdma_Now_amt_act,
                                                   sum(case when s1.ACT_FLG=0 then 1 else 0 end)Cdma_Now_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*)Cdma_Now_Amt_act_rate
                                            from ${tableName} s1
-                                           where s1.SERV_START_DT&gt;= #{nowStartDate}
-                                             and s1.SERV_START_DT&lt;= #{nowEndDate}
-                                             and s1.type='CDMA'
+                                           where  s1.type='CDMA'
+                                             and  s1.XZ_FLG in('当月新增')
                                            group by s1.ZJ_AREA_NAME)S3
                                               right join  XFY_REP_PUB_TARGET S2
                                                           ON S3.ZJ_AREA_NAME=S2.ZJ_ABBR_NAME) Q2
@@ -238,16 +223,14 @@
         from (select '合计' Zj_Name,count(*) Cdma_Last_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)Cdma_Las_amt_act,
                      sum(case when s1.ACT_FLG=0 then 1 else 0 end)Cdma_Las_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*) Cdma_Las_Amt_act_rate
               from ${tableName} s1
-              where s1.SERV_START_DT&gt;= #{lastStartDate}
-                and s1.SERV_START_DT&lt;= #{lastEndDate}
-                and s1.type='CDMA')Q4
+              where  s1.type='CDMA'
+                and  s1.XZ_FLG in('上月新增'))Q4
                  LEFT JOIN
              (select '合计' Zj_Name,count(*) Cdma_Now_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)Cdma_Now_amt_act,
                      sum(case when s1.ACT_FLG=0 then 1 else 0 end)Cdma_Now_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*)Cdma_Now_Amt_act_rate
               from ${tableName} s1
-              where s1.SERV_START_DT&gt;= #{nowStartDate}
-                and s1.SERV_START_DT&lt;= #{nowEndDate}
-                and s1.type='CDMA') Q5
+              where  s1.type='CDMA'
+                and  s1.XZ_FLG in('当月新增')) Q5
              ON Q4.Zj_Name=Q5.Zj_Name
     </select>
 
@@ -258,9 +241,8 @@
                                  FROM (select s1.ZJ_AREA_NAME,count(*) Itv_Last_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)Itv_Las_amt_act,
                                               sum(case when s1.ACT_FLG=0 then 1 else 0 end)Itv_Las_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*) Itv_Las_Amt_act_rate
                                        from ${tableName} s1
-                                       where  s1.SERV_START_DT&gt;= #{lastStartDate}
-                                         and s1.SERV_START_DT&lt;= #{lastEndDate}
-                                         and s1.type='ITV'
+                                       where   s1.type='ITV'
+                                         and  s1.XZ_FLG in('上月新增')
                                        group by s1.ZJ_AREA_NAME)S3
                                           right join  XFY_REP_PUB_TARGET S2
                                                       ON S3.ZJ_AREA_NAME=S2.ZJ_ABBR_NAME) Q1
@@ -269,9 +251,8 @@
                                      FROM (select s1.ZJ_AREA_NAME,count(*) Itv_Now_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)Itv_Now_amt_act,
                                                   sum(case when s1.ACT_FLG=0 then 1 else 0 end)Itv_Now_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*)Itv_Now_Amt_act_rate
                                            from ${tableName} s1
-                                           where s1.SERV_START_DT&gt;= #{nowStartDate}
-                                             and s1.SERV_START_DT&lt;= #{nowEndDate}
-                                             and s1.type='ITV'
+                                           where s1.type='ITV'
+                                             and  s1.XZ_FLG in('当月新增')
                                            group by s1.ZJ_AREA_NAME)S3
                                               right join  XFY_REP_PUB_TARGET S2
                                                           ON S3.ZJ_AREA_NAME=S2.ZJ_ABBR_NAME) Q2
@@ -285,16 +266,14 @@
         from (select '合计' Zj_Name,count(*) Itv_Last_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)Itv_Las_amt_act,
                      sum(case when s1.ACT_FLG=0 then 1 else 0 end)Itv_Las_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*) Itv_Las_Amt_act_rate
               from ${tableName} s1
-              where s1.SERV_START_DT&gt;= #{lastStartDate}
-                and s1.SERV_START_DT&lt;= #{lastEndDate}
-                and s1.type='ITV')Q4
+              where  s1.type='ITV'
+                and  s1.XZ_FLG in('上月新增'))Q4
                  LEFT JOIN
              (select '合计' Zj_Name,count(*) Itv_Now_Amt,sum(case when s1.ACT_FLG=1 then 1 else 0 end)Itv_Now_amt_act,
                      sum(case when s1.ACT_FLG=0 then 1 else 0 end)Itv_Now_amt_unact,sum(case when s1.ACT_FLG=1 then 1 else 0 end)/count(*)Itv_Now_Amt_act_rate
               from ${tableName} s1
-              where s1.SERV_START_DT&gt;= #{nowStartDate}
-                and s1.SERV_START_DT&lt;= #{nowEndDate}
-                and s1.type='ITV') Q5
+              where  s1.type='ITV'
+                and  s1.XZ_FLG in('当月新增')) Q5
              ON Q4.Zj_Name=Q5.Zj_Name
     </select>
 

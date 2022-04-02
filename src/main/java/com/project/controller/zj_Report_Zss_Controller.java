@@ -11,16 +11,16 @@ import java.text.ParseException;
 
 public class zj_Report_Zss_Controller {
 
-//    public static void main(String[] args) throws Exception {
-//
-//        zj_Report_Zss_Business zj_Report_Zss_Business=new zj_Report_Zss_Business();
-//        zj_Report_Zss_Business.report_Zss_Zj();
-//
-//    }
+    public static void main(String[] args) throws Exception {
 
-    public static void report_Zss_Zj() throws MessagingException, IOException, ParseException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         zj_Report_Zss_Business zj_Report_Zss_Business=new zj_Report_Zss_Business();
         zj_Report_Zss_Business.report_Zss_Zj();
+
     }
+
+//    public static void report_Zss_Zj() throws MessagingException, IOException, ParseException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+//        zj_Report_Zss_Business zj_Report_Zss_Business=new zj_Report_Zss_Business();
+//        zj_Report_Zss_Business.report_Zss_Zj();
+//    }
 
 }

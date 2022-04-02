@@ -83,7 +83,8 @@
         '202003副卡终端购机包29元/月（24月）','202106零首付1200元分期月付50元（24月）'
         )
         group by B.JOB
-        ) l2 on l1.Zj_Name=l2.JOB)
+        ) l2 on l1.Zj_Name=l2.JOB
+         order by decode(l1.Zj_Name,'支局长',0,'支局长助理',1,'网格经理',2,'营业员',3,'智家工程师',4,'行客经理',5,'支局其他',6,'商客经理',7))
         ) l8
         left join XFY_REP_ZSS_TARGET L9
         ON L8.Zj_Name=L9.TYPENAME

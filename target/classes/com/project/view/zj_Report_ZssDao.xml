@@ -5,7 +5,7 @@
 <mapper namespace="com.project.view.zj_Report_ZssDao">
 
     <select id="selectZj_Report_Zss_Zj"  resultType="com.project.model.zj_Report_Zss_Zj">
-        select  L8.*,L9.CDRY_CDMA_TARGET,L9.CDRY_BB_TARGET,L9.CDRY_GT_TARGET,L9.CDRY_RH_TARGET,L9.CDRY_ZD_TARGET from (
+        select  L8.*,L9.CDRY_CDMA_TARGET,L9.CDRY_BB_TARGET,L9.CDRY_GT_TARGET,L9.CDRY_ZD_TARGET from (
         select  * from
         (select Zj_Name,ZJ_PROPERTY,nvl(cdmaNew,0)cdmaNew,nvl(bbNew,0)bbNew,nvl(rhNew,0)rhNew,nvl(gtNew,0)gtNew,nvl(itvNew,0)itvNew,nvl(zdNew,0)zdNew
         from (select p2.ZJ_ABBR_NAME as Zj_Name,p2.ZJ_PROPERTY,nvl(p1.cdmaNew,0) as cdmaNew,nvl(p1.bbNew,0) as bbNew,nvl(p1.rhNew,0) as rhNew,nvl(p1.gtNew,0) as gtNew,nvl(p1.itvNew,0) as itvNew
@@ -24,8 +24,8 @@
         from XFY_RPT_PROM_LST_IO_DAY_D a2
         left join XFY_REP_PUB_CDRY B
         ON A2.MKT_EMPLOYEE_ID=B.MKT_NAME
-        WHERE a2.APPLY_DT&gt;= #{startDate}
-        AND a2.APPLY_DT&lt;=#{endDate}
+        WHERE  a2.APPLY_DT&gt;= #{startDate}
+        AND a2.APPLY_DT&lt;= #{endDate}
         and  a2.OFFER_NAME in (
         '202010话费权益40元/月（24月）','202012话费权益50元/月（24月）','202002套餐减免30元/月（24月）','202003副卡终端购机包19元/月（24月）',
         '202003副卡终端购机包29元/月（24月）','202106零首付1200元分期月付50元（24月）'
@@ -33,10 +33,10 @@
         group by B.ZJ
         ) l2 on l1.Zj_Name=l2.ZJ
         where l1.Zj_Name &lt;&gt;  '鄞州政企部'
-        order by decode(l1.Zj_Name,'鄞州潘火公众支局',0,'鄞州潘火政企支局',1,'鄞州钟公庙综合支局',2,'鄞州长丰综合支局',3,'鄞州新城综合支局',4,'鄞州新城文化中心综合支局',5,'鄞州首南综合支局',6,'鄞州南商政企支局',7,
-        '鄞州东郊综合支局',8,'鄞州下应综合支局',9,'鄞州中河城东综合支局',10,'鄞州东柳综合支局',11,'鄞州福明综合支局',12,'鄞州中河城西综合支局',13,'鄞州明楼综合支局',14,'鄞州白鹤综合支局',15,
-        '鄞州东胜综合支局',16,'鄞州百丈综合支局',17,'鄞州姜山综合支局',18,'鄞州东钱湖综合支局',19,'鄞州邱隘综合支局',20,'鄞州五乡综合支局',21,'鄞州云龙综合支局',22,'鄞州横溪综合支局',23,
-        '鄞州塘溪综合支局',24,'鄞州瞻岐综合支局',25,'鄞州东吴综合支局',26,'鄞州咸祥综合支局',27))
+        order by decode(l1.Zj_Name,'鄞州潘火公众支局',0,'鄞州潘火政企支局',1,'鄞州钟公庙综合支局',2,'鄞州长丰综合支局',3,'鄞州新城综合支局',4,'鄞州首南综合支局',5,'鄞州南商政企支局',6,
+        '鄞州东郊综合支局',7,'鄞州下应综合支局',8,'鄞州中河城东综合支局',9,'鄞州东柳综合支局',10,'鄞州福明综合支局',11,'鄞州中河城西综合支局',12,'鄞州明楼综合支局',13,'鄞州白鹤综合支局',14,
+        '鄞州东胜综合支局',15,'鄞州百丈综合支局',16,'鄞州姜山综合支局',17,'鄞州东钱湖综合支局',18,'鄞州邱隘综合支局',19,'鄞州五乡综合支局',20,'鄞州云龙综合支局',21,'鄞州横溪综合支局',22,
+        '鄞州塘溪综合支局',23,'鄞州瞻岐综合支局',24,'鄞州东吴综合支局',25,'鄞州咸祥综合支局',26))
         union all
         select  l3.ZJ Zj_Name,ZJ_PROPERTY,nvl(l3.cdmaNew,0)cdmaNew,nvl(l3.bbNew,0)bbNew,nvl(l3.rhNew,0)rhNew,nvl(gtNew,0)gtNew,nvl(l3.itvNew,0)itvNew,nvl(l4.zdNew,0)zdNew
         from(select '合计' as ZJ,'-' as ZJ_PROPERTY,SUM(MSU_NEW_CDMA_CNT)AS cdmaNew,SUM(MSU_NEW_LAN_CNT)AS bbNew,SUM(MSU_MIX_CNT)AS rhNew,SUM(MSU_MIX_169_CNT)AS gtNew,SUM(MSU_NEW_ITV_CNT)AS itvNew
@@ -53,14 +53,14 @@
         '202003副卡终端购机包29元/月（24月）','202106零首付1200元分期月付50元（24月）'
         )
         )l4  on  l3.ZJ=l4.ZJ
-            ) l8
+        ) l8
         left join XFY_REP_ZSS_TARGET L9
         ON L8.Zj_Name=L9.TYPENAME
     </select>
 
 
     <select id="selectZj_Report_Zss_Tx"  resultType="com.project.model.zj_Report_Zss_Zj">
-        select  L8.*,L9.CDRY_CDMA_TARGET,L9.CDRY_BB_TARGET,L9.CDRY_GT_TARGET,L9.CDRY_RH_TARGET,L9.CDRY_ZD_TARGET from (select  * from
+        select  L8.*,L9.CDRY_CDMA_TARGET,L9.CDRY_BB_TARGET,L9.CDRY_GT_TARGET,L9.CDRY_ZD_TARGET from (select  * from
         (select Zj_Name,nvl(cdmaNew,0)cdmaNew,nvl(bbNew,0)bbNew,nvl(rhNew,0)rhNew,nvl(gtNew,0)gtNew,nvl(itvNew,0)itvNew,nvl(zdNew,0)zdNew
         from (select P1.JOB as Zj_Name,nvl(p1.cdmaNew,0) as cdmaNew,nvl(p1.bbNew,0) as bbNew,nvl(p1.rhNew,0) as rhNew,nvl(p1.gtNew,0) as gtNew,nvl(p1.itvNew,0) as itvNew
         from (select B.JOB,SUM(MSU_NEW_CDMA_CNT)AS cdmaNew,SUM(MSU_NEW_LAN_CNT)AS bbNew,SUM(MSU_MIX_CNT)AS rhNew,SUM(MSU_MIX_169_CNT)AS gtNew,SUM(MSU_NEW_ITV_CNT)AS itvNew
@@ -76,27 +76,23 @@
         from XFY_RPT_PROM_LST_IO_DAY_D a2
         left join XFY_REP_PUB_CDRY B
         ON A2.MKT_EMPLOYEE_ID=B.MKT_NAME
-        WHERE a2.APPLY_DT&gt;= #{startDate}
-        AND a2.APPLY_DT&lt;=#{endDate}
+        WHERE  a2.APPLY_DT&gt;= #{startDate}
+          AND a2.APPLY_DT&lt;= #{endDate}
         and  a2.OFFER_NAME in (
         '202010话费权益40元/月（24月）','202012话费权益50元/月（24月）','202002套餐减免30元/月（24月）','202003副卡终端购机包19元/月（24月）',
         '202003副卡终端购机包29元/月（24月）','202106零首付1200元分期月付50元（24月）'
         )
         group by B.JOB
         ) l2 on l1.Zj_Name=l2.JOB
-        where l1.Zj_Name &lt;&gt;   '鄞州政企部'
-        order by decode(l1.Zj_Name,'鄞州潘火公众支局',0,'鄞州潘火政企支局',1,'鄞州钟公庙综合支局',2,'鄞州长丰综合支局',3,'鄞州新城综合支局',4,'鄞州新城文化中心综合支局',5,'鄞州首南综合支局',6,'鄞州南商政企支局',7,
-        '鄞州东郊综合支局',8,'鄞州下应综合支局',9,'鄞州中河城东综合支局',10,'鄞州东柳综合支局',11,'鄞州福明综合支局',12,'鄞州中河城西综合支局',13,'鄞州明楼综合支局',14,'鄞州白鹤综合支局',15,
-        '鄞州东胜综合支局',16,'鄞州百丈综合支局',17,'鄞州姜山综合支局',18,'鄞州东钱湖综合支局',19,'鄞州邱隘综合支局',20,'鄞州五乡综合支局',21,'鄞州云龙综合支局',22,'鄞州横溪综合支局',23,
-        '鄞州塘溪综合支局',24,'鄞州瞻岐综合支局',25,'鄞州东吴综合支局',26,'鄞州咸祥综合支局',27))
+         order by decode(l1.Zj_Name,'支局长',0,'支局长助理',1,'网格经理',2,'营业员',3,'智家工程师',4,'行客经理',5,'支局其他',6,'商客经理',7))
         ) l8
         left join XFY_REP_ZSS_TARGET L9
         ON L8.Zj_Name=L9.TYPENAME
-        where  l8.Zj_Name not  like '%下沉%'
+        where l8.Zj_Name is  not null
     </select>
 
     <select id="selectZj_Report_Zss_Leader"  resultType="com.project.model.zj_Report_Zss_Zj">
-        select  L8.*,L9.CDRY_CDMA_TARGET,L9.CDRY_BB_TARGET,L9.CDRY_GT_TARGET,L9.CDRY_RH_TARGET,L9.CDRY_ZD_TARGET from (select  * from
+        select  L8.*,L9.CDRY_CDMA_TARGET,L9.CDRY_BB_TARGET,L9.CDRY_GT_TARGET,L9.CDRY_ZD_TARGET from (select  * from
         (select Zj_Name,nvl(cdmaNew,0)cdmaNew,nvl(bbNew,0)bbNew,nvl(rhNew,0)rhNew,nvl(gtNew,0)gtNew,nvl(itvNew,0)itvNew,nvl(zdNew,0)zdNew
         from (select P1.ZJ_LEAD_NAME as Zj_Name,nvl(p1.cdmaNew,0) as cdmaNew,nvl(p1.bbNew,0) as bbNew,nvl(p1.rhNew,0) as rhNew,nvl(p1.gtNew,0) as gtNew,nvl(p1.itvNew,0) as itvNew
         from (select C.ZJ_LEAD_NAME,SUM(MSU_NEW_CDMA_CNT)AS cdmaNew,SUM(MSU_NEW_LAN_CNT)AS bbNew,SUM(MSU_MIX_CNT)AS rhNew,SUM(MSU_MIX_169_CNT)AS gtNew,SUM(MSU_NEW_ITV_CNT)AS itvNew
