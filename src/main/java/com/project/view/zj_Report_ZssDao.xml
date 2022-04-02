@@ -5,7 +5,7 @@
 <mapper namespace="com.project.view.zj_Report_ZssDao">
 
     <select id="selectZj_Report_Zss_Zj"  resultType="com.project.model.zj_Report_Zss_Zj">
-        select  l9.TYPENAME,L9.CDRY_CDMA_TARGET,L9.CDRY_BB_TARGET,L9.CDRY_GT_TARGET,L9.CDRY_ZD_TARGET,
+        select  l9.TYPENAME Zj_Name,L9.CDRY_CDMA_TARGET,L9.CDRY_BB_TARGET,L9.CDRY_GT_TARGET,L9.CDRY_ZD_TARGET,l8.ZJ_PROPERTY,
         nvl(l8.bbNew,0) bbNew,nvl(l8.cdmaNew,0)cdmaNew,nvl(l8.gtNew,0)gtNew,nvl(l8.itvNew,0)itvNew,nvl(l8.rhNew,0)rhNew,nvl(l8.zdNew,0)zdNew
         from (
         select  * from

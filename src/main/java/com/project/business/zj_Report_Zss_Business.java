@@ -124,12 +124,12 @@ public class zj_Report_Zss_Business {
             System.out.println("图片转化成功");
 
             //将图片发送微信
-            //DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
+            DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
             System.out.println("发送微信成功");
 
             //文字后续在加，不急，预留
             String context=report_Zss_DoDetail_Context(zj_Report_Zss_List_Zj_DealZj);
-            //DealSendMessage.searchMyFriendAndSend(wechartSendName,1,context);
+            DealSendMessage.searchMyFriendAndSend(wechartSendName,1,context);
             //获取支局长邮箱地址
 //            List<zj_Report_Public> zj_Report_Public_List =zj_Report_Public_Business.zj_Report_Public_Business();
 //            String title ="准实时通报"+nowDayYYYYMMDD+"详见附件";
