@@ -44,7 +44,7 @@
         from(select '合计' as ZJ,'-' as ZJ_PROPERTY,SUM(MSU_NEW_CDMA_CNT)AS cdmaNew,SUM(MSU_NEW_LAN_CNT)AS bbNew,SUM(MSU_MIX_CNT)AS rhNew,SUM(MSU_MIX_169_CNT)AS gtNew,SUM(MSU_NEW_ITV_CNT)AS itvNew
         from XFY_RPT_IO_DAY a1
         WHERE A1.APPLY_DT&gt;= #{startDate}
-        AND A1.APPLY_DT&lt;= #{endDate} l3
+        AND A1.APPLY_DT&lt;= #{endDate} )l3
         left join (
         select '合计' as ZJ,nvl(count(*),0) AS zdNew
         from XFY_RPT_PROM_LST_IO_DAY_D a2
@@ -103,7 +103,6 @@
         ON L8.Zj_Name=L9.TYPENAME
         where l9.TYPENAME in ('支局长','支局长助理','网格经理','营业员','智家工程师','行客经理','支局其他','商客经理','特攻队')
         order by decode(l9.TYPENAME,'支局长',0,'支局长助理',1,'网格经理',2,'营业员',3,'智家工程师',4,'行客经理',5,'支局其他',6,'商客经理',7,'特攻队',8)
-        ;
     </select>
 
     <select id="selectZj_Report_Zss_Leader"  resultType="com.project.model.zj_Report_Zss_Zj">
