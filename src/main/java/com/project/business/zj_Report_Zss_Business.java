@@ -59,8 +59,13 @@ public class zj_Report_Zss_Business {
         //获取当前季度最后一号，返回日期格式
         Date endDate=dealTime.get_date_ByNowDate_MaxTime();
 
+        //系统时间
+        Date DateNow=new Date();
+        SimpleDateFormat simpleDateFormatYDMHMS = new SimpleDateFormat("yyyyMMddHHmmss");
+        String nowDayYYYYMMDDHHmmss=simpleDateFormatYDMHMS.format(DateNow.getTime());
+
         //获取当前日期DD格式
-        String nowDayYYYYMMDD=dealTime.get_date_By_String_YYYYMMDD();
+        //String nowDayYYYYMMDD=dealTime.get_date_By_String_YYYYMMDD();
 
         //ZJ
         List<zj_Report_Zss_Zj> zj_Report_Zss_List_Zj =
@@ -114,10 +119,10 @@ public class zj_Report_Zss_Business {
 
             System.out.println("数据处理成功");
             //复制文件
-            String OutExcleSouceFilenew =OutExcleSouceFile+"准实时"+nowDayYYYYMMDD+".xlsx";
+            String OutExcleSouceFilenew =OutExcleSouceFile+"准实时"+nowDayYYYYMMDDHHmmss+".xlsx";
             DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleSouceFilenew);
             System.out.println("复制文件成功成功");
-            String OutPictureFileNew=OutPictureFile+"picture"+nowDayYYYYMMDD+".png";
+            String OutPictureFileNew=OutPictureFile+"picture"+nowDayYYYYMMDDHHmmss+".png";
 
             //将exlce处理成图片
             DealExcle.excleToPng(inPictureFile,OutPictureFileNew);
