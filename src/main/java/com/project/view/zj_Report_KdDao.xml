@@ -87,5 +87,19 @@
         WHERE Q3.ZJ_ABBR_NAME NOT IN ('鄞州政企部','合计')
         order by  p3.Zj_Name  desc;
     </select>
+    <select id="selectZj_Report_Kd_Jz_Data_New"  resultType="com.project.model.zj_Report_Zt_Data">
+        SELECT S1.ZJ_AREA_NAME Zj_Name,S1.DATE_CD,S1.ASSET_ROW_ID,S1.ACCS_NBR,S1.DATA_USER_NAME,S1.PROM_NAME,S1.PROM_AMT,
+               S1.SERV_START_DT,S1.STAT_NAME,S1.XZ_FLG,S1.ACT_FLG,S1.TYPE,S1.ACT_DAYS,S1.CCUST_ID,S1.MKT_EMPLOYEE_ID,S1.MKT_EMPLOYEE_NAME,S1.MIX_COMB_NBR_FLG,s1.BIL_FLG
+        FROM  ${tableName} S1
+                  left  join XFY_RPT_ZLYW_ACT_ASSET S2
+                             on s1.ASSET_ROW_ID= S2.ASSET_ROW_ID
+                                and  s2.act_flg='1'
+                                and s2.TYPE='KD'
+                                and  s2.BIL_FLG='1'
+        where  s1.act_flg='1'
+          and s1.TYPE='KD'
+          and  s1.BIL_FLG='1'
+          and s2.ASSET_ROW_ID is null
+    </select>
 
 </mapper>

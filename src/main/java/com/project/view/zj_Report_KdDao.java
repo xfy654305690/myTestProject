@@ -18,4 +18,7 @@ public interface zj_Report_KdDao {
 
     public List<zj_Report_Kd_New_Zj> selectZj_Report_Kd_Jz_Zj_New (@Param("startDate") Date startDate , @Param("endDate")Date endDate);
 
+    public List<zj_Report_Zt_Data>selectZj_Report_Kd_Jz_Data_New(@Param("startDate") Date startDate , @Param("endDate")Date endDate,@Param("zj_name")String zj_name);
+
+
 }

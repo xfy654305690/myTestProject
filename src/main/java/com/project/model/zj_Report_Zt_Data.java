@@ -37,6 +37,7 @@ public class zj_Report_Zt_Data {
 
     public  String MIX_COMB_NBR_FLG;
 
+    public  String BIL_FLG;
 
     public String getZj_Name() {
         return Zj_Name;
@@ -174,6 +175,14 @@ public class zj_Report_Zt_Data {
         this.MIX_COMB_NBR_FLG = MIX_COMB_NBR_FLG;
     }
 
+    public String getBIL_FLG() {
+        return BIL_FLG;
+    }
+
+    public void setBIL_FLG(String BIL_FLG) {
+        this.BIL_FLG = BIL_FLG;
+    }
+
     @Override
     public String toString() {
         return "zj_Report_Zt_Data{" +
@@ -194,6 +203,7 @@ public class zj_Report_Zt_Data {
                 ", MKT_EMPLOYEE_ID='" + MKT_EMPLOYEE_ID + '\'' +
                 ", MKT_EMPLOYEE_NAME='" + MKT_EMPLOYEE_NAME + '\'' +
                 ", MIX_COMB_NBR_FLG='" + MIX_COMB_NBR_FLG + '\'' +
+                ", BIL_FLG='" + BIL_FLG + '\'' +
                 '}';
     }
 }
