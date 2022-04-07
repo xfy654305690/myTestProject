@@ -34,6 +34,7 @@ public class zj_Report_Xubao_Business {
     public static  final  String OutPictureFile="C:\\test\\XB\\PICTURE\\";
     //微信群名称
     public static  final  String wechartSendName="春季营销冲锋行动（鄞战2022）";
+
     public static  final  String wechartPictureAdress="C:\\test\\XB\\";
     //微信群名称
     public static  final  String inExcleDataFile="C:\\Test\\XB\\test.xlsx";
@@ -43,6 +44,8 @@ public class zj_Report_Xubao_Business {
     public static  final  String OutExcleSouceFile="C:\\Test\\XB\\SOUCE\\";
     //复制导出文件地址
     public static  final  String OutExcleAccountsFile="C:\\Test\\XB\\ACCOUNT\\";
+    //复制结算导出文件地址
+    public static  final  String OutExcleAccountsFile_JS="C:\\Test\\JS_ALL\\XB\\";
 
     public static void report_Xubao_Zj_Js() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
 
@@ -81,6 +84,8 @@ public class zj_Report_Xubao_Business {
         zj_Report_Xubao_Tx Zj_Report_Xubao_Tx=new zj_Report_Xubao_Tx();
 
         dealExcle DealExcle =new dealExcle();
+        //获取支局长邮箱地址
+        List<zj_Report_Public> zj_Report_Public_List =zj_Report_Public_Business.zj_Report_Public_Business();
 
         //处理支局奖扣（1.处理缺口2.处理奖扣）
         report_Xubao_Zj_DoDetail(zj_Report_XubaoList_Zj);
@@ -102,9 +107,16 @@ public class zj_Report_Xubao_Business {
 
         System.out.println("数据处理成功");
 
-        String OutExcleAccountsFileNew =OutExcleAccountsFile+"续包"+nowDayYYYYMMDD+".xlsx";
+        String OutExcleAccountsFileNew =OutExcleAccountsFile_JS+"续包"+nowDayYYYYMMDD+".xlsx";
         DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleAccountsFileNew);
         System.out.println("复制文件成功成功");
+
+        String OutPictureFileNew=OutExcleAccountsFile_JS+"picture"+nowDayYYYYMMDD+".png";
+
+        //将exlce处理成图片
+        DealExcle.excleToPng(inPictureFile,OutPictureFileNew);
+
+        System.out.println("图片转化成功");
 
     }
 
@@ -213,45 +225,106 @@ public class zj_Report_Xubao_Business {
         System.out.println("邮件发送成功");
 
         //发送数据给支局长 *********这里乱码没有结解决
-        if (nowDay.equals("07")||nowDay.equals("11")||nowDay.equals("15")||nowDay.equals("19")||nowDay.equals("23")||nowDay.equals("26")||nowDay.equals("28")||nowDay.equals("30")){
-            //if (0>1){
-
-            InputStream inDealData= Resources.getResourceAsStream(config);
-            SqlSessionFactoryBuilder builderDealData=new SqlSessionFactoryBuilder();
-            SqlSessionFactory factoryDealData = builderDealData.build(inDealData);
-            SqlSession sqlSessionDealData=factoryDealData.openSession();
-            zj_Report_XubaoDao Zj_Report_XubaoDaoDealData = sqlSessionDealData.getMapper(zj_Report_XubaoDao.class);
-
-            for (int i=0;i<zj_Report_Public_List.size();i++){
-
-                System.out.println(zj_Report_Public_List.get(i).getZj_Abbr_Name());
-
-                zj_Report_Xubao_Data Zj_Report_Xubao_Data=new zj_Report_Xubao_Data();
-
-                //续包县份数据
-                List<zj_Report_Xubao_Data> zj_Report_Xubao_Data_List =
-                        Zj_Report_XubaoDaoDealData.selectZj_Report_Xubao_Data(nowMonth,zj_Report_Public_List.get(i).getZj_Abbr_Name());
-
-                String str = new String(zj_Report_Public_List.get(i).getZj_Full_Name().getBytes(),"UTF-8");
-
-                String  OutExcleDataFileNew=OutExcleDataFile+str+nowDayYYYYMMDD+".xlsx";
-                String titleMailSingle =zj_Report_Public_List.get(i).getZj_Full_Name()+"续包数据详见附件"+nowDayYYYYMMDD;
-                String contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"续包数据详见附件"+nowDayYYYYMMDD;
-                System.out.println(OutExcleDataFileNew);
-                System.out.println(titleMailSingle);
-                //复制值,并且另存为
-                DealExcle.cpoyToExcle(zj_Report_Xubao_Data_List,null,OutExcleDataFileNew,0,Zj_Report_Xubao_Data);
-                //读取附件并且发送
-                DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
-
-            }
-            sqlSessionDealData.close();
-
-        }
+//        if (nowDay.equals("07")||nowDay.equals("11")||nowDay.equals("15")||nowDay.equals("19")||nowDay.equals("23")||nowDay.equals("26")||nowDay.equals("28")||nowDay.equals("30")){
+//            //if (0>1){
+//
+//            InputStream inDealData= Resources.getResourceAsStream(config);
+//            SqlSessionFactoryBuilder builderDealData=new SqlSessionFactoryBuilder();
+//            SqlSessionFactory factoryDealData = builderDealData.build(inDealData);
+//            SqlSession sqlSessionDealData=factoryDealData.openSession();
+//            zj_Report_XubaoDao Zj_Report_XubaoDaoDealData = sqlSessionDealData.getMapper(zj_Report_XubaoDao.class);
+//
+//            for (int i=0;i<zj_Report_Public_List.size();i++){
+//
+//                System.out.println(zj_Report_Public_List.get(i).getZj_Abbr_Name());
+//
+//                zj_Report_Xubao_Data Zj_Report_Xubao_Data=new zj_Report_Xubao_Data();
+//
+//                //续包县份数据
+//                List<zj_Report_Xubao_Data> zj_Report_Xubao_Data_List =
+//                        Zj_Report_XubaoDaoDealData.selectZj_Report_Xubao_Data(nowMonth,zj_Report_Public_List.get(i).getZj_Abbr_Name());
+//
+//                String str = new String(zj_Report_Public_List.get(i).getZj_Full_Name().getBytes(),"UTF-8");
+//
+//                String  OutExcleDataFileNew=OutExcleDataFile+str+nowDayYYYYMMDD+".xlsx";
+//                String titleMailSingle =zj_Report_Public_List.get(i).getZj_Full_Name()+"续包数据详见附件"+nowDayYYYYMMDD;
+//                String contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"续包数据详见附件"+nowDayYYYYMMDD;
+//                System.out.println(OutExcleDataFileNew);
+//                System.out.println(titleMailSingle);
+//                //复制值,并且另存为
+//                DealExcle.cpoyToExcle(zj_Report_Xubao_Data_List,null,OutExcleDataFileNew,0,Zj_Report_Xubao_Data);
+//                //读取附件并且发送
+//                DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
+//
+//            }
+//            sqlSessionDealData.close();
+//
+//        }
 
     }
 
-    //处理支局奖扣
+    public static void report_Xubao_Zj_DoData_NowMonth() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
+
+        //获取当前日期YYYYMM格式
+        String nowMonth=dealTime.get_date_By_String_YYYYMM();
+        //获取当前日期DD格式
+        String nowDayYYYYMMDD=dealTime.get_date_By_String_YYYYMMDD();
+        report_Xubao_Zj_DoData(nowMonth,nowDayYYYYMMDD,"");
+
+    }
+    public static void report_Xubao_Zj_DoData_LastMonth() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
+
+        //获取上月日期YYYYMM格式
+        String lastMonth=dealTime.get_lastMonth_By_String_YYYYMM();
+        //获取当前日期DD格式
+        String nowDayYYYYMMDD=dealTime.get_date_By_String_YYYYMMDD();
+        report_Xubao_Zj_DoData(lastMonth,nowDayYYYYMMDD,"上月结算:");
+
+    }
+
+    public static void report_Xubao_Zj_DoData(String nowMonth,String nowDayYYYYMMDD,String strContent) throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
+
+        //发送数据给支局长 *********这里乱码没有结解决
+        dealExcle DealExcle =new dealExcle();
+        dealEmail DealEmail=new dealEmail();
+        //获取支局长邮箱地址
+        List<zj_Report_Public> zj_Report_Public_List =zj_Report_Public_Business.zj_Report_Public_Business();
+
+        InputStream inDealData= Resources.getResourceAsStream(config);
+        SqlSessionFactoryBuilder builderDealData=new SqlSessionFactoryBuilder();
+        SqlSessionFactory factoryDealData = builderDealData.build(inDealData);
+        SqlSession sqlSessionDealData=factoryDealData.openSession();
+        zj_Report_XubaoDao Zj_Report_XubaoDaoDealData = sqlSessionDealData.getMapper(zj_Report_XubaoDao.class);
+
+        for (int i=0;i<zj_Report_Public_List.size();i++){
+
+            System.out.println(zj_Report_Public_List.get(i).getZj_Abbr_Name());
+
+            zj_Report_Xubao_Data Zj_Report_Xubao_Data=new zj_Report_Xubao_Data();
+
+            //续包县份数据
+            List<zj_Report_Xubao_Data> zj_Report_Xubao_Data_List =
+                    Zj_Report_XubaoDaoDealData.selectZj_Report_Xubao_Data(nowMonth,zj_Report_Public_List.get(i).getZj_Abbr_Name());
+
+            String str = new String(zj_Report_Public_List.get(i).getZj_Full_Name().getBytes(),"UTF-8");
+
+            String  OutExcleDataFileNew=OutExcleDataFile+str+nowDayYYYYMMDD+".xlsx";
+            String titleMailSingle =zj_Report_Public_List.get(i).getZj_Full_Name()+strContent+"续包数据详见附件"+nowDayYYYYMMDD;
+            String contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+strContent+"续包数据详见附件"+nowDayYYYYMMDD;
+            System.out.println(OutExcleDataFileNew);
+            System.out.println(titleMailSingle);
+            //复制值,并且另存为
+            DealExcle.cpoyToExcle(zj_Report_Xubao_Data_List,null,OutExcleDataFileNew,0,Zj_Report_Xubao_Data);
+            //读取附件并且发送
+            DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
+
+        }
+        sqlSessionDealData.close();
+
+    }
+
+
+        //处理支局奖扣
     public static List<zj_Report_Xubao_Zj> report_Xubao_Zj_DoDetail( List<zj_Report_Xubao_Zj>  zj_Report_Xubao_Zj_List)  {
 
         zj_Report_Xubao_Zj_List.forEach((e) -> {

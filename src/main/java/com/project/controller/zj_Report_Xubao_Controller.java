@@ -27,5 +27,15 @@ public class zj_Report_Xubao_Controller {
         Zj_Report_Xubao_Business.report_Xubao_Zj();
     }
 
+    public static void report_Xubao_Zj_Js_DoData() throws MessagingException, IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+        zj_Report_Xubao_Business Zj_Report_Xubao_Business=new zj_Report_Xubao_Business();
+        Zj_Report_Xubao_Business.report_Xubao_Zj_DoData_LastMonth();
+    }
+
+    public static void report_Xubao_Zj_DoData() throws MessagingException, IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+        zj_Report_Xubao_Business Zj_Report_Xubao_Business=new zj_Report_Xubao_Business();
+        Zj_Report_Xubao_Business.report_Xubao_Zj_DoData_NowMonth();
+    }
+
 
 }

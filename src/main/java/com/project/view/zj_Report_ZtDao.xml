@@ -144,6 +144,17 @@
             where d.zj_old = #{zj_name}
         )
     </select>
+    <select id="selectZj_Report_Zt_Data_Js"  resultType="com.project.model.zj_Report_Zt_Data">
+        SELECT S1.ZJ_AREA_NAME Zj_Name,S1.DATE_CD,S1.ASSET_ROW_ID,S1.ACCS_NBR,S1.DATA_USER_NAME,S1.PROM_NAME,S1.PROM_AMT,
+               S1.SERV_START_DT,S1.STAT_NAME,S1.XZ_FLG,S1.ACT_FLG,S1.TYPE,S1.ACT_DAYS,S1.CCUST_ID,S1.MKT_EMPLOYEE_ID,S1.MKT_EMPLOYEE_NAME,S1.MIX_COMB_NBR_FLG,s1.BIL_FLG
+        FROM  ${tableName}  S1
+        where  s1.act_flg='0'
+          and  a.XZ_FLG in('上月新增','当月新增')
+          and S1.ZJ_AREA_NAME in (
+            select D.zj_new from XFY_REP_PUB_ZJ_CON D
+            where d.zj_old = #{zj_name}
+        )
+    </select>
 
 
     <select id="selectZj_Report_Zt_Kd_Zj_Js"  resultType="com.project.model.zj_Report_Zt_Kd_Zj">

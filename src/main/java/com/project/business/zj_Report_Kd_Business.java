@@ -264,6 +264,59 @@ public class zj_Report_Kd_Business {
         }
 
     }
+//    //新增处理
+//    public static void report_Kd_Zj_DoData(String tableNameNew,String nowDayYYYYMMDD,String strContent) throws IOException, MessagingException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+//
+//        dealEmail DealEmail=new dealEmail();
+//        dealExcle DealExcle =new dealExcle();
+//        dealSendMessage DealSendMessage=new dealSendMessage();
+//        //获取支局长邮箱地址
+//        List<zj_Report_Public> zj_Report_Public_List =zj_Report_Public_Business.zj_Report_Public_Business();
+//
+//        InputStream inDealData= Resources.getResourceAsStream(config);
+//        SqlSessionFactoryBuilder builderDealData=new SqlSessionFactoryBuilder();
+//        SqlSessionFactory factoryDealData = builderDealData.build(inDealData);
+//        SqlSession sqlSessionDealData=factoryDealData.openSession();
+//        zj_Report_KdDao Zj_Report_KdDaoDealData = sqlSessionDealData.getMapper(zj_Report_KdDao.class);
+//
+//        for (int i=0;i<zj_Report_Public_List.size();i++){
+//
+//            zj_Report_Kd_Jz_Data Zj_report_kd_jz_data=new zj_Report_Kd_Jz_Data();
+//
+//            List<zj_Report_Kd_Jz_Data> Zj_report_kd_jz_data_List =
+//                    Zj_Report_KdDaoDealData.selectZj_Report_Kd_Jz_Data(tableNameNew,zj_Report_Public_List.get(i).getZj_Abbr_Name());
+//
+//            String str = new String(zj_Report_Public_List.get(i).getZj_Full_Name().getBytes(),"UTF-8");
+//
+//            String  OutExcleDataFileNew;
+//            String titleMailSingle ;
+//            String contentMailSingle;
+//
+//            if(Zj_report_kd_jz_data_List.size()!=0){
+//                titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+strContent+"宽带净增中离网、拆机、移出清单详见附件"+nowDayYYYYMMDD;
+//                contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+strContent+"宽带净增中离网、拆机、移出清单详见附件"+nowDayYYYYMMDD;
+//                OutExcleDataFileNew=OutExcleDataFile+str+"KDJZ"+nowDayYYYYMMDD+".xlsx";
+//                System.out.printf(OutExcleDataFileNew);
+//                //复制值,并且另存为
+//                DealExcle.cpoyToExcle(Zj_report_kd_jz_data_List,null,OutExcleDataFileNew,0,Zj_report_kd_jz_data);
+//                System.out.printf("复制成功");
+//                //读取附件并且发送
+//                DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
+//
+//            }else{
+//                titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+strContent+"宽带暂无离网、拆机、移出清单数据"+nowDayYYYYMMDD;
+//                contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+strContent+"宽带暂无离网、拆机、移出清单数据"+nowDayYYYYMMDD;
+//                OutExcleDataFileNew=null;
+//                //读取附件并且发送
+//                DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
+//            }
+//
+//        }
+//
+//        sqlSessionDealData.close();
+//        DealSendMessage.searchMyFriendAndSend(wechartSendName,1,strContent+"宽带净增中离网、拆机、移出清单已经下发EIP邮件，请及时维系，挽留。");
+//
+//        }
 
     //新增处理
     public static List<zj_Report_Kd_New_Zj> report_Kd_New_DoDetail( List<zj_Report_Kd_New_Zj> Zj_Report_Kd_New_Zj,Integer differenceDay,Integer quarterDay)  {

@@ -41,7 +41,8 @@ public class zj_Report_Wyj_Business {
     public static  final  String OutExcleSouceFile="C:\\Test\\WYJ\\SOUCE\\";
     //复制导出文件地址
     public static  final  String OutExcleAccountsFile="C:\\Test\\WYJ\\ACCOUNT\\";
-
+    //复制导出文件地址
+    public static  final  String OutExcleAccountsFile_JS="C:\\Test\\JS_ALL\\WYJ\\";
 
     public static void report_Wyj_Zj_Js() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
 
@@ -53,10 +54,12 @@ public class zj_Report_Wyj_Business {
         zj_Report_WyjDao Zj_Report_WyjDao = sqlSession.getMapper(zj_Report_WyjDao.class);
 
         dealTime dealTime=new dealTime();
+        //获取支局长邮箱地址
+        List<zj_Report_Public> zj_Report_Public_List =zj_Report_Public_Business.zj_Report_Public_Business();
 
-        //获取当前季度一号，返回日期格式
+        //获取上季度一号，返回日期格式
         Date startDate=dealTime.getLastQuarterFirstDay();
-        //获取当前季度最后一号，返回日期格式
+        //获取上季度最后一号，返回日期格式
         Date endDate=dealTime.getLastQuarterLastDay();
         //获取当前日期DD格式
         String nowDayYYYYMMDD=dealTime.get_date_By_String_YYYYMMDD();
@@ -87,8 +90,13 @@ public class zj_Report_Wyj_Business {
         System.out.println("数据处理成功");
 
         //复制文件
-        String OutExcleAccountsFileNew =OutExcleAccountsFile+"违约金"+nowDayYYYYMMDD+".xlsx";
+        String OutExcleAccountsFileNew =OutExcleAccountsFile_JS+"违约金"+nowDayYYYYMMDD+".xlsx";
         DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleAccountsFileNew);
+
+        String OutPictureFileNew=OutExcleAccountsFile_JS+"picture"+nowDayYYYYMMDD+".png";
+        //将exlce处理成图片
+        DealExcle.excleToPng(inPictureFile,OutPictureFileNew);
+        System.out.println("图片转化成功");
     }
 
     //取数导出excle
@@ -220,8 +228,80 @@ public class zj_Report_Wyj_Business {
         }
 
     }
+    public static void report_Wyj_Zj_DoData_NowMonth() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
+        //获取当月一号，返回日期格式
+        Date startDate=dealTime.get_nowMonth_FirstDay_ByDate();
+        //获取当月最后一号，返回日期格式
+        Date endDate=dealTime.get_nowMonth_LastDay_ByDate();
+        //获取当前日期DD格式
+        String nowDayYYYYMMDD=dealTime.get_date_By_String_YYYYMMDD();
+        report_Wyj_Zj_DoData(startDate,endDate,nowDayYYYYMMDD,"");
 
-    //处理支局奖扣
+    }
+    public static void report_Wyj_Zj_DoData_LastMonth() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
+        //获取上季度一号，返回日期格式
+        Date startDate=dealTime.getLastQuarterFirstDay();
+        //获取上季度最后一号，返回日期格式
+        Date endDate=dealTime.getLastQuarterLastDay();
+        //获取当前日期DD格式
+        String nowDayYYYYMMDD=dealTime.get_date_By_String_YYYYMMDD();
+        report_Wyj_Zj_DoData(startDate,endDate,nowDayYYYYMMDD,"上月结算:");
+
+    }
+
+
+    public static void report_Wyj_Zj_DoData(Date startDate,Date endDate,String nowDayYYYYMMDD,String strContent) throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
+
+        dealExcle DealExcle =new dealExcle();
+        dealEmail DealEmail=new dealEmail();
+        dealSendMessage DealSendMessage=new dealSendMessage();
+        //获取支局长邮箱地址
+        List<zj_Report_Public> zj_Report_Public_List =zj_Report_Public_Business.zj_Report_Public_Business();
+
+        InputStream inDealData= Resources.getResourceAsStream(config);
+        SqlSessionFactoryBuilder builderDealData=new SqlSessionFactoryBuilder();
+        SqlSessionFactory factoryDealData = builderDealData.build(inDealData);
+        SqlSession sqlSessionDealData=factoryDealData.openSession();
+        zj_Report_WyjDao Zj_Report_WyjDaoDealData = sqlSessionDealData.getMapper(zj_Report_WyjDao.class);
+
+        for (int i=0;i<zj_Report_Public_List.size();i++){
+
+            zj_Report_Wyj_Data Zj_Report_Wyj_Data=new zj_Report_Wyj_Data();
+            List<zj_Report_Wyj_Data> Zj_Report_Wyj_Data_List =
+                    Zj_Report_WyjDaoDealData.selectZj_Report_Wyj_Data(startDate,endDate,zj_Report_Public_List.get(i).getZj_Abbr_Name());
+
+            String str = new String(zj_Report_Public_List.get(i).getZj_Full_Name().getBytes(),"UTF-8");
+
+            String  OutExcleDataFileNew;
+            String titleMailSingle ;
+            String contentMailSingle;
+
+            if(Zj_Report_Wyj_Data_List.size()!=0){
+                titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+strContent+"违约金产生数据详见附件"+nowDayYYYYMMDD;
+                contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+strContent+"违约金产生数据详见附件"+nowDayYYYYMMDD;
+                OutExcleDataFileNew=OutExcleDataFile+str+"Wyj"+nowDayYYYYMMDD+".xlsx";
+                System.out.printf(OutExcleDataFileNew);
+                //复制值,并且另存为
+                DealExcle.cpoyToExcle(Zj_Report_Wyj_Data_List,null,OutExcleDataFileNew,0,Zj_Report_Wyj_Data);
+                System.out.printf("复制成功");
+                //读取附件并且发送
+                DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
+
+            }else{
+                titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+strContent+"本季度暂无违约金减免清单"+nowDayYYYYMMDD;
+                contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+strContent+"本季度暂无违约金减免清单"+nowDayYYYYMMDD;
+                OutExcleDataFileNew=null;
+                //读取附件并且发送
+                DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
+            }
+
+        }
+        sqlSessionDealData.close();
+        DealSendMessage.searchMyFriendAndSend(wechartSendName,1,strContent+"违约金产生数据已经下发EIP邮件，请及时关注。");
+
+    }
+
+        //处理支局奖扣
     public static List<zj_Report_Wyj_Zj> report_Wyj_Zj_DoDetail( List<zj_Report_Wyj_Zj> zj_Report_Wyj_List_Zj)  {
 
         for(int i=0;i<zj_Report_Wyj_List_Zj.size();i++){

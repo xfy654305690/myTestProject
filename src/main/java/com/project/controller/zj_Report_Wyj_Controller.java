@@ -28,5 +28,15 @@ public class zj_Report_Wyj_Controller {
         Zj_Report_Wyj_Business.report_Wyj_Zj();
     }
 
+    public static void report_Wyj_Zj_DoData() throws MessagingException, IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+        zj_Report_Wyj_Business Zj_Report_Wyj_Business =new zj_Report_Wyj_Business();
+        Zj_Report_Wyj_Business.report_Wyj_Zj_DoData_NowMonth();
+    }
+
+    public static void report_Wyj_Zj_Js_DoData() throws MessagingException, IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+        zj_Report_Wyj_Business Zj_Report_Wyj_Business =new zj_Report_Wyj_Business();
+        Zj_Report_Wyj_Business.report_Wyj_Zj_DoData_LastMonth();
+    }
+
 
 }

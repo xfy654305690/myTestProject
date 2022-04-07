@@ -27,6 +27,15 @@ public class zj_Report_Zt_Controller {
         zj_Report_Zt_Business Zj_Report_Zt_Business=new zj_Report_Zt_Business();
         Zj_Report_Zt_Business.report_Zt_Zj_Js();
     }
+    public static void report_Zt_Zj_DoData()throws MessagingException, IOException, ParseException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+        zj_Report_Zt_Business Zj_Report_Zt_Business=new zj_Report_Zt_Business();
+        Zj_Report_Zt_Business.report_Tcf_Zj_DoData_NowMonth();
 
+    }
+    public static void report_Zt_Zj_Js_DoData()throws MessagingException, IOException, ParseException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+        zj_Report_Zt_Business Zj_Report_Zt_Business=new zj_Report_Zt_Business();
+        Zj_Report_Zt_Business.report_Xubao_Zj_DoData_LastMonth();
+
+    }
 
 }
