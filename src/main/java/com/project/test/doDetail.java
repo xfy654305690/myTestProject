@@ -3,6 +3,10 @@ package com.project.test;
 import com.project.controller.*;
 import com.project.util.dealTime;
 
+import javax.mail.MessagingException;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+
 public class doDetail {
 
         public static void doDetailTest() throws Exception {
@@ -52,6 +56,13 @@ public class doDetail {
 
         }
 
+    public static void main(String[] args) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, MessagingException {
+        zj_Report_RhItv_Controller zj_Report_RhItv_Controller=new zj_Report_RhItv_Controller();
+        zj_Report_RhItv_Controller.report_RhItv_Zj();
+
+    }
 
 
-}
+
+
+    }
