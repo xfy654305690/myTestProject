@@ -56,13 +56,10 @@ public class doDetail {
 
         }
 
-    public static void main(String[] args) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, MessagingException {
-        zj_Report_RhItv_Controller zj_Report_RhItv_Controller=new zj_Report_RhItv_Controller();
-        zj_Report_RhItv_Controller.report_RhItv_Zj();
-
-    }
-
-
-
+//    public static void main(String[] args) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, MessagingException {
+//        zj_Report_RhItv_Controller zj_Report_RhItv_Controller=new zj_Report_RhItv_Controller();
+//        zj_Report_RhItv_Controller.report_RhItv_Zj();
+//
+//    }
 
     }

@@ -31,7 +31,7 @@ public class zj_Report_RhItv_Business {
     //图片地址跟目录
     public static  final  String OutPictureFile="C:\\test\\RhItv\\PICTURE\\";
     //微信群名称
-    public static  final  String wechartSendName="春季营销冲锋行动（鄞战2022）";
+    public static  final  String wechartSendName="aiaiai";
     public static  final  String wechartPictureAdress="C:\\test\\RhItv\\";
     //微信群名称
     public static  final  String inExcleDataFile="C:\\Test\\RhItv\\test.xlsx";
