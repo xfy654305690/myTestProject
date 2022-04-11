@@ -19,6 +19,7 @@
         right join XFY_REP_PUB_ZJ_PAR  p3
         on p.Zj_Name=p3.Zj_Abbr_Name
         WHERE p3.ZJ_ABBR_NAME NOT IN ('鄞州政企部','合计')
+        and p.Zj_Name is  not null
         order by  p3.ZJ_ABBR_NAME  desc)
         union all
         select '合计' as Zj_Name,count(*) rh_Amt,

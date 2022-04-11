@@ -6,6 +6,7 @@ import com.project.util.dealTime;
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.text.ParseException;
 
 public class doDetail {
 
@@ -28,7 +29,7 @@ public class doDetail {
                 zj_Report_Wyj_Controller.report_Wyj_Zj();
                 zj_Report_RhItv_Controller.report_RhItv_Zj();
                 zj_Report_Kd_Controller.report_Kd_Zj();
-                zj_Report_OtherDone_Controller.report_OtherDone_Zj();
+                //zj_Report_OtherDone_Controller.report_OtherDone_Zj();
             }
             if (Integer.valueOf(nowDay)==6){
                 zj_Report_Xubao_Controller.report_Xubao_Zj_Js();
@@ -56,10 +57,5 @@ public class doDetail {
 
         }
 
-//    public static void main(String[] args) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, MessagingException {
-//        zj_Report_RhItv_Controller zj_Report_RhItv_Controller=new zj_Report_RhItv_Controller();
-//        zj_Report_RhItv_Controller.report_RhItv_Zj();
-//
-//    }
 
     }

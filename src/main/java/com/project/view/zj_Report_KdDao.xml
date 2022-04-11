@@ -36,7 +36,7 @@
          left join
          (select D.ZJ_OLD as Zj_Name,COUNT(*) AMT_OLD from ${tableName}  S1
           left join XFY_REP_PUB_ZJ_CON D
-          on D.Zj_New = S1.ZJ_AREA_NAME_NEW
+          on D.Zj_New = S1.ZJ_AREA_NAME
           GROUP BY D.ZJ_OLD) p2
         on p1.Zj_Name=p2.Zj_Name)p3
         right join XFY_REP_PUB_TARGET  Q3

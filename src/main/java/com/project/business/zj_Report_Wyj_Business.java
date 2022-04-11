@@ -178,54 +178,54 @@ public class zj_Report_Wyj_Business {
 
         System.out.println("邮件发送成功");
 
-        //发送数据给支局长 *********这里乱码没有结解决
-        if (nowDay.equals("07")||nowDay.equals("11")||nowDay.equals("15")||nowDay.equals("19")||nowDay.equals("23")||nowDay.equals("26")||nowDay.equals("28")||nowDay.equals("30")){
-            //if (0>1){
-            InputStream inDealData= Resources.getResourceAsStream(config);
-            SqlSessionFactoryBuilder builderDealData=new SqlSessionFactoryBuilder();
-            SqlSessionFactory factoryDealData = builderDealData.build(inDealData);
-            SqlSession sqlSessionDealData=factoryDealData.openSession();
-            zj_Report_WyjDao Zj_Report_WyjDaoDealData = sqlSessionDealData.getMapper(zj_Report_WyjDao.class);
-
-            for (int i=0;i<zj_Report_Public_List.size();i++){
-
-                zj_Report_Wyj_Data Zj_Report_Wyj_Data=new zj_Report_Wyj_Data();
-
-                List<zj_Report_Wyj_Data> Zj_Report_Wyj_Data_List =
-                        Zj_Report_WyjDaoDealData.selectZj_Report_Wyj_Data(startDate,endDate,zj_Report_Public_List.get(i).getZj_Abbr_Name());
-
-                String str = new String(zj_Report_Public_List.get(i).getZj_Full_Name().getBytes(),"UTF-8");
-
-                String  OutExcleDataFileNew;
-                String titleMailSingle ;
-                String contentMailSingle;
-
-                if(Zj_Report_Wyj_Data_List.size()!=0){
-                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"违约金产生数据详见附件"+nowDayYYYYMMDD;
-                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"违约金产生数据详见附件"+nowDayYYYYMMDD;
-                    OutExcleDataFileNew=OutExcleDataFile+str+"Wyj"+nowDayYYYYMMDD+".xlsx";
-                    System.out.printf(OutExcleDataFileNew);
-                    //复制值,并且另存为
-                    DealExcle.cpoyToExcle(Zj_Report_Wyj_Data_List,null,OutExcleDataFileNew,0,Zj_Report_Wyj_Data);
-                    System.out.printf("复制成功");
-                    //读取附件并且发送
-                    DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
-
-                }else{
-                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本季度暂无违约金减免清单"+nowDayYYYYMMDD;
-                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本季度暂无违约金减免清单"+nowDayYYYYMMDD;
-                    OutExcleDataFileNew=null;
-                    //读取附件并且发送
-                    DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
-                }
-
-            }
-
-            sqlSessionDealData.close();
-            DealSendMessage.searchMyFriendAndSend(wechartSendName,1,"违约金产生数据已经下发EIP邮件，请及时关注。");
-
-
-        }
+//        //发送数据给支局长 *********这里乱码没有结解决
+//        if (nowDay.equals("07")||nowDay.equals("11")||nowDay.equals("15")||nowDay.equals("19")||nowDay.equals("23")||nowDay.equals("26")||nowDay.equals("28")||nowDay.equals("30")){
+//            //if (0>1){
+//            InputStream inDealData= Resources.getResourceAsStream(config);
+//            SqlSessionFactoryBuilder builderDealData=new SqlSessionFactoryBuilder();
+//            SqlSessionFactory factoryDealData = builderDealData.build(inDealData);
+//            SqlSession sqlSessionDealData=factoryDealData.openSession();
+//            zj_Report_WyjDao Zj_Report_WyjDaoDealData = sqlSessionDealData.getMapper(zj_Report_WyjDao.class);
+//
+//            for (int i=0;i<zj_Report_Public_List.size();i++){
+//
+//                zj_Report_Wyj_Data Zj_Report_Wyj_Data=new zj_Report_Wyj_Data();
+//
+//                List<zj_Report_Wyj_Data> Zj_Report_Wyj_Data_List =
+//                        Zj_Report_WyjDaoDealData.selectZj_Report_Wyj_Data(startDate,endDate,zj_Report_Public_List.get(i).getZj_Abbr_Name());
+//
+//                String str = new String(zj_Report_Public_List.get(i).getZj_Full_Name().getBytes(),"UTF-8");
+//
+//                String  OutExcleDataFileNew;
+//                String titleMailSingle ;
+//                String contentMailSingle;
+//
+//                if(Zj_Report_Wyj_Data_List.size()!=0){
+//                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"违约金产生数据详见附件"+nowDayYYYYMMDD;
+//                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"违约金产生数据详见附件"+nowDayYYYYMMDD;
+//                    OutExcleDataFileNew=OutExcleDataFile+str+"Wyj"+nowDayYYYYMMDD+".xlsx";
+//                    System.out.printf(OutExcleDataFileNew);
+//                    //复制值,并且另存为
+//                    DealExcle.cpoyToExcle(Zj_Report_Wyj_Data_List,null,OutExcleDataFileNew,0,Zj_Report_Wyj_Data);
+//                    System.out.printf("复制成功");
+//                    //读取附件并且发送
+//                    DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
+//
+//                }else{
+//                    titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本季度暂无违约金减免清单"+nowDayYYYYMMDD;
+//                    contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"本季度暂无违约金减免清单"+nowDayYYYYMMDD;
+//                    OutExcleDataFileNew=null;
+//                    //读取附件并且发送
+//                    DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
+//                }
+//
+//            }
+//
+//            sqlSessionDealData.close();
+//            DealSendMessage.searchMyFriendAndSend(wechartSendName,1,"违约金产生数据已经下发EIP邮件，请及时关注。");
+//
+//
+//        }
 
     }
     public static void report_Wyj_Zj_DoData_NowMonth() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
