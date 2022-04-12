@@ -1,5 +1,6 @@
 package com.project.test;
 
+import com.project.controller.*;
 import com.project.model.zj_Report_Xubao_Zj;
 import com.project.util.dealTime;
 import com.project.view.zj_Report_XubaoDao;
@@ -12,6 +13,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import javax.mail.MessagingException;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.FileInputStream;
@@ -29,37 +31,26 @@ import java.util.List;
 
 public class test111 {
 
-    public static Robot getRobot(){
-        // 创建Robot对象
-        Robot robot = null;
-        try {
-            robot = new Robot();
-        } catch (AWTException e) {
-            e.printStackTrace();
+    public static void main(String[] args) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, ParseException, MessagingException {
+
+        zj_Report_Kd_Controller zj_Report_Kd_Controller=new zj_Report_Kd_Controller();
+        zj_Report_RhItv_Controller zj_Report_RhItv_Controller=new zj_Report_RhItv_Controller();
+        zj_Report_Tcf_Controller zj_Report_Tcf_Controller=new zj_Report_Tcf_Controller();
+        zj_Report_Wyj_Controller zj_Report_Wyj_Controller=new zj_Report_Wyj_Controller();
+        zj_Report_Xubao_Controller zj_Report_Xubao_Controller=new zj_Report_Xubao_Controller();
+        zj_Report_Zt_Controller zj_Report_Zt_Controller=new zj_Report_Zt_Controller();
+        zj_Report_OtherDone_Controller zj_Report_OtherDone_Controller=new zj_Report_OtherDone_Controller();
+
+        //获取当前日期DD格式
+        String nowDay= dealTime.get_date_By_String_DD();
+        if (nowDay.equals("07")||nowDay.equals("12")||nowDay.equals("15")||nowDay.equals("19")||nowDay.equals("23")||nowDay.equals("26")||nowDay.equals("28")||nowDay.equals("30")){
+            zj_Report_Xubao_Controller.report_Xubao_Zj_DoData();
+            zj_Report_Tcf_Controller.report_Tcf_Zj_DoData();
+            zj_Report_Zt_Controller.report_Zt_Zj_DoData();
+            zj_Report_Wyj_Controller.report_Wyj_Zj_DoData();
+            zj_Report_RhItv_Controller.report_RhItv_Zj_DoData();
+            zj_Report_Kd_Controller.report_Kd_Zj();
         }
-        return robot;
-    }
-
-    public static void main(String[] args) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, ParseException {
-
-        // 创建Robot对象
-        Robot robot = getRobot();
-        //打开微信 Ctrl+Alt+W
-        assert robot != null;
-
-        robot.keyPress(KeyEvent.VK_WINDOWS);
-        robot.keyPress(KeyEvent.VK_D);
-
-        robot.keyRelease(KeyEvent.VK_WINDOWS);
-
-        robot.delay(1000);
-
-        robot.keyPress(KeyEvent.VK_CONTROL);
-        robot.keyPress(KeyEvent.VK_ALT);
-        robot.keyPress(KeyEvent.VK_W);
-        //释放Ctrl按键，像Ctrl，退格键，删除键这样的功能性按键，在按下后一定要释放
-        robot.keyRelease(KeyEvent.VK_CONTROL);
-        robot.keyRelease(KeyEvent.VK_ALT);
 
     }
 
