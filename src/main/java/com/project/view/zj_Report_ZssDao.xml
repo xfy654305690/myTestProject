@@ -139,7 +139,7 @@
         ) l8
         left join XFY_REP_ZSS_TARGET L9
         ON L8.Zj_Name=L9.TYPENAME
-        where  l8.Zj_Name in ('黄红','鲁建盛','毛高松','邬云峰','陆黎达','郑培坚')
+        where  l8.Zj_Name in ('黄红','鲁建盛','毛高松','邬云峰','陆黎达','郑培坚','吕创')
         order by decode(l9.TYPENAME,'黄红',0,'鲁建盛',1,'毛高松',2,'邬云峰',3,'陆黎达',4,'郑培坚',5,'吕创',6)
     </select>
     <select id="selectZj_Report_Zss_MaxTime"  resultType="Date">
