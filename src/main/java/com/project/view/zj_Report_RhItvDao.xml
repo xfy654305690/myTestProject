@@ -31,6 +31,23 @@
         and s.KHQ='公众'
         and s.prom_amt>=129
     </select>
+    <select id="select_zj_Report_RhItv_Tx"  resultType="com.project.model.zj_Report_RhItv_Zj">
+        select p.Zj_Name,nvl(p.rh_Amt,0),nvl(p.rh_Add_Amt,0),nvl(p.rh_Unadd_Amt,0),nvl(p.rh_Add_rate,0) from (
+        select case when p1.JOB is null then '非鄞州触点渠道'  else p1.JOB end Zj_Name,count(*) rh_Amt,
+            sum(case when s.ITV_ASSET_ROW_ID is not null then 1 else 0 end ) rh_Add_Amt,
+            sum(case when s.ITV_ASSET_ROW_ID is null then 1 else 0 end ) rh_Unadd_Amt,
+            sum(case when s.ITV_ASSET_ROW_ID is not null then 1 else 0 end )/count(*) rh_Add_rate
+        from XFY_RPT_RH_ORDER_ASSET s
+              left join XFY_REP_PUB_CDRY P1
+                        ON s.MKT_EMPLOYEE_ID=P1.MKT_NAME
+        where s.cpl_dt &gt;= #{startDate}  and  s.cpl_dt &lt;= #{endDate}
+        and s.KHQ='公众'
+        and s.prom_amt>=129
+        group by case when p1.JOB is null then '非鄞州触点渠道' else p1.JOB end)p
+        where p.Zj_Name in ('支局长','支局长助理','网格经理','营业员','智家工程师','行客经理','支局其他','商客经理','特攻队','非鄞州触点渠道')
+        order by decode(p.Zj_Name,'支局长',0,'支局长助理',1,'网格经理',2,'营业员',3,'智家工程师',4,'行客经理',5,'支局其他',6,'商客经理',7,'特攻队',8,'非鄞州触点渠道',9)
+
+    </select>
 
     <select id="select_Zj_Report_RhItv_Data"  resultType="com.project.model.zj_Report_RhItv_Data">
         SELECT case when C.ZJ is null then b.BRANCH_AREA_NAME else C.ZJ end  AS BRANCH_AREA_NAME ,
