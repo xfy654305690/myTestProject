@@ -316,4 +316,38 @@ public class dealTime {
         return day;
     }
 
+
+    //获取上上季度最后一号，返回日期格式
+    public static String get_second_lastQuarter_LastDay_ByDate_YYYYMM(){
+        Calendar calendar = Calendar.getInstance();
+        int month=calendar.get(Calendar.MONTH)+1;
+        if(month>=1&&month<=3){
+            calendar.set(Calendar.YEAR, -1);
+            calendar.set(Calendar.MONTH,9);
+            calendar.set(Calendar.DATE,1);
+            calendar.add(Calendar.DAY_OF_MONTH, -1);
+        }
+        if(month>=4&&month<=6){
+            calendar.set(Calendar.MONTH,0);
+            calendar.set(Calendar.DATE,1);
+            calendar.add(Calendar.DAY_OF_MONTH, -1);
+        }
+        if(month>=7&&month<=9){
+            calendar.set(Calendar.MONTH,3);
+            calendar.set(Calendar.DATE,1);
+            calendar.add(Calendar.DAY_OF_MONTH, -1);
+        }
+        if(month>=9&&month<=12){
+            calendar.set(Calendar.MONTH,6);
+            calendar.set(Calendar.DATE,1);
+            calendar.add(Calendar.DAY_OF_MONTH, -1);
+        }
+        setMinTime(calendar);
+        Date endDate=calendar.getTime();
+        SimpleDateFormat simpleDateFormatYM = new SimpleDateFormat("yyyyMM");//注意月份是MM
+        String dateMonth=simpleDateFormatYM.format(endDate);
+
+        return dateMonth;
+    }
+
 }

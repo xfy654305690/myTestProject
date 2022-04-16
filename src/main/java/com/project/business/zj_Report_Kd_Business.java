@@ -44,6 +44,8 @@ public class zj_Report_Kd_Business {
     public static  final  String OutExcleSouceFile="C:\\Test\\KD\\SOUCE\\";
     //到达备份名称
     public static  final  String tableName="XFY_KD_ASSET_BAK_BEF";
+    //复制结算文件地址
+    public static  final  String OutExcleAccountsFile_JS="C:\\Test\\JS_ALL\\Kd\\";
 
     //取数导出excle
     public static void report_Kd_Zj_Js() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException, ParseException {
@@ -57,12 +59,15 @@ public class zj_Report_Kd_Business {
 
         dealTime dealTime=new dealTime();
 
-        //获取当前季度一号，返回日期格式
-        Date startDate=dealTime.get_nowQuarter_FirstDay_ByDate();
-        //获取当前季度最后一日，返回日期格式
-        Date endDate=dealTime.get_nowQuarter_LastDay_ByDate();
-        //上上个季度的最后一天
+        //获取上季度一号，返回日期格式
+        Date startDate=dealTime.getLastQuarterFirstDay();
+        //获取上季度最后一号，返回日期格式
+        Date endDate=dealTime.getLastQuarterLastDay();
+        //上个季度的最后一天
         String lastQuarterMonth =dealTime.get_lastLastQuarter_LastDay_ByDate_YYYYMM();
+        //上上个季度的最后一天
+        String secondlastQuarterMonth =dealTime.get_second_lastQuarter_LastDay_ByDate_YYYYMM();
+
         //获取当前日期DD格式
         String nowDayYYYYMMDD=dealTime.get_date_By_String_YYYYMMDD();
 
@@ -71,9 +76,11 @@ public class zj_Report_Kd_Business {
                 Zj_Report_KdDao.selectZj_Report_Kd_New_Zj(startDate,endDate);
         //表明
         String tableNameNew=tableName+lastQuarterMonth;
+        //表明
+        String tableNameOld=tableName+secondlastQuarterMonth;
         //宽带净增数据-KD
         List<zj_Report_Kd_Jz_Zj> selectZj_Report_Kd_Jz_List_Zj =
-                Zj_Report_KdDao.selectZj_Report_Kd_Jz_Zj(tableNameNew);
+                Zj_Report_KdDao.selectZj_Report_Kd_Jz_Zj_Js(tableNameOld,tableNameNew);
 
         //系统时间
         String maxDateString=dealTime.get_firstDate_By_String_YYYY_MM_DD();
@@ -106,7 +113,7 @@ public class zj_Report_Kd_Business {
         System.out.println("数据处理成功");
 
         //复制文件
-        String OutExcleSouceFilenew =OutExcleSouceFile+"宽带新增净增通报"+nowDayYYYYMMDD+".xlsx";
+        String OutExcleSouceFilenew =OutExcleAccountsFile_JS+"宽带新增净增通报"+nowDayYYYYMMDD+".xlsx";
         DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleSouceFilenew);
 
     }
