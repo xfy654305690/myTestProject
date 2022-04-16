@@ -32,7 +32,8 @@
         and s.prom_amt>=129
     </select>
     <select id="select_zj_Report_RhItv_Tx"  resultType="com.project.model.zj_Report_RhItv_Zj">
-        select p.Zj_Name,nvl(p.rh_Amt,0),nvl(p.rh_Add_Amt,0),nvl(p.rh_Unadd_Amt,0),nvl(p.rh_Add_rate,0) from (
+        select p.Zj_Name,nvl(p.rh_Amt,0) as rh_Amt,nvl(p.rh_Add_Amt,0) as rh_Add_Amt,nvl(p.rh_Unadd_Amt,0) as rh_Unadd_Amt,nvl(p.rh_Add_rate,0)as rh_Add_rate
+        from (
         select case when p1.JOB is null then '非鄞州触点渠道'  else p1.JOB end Zj_Name,count(*) rh_Amt,
             sum(case when s.ITV_ASSET_ROW_ID is not null then 1 else 0 end ) rh_Add_Amt,
             sum(case when s.ITV_ASSET_ROW_ID is null then 1 else 0 end ) rh_Unadd_Amt,

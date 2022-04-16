@@ -1,6 +1,7 @@
 package com.project.test;
 
 import com.project.business.zj_Report_Kd_Business;
+import com.project.business.zj_Report_RhItv_Business;
 import com.project.controller.*;
 import com.project.model.zj_Report_Xubao_Zj;
 import com.project.util.dealTime;
@@ -34,8 +35,8 @@ public class test111 {
 
     public static void main(String[] args) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, ParseException, MessagingException {
 
-        zj_Report_Kd_Business zj_Report_Kd_Business=new zj_Report_Kd_Business();
-        zj_Report_Kd_Business.report_Kd_Zj_Js();
+        zj_Report_RhItv_Business zj_Report_RhItv_Business=new zj_Report_RhItv_Business();
+        zj_Report_RhItv_Business.report_RhItv_Zj();
 
     }
 

@@ -66,6 +66,9 @@ public class zj_Report_RhItv_Business {
         List<zj_Report_RhItv_Zj> zj_Report_RhItv_List_Zj =
                 zj_Report_RhItvDao.select_zj_Report_RhItv_Zj(startDate,endDate);
 
+        //融合数据
+        List<zj_Report_RhItv_Zj> zj_Report_RhItv_List_Tx =
+                zj_Report_RhItvDao.select_zj_Report_RhItv_Tx(startDate,endDate);
 
         String maxDate=zj_Report_RhItvDao.select_zj_Report_RhItv_Zj_MaxTime();
 
@@ -82,8 +85,11 @@ public class zj_Report_RhItv_Business {
         //宽带奖扣 1
         DealExcle.cpoyToExcle(zj_Report_RhItv_List_Zj,inExcleFile,OutExcleFile,1,zj_Report_RhItv_Zj);
 
+        //宽带奖扣 2
+        DealExcle.cpoyToExcle(zj_Report_RhItv_List_Tx,inExcleFile,OutExcleFile,2,zj_Report_RhItv_Zj);
+
         //处理时间
-        DealExcle.cpoyToExcleSingle(maxDate,inExcleFile,OutExcleFile, 2);
+        DealExcle.cpoyToExcleSingle(maxDate,inExcleFile,OutExcleFile, 3);
 
         System.out.println("数据处理成功");
 
@@ -173,6 +179,9 @@ public class zj_Report_RhItv_Business {
         List<zj_Report_RhItv_Zj> zj_Report_RhItv_List_Zj =
                 zj_Report_RhItvDao.select_zj_Report_RhItv_Zj(startDate,endDate);
 
+        //融合数据
+        List<zj_Report_RhItv_Zj> zj_Report_RhItv_List_Tx =
+                zj_Report_RhItvDao.select_zj_Report_RhItv_Tx(startDate,endDate);
 
         String maxDate=zj_Report_RhItvDao.select_zj_Report_RhItv_Zj_MaxTime();
 
@@ -190,8 +199,11 @@ public class zj_Report_RhItv_Business {
         //宽带奖扣 1
         DealExcle.cpoyToExcle(zj_Report_RhItv_List_Zj,inExcleFile,OutExcleFile,1,zj_Report_RhItv_Zj);
 
+        //宽带奖扣 2
+        DealExcle.cpoyToExcle(zj_Report_RhItv_List_Tx,inExcleFile,OutExcleFile,2,zj_Report_RhItv_Zj);
+
         //处理时间
-        DealExcle.cpoyToExcleSingle(maxDate,inExcleFile,OutExcleFile, 2);
+        DealExcle.cpoyToExcleSingle(maxDate,inExcleFile,OutExcleFile, 3);
 
         System.out.println("数据处理成功");
 
