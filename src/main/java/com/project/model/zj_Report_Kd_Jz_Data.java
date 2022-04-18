@@ -18,6 +18,10 @@ public class zj_Report_Kd_Jz_Data {
     public  String BIL_FLG;
     //时间
     public  String bilTime;
+    //WG_ID
+    public  String WG_ID;
+    //WG_NAME
+    public  String WG_NAME;
 
     public String getZj_Name() {
         return Zj_Name;
@@ -83,6 +87,22 @@ public class zj_Report_Kd_Jz_Data {
         this.bilTime = bilTime;
     }
 
+    public String getWG_ID() {
+        return WG_ID;
+    }
+
+    public void setWG_ID(String WG_ID) {
+        this.WG_ID = WG_ID;
+    }
+
+    public String getWG_NAME() {
+        return WG_NAME;
+    }
+
+    public void setWG_NAME(String WG_NAME) {
+        this.WG_NAME = WG_NAME;
+    }
+
     @Override
     public String toString() {
         return "zj_Report_Kd_Jz_Data{" +
@@ -94,6 +114,8 @@ public class zj_Report_Kd_Jz_Data {
                 ", CACCT_ID='" + CACCT_ID + '\'' +
                 ", BIL_FLG='" + BIL_FLG + '\'' +
                 ", bilTime='" + bilTime + '\'' +
+                ", WG_ID='" + WG_ID + '\'' +
+                ", WG_NAME='" + WG_NAME + '\'' +
                 '}';
     }
 }

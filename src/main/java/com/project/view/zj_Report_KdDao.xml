@@ -113,7 +113,8 @@
     </select>
     <select id="selectZj_Report_Kd_Jz_Data_New"  resultType="com.project.model.zj_Report_Zt_Data">
         SELECT S1.ZJ_AREA_NAME Zj_Name,S1.DATE_CD,S1.ASSET_ROW_ID,S1.ACCS_NBR,S1.DATA_USER_NAME,S1.PROM_NAME,S1.PROM_AMT,
-               S1.SERV_START_DT,S1.STAT_NAME,S1.XZ_FLG,S1.ACT_FLG,S1.TYPE,S1.ACT_DAYS,S1.CCUST_ID,S1.MKT_EMPLOYEE_ID,S1.MKT_EMPLOYEE_NAME,S1.MIX_COMB_NBR_FLG,s1.BIL_FLG
+               S1.SERV_START_DT,S1.STAT_NAME,S1.XZ_FLG,S1.ACT_FLG,S1.TYPE,S1.ACT_DAYS,S1.CCUST_ID,S1.MKT_EMPLOYEE_ID,
+               S1.MKT_EMPLOYEE_NAME,S1.MIX_COMB_NBR_FLG,s1.BIL_FLG,s1.WG_ID,S1.WG_NAME
         FROM  ${tableName} S1
                   left  join XFY_RPT_ZLYW_ACT_ASSET S2
                              on s1.ASSET_ROW_ID= S2.ASSET_ROW_ID
@@ -124,6 +125,17 @@
           and s1.TYPE='KD'
           and  s1.BIL_FLG='1'
           and s2.ASSET_ROW_ID is null
+    </select>
+
+    <select id="selectZj_Report_Kd_Jz_Gis"  resultType="com.project.model.zj_Report_Kd_Jz_Gis" statementType="STATEMENT">
+        select Q1.ZJ_NAME,Q1.GIS_ID,Q1.YXWGMC,Q2.nowNum,Q3.lastNum,Q2.nowNum-Q3.lastNum AS jzNum from XFY_KD_WG Q1
+          LEFT JOIN ( SELECT s2.WG_ID,COUNT(*) nowNum FROM XFY_KD_ASSET S2 where s2.WG_ID is not null GROUP BY s2.WG_ID ) Q2
+                    ON Q1.GIS_ID= Q2.WG_ID
+          LEFT JOIN ( SELECT s3.WG_ID,COUNT(*) lastNum FROM ${tableName} S3 where s3.WG_ID is not null GROUP BY s3.WG_ID ) Q3
+                    on Q1.GIS_ID= Q3.WG_ID
+        WHERE Q1.GIS_ID IS NOT NULL
+        Order by Q1.ZJ_NAME
+        ;
     </select>
 
 </mapper>
