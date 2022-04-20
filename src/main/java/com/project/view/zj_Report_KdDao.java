@@ -22,5 +22,10 @@ public interface zj_Report_KdDao {
 
     public List<zj_Report_Zt_Data>selectZj_Report_Kd_Jz_Data_New(@Param("startDate") Date startDate , @Param("endDate")Date endDate,@Param("zj_name")String zj_name);
 
+    public List<zj_Report_Kd_Jz_Gis> selectZj_Report_Kd_Jz_Gis (@Param("tableName") String tableName);
+
+    public List<zj_Report_Kd_Jz_Gis_Zj> selectZj_Report_Kd_Jz_Gis_Zj (@Param("tableName") String tableName);
+
+    public String selectZj_Report_Kd_Jz_MaxTime ();
 
 }

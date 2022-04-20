@@ -25,7 +25,7 @@ public class Myschedule {
                 .startNow()//立即生效
                 .startAt(startDate)
                 //.withSchedule(CronScheduleBuilder.cronSchedule("/3 * * * * ?"))
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 30 23 * * ?"))
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 15 21 * * ?"))
                 .build();
         CronTrigger cronTriggerZss1 = TriggerBuilder.newTrigger().withIdentity("triggerZss1", "triggerGroupZss1")
                 .usingJobData("triggerZss1", "这是jobDetail1的triggerZss1")
