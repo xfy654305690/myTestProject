@@ -40,36 +40,37 @@ public class testMail {
 
         MimeMessage message = new MimeMessage(session);
 
-                 //设置邮件的基本信息
-                 //发件人
-                 message.setFrom(new InternetAddress("13362851058@189.cn"));
-                 //收件人
-                 message.setRecipient(Message.RecipientType.TO, new InternetAddress("654305690@qq.com"));
-                 //邮件标题
-                 message.setSubject("JavaMail邮件发送测试");
+             //设置邮件的基本信息
+             //发件人
+             message.setFrom(new InternetAddress("13362851058@189.cn"));
+             //收件人
+             message.setRecipient(Message.RecipientType.TO, new InternetAddress("654305690@qq.com"));
+             //邮件标题
+             message.setSubject("JavaMail邮件发送测试");
 
-                 //创建邮件正文，为了避免邮件正文中文乱码问题，需要使用charset=UTF-8指明字符编码
-                 MimeBodyPart text = new MimeBodyPart();
-                 text.setContent("使用JavaMail创建的带附件的邮件", "text/html;charset=UTF-8");
+             //创建邮件正文，为了避免邮件正文中文乱码问题，需要使用charset=UTF-8指明字符编码
+             MimeBodyPart text = new MimeBodyPart();
+             text.setContent("使用JavaMail创建的带附件的邮件", "text/html;charset=UTF-8");
 
-                 //创建邮件附件
-                 MimeBodyPart attach = new MimeBodyPart();
-                 DataHandler dh = new DataHandler(new FileDataSource("E:\\Test\\student.xlsx"));
-                 attach.setDataHandler(dh);
-                 attach.setFileName(dh.getName());  //
+             //创建邮件附件
+             MimeBodyPart attach = new MimeBodyPart();
+             DataHandler dh = new DataHandler(new FileDataSource("E:\\Test\\student.xlsx"));
+             attach.setDataHandler(dh);
+             attach.setFileName(dh.getName());
 
-                 //创建容器描述数据关系
-                 MimeMultipart mp = new MimeMultipart();
-                 mp.addBodyPart(text);
-                 mp.addBodyPart(attach);
-                 mp.setSubType("mixed");
 
-                 message.setContent(mp);
-                 message.saveChanges();
-                 //将创建的Email写入到E盘存储
-                 message.writeTo(new FileOutputStream("E:\\Test\\mail\\attachMail.eml"));
-                 //返回生成的邮件
-                 return message;
+             //创建容器描述数据关系
+             MimeMultipart mp = new MimeMultipart();
+             mp.addBodyPart(text);
+             mp.addBodyPart(attach);
+             mp.setSubType("mixed");
+
+             message.setContent(mp);
+             message.saveChanges();
+             //将创建的Email写入到E盘存储
+             message.writeTo(new FileOutputStream("E:\\Test\\mail\\attachMail.eml"));
+             //返回生成的邮件
+             return message;
 
     }
 

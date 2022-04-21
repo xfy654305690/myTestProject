@@ -115,7 +115,7 @@ public class zj_Report_Kd_Wg_Business {
         String title ="宽带负净增通报"+nowDayYYYYMMDD+"详见附件";
         String content="宽带负净增通报"+nowDayYYYYMMDD+"详见附件";
         //邮件发送附件图片*****************************
-        //DealEmail.ctreatMailMore(zj_Report_Public_List,null,null,title,content,OutPictureFileNew);
+        DealEmail.ctreatMailMore(zj_Report_Public_List,null,null,title,content,OutPictureFileNew);
 
         System.out.println("邮件发送成功");
 
