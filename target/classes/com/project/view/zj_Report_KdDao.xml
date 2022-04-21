@@ -50,12 +50,12 @@
         on Q6.Zj_Name=Q7.ZJ_ABBR_NAME
     </select>
     <select id="selectZj_Report_Kd_Jz_Data"  resultType="com.project.model.zj_Report_Kd_Jz_Data">
-        select q1.ZJ_AREA_NAME_NEW,q1.DATA_USER_NAME,q1.CDSC_NAME,q1.STAT_NAME,q1.ASSET_ROW_ID,q1.CACCT_ID,q1.BIL_FLG,q1.BIL_MONTH as bilTime
+        select q1.ZJ_AREA_NAME,q1.DATA_USER_NAME,q1.CDSC_NAME,q1.STAT_NAME,q1.ASSET_ROW_ID,q1.CACCT_ID,q1.BIL_FLG,q1.DATE_CD as bilTime
         from ${tableName}  q1
                  left join XFY_KD_ASSET q2
                            on q1.ASSET_ROW_ID=q2.ASSET_ROW_ID
         where q2.ASSET_ROW_ID is null
-          and q1.ZJ_AREA_NAME_NEW in
+          and q1.ZJ_AREA_NAME in
               (SELECT p3.ZJ_NEW FROM  XFY_REP_PUB_ZJ_CON P3
                WHERE  P3.ZJ_OLD = #{zjName})
 
@@ -113,7 +113,8 @@
     </select>
     <select id="selectZj_Report_Kd_Jz_Data_New"  resultType="com.project.model.zj_Report_Zt_Data">
         SELECT S1.ZJ_AREA_NAME Zj_Name,S1.DATE_CD,S1.ASSET_ROW_ID,S1.ACCS_NBR,S1.DATA_USER_NAME,S1.PROM_NAME,S1.PROM_AMT,
-               S1.SERV_START_DT,S1.STAT_NAME,S1.XZ_FLG,S1.ACT_FLG,S1.TYPE,S1.ACT_DAYS,S1.CCUST_ID,S1.MKT_EMPLOYEE_ID,S1.MKT_EMPLOYEE_NAME,S1.MIX_COMB_NBR_FLG,s1.BIL_FLG
+               S1.SERV_START_DT,S1.STAT_NAME,S1.XZ_FLG,S1.ACT_FLG,S1.TYPE,S1.ACT_DAYS,S1.CCUST_ID,S1.MKT_EMPLOYEE_ID,
+               S1.MKT_EMPLOYEE_NAME,S1.MIX_COMB_NBR_FLG,s1.BIL_FLG,s1.WG_ID,S1.WG_NAME
         FROM  ${tableName} S1
                   left  join XFY_RPT_ZLYW_ACT_ASSET S2
                              on s1.ASSET_ROW_ID= S2.ASSET_ROW_ID
@@ -125,5 +126,46 @@
           and  s1.BIL_FLG='1'
           and s2.ASSET_ROW_ID is null
     </select>
+
+    <select id="selectZj_Report_Kd_Jz_Gis"  resultType="com.project.model.zj_Report_Kd_Jz_Gis" statementType="STATEMENT">
+        select Q9.ZJ_OLD ZJ_NAME,Q1.GIS_ID,Q1.YXWGMC,nvl(Q2.nowNum,0) nowNum,nvl(Q3.lastNum,0) lastNum,nvl(Q2.nowNum-Q3.lastNum,0) AS jzNum from XFY_KD_WG Q1
+          LEFT JOIN ( SELECT s2.WG_ID,COUNT(*) nowNum FROM XFY_KD_ASSET S2 where s2.WG_ID is not null GROUP BY s2.WG_ID ) Q2
+                    ON Q1.GIS_ID= Q2.WG_ID
+          LEFT JOIN ( SELECT s3.WG_ID,COUNT(*) lastNum FROM ${tableName} S3 where s3.WG_ID is not null GROUP BY s3.WG_ID ) Q3
+                    on Q1.GIS_ID= Q3.WG_ID
+          left join XFY_REP_PUB_ZJ_CON  Q9
+                    on Q9.ZJ_NEW=Q1.ZJ_NAME
+        WHERE Q1.GIS_ID IS NOT NULL
+        Order by jzNum
+    </select>
+    <select id="selectZj_Report_Kd_Jz_Gis_Zj"  resultType="com.project.model.zj_Report_Kd_Jz_Gis_Zj" statementType="STATEMENT">
+        select * from (select Q4.ZJ_NAME,count(*) GIS_NUM ,SUM(CASE WHEN jzNum &lt; 0 THEN 1 ELSE 0 END ) FJZ_NUM,SUM(CASE WHEN jzNum&lt;0 THEN 1 ELSE 0 END )/count(*)  FJZ_RATE
+        from (
+        select Q9.ZJ_OLD ZJ_NAME ,Q1.GIS_ID,Q1.YXWGMC,nvl(Q2.nowNum,0) nowNum,nvl(Q3.lastNum,0) lastNum,nvl(Q2.nowNum-Q3.lastNum,0) AS jzNum from XFY_KD_WG Q1
+        LEFT JOIN ( SELECT s2.WG_ID,COUNT(*) nowNum FROM XFY_KD_ASSET S2 where s2.WG_ID is not null GROUP BY s2.WG_ID ) Q2
+        ON Q1.GIS_ID= Q2.WG_ID
+        LEFT JOIN ( SELECT s3.WG_ID,COUNT(*) lastNum FROM ${tableName}  S3 where s3.WG_ID is not null GROUP BY s3.WG_ID ) Q3
+        on Q1.GIS_ID= Q3.WG_ID
+        left join XFY_REP_PUB_ZJ_CON  Q9
+                  on Q9.ZJ_NEW=Q1.ZJ_NAME
+        WHERE Q1.GIS_ID IS NOT NULL
+        Order by Q1.ZJ_NAME
+        )Q4
+        group by  Q4.ZJ_NAME
+        order by Q4.ZJ_NAME) Q5
+        union all
+        select '合计' as ZJ_NAME, count(*) GIS_NUM ,SUM(CASE WHEN jzNum&lt;0 THEN 1 ELSE 0 END ) FJZ_NUM ,SUM(CASE WHEN jzNum&lt;0 THEN 1 ELSE 0 END )/count(*)  FJZ_RATE from (
+        select Q1.GIS_ID,nvl(Q2.nowNum,0) nowNum,nvl(Q3.lastNum,0) lastNum,nvl(Q2.nowNum-Q3.lastNum,0) AS jzNum  from XFY_KD_WG Q1
+        LEFT JOIN ( SELECT s2.WG_ID,COUNT(*) nowNum FROM XFY_KD_ASSET S2 where s2.WG_ID is not null GROUP BY s2.WG_ID ) Q2
+        ON Q1.GIS_ID= Q2.WG_ID
+        LEFT JOIN ( SELECT s3.WG_ID,COUNT(*) lastNum FROM ${tableName}  S3 where s3.WG_ID is not null GROUP BY s3.WG_ID ) Q3
+        on Q1.GIS_ID= Q3.WG_ID
+        WHERE Q1.GIS_ID IS NOT NULL
+        )
+    </select>
+    <select id="selectZj_Report_Kd_Jz_MaxTime"  resultType="String">
+        select max(DATE_CD)  from XFY_KD_ASSET a
+    </select>
+
 
 </mapper>

@@ -83,16 +83,14 @@ public class zj_Report_Kd_Wg_Business {
         dealEmail DealEmail=new dealEmail();
         dealSendMessage DealSendMessage=new dealSendMessage();
         //宽带新增 1
-        DealExcle.cpoyToExcle(selectZj_Report_Kd_Jz_Gis,inExcleFile,OutExcleFile,1,zj_Report_Kd_Jz_Gis);
-
+        DealExcle.cpoyToExcle(selectZj_Report_Kd_Jz_Gis_Zj,inExcleFile,OutExcleFile,1,zj_Report_Kd_Jz_Gis_Zj);
         //宽带新增 1
-        DealExcle.cpoyToExcle(selectZj_Report_Kd_Jz_Gis_Zj,inExcleFile,OutExcleFile,2,zj_Report_Kd_Jz_Gis_Zj);
-
+        DealExcle.cpoyToExcle(selectZj_Report_Kd_Jz_Gis,inExcleFile,OutExcleFile,2,zj_Report_Kd_Jz_Gis);
         //处理时间
         DealExcle.cpoyToExcleSingle(maxDateString,inExcleFile,OutExcleFile, 3);
         System.out.println("数据处理成功");
         //复制文件
-        String OutExcleSouceFilenew =OutExcleSouceFile+"宽带新增净增通报"+nowDayYYYYMMDD+".xlsx";
+        String OutExcleSouceFilenew =OutExcleSouceFile+"宽带净增网格通报"+nowDayYYYYMMDD+".xlsx";
         DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleSouceFilenew);
         System.out.println("复制文件成功成功");
         String OutPictureFileNew=OutPictureFile+"picture"+nowDayYYYYMMDD+".png";

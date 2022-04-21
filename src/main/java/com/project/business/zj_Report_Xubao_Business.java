@@ -224,42 +224,6 @@ public class zj_Report_Xubao_Business {
 
         System.out.println("邮件发送成功");
 
-        //发送数据给支局长 *********这里乱码没有结解决
-//        if (nowDay.equals("07")||nowDay.equals("11")||nowDay.equals("15")||nowDay.equals("19")||nowDay.equals("23")||nowDay.equals("26")||nowDay.equals("28")||nowDay.equals("30")){
-//            //if (0>1){
-//
-//            InputStream inDealData= Resources.getResourceAsStream(config);
-//            SqlSessionFactoryBuilder builderDealData=new SqlSessionFactoryBuilder();
-//            SqlSessionFactory factoryDealData = builderDealData.build(inDealData);
-//            SqlSession sqlSessionDealData=factoryDealData.openSession();
-//            zj_Report_XubaoDao Zj_Report_XubaoDaoDealData = sqlSessionDealData.getMapper(zj_Report_XubaoDao.class);
-//
-//            for (int i=0;i<zj_Report_Public_List.size();i++){
-//
-//                System.out.println(zj_Report_Public_List.get(i).getZj_Abbr_Name());
-//
-//                zj_Report_Xubao_Data Zj_Report_Xubao_Data=new zj_Report_Xubao_Data();
-//
-//                //续包县份数据
-//                List<zj_Report_Xubao_Data> zj_Report_Xubao_Data_List =
-//                        Zj_Report_XubaoDaoDealData.selectZj_Report_Xubao_Data(nowMonth,zj_Report_Public_List.get(i).getZj_Abbr_Name());
-//
-//                String str = new String(zj_Report_Public_List.get(i).getZj_Full_Name().getBytes(),"UTF-8");
-//
-//                String  OutExcleDataFileNew=OutExcleDataFile+str+nowDayYYYYMMDD+".xlsx";
-//                String titleMailSingle =zj_Report_Public_List.get(i).getZj_Full_Name()+"续包数据详见附件"+nowDayYYYYMMDD;
-//                String contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"续包数据详见附件"+nowDayYYYYMMDD;
-//                System.out.println(OutExcleDataFileNew);
-//                System.out.println(titleMailSingle);
-//                //复制值,并且另存为
-//                DealExcle.cpoyToExcle(zj_Report_Xubao_Data_List,null,OutExcleDataFileNew,0,Zj_Report_Xubao_Data);
-//                //读取附件并且发送
-//                DealEmail.ctreatMailSingle(zj_Report_Public_List.get(i),null,null,titleMailSingle,contentMailSingle,OutExcleDataFileNew);
-//
-//            }
-//            sqlSessionDealData.close();
-//
-//        }
 
     }
 
@@ -329,7 +293,7 @@ public class zj_Report_Xubao_Business {
 
         zj_Report_Xubao_Zj_List.forEach((e) -> {
 
-            if(e.getZj_Name().equals("鄞州潘火政企支局")||e.getZj_Name().equals("鄞州南商政企支局")||e.getZj_Name().equals("鄞州政企部")){
+            if(e.getZj_Name().equals("鄞州潘火工业区支局")||e.getZj_Name().equals("鄞州南商支局")||e.getZj_Name().equals("鄞州政企部")){
 
                 //计算缺口
                 e.setBb_Amt_gap((int) Math.ceil(e.getBb_Amt()*(0.83+0.03))-e.getBb_Amt_Com());
@@ -394,7 +358,7 @@ public class zj_Report_Xubao_Business {
                     }
                 }
 
-            }else if(e.getZj_Name().equals("鄞州潘火公众支局")){
+            }else if(e.getZj_Name().equals("鄞州潘火支局")){
 
                 //计算缺口
                 e.setBb_Amt_gap((int) Math.ceil(e.getBb_Amt()*(0.83-0.03)-e.getBb_Amt_Com()));
@@ -539,7 +503,6 @@ public class zj_Report_Xubao_Business {
         });
 
         return zj_Report_Xubao_Zj_List;
-
 
     }
 

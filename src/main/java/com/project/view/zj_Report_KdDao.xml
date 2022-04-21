@@ -128,30 +128,33 @@
     </select>
 
     <select id="selectZj_Report_Kd_Jz_Gis"  resultType="com.project.model.zj_Report_Kd_Jz_Gis" statementType="STATEMENT">
-        select Q1.ZJ_NAME,Q1.GIS_ID,Q1.YXWGMC,nvl(Q2.nowNum,0) nowNum,nvl(Q3.lastNum,0) lastNum,nvl(Q2.nowNum-Q3.lastNum,0) AS jzNum from XFY_KD_WG Q1
+        select Q9.ZJ_OLD ZJ_NAME,Q1.GIS_ID,Q1.YXWGMC,nvl(Q2.nowNum,0) nowNum,nvl(Q3.lastNum,0) lastNum,nvl(Q2.nowNum-Q3.lastNum,0) AS jzNum from XFY_KD_WG Q1
           LEFT JOIN ( SELECT s2.WG_ID,COUNT(*) nowNum FROM XFY_KD_ASSET S2 where s2.WG_ID is not null GROUP BY s2.WG_ID ) Q2
                     ON Q1.GIS_ID= Q2.WG_ID
           LEFT JOIN ( SELECT s3.WG_ID,COUNT(*) lastNum FROM ${tableName} S3 where s3.WG_ID is not null GROUP BY s3.WG_ID ) Q3
                     on Q1.GIS_ID= Q3.WG_ID
+          left join XFY_REP_PUB_ZJ_CON  Q9
+                    on Q9.ZJ_NEW=Q1.ZJ_NAME
         WHERE Q1.GIS_ID IS NOT NULL
         Order by jzNum
-        ;
     </select>
     <select id="selectZj_Report_Kd_Jz_Gis_Zj"  resultType="com.project.model.zj_Report_Kd_Jz_Gis_Zj" statementType="STATEMENT">
-        select * from (select Q4.ZJ_NAME,count(*) GIS_NUM ,SUM(CASE WHEN jzNum &lt; 0 THEN 1 ELSE 0 END ) FJZ_NUM,SUM(CASE WHEN jzNum&lt;0 THEN 1 ELSE 0 END )/count(*)  FJZL
+        select * from (select Q4.ZJ_NAME,count(*) GIS_NUM ,SUM(CASE WHEN jzNum &lt; 0 THEN 1 ELSE 0 END ) FJZ_NUM,SUM(CASE WHEN jzNum&lt;0 THEN 1 ELSE 0 END )/count(*)  FJZ_RATE
         from (
-        select Q1.ZJ_NAME,Q1.GIS_ID,Q1.YXWGMC,nvl(Q2.nowNum,0) nowNum,nvl(Q3.lastNum,0) lastNum,nvl(Q2.nowNum-Q3.lastNum,0) AS jzNum from XFY_KD_WG Q1
+        select Q9.ZJ_OLD ZJ_NAME ,Q1.GIS_ID,Q1.YXWGMC,nvl(Q2.nowNum,0) nowNum,nvl(Q3.lastNum,0) lastNum,nvl(Q2.nowNum-Q3.lastNum,0) AS jzNum from XFY_KD_WG Q1
         LEFT JOIN ( SELECT s2.WG_ID,COUNT(*) nowNum FROM XFY_KD_ASSET S2 where s2.WG_ID is not null GROUP BY s2.WG_ID ) Q2
         ON Q1.GIS_ID= Q2.WG_ID
         LEFT JOIN ( SELECT s3.WG_ID,COUNT(*) lastNum FROM ${tableName}  S3 where s3.WG_ID is not null GROUP BY s3.WG_ID ) Q3
         on Q1.GIS_ID= Q3.WG_ID
+        left join XFY_REP_PUB_ZJ_CON  Q9
+                  on Q9.ZJ_NEW=Q1.ZJ_NAME
         WHERE Q1.GIS_ID IS NOT NULL
         Order by Q1.ZJ_NAME
         )Q4
         group by  Q4.ZJ_NAME
         order by Q4.ZJ_NAME) Q5
         union all
-        select '合计' as ZJ_NAME, count(*) GIS_NUM ,SUM(CASE WHEN jzNum&lt;0 THEN 1 ELSE 0 END ) FJZ_NUM ,SUM(CASE WHEN jzNum&lt;0 THEN 1 ELSE 0 END )/count(*)  FJZL from (
+        select '合计' as ZJ_NAME, count(*) GIS_NUM ,SUM(CASE WHEN jzNum&lt;0 THEN 1 ELSE 0 END ) FJZ_NUM ,SUM(CASE WHEN jzNum&lt;0 THEN 1 ELSE 0 END )/count(*)  FJZ_RATE from (
         select Q1.GIS_ID,nvl(Q2.nowNum,0) nowNum,nvl(Q3.lastNum,0) lastNum,nvl(Q2.nowNum-Q3.lastNum,0) AS jzNum  from XFY_KD_WG Q1
         LEFT JOIN ( SELECT s2.WG_ID,COUNT(*) nowNum FROM XFY_KD_ASSET S2 where s2.WG_ID is not null GROUP BY s2.WG_ID ) Q2
         ON Q1.GIS_ID= Q2.WG_ID
@@ -161,9 +164,7 @@
         )
     </select>
     <select id="selectZj_Report_Kd_Jz_MaxTime"  resultType="String">
-
         select max(DATE_CD)  from XFY_KD_ASSET a
-
     </select>
 
 
