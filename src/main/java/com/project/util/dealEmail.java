@@ -19,7 +19,7 @@ import java.util.Properties;
 public class dealEmail {
 
     //连接邮件，暂时先默认账号密码
-    public static void ctreatMailMore(List<zj_Report_Public> zj_Report_Public, String username, String password,String title,String content,String enclosureAdress) throws MessagingException, IOException {
+    public static void ctreatMailMore(List<zj_Report_Public> zj_Report_Public, String username, String password,String title,String content,List<String> enclosureAdress) throws MessagingException, IOException {
 
         Properties prop = new Properties();
         prop.setProperty("mail.host", "smtp.189.cn");
@@ -40,7 +40,7 @@ public class dealEmail {
         ts.close();
     }
     //连接邮件，暂时先默认账号密码,循环发送
-    public static void ctreatAttachMail(List<zj_Report_Public>zj_Report_Public,Session session,Transport ts,String title,String content,String enclosureAdress) throws MessagingException, IOException {
+    public static void ctreatAttachMail(List<zj_Report_Public>zj_Report_Public,Session session,Transport ts,String title,String content,List<String> enclosureAdress) throws MessagingException, IOException {
 
             MimeMessage message = new MimeMessage(session);
             //设置邮件的基本信息
@@ -61,17 +61,25 @@ public class dealEmail {
             MimeBodyPart text = new MimeBodyPart();
             text.setContent(content, "text/html;charset=UTF-8");
 
-            //创建邮件附件
-            MimeBodyPart attach = new MimeBodyPart();
-            DataHandler dh = new DataHandler(new FileDataSource(enclosureAdress));
-            attach.setDataHandler(dh);
-            attach.setFileName(dh.getName());  //
-
             //创建容器描述数据关系
             MimeMultipart mp = new MimeMultipart();
             mp.addBodyPart(text);
-            mp.addBodyPart(attach);
             mp.setSubType("mixed");
+
+//            //创建邮件附件
+//            MimeBodyPart attach = new MimeBodyPart();
+//            DataHandler dh = new DataHandler(new FileDataSource(enclosureAdress));
+//            attach.setDataHandler(dh);
+//            attach.setFileName(dh.getName());
+//            attach.setContent("", "text/html;charset=UTF-8");
+            for (int i=0;i<enclosureAdress.size();i++){
+                MimeBodyPart attach = new MimeBodyPart();
+                DataHandler dh = new DataHandler(new FileDataSource(enclosureAdress.get(i)));
+                attach.setDataHandler(dh);
+                attach.setFileName(dh.getName());
+                attach.setContent("", "text/html;charset=UTF-8");
+                mp.addBodyPart(attach);
+            }
 
             message.setContent(mp);
             message.saveChanges();

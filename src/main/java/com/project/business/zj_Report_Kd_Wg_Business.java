@@ -19,6 +19,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class zj_Report_Kd_Wg_Business {
     public static  final  String OutExcleAccountsFile_JS="C:\\Test\\JS_ALL\\Kd_WG\\";
 
     //取数导出excle
-    public static void report_Kd_Zj() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException, ParseException {
+    public static void report_Kd_Zj_Gis() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException, ParseException {
         InputStream in= Resources.getResourceAsStream(config);
         SqlSessionFactoryBuilder builder=new SqlSessionFactoryBuilder();
         SqlSessionFactory factory = builder.build(in);
@@ -112,10 +113,14 @@ public class zj_Report_Kd_Wg_Business {
         //获取支局长邮箱地址
         List<zj_Report_Public> zj_Report_Public_List =zj_Report_Public_Business.zj_Report_Public_Business();
 
-        String title ="宽带负净增通报"+nowDayYYYYMMDD+"详见附件";
-        String content="宽带负净增通报"+nowDayYYYYMMDD+"详见附件";
+        String title ="宽带网格负净增通报"+nowDayYYYYMMDD+"详见附件";
+        String content="宽带网格负净增通报"+nowDayYYYYMMDD+"详见附件";
+        List<String> FileList=new ArrayList();
+        FileList.add(OutPictureFileNew);
+        FileList.add(OutExcleSouceFilenew);
+
         //邮件发送附件图片*****************************
-        DealEmail.ctreatMailMore(zj_Report_Public_List,null,null,title,content,OutPictureFileNew);
+        DealEmail.ctreatMailMore(zj_Report_Public_List,null,null,title,content,FileList);
 
         System.out.println("邮件发送成功");
 

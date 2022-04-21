@@ -10,6 +10,8 @@ import javax.mail.internet.*;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class testMail {
@@ -52,23 +54,38 @@ public class testMail {
              MimeBodyPart text = new MimeBodyPart();
              text.setContent("使用JavaMail创建的带附件的邮件", "text/html;charset=UTF-8");
 
-             //创建邮件附件
-             MimeBodyPart attach = new MimeBodyPart();
-             DataHandler dh = new DataHandler(new FileDataSource("E:\\Test\\student.xlsx"));
-             attach.setDataHandler(dh);
-             attach.setFileName(dh.getName());
+            //创建容器描述数据关系
+            MimeMultipart mp = new MimeMultipart();
+            mp.addBodyPart(text);
+            //mp.addBodyPart(attach);
+            mp.setSubType("mixed");
+            List<String> a=new ArrayList();
+            a.add("C:\\test\\ZSS\\test.xlsx");
+            a.add("C:\\test\\KD\\test.xlsx");
 
 
-             //创建容器描述数据关系
-             MimeMultipart mp = new MimeMultipart();
-             mp.addBodyPart(text);
-             mp.addBodyPart(attach);
-             mp.setSubType("mixed");
+            for (int i=0;i<a.size();i++){
+                MimeBodyPart attach = new MimeBodyPart();
+                DataHandler dh = new DataHandler(new FileDataSource(a.get(i)));
+                attach.setDataHandler(dh);
+                attach.setFileName(dh.getName());
+                attach.setContent("", "text/html;charset=UTF-8");
+                mp.addBodyPart(attach);
+            }
+
+//             //创建邮件附件
+//             MimeBodyPart attach = new MimeBodyPart();
+//             DataHandler dh = new DataHandler(new FileDataSource("C:\\test\\ZSS\\test.xlsx"));
+//             attach.setDataHandler(dh);
+//             attach.setFileName(dh.getName());
+//             attach.setContent("", "text/html;charset=UTF-8");
+
+
 
              message.setContent(mp);
              message.saveChanges();
              //将创建的Email写入到E盘存储
-             message.writeTo(new FileOutputStream("E:\\Test\\mail\\attachMail.eml"));
+             message.writeTo(new FileOutputStream("C:\\Test\\mail\\attachMail.eml"));
              //返回生成的邮件
              return message;
 
