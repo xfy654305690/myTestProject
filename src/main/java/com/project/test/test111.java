@@ -11,8 +11,8 @@ import java.text.ParseException;
 public class test111 {
 
     public static void main(String[] args) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, ParseException, MessagingException {
-        zj_Report_Kd_Wg_Business zj_Report_Kd_Wg_Business=new zj_Report_Kd_Wg_Business();
-        zj_Report_Kd_Wg_Business.report_Kd_Zj_Gis();
+        zj_Report_Zss_Business zj_Report_Zss_Business=new zj_Report_Zss_Business();
+        zj_Report_Zss_Business.report_Zss_Zj();
 
 
     }

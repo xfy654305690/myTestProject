@@ -153,9 +153,12 @@ public class zj_Report_Kd_Wg_Business {
         NumberFormat nf = NumberFormat.getPercentInstance();
         nf.setMaximumFractionDigits(1);
 
-        context="鄞州整体负净增率："+nf.format(heji.getFJZ_RATE())+"。"+"\n"+"净增率后五支局："+
+        context="鄞州整体负净增率："+nf.format(heji.getFJZ_RATE())+"。"+"\n"+"净增率前五支局："+
                 detailDone.get(0).getZj_Name()+","+detailDone.get(1).getZj_Name()+","+detailDone.get(2).getZj_Name()+","
-                +detailDone.get(3).getZj_Name()+","+detailDone.get(4).getZj_Name()+"。\n";
+                +detailDone.get(3).getZj_Name()+","+detailDone.get(4).getZj_Name()+"。\n"+"净增率后五支局："+
+                detailDone.get(detailDone.size()-1).getZj_Name()+","+ detailDone.get(detailDone.size()-2).getZj_Name()+","
+                + detailDone.get(detailDone.size()-3).getZj_Name()+","+ detailDone.get(detailDone.size()-4).getZj_Name()+","
+                + detailDone.get(detailDone.size()-5).getZj_Name()+"。";;
         return context;
     }
 
