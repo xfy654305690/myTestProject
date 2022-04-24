@@ -335,7 +335,7 @@ public class zj_Report_Zss_Business {
             if(zj_Report_Zss_Zj_List.get(i).getZj_Property().equals("城市A")&&(zj_Report_Zss_Zj_List.get(i).getCom_Rank()<=2)){
                 A_Front=A_Front+zj_Report_Zss_Zj_List.get(i).getZj_Name()+",";
             }
-            if(zj_Report_Zss_Zj_List.get(i).getZj_Property().equals("城市A")&&(zj_Report_Zss_Zj_List.get(i).getCom_Rank()>=8)){
+            if(zj_Report_Zss_Zj_List.get(i).getZj_Property().equals("城市A")&&(zj_Report_Zss_Zj_List.get(i).getCom_Rank()>=7)){
                 A_Behind=A_Behind+zj_Report_Zss_Zj_List.get(i).getZj_Name()+",";
             }
             if(zj_Report_Zss_Zj_List.get(i).getZj_Property().equals("城市B")&&(zj_Report_Zss_Zj_List.get(i).getCom_Rank()<=2)){
@@ -369,7 +369,7 @@ public class zj_Report_Zss_Business {
         s=s.substring(0,s.length()-1);
         s=s.replace("鄞州","");
         s=s.replace("支局","");
-        s=s.replace("综合","");
+        //s=s.replace("综合","");
         return s;
     }
 
