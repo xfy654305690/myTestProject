@@ -24,26 +24,26 @@ public class zj_Report_Wyj_Business {
 
     public static  final  String config="mybatis.xml";
     //读取EXCLE目录
-    public static  final  String inExcleFile="C:\\Test\\WYJ\\test.xlsx";
+    public static  final  String inExcleFile="D:\\Test\\WYJ\\test.xlsx";
     //输出EXCLE目录
-    public static  final  String OutExcleFile="C:\\Test\\WYJ\\test.xlsx";
+    public static  final  String OutExcleFile="D:\\Test\\WYJ\\test.xlsx";
     //转化图片源文件
-    public static  final  String inPictureFile="C:\\Test\\WYJ\\test.xlsx";
+    public static  final  String inPictureFile="D:\\Test\\WYJ\\test.xlsx";
     //图片地址跟目录
-    public static  final  String OutPictureFile="C:\\test\\WYJ\\PICTURE\\";
+    public static  final  String OutPictureFile="D:\\test\\WYJ\\PICTURE\\";
     //微信群名称
     public static  final  String wechartSendName="春季营销冲锋行动（鄞战2022）";
-    public static  final  String wechartPictureAdress="C:\\test\\Tcf\\";
+    public static  final  String wechartPictureAdress="D:\\test\\Tcf\\";
     //微信群名称
-    public static  final  String inExcleDataFile="C:\\Test\\WYJ\\test.xlsx";
+    public static  final  String inExcleDataFile="D:\\Test\\WYJ\\test.xlsx";
     //导出数据地址
-    public static  final  String OutExcleDataFile="C:\\Test\\WYJ\\DATA\\";
+    public static  final  String OutExcleDataFile="D:\\Test\\WYJ\\DATA\\";
     //复制导出文件地址
-    public static  final  String OutExcleSouceFile="C:\\Test\\WYJ\\SOUCE\\";
+    public static  final  String OutExcleSouceFile="D:\\Test\\WYJ\\SOUCE\\";
     //复制导出文件地址
-    public static  final  String OutExcleAccountsFile="C:\\Test\\WYJ\\ACCOUNT\\";
+    public static  final  String OutExcleAccountsFile="D:\\Test\\WYJ\\ACCOUNT\\";
     //复制导出文件地址
-    public static  final  String OutExcleAccountsFile_JS="C:\\Test\\JS_ALL\\WYJ\\";
+    public static  final  String OutExcleAccountsFile_JS="D:\\Test\\JS_ALL\\WYJ\\";
 
     public static void report_Wyj_Zj_Js() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
 

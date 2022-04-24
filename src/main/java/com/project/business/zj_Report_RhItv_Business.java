@@ -24,24 +24,24 @@ public class zj_Report_RhItv_Business {
 
     public static  final  String config="mybatis.xml";
     //读取EXCLE目录
-    public static  final  String inExcleFile="C:\\Test\\RhItv\\test.xlsx";
+    public static  final  String inExcleFile="D:\\Test\\RhItv\\test.xlsx";
     //输出EXCLE目录
-    public static  final  String OutExcleFile="C:\\Test\\RhItv\\test.xlsx";
+    public static  final  String OutExcleFile="D:\\Test\\RhItv\\test.xlsx";
     //转化图片源文件
-    public static  final  String inPictureFile="C:\\Test\\RhItv\\test.xlsx";
+    public static  final  String inPictureFile="D:\\Test\\RhItv\\test.xlsx";
     //图片地址跟目录
-    public static  final  String OutPictureFile="C:\\test\\RhItv\\PICTURE\\";
+    public static  final  String OutPictureFile="D:\\test\\RhItv\\PICTURE\\";
     //微信群名称
     public static  final  String wechartSendName="春季营销冲锋行动（鄞战2022）";
-    public static  final  String wechartPictureAdress="C:\\test\\RhItv\\";
+    public static  final  String wechartPictureAdress="D:\\test\\RhItv\\";
     //微信群名称
-    public static  final  String inExcleDataFile="C:\\Test\\RhItv\\test.xlsx";
+    public static  final  String inExcleDataFile="D:\\Test\\RhItv\\test.xlsx";
     //导出数据地址
-    public static  final  String OutExcleDataFile="C:\\Test\\RhItv\\DATA\\";
+    public static  final  String OutExcleDataFile="D:\\Test\\RhItv\\DATA\\";
     //复制导出文件地址
-    public static  final  String OutExcleSouceFile="C:\\Test\\RhItv\\SOUCE\\";
+    public static  final  String OutExcleSouceFile="D:\\Test\\RhItv\\SOUCE\\";
 
-    public static  final  String OutExcleAccountsFile_JS="C:\\Test\\JS_ALL\\RHITV\\";
+    public static  final  String OutExcleAccountsFile_JS="D:\\Test\\JS_ALL\\RHITV\\";
 
     //取数导出excle
     public static void report_RhItv_Zj_Js() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {

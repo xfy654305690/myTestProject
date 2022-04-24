@@ -26,27 +26,27 @@ public class zj_Report_Xubao_Business {
 
     public static  final  String config="mybatis.xml";
     //读取EXCLE目录
-    public static  final  String inExcleFile="C:\\Test\\XB\\test.xlsx";
+    public static  final  String inExcleFile="D:\\Test\\XB\\test.xlsx";
     //输出EXCLE目录
-    public static  final  String OutExcleFile="C:\\Test\\XB\\test.xlsx";
+    public static  final  String OutExcleFile="D:\\Test\\XB\\test.xlsx";
     //转化图片源文件
-    public static  final  String inPictureFile="C:\\Test\\XB\\test.xlsx";
+    public static  final  String inPictureFile="D:\\Test\\XB\\test.xlsx";
     //图片地址跟目录
-    public static  final  String OutPictureFile="C:\\test\\XB\\PICTURE\\";
+    public static  final  String OutPictureFile="D:\\test\\XB\\PICTURE\\";
     //微信群名称
     public static  final  String wechartSendName="春季营销冲锋行动（鄞战2022）";
 
-    public static  final  String wechartPictureAdress="C:\\test\\XB\\";
+    public static  final  String wechartPictureAdress="D:\\test\\XB\\";
     //微信群名称
-    public static  final  String inExcleDataFile="C:\\Test\\XB\\test.xlsx";
+    public static  final  String inExcleDataFile="D:\\Test\\XB\\test.xlsx";
     //导出数据地址
-    public static  final  String OutExcleDataFile="C:\\Test\\XB\\DATA\\";
+    public static  final  String OutExcleDataFile="D:\\Test\\XB\\DATA\\";
     //复制导出文件地址
-    public static  final  String OutExcleSouceFile="C:\\Test\\XB\\SOUCE\\";
+    public static  final  String OutExcleSouceFile="D:\\Test\\XB\\SOUCE\\";
     //复制导出文件地址
-    public static  final  String OutExcleAccountsFile="C:\\Test\\XB\\ACCOUNT\\";
+    public static  final  String OutExcleAccountsFile="D:\\Test\\XB\\ACCOUNT\\";
     //复制结算导出文件地址
-    public static  final  String OutExcleAccountsFile_JS="C:\\Test\\JS_ALL\\XB\\";
+    public static  final  String OutExcleAccountsFile_JS="D:\\Test\\JS_ALL\\XB\\";
 
     public static void report_Xubao_Zj_Js() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
 

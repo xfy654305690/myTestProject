@@ -49,11 +49,11 @@ public class dealEmail {
             //收件人*******************************************************
             InternetAddress[] sendTo = new InternetAddress[zj_Report_Public.size()];
 
-//            for(int i = 0; i < zj_Report_Public.size(); i++){
-//                sendTo[i]=new InternetAddress(zj_Report_Public.get(i).getZj_Per_In_Cha_Ema());
-//            }
-//            message.setRecipients(Message.RecipientType.TO, sendTo);
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress("654305690@qq.com"));
+            for(int i = 0; i < zj_Report_Public.size(); i++){
+                sendTo[i]=new InternetAddress(zj_Report_Public.get(i).getZj_Per_In_Cha_Ema());
+            }
+            message.setRecipients(Message.RecipientType.TO, sendTo);
+            //message.setRecipient(Message.RecipientType.TO, new InternetAddress("654305690@qq.com"));
             //邮件标题
             message.setSubject(title);
 

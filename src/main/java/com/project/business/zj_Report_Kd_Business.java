@@ -28,26 +28,26 @@ public class zj_Report_Kd_Business {
 
     public static  final  String config="mybatis.xml";
     //读取EXCLE目录
-    public static  final  String inExcleFile="C:\\Test\\KD\\test.xlsx";
+    public static  final  String inExcleFile="D:\\Test\\KD\\test.xlsx";
     //输出EXCLE目录
-    public static  final  String OutExcleFile="C:\\Test\\KD\\test.xlsx";
+    public static  final  String OutExcleFile="D:\\Test\\KD\\test.xlsx";
     //转化图片源文件
-    public static  final  String inPictureFile="C:\\Test\\KD\\test.xlsx";
+    public static  final  String inPictureFile="D:\\Test\\KD\\test.xlsx";
     //图片地址跟目录
-    public static  final  String OutPictureFile="C:\\test\\KD\\PICTURE\\";
+    public static  final  String OutPictureFile="D:\\test\\KD\\PICTURE\\";
     //微信群名称
     public static  final  String wechartSendName="春季营销冲锋行动（鄞战2022）";
-    public static  final  String wechartPictureAdress="C:\\test\\KD\\";
+    public static  final  String wechartPictureAdress="D:\\test\\KD\\";
     //微信群名称
-    public static  final  String inExcleDataFile="C:\\Test\\KD\\test.xlsx";
+    public static  final  String inExcleDataFile="D:\\Test\\KD\\test.xlsx";
     //导出数据地址
-    public static  final  String OutExcleDataFile="C:\\Test\\KD\\DATA\\";
+    public static  final  String OutExcleDataFile="D:\\Test\\KD\\DATA\\";
     //复制导出文件地址
-    public static  final  String OutExcleSouceFile="C:\\Test\\KD\\SOUCE\\";
+    public static  final  String OutExcleSouceFile="D:\\Test\\KD\\SOUCE\\";
     //到达备份名称
     public static  final  String tableName="XFY_KD_ASSET_BAK_BEF";
     //复制结算文件地址
-    public static  final  String OutExcleAccountsFile_JS="C:\\Test\\JS_ALL\\Kd\\";
+    public static  final  String OutExcleAccountsFile_JS="D:\\Test\\JS_ALL\\Kd\\";
 
     //取数导出excle
     public static void report_Kd_Zj_Js() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException, ParseException {

@@ -23,24 +23,24 @@ public class zj_Report_Zss_Business {
 
     public static  final  String config="mybatis.xml";
     //读取EXCLE目录
-    public static  final  String inExcleFile="C:\\Test\\ZSS\\test.xlsx";
+    public static  final  String inExcleFile="D:\\Test\\ZSS\\test.xlsx";
     //输出EXCLE目录
-    public static  final  String OutExcleFile="C:\\Test\\ZSS\\test.xlsx";
+    public static  final  String OutExcleFile="D:\\Test\\ZSS\\test.xlsx";
     //转化图片源文件
-    public static  final  String inPictureFile="C:\\Test\\ZSS\\test.xlsx";
+    public static  final  String inPictureFile="D:\\Test\\ZSS\\test.xlsx";
     //图片地址跟目录
-    public static  final  String OutPictureFile="C:\\test\\ZSS\\PICTURE\\";
+    public static  final  String OutPictureFile="D:\\test\\ZSS\\PICTURE\\";
     //微信群名称
     public static  final  String wechartSendName="春季营销冲锋行动（鄞战2022）";
-    public static  final  String wechartPictureAdress="C:\\test\\Tcf\\";
+    public static  final  String wechartPictureAdress="D:\\test\\Tcf\\";
     //微信群名称
-    public static  final  String inExcleDataFile="C:\\Test\\ZSS\\test.xlsx";
+    public static  final  String inExcleDataFile="D:\\Test\\ZSS\\test.xlsx";
     //导出数据地址
-    public static  final  String OutExcleDataFile="C:\\Test\\ZSS\\DATA\\";
+    public static  final  String OutExcleDataFile="D:\\Test\\ZSS\\DATA\\";
     //复制导出文件地址
-    public static  final  String OutExcleSouceFile="C:\\Test\\ZSS\\SOUCE\\";
+    public static  final  String OutExcleSouceFile="D:\\Test\\ZSS\\SOUCE\\";
     //复制导出文件地址
-    public static  final  String OutExcleAccountsFile="C:\\Test\\ZSS\\ACCOUNT\\";
+    public static  final  String OutExcleAccountsFile="D:\\Test\\ZSS\\ACCOUNT\\";
 
     //取数导出excle
     public static void report_Zss_Zj() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
@@ -227,10 +227,10 @@ public class zj_Report_Zss_Business {
         zj_Report_Zss_List_Zj_new.add(zj_Report_Zss_Zj_Heji.get(0));
 
         //按照指定顺序排序
-        List regulationOrder = Arrays.asList("鄞州潘火公众支局","鄞州潘火政企支局","鄞州钟公庙综合支局","鄞州长丰综合支局","鄞州新城综合支局","鄞州首南综合支局","鄞州南商政企支局",
-                "鄞州东郊综合支局","鄞州下应综合支局","鄞州中河城东综合支局","鄞州东柳综合支局","鄞州福明综合支局","鄞州中河城西综合支局","鄞州明楼综合支局","鄞州白鹤综合支局",
-                "鄞州东胜综合支局","鄞州百丈综合支局","鄞州姜山综合支局","鄞州东钱湖综合支局","鄞州邱隘综合支局","鄞州五乡综合支局","鄞州云龙综合支局","鄞州横溪综合支局",
-                "鄞州塘溪综合支局","鄞州瞻岐综合支局","鄞州东吴综合支局","鄞州咸祥综合支局","合计");
+        List regulationOrder = Arrays.asList("鄞州潘火支局","鄞州潘火工业区支局","鄞州钟公庙支局","鄞州长丰支局","鄞州新城支局","鄞州首南支局","鄞州南商支局",
+                "鄞州东郊支局","鄞州下应支局","鄞州中河城东支局","鄞州东柳支局","鄞州福明支局","鄞州中河城西支局","鄞州明楼支局","鄞州白鹤支局",
+                "鄞州东胜支局","鄞州百丈支局","鄞州姜山支局","鄞州东钱湖支局","鄞州邱隘支局","鄞州五乡支局","鄞州云龙支局","鄞州横溪支局",
+                "鄞州塘溪支局","鄞州瞻岐支局","鄞州东吴支局","鄞州咸祥支局","合计");
         zj_Report_Zss_List_Zj_new.sort(Comparator.comparing(e -> regulationOrder.indexOf(e.getZj_Name())));
         
         return zj_Report_Zss_List_Zj_new;
@@ -313,7 +313,7 @@ public class zj_Report_Zss_Business {
         }
 
         //按照指定顺序排序
-        List regulationOrder = Arrays.asList("黄红","鲁建盛","毛高松","邬云峰","陆黎达","郑培坚");
+        List regulationOrder = Arrays.asList("黄红","鲁建盛","毛高松","邬云峰","陆黎达","郑培坚","吕创");
         zj_Report_Zss_List_Leader.sort(Comparator.comparing(e -> regulationOrder.indexOf(e.getZj_Name())));
 
         return zj_Report_Zss_List_Leader;

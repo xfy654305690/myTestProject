@@ -28,28 +28,28 @@ public class zj_Report_Zt_Business {
 
     public static  final  String config="mybatis.xml";
     //读取EXCLE目录
-    public static  final  String inExcleFile="C:\\Test\\ZT\\test.xlsx";
+    public static  final  String inExcleFile="D:\\Test\\ZT\\test.xlsx";
     //输出EXCLE目录
-    public static  final  String OutExcleFile="C:\\Test\\ZT\\test.xlsx";
+    public static  final  String OutExcleFile="D:\\Test\\ZT\\test.xlsx";
     //转化图片源文件
-    public static  final  String inPictureFile="C:\\Test\\ZT\\test.xlsx";
+    public static  final  String inPictureFile="D:\\Test\\ZT\\test.xlsx";
     //图片地址跟目录
-    public static  final  String OutPictureFile="C:\\test\\ZT\\PICTURE\\";
+    public static  final  String OutPictureFile="D:\\test\\ZT\\PICTURE\\";
     //微信群名称
     public static  final  String wechartSendName="春季营销冲锋行动（鄞战2022）";
-    public static  final  String wechartPictureAdress="C:\\test\\ZT\\";
+    public static  final  String wechartPictureAdress="D:\\test\\ZT\\";
     //微信群名称
-    public static  final  String inExcleDataFile="C:\\Test\\ZT\\test.xlsx";
+    public static  final  String inExcleDataFile="D:\\Test\\ZT\\test.xlsx";
     //导出数据地址
-    public static  final  String OutExcleDataFile="C:\\Test\\ZT\\DATA\\";
+    public static  final  String OutExcleDataFile="D:\\Test\\ZT\\DATA\\";
     //复制导出文件地址
-    public static  final  String OutExcleSouceFile="C:\\Test\\ZT\\SOUCE\\";
+    public static  final  String OutExcleSouceFile="D:\\Test\\ZT\\SOUCE\\";
     //复制导出文件地址
-    public static  final  String OutExcleAccountsFile="C:\\Test\\ZT\\ACCOUNT\\";
+    public static  final  String OutExcleAccountsFile="D:\\Test\\ZT\\ACCOUNT\\";
     //到达备份名称
     public static  final  String tableName="XFY_RPT_ZLYW_ACT_ASSET";
 
-    public static  final  String OutExcleAccountsFile_JS="C:\\Test\\JS_ALL\\ZT\\";
+    public static  final  String OutExcleAccountsFile_JS="D:\\Test\\JS_ALL\\ZT\\";
 
     //取数导出excle
     public static void report_Zt_Zj_Js() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException, ParseException {

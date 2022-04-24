@@ -26,7 +26,7 @@ public class zj_Report_OtherDone_Business {
     public static  final  String config="mybatis.xml";
 
     //导出数据地址
-    public static  final  String OutExcleDataFile="C:\\Test\\OtherDone\\DATA\\";
+    public static  final  String OutExcleDataFile="D:\\Test\\OtherDone\\DATA\\";
 
     //取数导出excle
     public static void report_OtherDone_Zj() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException, ParseException {
