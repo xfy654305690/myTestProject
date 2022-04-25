@@ -50,7 +50,7 @@
         on Q6.Zj_Name=Q7.ZJ_ABBR_NAME
     </select>
     <select id="selectZj_Report_Kd_Jz_Data"  resultType="com.project.model.zj_Report_Kd_Jz_Data">
-        select q1.ZJ_AREA_NAME,q1.DATA_USER_NAME,q1.CDSC_NAME,q1.STAT_NAME,q1.ASSET_ROW_ID,q1.CACCT_ID,q1.BIL_FLG,q1.DATE_CD as bilTime
+        select q1.ZJ_AREA_NAME Zj_Name,q1.DATA_USER_NAME,q1.CDSC_NAME,q1.STAT_NAME,q1.ASSET_ROW_ID,q1.CACCT_ID,q1.BIL_FLG,q1.DATE_CD as bilTime
         from ${tableName}  q1
                  left join XFY_KD_ASSET q2
                            on q1.ASSET_ROW_ID=q2.ASSET_ROW_ID

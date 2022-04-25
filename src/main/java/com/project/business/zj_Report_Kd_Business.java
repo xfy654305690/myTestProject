@@ -202,7 +202,7 @@ public class zj_Report_Kd_Business {
 
         //将图片发送微信
         // 1是文字，2是图片
-        DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
+        //DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
 
         System.out.println("发送微信成功");
 
@@ -210,7 +210,7 @@ public class zj_Report_Kd_Business {
         String contextNew=report_Kd_New_DoDetail_Context(selectZj_Report_Kd_New_List_Zj_Deal);
         String contextJz=report_Kd_Jz_DoDetail_Context(selectZj_Report_Kd_Jz_List_Zj_Deal);
         String context=contextNew+"\n"+contextJz;
-        DealSendMessage.searchMyFriendAndSend(wechartSendName,1,context);
+        //DealSendMessage.searchMyFriendAndSend(wechartSendName,1,context);
 
         //获取支局长邮箱地址
         List<zj_Report_Public> zj_Report_Public_List =zj_Report_Public_Business.zj_Report_Public_Business();
@@ -221,7 +221,7 @@ public class zj_Report_Kd_Business {
         List<String> FileList=new ArrayList();
         FileList.add(OutPictureFileNew);
         //邮件发送附件图片*****************************
-        DealEmail.ctreatMailMore(zj_Report_Public_List,null,null,title,content,FileList);
+        //DealEmail.ctreatMailMore(zj_Report_Public_List,null,null,title,content,FileList);
 
         System.out.println("邮件发送成功");
 

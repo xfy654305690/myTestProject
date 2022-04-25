@@ -21,15 +21,6 @@ public class test111 {
         zj_Report_Zt_Controller zj_Report_Zt_Controller=new zj_Report_Zt_Controller();
         zj_Report_Kd_Wg_Controller zj_Report_Kd_Wg_Controller=new zj_Report_Kd_Wg_Controller();
 
-        zj_Report_OtherDone_Controller zj_Report_OtherDone_Controller=new zj_Report_OtherDone_Controller();
-
-        //获取当前日期DD格式
-        String nowDay= dealTime.get_date_By_String_DD();
-
-
-
-            zj_Report_RhItv_Controller.report_RhItv_Zj_DoData();
-            zj_Report_Kd_Controller.report_Kd_Zj_DoData();
 
 
     }
