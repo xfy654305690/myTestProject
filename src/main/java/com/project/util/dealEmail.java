@@ -83,7 +83,7 @@ public class dealEmail {
             message.setContent(mp);
             message.saveChanges();
             //将创建的Email写入到E盘存储
-            message.writeTo(new FileOutputStream("C:\\Test\\mail\\souce\\"+title+".eml"));
+            message.writeTo(new FileOutputStream("D:\\Test\\mail\\souce\\"+title+".eml"));
             //5、发送邮件
             ts.sendMessage(message, message.getAllRecipients());
 
@@ -136,7 +136,7 @@ public class dealEmail {
         message.saveChanges();
 
         //将创建的Email写入到E盘存储
-        message.writeTo(new FileOutputStream("C:\\Test\\mail\\DATA\\"+title+".eml"));
+        message.writeTo(new FileOutputStream("D:\\Test\\mail\\DATA\\"+title+".eml"));
         //5、发送邮件
         ts.sendMessage(message, message.getAllRecipients());
         ts.close();
