@@ -151,8 +151,11 @@
         </includes>
         <filtering>false</filtering>
       </resource>
-
+      <resource>
+        <directory>src/main/resource</directory>
+      </resource>
     </resources>
+
 
   </build>
 
