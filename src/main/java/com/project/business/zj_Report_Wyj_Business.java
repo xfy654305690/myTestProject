@@ -91,10 +91,10 @@ public class zj_Report_Wyj_Business {
         System.out.println("数据处理成功");
 
         //复制文件
-        String OutExcleAccountsFileNew =OutExcleAccountsFile_JS+"违约金"+nowDayYYYYMMDD+".xlsx";
+        String OutExcleAccountsFileNew =OutExcleAccountsFile_JS+"违约金"+"_"+nowDayYYYYMMDD+".xlsx";
         DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleAccountsFileNew);
 
-        String OutPictureFileNew=OutExcleAccountsFile_JS+"picture"+nowDayYYYYMMDD+".png";
+        String OutPictureFileNew=OutExcleAccountsFile_JS+"picture"+"_"+nowDayYYYYMMDD+".png";
         //将exlce处理成图片
         DealExcle.excleToPng(inPictureFile,OutPictureFileNew);
         System.out.println("图片转化成功");
@@ -149,10 +149,10 @@ public class zj_Report_Wyj_Business {
         System.out.println("数据处理成功");
 
         //复制文件
-        String OutExcleSouceFilenew =OutExcleSouceFile+"违约金"+nowDayYYYYMMDD+".xlsx";
+        String OutExcleSouceFilenew =OutExcleSouceFile+"违约金"+"_"+nowDayYYYYMMDD+".xlsx";
         DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleSouceFilenew);
         System.out.println("复制文件成功成功");
-        String OutPictureFileNew=OutPictureFile+"picture"+nowDayYYYYMMDD+".png";
+        String OutPictureFileNew=OutPictureFile+"picture"+"_"+nowDayYYYYMMDD+".png";
 
         //将exlce处理成图片
         DealExcle.excleToPng(inPictureFile,OutPictureFileNew);
@@ -281,7 +281,7 @@ public class zj_Report_Wyj_Business {
             if(Zj_Report_Wyj_Data_List.size()!=0){
                 titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+strContent+"违约金产生数据详见附件"+nowDayYYYYMMDD;
                 contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+strContent+"违约金产生数据详见附件"+nowDayYYYYMMDD;
-                OutExcleDataFileNew=OutExcleDataFile+str+"Wyj"+nowDayYYYYMMDD+".xlsx";
+                OutExcleDataFileNew=OutExcleDataFile+str+"Wyj"+"_"+nowDayYYYYMMDD+".xlsx";
                 System.out.printf(OutExcleDataFileNew);
                 //复制值,并且另存为
                 DealExcle.cpoyToExcle(Zj_Report_Wyj_Data_List,null,OutExcleDataFileNew,0,Zj_Report_Wyj_Data);

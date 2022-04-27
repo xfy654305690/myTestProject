@@ -108,11 +108,11 @@ public class zj_Report_Xubao_Business {
 
         System.out.println("数据处理成功");
 
-        String OutExcleAccountsFileNew =OutExcleAccountsFile_JS+"续包"+nowDayYYYYMMDD+".xlsx";
+        String OutExcleAccountsFileNew =OutExcleAccountsFile_JS+"续包"+"_"+nowDayYYYYMMDD+".xlsx";
         DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleAccountsFileNew);
         System.out.println("复制文件成功成功");
 
-        String OutPictureFileNew=OutExcleAccountsFile_JS+"picture"+nowDayYYYYMMDD+".png";
+        String OutPictureFileNew=OutExcleAccountsFile_JS+"picture"+"_"+nowDayYYYYMMDD+".png";
 
         //将exlce处理成图片
         DealExcle.excleToPng(inPictureFile,OutPictureFileNew);
@@ -190,11 +190,11 @@ public class zj_Report_Xubao_Business {
         System.out.println("数据处理成功");
 
         //
-        String OutExcleSouceFilenew =OutExcleSouceFile+"续包"+nowDayYYYYMMDD+".xlsx";
+        String OutExcleSouceFilenew =OutExcleSouceFile+"续包"+"_"+nowDayYYYYMMDD+".xlsx";
         DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleSouceFilenew);
         System.out.println("复制文件成功成功");
 
-        String OutPictureFileNew=OutPictureFile+"picture"+nowDayYYYYMMDD+".png";
+        String OutPictureFileNew=OutPictureFile+"picture"+"_"+nowDayYYYYMMDD+".png";
 
         //将exlce处理成图片
         DealExcle.excleToPng(inPictureFile,OutPictureFileNew);
@@ -274,7 +274,7 @@ public class zj_Report_Xubao_Business {
 
             String str = new String(zj_Report_Public_List.get(i).getZj_Full_Name().getBytes(),"UTF-8");
 
-            String  OutExcleDataFileNew=OutExcleDataFile+str+nowDayYYYYMMDD+".xlsx";
+            String  OutExcleDataFileNew=OutExcleDataFile+"_"+str+nowDayYYYYMMDD+".xlsx";
             String titleMailSingle =zj_Report_Public_List.get(i).getZj_Full_Name()+strContent+"续包数据详见附件"+nowDayYYYYMMDD;
             String contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+strContent+"续包数据详见附件"+nowDayYYYYMMDD;
             System.out.println(OutExcleDataFileNew);

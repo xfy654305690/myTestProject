@@ -34,7 +34,7 @@ public class dealSendMessage {
         robot.keyPress(KeyEvent.VK_D);
         robot.keyRelease(KeyEvent.VK_WINDOWS);
 
-        robot.delay(2000);
+        robot.delay(8000);
 
         robot.keyPress(KeyEvent.VK_CONTROL);
         robot.keyPress(KeyEvent.VK_ALT);
@@ -80,7 +80,7 @@ public class dealSendMessage {
         robot.keyRelease(KeyEvent.VK_CONTROL);
         // 回车发送
         robot.keyPress(KeyEvent.VK_ENTER);
-        robot.delay(1000);
+        robot.delay(8000);
     }
 
 

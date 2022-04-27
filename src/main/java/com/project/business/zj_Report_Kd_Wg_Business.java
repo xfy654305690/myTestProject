@@ -91,10 +91,10 @@ public class zj_Report_Kd_Wg_Business {
         DealExcle.cpoyToExcleSingle(maxDateString,inExcleFile,OutExcleFile, 3);
         System.out.println("数据处理成功");
         //复制文件
-        String OutExcleSouceFilenew =OutExcleSouceFile+"宽带净增网格通报"+nowDayYYYYMMDD+".xlsx";
+        String OutExcleSouceFilenew =OutExcleSouceFile+"宽带净增网格通报"+"_"+nowDayYYYYMMDD+".xlsx";
         DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleSouceFilenew);
         System.out.println("复制文件成功成功");
-        String OutPictureFileNew=OutPictureFile+"picture"+nowDayYYYYMMDD+".png";
+        String OutPictureFileNew=OutPictureFile+"picture"+"_"+nowDayYYYYMMDD+".png";
 
         //将exlce处理成图片
         DealExcle.excleToPng(inPictureFile,OutPictureFileNew);

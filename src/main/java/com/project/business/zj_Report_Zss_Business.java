@@ -119,10 +119,10 @@ public class zj_Report_Zss_Business {
 
             System.out.println("数据处理成功");
             //复制文件
-            String OutExcleSouceFilenew =OutExcleSouceFile+"准实时"+nowDayYYYYMMDDHHmmss+".xlsx";
+            String OutExcleSouceFilenew =OutExcleSouceFile+"准实时"+"_"+nowDayYYYYMMDDHHmmss+".xlsx";
             DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleSouceFilenew);
             System.out.println("复制文件成功成功");
-            String OutPictureFileNew=OutPictureFile+"picture"+nowDayYYYYMMDDHHmmss+".png";
+            String OutPictureFileNew=OutPictureFile+"picture"+"_"+nowDayYYYYMMDDHHmmss+".png";
 
             //将exlce处理成图片
             DealExcle.excleToPng(inPictureFile,OutPictureFileNew);

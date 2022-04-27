@@ -95,10 +95,10 @@ public class zj_Report_RhItv_Business {
         System.out.println("数据处理成功");
 
         //复制文件
-        String OutExcleSouceFilenew =OutExcleAccountsFile_JS+"融合未渗透ITV"+nowDayYYYYMMDD+".xlsx";
+        String OutExcleSouceFilenew =OutExcleAccountsFile_JS+"融合未渗透ITV"+"_"+nowDayYYYYMMDD+".xlsx";
         DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleSouceFilenew);
         System.out.println("复制文件成功成功");
-        String OutPictureFileNew=OutPictureFile+"picture"+nowDayYYYYMMDD+".png";
+        String OutPictureFileNew=OutPictureFile+"picture"+nowDayYYYYMMDD+"_"+".png";
 
         //将exlce处理成图片
         DealExcle.excleToPng(inPictureFile,OutPictureFileNew);
@@ -131,7 +131,7 @@ public class zj_Report_RhItv_Business {
                 if(Zj_Report_RhItv_Data_List.size()!=0){
                     titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"上季度结算:融合未渗透ITV数据详见附件"+nowDayYYYYMMDD;
                     contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"上季度结算:融合未渗透ITV数据详见附件"+nowDayYYYYMMDD;
-                    OutExcleDataFileNew=OutExcleDataFile+str+"RhItv"+nowDayYYYYMMDD+".xlsx";
+                    OutExcleDataFileNew=OutExcleDataFile+str+"RhItv"+"_"+nowDayYYYYMMDD+".xlsx";
                     System.out.printf(OutExcleDataFileNew);
                     //复制值,并且另存为
                     DealExcle.cpoyToExcle(Zj_Report_RhItv_Data_List,null,OutExcleDataFileNew,0,zj_Report_RhItv_Data);
@@ -209,10 +209,10 @@ public class zj_Report_RhItv_Business {
         System.out.println("数据处理成功");
 
         //复制文件
-        String OutExcleSouceFilenew =OutExcleSouceFile+"融合未渗透ITV"+nowDayYYYYMMDD+".xlsx";
+        String OutExcleSouceFilenew =OutExcleSouceFile+"融合未渗透ITV"+"_"+nowDayYYYYMMDD+".xlsx";
         DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleSouceFilenew);
         System.out.println("复制文件成功成功");
-        String OutPictureFileNew=OutPictureFile+"picture"+nowDayYYYYMMDD+".png";
+        String OutPictureFileNew=OutPictureFile+"picture"+"_"+nowDayYYYYMMDD+".png";
 
         //将exlce处理成图片
         DealExcle.excleToPng(inPictureFile,OutPictureFileNew);
@@ -296,7 +296,7 @@ public class zj_Report_RhItv_Business {
             if(Zj_Report_RhItv_Data_List.size()!=0){
                 titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+strContent+"融合未渗透ITV数据详见附件"+nowDayYYYYMMDD;
                 contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+strContent+"融合未渗透ITV数据详见附件"+nowDayYYYYMMDD;
-                OutExcleDataFileNew=OutExcleDataFile+str+"RhItv"+nowDayYYYYMMDD+".xlsx";
+                OutExcleDataFileNew=OutExcleDataFile+str+"RhItv"+"_"+nowDayYYYYMMDD+".xlsx";
                 System.out.printf(OutExcleDataFileNew);
                 //复制值,并且另存为
                 DealExcle.cpoyToExcle(Zj_Report_RhItv_Data_List,null,OutExcleDataFileNew,0,zj_Report_RhItv_Data);

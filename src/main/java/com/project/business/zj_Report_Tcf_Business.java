@@ -97,10 +97,10 @@ public class zj_Report_Tcf_Business {
         System.out.println("数据处理成功");
 
         //复制文件
-        String OutExcleAccountsFileNew =OutExcleAccountsFile_JS+"调测费"+nowDayYYYYMMDD+".xlsx";
+        String OutExcleAccountsFileNew =OutExcleAccountsFile_JS+"调测费"+"_"+nowDayYYYYMMDD+".xlsx";
         DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleAccountsFileNew);
 
-        String OutPictureFileNew=OutExcleAccountsFile_JS+"picture"+nowDayYYYYMMDD+".png";
+        String OutPictureFileNew=OutExcleAccountsFile_JS+"picture"+"_"+nowDayYYYYMMDD+".png";
         //将exlce处理成图片
         DealExcle.excleToPng(inPictureFile,OutPictureFileNew);
 
@@ -169,10 +169,10 @@ public class zj_Report_Tcf_Business {
         System.out.println("数据处理成功");
 
         //复制文件
-        String OutExcleSouceFilenew =OutExcleSouceFile+"调测费"+nowDayYYYYMMDD+".xlsx";
+        String OutExcleSouceFilenew =OutExcleSouceFile+"调测费"+"_"+nowDayYYYYMMDD+".xlsx";
         DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleSouceFilenew);
         System.out.println("复制文件成功成功");
-        String OutPictureFileNew=OutPictureFile+"picture"+nowDayYYYYMMDD+".png";
+        String OutPictureFileNew=OutPictureFile+"picture"+"_"+nowDayYYYYMMDD+".png";
 
         //将exlce处理成图片
         DealExcle.excleToPng(inPictureFile,OutPictureFileNew);
@@ -258,7 +258,7 @@ public class zj_Report_Tcf_Business {
             String contentMailSingle;
             titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+strContent+"调测费宽带、ITV未收数据详见附件"+nowDayYYYYMMDD;
             contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+strContent+"调测费宽带、ITV未收数据详见附件"+nowDayYYYYMMDD;
-            OutExcleDataFileNew=OutExcleDataFile+str+"TCF"+nowDayYYYYMMDD+".xlsx";
+            OutExcleDataFileNew=OutExcleDataFile+str+"TCF"+"_"+nowDayYYYYMMDD+".xlsx";
 
             if(zj_Report_Tcf_Kd_Data_List.size()!=0){
                 DealExcle.cpoyToExcle(zj_Report_Tcf_Kd_Data_List,null,OutExcleDataFileNew,0,Zj_Report_Tcf_Kd_Data);

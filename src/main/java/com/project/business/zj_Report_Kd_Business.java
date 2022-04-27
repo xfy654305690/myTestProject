@@ -6,7 +6,6 @@ import com.project.util.dealExcle;
 import com.project.util.dealSendMessage;
 import com.project.util.dealTime;
 import com.project.view.zj_Report_KdDao;
-import com.project.view.zj_Report_RhItvDao;
 import com.project.view.zj_Report_TcfDao;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -115,7 +114,7 @@ public class zj_Report_Kd_Business {
         System.out.println("数据处理成功");
 
         //复制文件
-        String OutExcleSouceFilenew =OutExcleAccountsFile_JS+"宽带新增净增通报"+nowDayYYYYMMDD+".xlsx";
+        String OutExcleSouceFilenew =OutExcleAccountsFile_JS+"宽带新增净增通报"+"_"+nowDayYYYYMMDD+".xlsx";
         DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleSouceFilenew);
 
     }
@@ -190,10 +189,10 @@ public class zj_Report_Kd_Business {
         System.out.println("数据处理成功");
 
         //复制文件
-        String OutExcleSouceFilenew =OutExcleSouceFile+"宽带新增净增通报"+nowDayYYYYMMDD+".xlsx";
+        String OutExcleSouceFilenew =OutExcleSouceFile+"宽带新增净增通报"+"_"+nowDayYYYYMMDD+".xlsx";
         DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleSouceFilenew);
         System.out.println("复制文件成功成功");
-        String OutPictureFileNew=OutPictureFile+"picture"+nowDayYYYYMMDD+".png";
+        String OutPictureFileNew=OutPictureFile+"picture"+"_"+nowDayYYYYMMDD+".png";
 
         //将exlce处理成图片
         DealExcle.excleToPng(inPictureFile,OutPictureFileNew);
@@ -202,7 +201,7 @@ public class zj_Report_Kd_Business {
 
         //将图片发送微信
         // 1是文字，2是图片
-        //DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
+        DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
 
         System.out.println("发送微信成功");
 
@@ -210,7 +209,7 @@ public class zj_Report_Kd_Business {
         String contextNew=report_Kd_New_DoDetail_Context(selectZj_Report_Kd_New_List_Zj_Deal);
         String contextJz=report_Kd_Jz_DoDetail_Context(selectZj_Report_Kd_Jz_List_Zj_Deal);
         String context=contextNew+"\n"+contextJz;
-        //DealSendMessage.searchMyFriendAndSend(wechartSendName,1,context);
+        DealSendMessage.searchMyFriendAndSend(wechartSendName,1,context);
 
         //获取支局长邮箱地址
         List<zj_Report_Public> zj_Report_Public_List =zj_Report_Public_Business.zj_Report_Public_Business();
@@ -221,7 +220,7 @@ public class zj_Report_Kd_Business {
         List<String> FileList=new ArrayList();
         FileList.add(OutPictureFileNew);
         //邮件发送附件图片*****************************
-        //DealEmail.ctreatMailMore(zj_Report_Public_List,null,null,title,content,FileList);
+        DealEmail.ctreatMailMore(zj_Report_Public_List,null,null,title,content,FileList);
 
         System.out.println("邮件发送成功");
 
@@ -270,7 +269,7 @@ public class zj_Report_Kd_Business {
             if(Zj_report_kd_jz_data_List.size()!=0){
                 titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"宽带净增中离网、拆机、移出清单详见附件"+nowDayYYYYMMDD;
                 contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"宽带净增中离网、拆机、移出清单详见附件"+nowDayYYYYMMDD;
-                OutExcleDataFileNew=OutExcleDataFile+str+"KDJZ"+nowDayYYYYMMDD+".xlsx";
+                OutExcleDataFileNew=OutExcleDataFile+str+"KDJZ"+"_"+nowDayYYYYMMDD+".xlsx";
                 System.out.printf(OutExcleDataFileNew);
                 //复制值,并且另存为
                 DealExcle.cpoyToExcle(Zj_report_kd_jz_data_List,null,OutExcleDataFileNew,0,Zj_report_kd_jz_data);
