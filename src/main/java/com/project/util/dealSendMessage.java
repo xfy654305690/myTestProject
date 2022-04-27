@@ -44,17 +44,22 @@ public class dealSendMessage {
         robot.keyRelease(KeyEvent.VK_ALT);
 
         // 该延迟不能少，否则无法搜索
-        robot.delay(1500);
+        robot.delay(3000);
 
         // Ctrl + F 搜索指定好友
         robot.keyPress(KeyEvent.VK_CONTROL);
         robot.keyPress(KeyEvent.VK_F);
         robot.keyRelease(KeyEvent.VK_CONTROL);
 
+        robot.delay(3000);
+
         // 将好友昵称发送到剪切板
         Clipboard clip = Toolkit.getDefaultToolkit().getSystemClipboard();
         Transferable tText = new StringSelection(friendNickName);
         clip.setContents(tText, null);
+
+        robot.delay(1500);
+
         // 以下两行按下了ctrl+v，完成粘贴功能
         robot.keyPress(KeyEvent.VK_CONTROL);
         robot.keyPress(KeyEvent.VK_V);
@@ -78,6 +83,7 @@ public class dealSendMessage {
         robot.keyPress(KeyEvent.VK_CONTROL);
         robot.keyPress(KeyEvent.VK_V);
         robot.keyRelease(KeyEvent.VK_CONTROL);
+        robot.delay(1500);
         // 回车发送
         robot.keyPress(KeyEvent.VK_ENTER);
         robot.delay(8000);
