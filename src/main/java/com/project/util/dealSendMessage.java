@@ -58,15 +58,15 @@ public class dealSendMessage {
         Transferable tText = new StringSelection(friendNickName);
         clip.setContents(tText, null);
 
-        robot.delay(1500);
+        robot.delay(3000);
 
         // 以下两行按下了ctrl+v，完成粘贴功能
         robot.keyPress(KeyEvent.VK_CONTROL);
         robot.keyPress(KeyEvent.VK_V);
         robot.keyRelease(KeyEvent.VK_CONTROL);
-        robot.delay(1500);
+        robot.delay(3000);
         robot.keyPress(KeyEvent.VK_ENTER);
-        robot.delay(1500);
+        robot.delay(3000);
 
         if(type == 1){
             // 发送消息
@@ -83,7 +83,7 @@ public class dealSendMessage {
         robot.keyPress(KeyEvent.VK_CONTROL);
         robot.keyPress(KeyEvent.VK_V);
         robot.keyRelease(KeyEvent.VK_CONTROL);
-        robot.delay(1500);
+        robot.delay(3000);
         // 回车发送
         robot.keyPress(KeyEvent.VK_ENTER);
         robot.delay(8000);
