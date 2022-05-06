@@ -14,6 +14,10 @@ public interface zj_Report_KdDao {
 
     public List<zj_Report_Kd_Jz_Zj> selectZj_Report_Kd_Jz_Zj (@Param("tableName") String tableName);
 
+    public List<zj_Report_Kd_Jz_Zj> selectZj_Report_Kd_Jz_Year_Zj ();
+
+    public List<zj_Report_Kd_Jz_Zj> selectZj_Report_Kd_Jz_Year_Zj_Js (@Param("tableNameNew") String tableNameNew);
+
     public List<zj_Report_Kd_Jz_Zj> selectZj_Report_Kd_Jz_Zj_Js (@Param("tableNameOld") String tableNameOld,@Param("tableNameNew") String tableNameNew);
 
     public List<zj_Report_Kd_Jz_Data> selectZj_Report_Kd_Jz_Data (@Param("tableName") String tableName,@Param("zjName") String zjName);

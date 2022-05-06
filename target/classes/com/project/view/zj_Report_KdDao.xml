@@ -49,6 +49,28 @@
         left join XFY_REP_PUB_TARGET  Q7
         on Q6.Zj_Name=Q7.ZJ_ABBR_NAME
     </select>
+    <select id="selectZj_Report_Kd_Jz_Year_Zj"  resultType="com.project.model.zj_Report_Kd_Jz_Zj" statementType="STATEMENT">
+        SELECT * FROM (select p3.Zj_Name,AMT_NOW-AMT_OLD bb_Amt_Jz ,Q3.ZJ_KD_JZ   bb_Amt_Avg_Tar_Jz
+                       from (select p1.Zj_Name,AMT_NOW,AMT_OLD,AMT_NOW-AMT_OLD from (select D.ZJ_OLD as Zj_Name,COUNT(*) AMT_NOW from XFY_KD_ASSET S2
+                                                                                                                                          left join XFY_REP_PUB_ZJ_CON D
+                                                                                                                                                    on D.Zj_New = S2.ZJ_AREA_NAME
+                                                                                     GROUP BY D.ZJ_OLD )p1
+                                                                                        left join
+                                                                                    (select D.ZJ_OLD as Zj_Name,COUNT(*) AMT_OLD from XFY_KD_ASSET_BAK_BEF202112  S1
+                                                                                                                                          left join XFY_REP_PUB_ZJ_CON D
+                                                                                                                                                    on D.Zj_New = S1.ZJ_AREA_NAME_NEW
+                                                                                     GROUP BY D.ZJ_OLD) p2
+                                                                                    on p1.Zj_Name=p2.Zj_Name)p3
+                                right join XFY_REP_PUB_TARGET  Q3
+                                           on Q3.ZJ_ABBR_NAME=p3.Zj_Name
+                       WHERE Q3.ZJ_ABBR_NAME NOT IN ('鄞州政企部','合计')
+                       order by  p3.Zj_Name  desc)
+        union all
+        select Q6.*,Q7.ZJ_KD_JZ  bb_Amt_Avg_Tar_Jz from (SELECT '合计' Zj_Name,Q4.AMT_NOW-Q5.AMT_OLD bb_Amt_Jz  from
+                                                                                                                      (select COUNT(*)AMT_NOW  FROM XFY_KD_ASSET) Q4,(select COUNT(*)AMT_OLD  FROM XFY_KD_ASSET_BAK_BEF202112)Q5) Q6
+                                                            left join XFY_REP_PUB_TARGET  Q7
+                                                                      on Q6.Zj_Name=Q7.ZJ_ABBR_NAME
+    </select>
     <select id="selectZj_Report_Kd_Jz_Data"  resultType="com.project.model.zj_Report_Kd_Jz_Data">
         select q1.ZJ_AREA_NAME Zj_Name,q1.DATA_USER_NAME,q1.CDSC_NAME,q1.STAT_NAME,q1.ASSET_ROW_ID,q1.CACCT_ID,q1.BIL_FLG,q1.DATE_CD as bilTime
         from ${tableName}  q1

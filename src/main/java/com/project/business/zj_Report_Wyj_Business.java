@@ -309,7 +309,7 @@ public class zj_Report_Wyj_Business {
         for(int i=0;i<zj_Report_Wyj_List_Zj.size();i++){
             if (!zj_Report_Wyj_List_Zj.get(i).getZj_Name().equals("合计")){
                 //计算缺口
-                if(zj_Report_Wyj_List_Zj.get(i).getAmt_UnCom()>0){
+                if(zj_Report_Wyj_List_Zj.get(i).getAmt_UnCom()>=0){
                     zj_Report_Wyj_List_Zj.get(i).setReward(0);
                 }else {
                     zj_Report_Wyj_List_Zj.get(i).setReward(zj_Report_Wyj_List_Zj.get(i).getAmt_UnCom());

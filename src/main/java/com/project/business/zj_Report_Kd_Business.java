@@ -83,6 +83,10 @@ public class zj_Report_Kd_Business {
         List<zj_Report_Kd_Jz_Zj> selectZj_Report_Kd_Jz_List_Zj =
                 Zj_Report_KdDao.selectZj_Report_Kd_Jz_Zj_Js(tableNameOld,tableNameNew);
 
+        //宽带净增数据-KD
+        List<zj_Report_Kd_Jz_Zj> selectZj_Report_Kd_Jz_Year_List_Zj =
+                Zj_Report_KdDao.selectZj_Report_Kd_Jz_Year_Zj_Js(tableNameNew);
+
         //系统时间
         String maxDateString=dealTime.get_firstDate_By_String_YYYY_MM_DD();
 
@@ -98,6 +102,8 @@ public class zj_Report_Kd_Business {
         //处理季度日期差
         Integer quarterDay=dealTime.get_date_Difference_Values(dealTime.get_nowQuarter_FirstDay_ByDate(),dealTime.get_nowQuarter_LastDay_ByDate());
 
+        Integer differenceDayYear=dealTime.get_date_Difference_Values(dealTime.get_nowYear_FirstDay_ByDate(),endDate);
+
         //处理支局新增
         List<zj_Report_Kd_New_Zj> selectZj_Report_Kd_New_List_Zj_Deal =  report_Kd_New_DoDetail(selectZj_Report_Kd_New_List_Zj,differenceDay,quarterDay);
         //宽带新增 1
@@ -108,8 +114,12 @@ public class zj_Report_Kd_Business {
         //宽带净增 2
         DealExcle.cpoyToExcle(selectZj_Report_Kd_Jz_List_Zj_Deal,inExcleFile,OutExcleFile,2,Zj_Report_Kd_Jz_Zj);
 
+        //处理支局奖扣
+        List<zj_Report_Kd_Jz_Zj> selectZj_Report_Kd_Jz_List_Zj_Deal_Year=  report_Kd_Jz_Year_DoDetail(selectZj_Report_Kd_Jz_Year_List_Zj,differenceDayYear);
+        //宽带净增 2
+        DealExcle.cpoyToExcle(selectZj_Report_Kd_Jz_List_Zj_Deal_Year,inExcleFile,OutExcleFile,3,Zj_Report_Kd_Jz_Zj);
         //处理时间
-        DealExcle.cpoyToExcleSingle(maxDateString,inExcleFile,OutExcleFile, 3);
+        DealExcle.cpoyToExcleSingle(maxDateString,inExcleFile,OutExcleFile, 4);
 
         System.out.println("数据处理成功");
 
@@ -140,10 +150,7 @@ public class zj_Report_Kd_Business {
         String lastQuarterMonth =dealTime.get_lastQuarter_LastDay_ByDate_YYYYMM();
         //获取当前日期DD格式
         String nowDayYYYYMMDD=dealTime.get_date_By_String_YYYYMMDD();
-        //获取下月一号，返回日期格式
-        Date nowMonthFirstDay =dealTime.get_nowMonth_FirstDay_ByDate();
-        //获取当前日期DD格式
-        String nowDay=dealTime.get_date_By_String_DD();
+
 
         //宽带新增数据-KD
         List<zj_Report_Kd_New_Zj> selectZj_Report_Kd_New_List_Zj =
@@ -153,6 +160,9 @@ public class zj_Report_Kd_Business {
         //宽带净增数据-KD
         List<zj_Report_Kd_Jz_Zj> selectZj_Report_Kd_Jz_List_Zj =
                 Zj_Report_KdDao.selectZj_Report_Kd_Jz_Zj(tableNameNew);
+        //宽带净增数据-KD
+        List<zj_Report_Kd_Jz_Zj> selectZj_Report_Kd_Jz_Year_List_Zj =
+                Zj_Report_KdDao.selectZj_Report_Kd_Jz_Year_Zj();
 
         //系统时间
         String maxDateString=Zj_Report_TcfDao.selectZj_Report_Tcf_Itv_MaxTime();
@@ -170,6 +180,9 @@ public class zj_Report_Kd_Business {
         SimpleDateFormat simpleDateFormatYMD = new SimpleDateFormat("yyyy-MM-dd");
         Date maxDate =  simpleDateFormatYMD.parse(maxDateString);
         Integer differenceDay=dealTime.get_date_Difference_Values(dealTime.get_nowQuarter_FirstDay_ByDate(),maxDate);
+
+        Integer differenceDayYear=dealTime.get_date_Difference_Values(dealTime.get_nowYear_FirstDay_ByDate(),maxDate);
+
         //处理季度日期差
         Integer quarterDay=dealTime.get_date_Difference_Values(dealTime.get_nowQuarter_FirstDay_ByDate(),dealTime.get_nowQuarter_LastDay_ByDate());
 
@@ -183,8 +196,13 @@ public class zj_Report_Kd_Business {
         //宽带净增 2
         DealExcle.cpoyToExcle(selectZj_Report_Kd_Jz_List_Zj_Deal,inExcleFile,OutExcleFile,2,Zj_Report_Kd_Jz_Zj);
 
+        //处理支局奖扣
+        List<zj_Report_Kd_Jz_Zj> selectZj_Report_Kd_Jz_List_Zj_Deal_Year=  report_Kd_Jz_Year_DoDetail(selectZj_Report_Kd_Jz_Year_List_Zj,differenceDayYear);
+        //宽带净增 2
+        DealExcle.cpoyToExcle(selectZj_Report_Kd_Jz_List_Zj_Deal_Year,inExcleFile,OutExcleFile,3,Zj_Report_Kd_Jz_Zj);
+
         //处理时间
-        DealExcle.cpoyToExcleSingle(maxDateString,inExcleFile,OutExcleFile, 3);
+        DealExcle.cpoyToExcleSingle(maxDateString,inExcleFile,OutExcleFile, 4);
 
         System.out.println("数据处理成功");
 
@@ -223,7 +241,6 @@ public class zj_Report_Kd_Business {
         DealEmail.ctreatMailMore(zj_Report_Public_List,null,null,title,content,FileList);
 
         System.out.println("邮件发送成功");
-
 
     }
 
@@ -320,10 +337,27 @@ public class zj_Report_Kd_Business {
             //完成率
             Zj_Report_Kd_Jz_Zj.get(i).setBb_Amt_Rate_Jz(((Zj_Report_Kd_Jz_Zj.get(i).getBb_Amt_Jz()/differenceDay))/Zj_Report_Kd_Jz_Zj.get(i).getBb_Amt_Avg_Tar_Jz());
             //季度指标
-            Zj_Report_Kd_Jz_Zj.get(i).setBb_Amt_Tar_Jz((int) Math.ceil(Zj_Report_Kd_Jz_Zj.get(i).getBb_Amt_Avg_Jz() *quarterDay));
+            Zj_Report_Kd_Jz_Zj.get(i).setBb_Amt_Tar_Jz((int) Math.ceil(Zj_Report_Kd_Jz_Zj.get(i).getBb_Amt_Avg_Tar_Jz()*quarterDay));
 
         }
         return Zj_Report_Kd_Jz_Zj;
+    }
+
+    //净增处理
+    public static List<zj_Report_Kd_Jz_Zj> report_Kd_Jz_Year_DoDetail( List<zj_Report_Kd_Jz_Zj> Zj_Report_Kd_Jz_Year_Zj,Integer differenceDay)  {
+
+        for(int i=0;i<Zj_Report_Kd_Jz_Year_Zj.size();i++){
+            //日均新增
+            Zj_Report_Kd_Jz_Year_Zj.get(i).setBb_Amt_Avg_Jz((Zj_Report_Kd_Jz_Year_Zj.get(i).getBb_Amt_Jz()/differenceDay));
+            //年度缺口
+            Zj_Report_Kd_Jz_Year_Zj.get(i).setBb_Amt_Gap_Jz((int) Math.ceil(Zj_Report_Kd_Jz_Year_Zj.get(i).getBb_Amt_Avg_Tar_Jz()*differenceDay-Zj_Report_Kd_Jz_Year_Zj.get(i).getBb_Amt_Jz()));
+            //完成率
+            Zj_Report_Kd_Jz_Year_Zj.get(i).setBb_Amt_Rate_Jz(((Zj_Report_Kd_Jz_Year_Zj.get(i).getBb_Amt_Jz()/differenceDay))/Zj_Report_Kd_Jz_Year_Zj.get(i).getBb_Amt_Avg_Tar_Jz());
+            //年度指标
+            Zj_Report_Kd_Jz_Year_Zj.get(i).setBb_Amt_Tar_Jz((int) Math.ceil(Zj_Report_Kd_Jz_Year_Zj.get(i).getBb_Amt_Avg_Tar_Jz()*differenceDay));
+
+        }
+        return Zj_Report_Kd_Jz_Year_Zj;
     }
 
 

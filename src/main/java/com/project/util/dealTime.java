@@ -350,4 +350,17 @@ public class dealTime {
         return dateMonth;
     }
 
+
+    //获取当季度一号，返回日期格式
+    public static Date get_nowYear_FirstDay_ByDate(){
+
+        Calendar calendar = Calendar.getInstance();
+        int month=calendar.get(Calendar.MONTH)+1;
+            calendar.set(Calendar.MONTH,0);
+            calendar.set(Calendar.DATE,1);
+        setMinTime(calendar);
+        Date endDate=calendar.getTime();
+        return endDate;
+    }
+
 }
