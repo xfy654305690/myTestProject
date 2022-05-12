@@ -224,7 +224,7 @@ public class zj_Report_Tcf_Business {
         Date endDate=dealTime.get_lastMonth_LastDay_ByDate();
         //获取当前日期DD格式
         String nowDayYYYYMMDD=dealTime.get_date_By_String_YYYYMMDD();
-        report_Tcf_Zj_DoData(startDate,endDate,nowDayYYYYMMDD,"上月结算:");
+        report_Tcf_Zj_DoData(startDate,endDate,nowDayYYYYMMDD,"上月结算");
 
     }
     public static void report_Tcf_Zj_DoData(Date startDate,Date endDate,String nowDayYYYYMMDD,String strContent) throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {

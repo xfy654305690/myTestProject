@@ -244,7 +244,7 @@ public class zj_Report_Xubao_Business {
         String lastMonth=dealTime.get_lastMonth_By_String_YYYYMM();
         //获取当前日期DD格式
         String nowDayYYYYMMDD=dealTime.get_date_By_String_YYYYMMDD();
-        report_Xubao_Zj_DoData(lastMonth,nowDayYYYYMMDD,"上月结算:");
+        report_Xubao_Zj_DoData(lastMonth,nowDayYYYYMMDD,"上月结算");
 
     }
 
@@ -275,8 +275,8 @@ public class zj_Report_Xubao_Business {
             String str = new String(zj_Report_Public_List.get(i).getZj_Full_Name().getBytes(),"UTF-8");
 
             String  OutExcleDataFileNew=OutExcleDataFile+"_"+str+nowDayYYYYMMDD+".xlsx";
-            String titleMailSingle =zj_Report_Public_List.get(i).getZj_Full_Name()+strContent+"续包数据详见附件"+nowDayYYYYMMDD;
-            String contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+strContent+"续包数据详见附件"+nowDayYYYYMMDD;
+            String titleMailSingle =zj_Report_Public_List.get(i).getZj_Full_Name()+strContent+"续包数据详见附件"+'_'+nowDayYYYYMMDD;
+            String contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+strContent+"续包数据详见附件"+'_'+nowDayYYYYMMDD;
             System.out.println(OutExcleDataFileNew);
             System.out.println(titleMailSingle);
             //复制值,并且另存为
@@ -288,7 +288,6 @@ public class zj_Report_Xubao_Business {
         sqlSessionDealData.close();
 
     }
-
 
         //处理支局奖扣
     public static List<zj_Report_Xubao_Zj> report_Xubao_Zj_DoDetail( List<zj_Report_Xubao_Zj>  zj_Report_Xubao_Zj_List)  {

@@ -247,7 +247,7 @@ public class zj_Report_Wyj_Business {
         Date endDate=dealTime.getLastQuarterLastDay();
         //获取当前日期DD格式
         String nowDayYYYYMMDD=dealTime.get_date_By_String_YYYYMMDD();
-        report_Wyj_Zj_DoData(startDate,endDate,nowDayYYYYMMDD,"上月结算:");
+        report_Wyj_Zj_DoData(startDate,endDate,nowDayYYYYMMDD,"上月结算");
 
     }
 

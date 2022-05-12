@@ -320,7 +320,12 @@ public class zj_Report_Kd_Business {
             //季度指标
             Zj_Report_Kd_New_Zj.get(i).setBb_Amt_Tar((int) Math.ceil(Zj_Report_Kd_New_Zj.get(i).getBb_Amt_Avg_Tar() *quarterDay));
             //完成率
-            Zj_Report_Kd_New_Zj.get(i).setBb_Amt_Rate(((Zj_Report_Kd_New_Zj.get(i).getBb_Amt()/differenceDay))/Zj_Report_Kd_New_Zj.get(i).getBb_Amt_Avg_Tar());
+            if(((Zj_Report_Kd_New_Zj.get(i).getBb_Amt()/differenceDay))/Zj_Report_Kd_New_Zj.get(i).getBb_Amt_Avg_Tar()<=1.2){
+                Zj_Report_Kd_New_Zj.get(i).setBb_Amt_Rate(((Zj_Report_Kd_New_Zj.get(i).getBb_Amt()/differenceDay))/Zj_Report_Kd_New_Zj.get(i).getBb_Amt_Avg_Tar());
+            }
+            if(((Zj_Report_Kd_New_Zj.get(i).getBb_Amt()/differenceDay))/Zj_Report_Kd_New_Zj.get(i).getBb_Amt_Avg_Tar()>1.2){
+                Zj_Report_Kd_New_Zj.get(i).setBb_Amt_Rate(1.2);
+            }
 
         }
         return Zj_Report_Kd_New_Zj;
@@ -335,7 +340,12 @@ public class zj_Report_Kd_Business {
             //季度缺口
             Zj_Report_Kd_Jz_Zj.get(i).setBb_Amt_Gap_Jz((int) Math.ceil(Zj_Report_Kd_Jz_Zj.get(i).getBb_Amt_Avg_Tar_Jz()*quarterDay-Zj_Report_Kd_Jz_Zj.get(i).getBb_Amt_Jz()));
             //完成率
-            Zj_Report_Kd_Jz_Zj.get(i).setBb_Amt_Rate_Jz(((Zj_Report_Kd_Jz_Zj.get(i).getBb_Amt_Jz()/differenceDay))/Zj_Report_Kd_Jz_Zj.get(i).getBb_Amt_Avg_Tar_Jz());
+            if(((Zj_Report_Kd_Jz_Zj.get(i).getBb_Amt_Jz()/differenceDay))/Zj_Report_Kd_Jz_Zj.get(i).getBb_Amt_Avg_Tar_Jz()<=1.2){
+                Zj_Report_Kd_Jz_Zj.get(i).setBb_Amt_Rate_Jz(((Zj_Report_Kd_Jz_Zj.get(i).getBb_Amt_Jz()/differenceDay))/Zj_Report_Kd_Jz_Zj.get(i).getBb_Amt_Avg_Tar_Jz());
+            }
+            if(((Zj_Report_Kd_Jz_Zj.get(i).getBb_Amt_Jz()/differenceDay))/Zj_Report_Kd_Jz_Zj.get(i).getBb_Amt_Avg_Tar_Jz()>1.2){
+                Zj_Report_Kd_Jz_Zj.get(i).setBb_Amt_Rate_Jz(1.2);
+            }
             //季度指标
             Zj_Report_Kd_Jz_Zj.get(i).setBb_Amt_Tar_Jz((int) Math.ceil(Zj_Report_Kd_Jz_Zj.get(i).getBb_Amt_Avg_Tar_Jz()*quarterDay));
 
@@ -352,6 +362,12 @@ public class zj_Report_Kd_Business {
             //年度缺口
             Zj_Report_Kd_Jz_Year_Zj.get(i).setBb_Amt_Gap_Jz((int) Math.ceil(Zj_Report_Kd_Jz_Year_Zj.get(i).getBb_Amt_Avg_Tar_Jz()*differenceDay-Zj_Report_Kd_Jz_Year_Zj.get(i).getBb_Amt_Jz()));
             //完成率
+            if(((Zj_Report_Kd_Jz_Year_Zj.get(i).getBb_Amt_Jz()/differenceDay))/Zj_Report_Kd_Jz_Year_Zj.get(i).getBb_Amt_Avg_Tar_Jz()<=1.2){
+                Zj_Report_Kd_Jz_Year_Zj.get(i).setBb_Amt_Rate_Jz(((Zj_Report_Kd_Jz_Year_Zj.get(i).getBb_Amt_Jz()/differenceDay))/Zj_Report_Kd_Jz_Year_Zj.get(i).getBb_Amt_Avg_Tar_Jz());
+            }
+            if(((Zj_Report_Kd_Jz_Year_Zj.get(i).getBb_Amt_Jz()/differenceDay))/Zj_Report_Kd_Jz_Year_Zj.get(i).getBb_Amt_Avg_Tar_Jz()<=1.2){
+                Zj_Report_Kd_Jz_Year_Zj.get(i).setBb_Amt_Rate_Jz(1.2);
+            }
             Zj_Report_Kd_Jz_Year_Zj.get(i).setBb_Amt_Rate_Jz(((Zj_Report_Kd_Jz_Year_Zj.get(i).getBb_Amt_Jz()/differenceDay))/Zj_Report_Kd_Jz_Year_Zj.get(i).getBb_Amt_Avg_Tar_Jz());
             //年度指标
             Zj_Report_Kd_Jz_Year_Zj.get(i).setBb_Amt_Tar_Jz((int) Math.ceil(Zj_Report_Kd_Jz_Year_Zj.get(i).getBb_Amt_Avg_Tar_Jz()*differenceDay));

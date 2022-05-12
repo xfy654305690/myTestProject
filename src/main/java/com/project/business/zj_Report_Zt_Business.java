@@ -248,7 +248,7 @@ public class zj_Report_Zt_Business {
         String tableNameNew=tableName+lastMonth;
         //获取当前日期DD格式
         String nowDayYYYYMMDD=dealTime.get_date_By_String_YYYYMMDD();
-        report_Zt_Zj_DoData(nowDayYYYYMMDD,"上月结算:",tableNameNew);
+        report_Zt_Zj_DoData(nowDayYYYYMMDD,"上月结算",tableNameNew);
 
     }
 

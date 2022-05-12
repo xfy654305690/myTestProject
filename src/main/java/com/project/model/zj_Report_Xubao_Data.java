@@ -67,6 +67,8 @@ public class zj_Report_Xubao_Data {
     //单宽转融价格
     public  String prom_YGSR;
 
+    public  String XB_PER_MON_AMT;
+
     public String getAsset_ROW_ID() {
         return asset_ROW_ID;
     }
@@ -321,5 +323,52 @@ public class zj_Report_Xubao_Data {
 
     public void setProm_YGSR(String prom_YGSR) {
         this.prom_YGSR = prom_YGSR;
+    }
+
+    public String getXB_PER_MON_AMT() {
+        return XB_PER_MON_AMT;
+    }
+
+    public void setXB_PER_MON_AMT(String XB_PER_MON_AMT) {
+        this.XB_PER_MON_AMT = XB_PER_MON_AMT;
+    }
+
+    @Override
+    public String toString() {
+        return "zj_Report_Xubao_Data{" +
+                "asset_ROW_ID='" + asset_ROW_ID + '\'' +
+                ", data_USER_NAME='" + data_USER_NAME + '\'' +
+                ", arrive_MONTH='" + arrive_MONTH + '\'' +
+                ", std_PRD_LVL4_NAME='" + std_PRD_LVL4_NAME + '\'' +
+                ", std_USER_TYPE_LVL2_NAME='" + std_USER_TYPE_LVL2_NAME + '\'' +
+                ", zj_AREA_NAME='" + zj_AREA_NAME + '\'' +
+                ", area_MERGE_NAME='" + area_MERGE_NAME + '\'' +
+                ", wg_ID='" + wg_ID + '\'' +
+                ", wg_NAME='" + wg_NAME + '\'' +
+                ", stat_NAME='" + stat_NAME + '\'' +
+                ", ccust_ID='" + ccust_ID + '\'' +
+                ", cdsc_NAME='" + cdsc_NAME + '\'' +
+                ", cdsc_PARA1='" + cdsc_PARA1 + '\'' +
+                ", xb_FLG='" + xb_FLG + '\'' +
+                ", xb_DT='" + xb_DT + '\'' +
+                ", xb_CDSC_ID='" + xb_CDSC_ID + '\'' +
+                ", xb_CDSC_PARA1='" + xb_CDSC_PARA1 + '\'' +
+                ", xb_TYPE_NAME='" + xb_TYPE_NAME + '\'' +
+                ", mkt_EMPLOYEE_ID='" + mkt_EMPLOYEE_ID + '\'' +
+                ", mkt_EMPLOYEE_NAME='" + mkt_EMPLOYEE_NAME + '\'' +
+                ", order_ID='" + order_ID + '\'' +
+                ", cacct_ID='" + cacct_ID + '\'' +
+                ", speed='" + speed + '\'' +
+                ", prom_DUR='" + prom_DUR + '\'' +
+                ", prom_AMT='" + prom_AMT + '\'' +
+                ", xb_PROM_NAME='" + xb_PROM_NAME + '\'' +
+                ", xb_PROM_DUR='" + xb_PROM_DUR + '\'' +
+                ", xb_PROM_AMT='" + xb_PROM_AMT + '\'' +
+                ", pay_MODE_NAME='" + pay_MODE_NAME + '\'' +
+                ", bil_FLG='" + bil_FLG + '\'' +
+                ", khq='" + khq + '\'' +
+                ", prom_YGSR='" + prom_YGSR + '\'' +
+                ", XB_PER_MON_AMT='" + XB_PER_MON_AMT + '\'' +
+                '}';
     }
 }
