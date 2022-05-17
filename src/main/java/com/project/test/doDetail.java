@@ -24,6 +24,7 @@ public class doDetail {
             zj_Report_Kd_Wg_Controller zj_Report_Kd_Wg_Controller=new zj_Report_Kd_Wg_Controller();
 
             zj_Report_OtherDone_Controller zj_Report_OtherDone_Controller=new zj_Report_OtherDone_Controller();
+            zj_Report_Kd_Qz_Controller zj_Report_Kd_Qz_Controller=new zj_Report_Kd_Qz_Controller();
 
             //获取当前日期DD格式
             String nowDay= dealTime.get_date_By_String_DD();
@@ -39,6 +40,7 @@ public class doDetail {
                 zj_Report_RhItv_Controller.report_RhItv_Zj();
                 zj_Report_Kd_Controller.report_Kd_Zj();
                 zj_Report_Kd_Wg_Controller.report_Kd_Zj_Gis();
+                zj_Report_Kd_Qz_Controller.report_Kd_Qz_Zj();
 
             }
             if (Integer.valueOf(nowDay)==6){
@@ -56,6 +58,8 @@ public class doDetail {
                     zj_Report_Wyj_Controller.report_Wyj_Zj_Js_DoData();
                     zj_Report_RhItv_Controller.report_RhItv_Zj_Js_DoData();
                     zj_Report_Kd_Controller.report_Kd_Zj_DoData();
+                }else{
+                    zj_Report_Kd_Controller.report_Kd_Zj_By_Month_Js();
                 }
             }
 

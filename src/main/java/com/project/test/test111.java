@@ -18,6 +18,7 @@ public class test111 {
     public static void main(String[] args) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, ParseException, MessagingException {
 
           zj_Report_Kd_Controller zj_Report_Kd_Controller=new zj_Report_Kd_Controller();
+          zj_Report_Kd_Qz_Controller zj_Report_Kd_Qz_Controller=new zj_Report_Kd_Qz_Controller();
 //        zj_Report_RhItv_Controller zj_Report_RhItv_Controller=new zj_Report_RhItv_Controller();
 //        zj_Report_Tcf_Controller zj_Report_Tcf_Controller=new zj_Report_Tcf_Controller();
 //        zj_Report_Wyj_Controller zj_Report_Wyj_Controller=new zj_Report_Wyj_Controller();
@@ -36,7 +37,8 @@ public class test111 {
 //        zj_Report_RhItv_Controller.report_RhItv_Zj();
         //zj_Report_Kd_Controller.report_Kd_Zj();
 //        zj_Report_Kd_Wg_Controller.report_Kd_Zj_Gis();
-        zj_Report_Kd_Controller.report_Kd_Zj_Js();
+        //zj_Report_Kd_Controller.report_Kd_Zj_By_Month_Js();
+        zj_Report_Kd_Qz_Controller.report_Kd_Qz_Zj();
 
     }
 

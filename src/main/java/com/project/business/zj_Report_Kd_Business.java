@@ -244,6 +244,93 @@ public class zj_Report_Kd_Business {
 
     }
 
+    //季度月结，用于支局打分专用
+    public static void report_Kd_Zj_By_Month_Js() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException, ParseException {
+
+        InputStream in= Resources.getResourceAsStream(config);
+        SqlSessionFactoryBuilder builder=new SqlSessionFactoryBuilder();
+        SqlSessionFactory factory = builder.build(in);
+        SqlSession sqlSession=factory.openSession();
+
+        zj_Report_KdDao Zj_Report_KdDao = sqlSession.getMapper(zj_Report_KdDao.class);
+
+        dealTime dealTime=new dealTime();
+
+        //获取当前季度一号，返回日期格式
+        Date startDate=dealTime.get_nowQuarter_FirstDay_ByDate();
+        //获取上个月最后一号，返回日期格式
+        Date endDate=dealTime.get_lastMonth_LastDay_ByDate();
+        //上个季度的最后一天
+        String lastQuarterMonth =dealTime.get_lastQuarter_LastDay_ByDate_YYYYMM();
+        String lastMonth =dealTime.get_lastMonth_By_String_YYYYMM();
+
+        SimpleDateFormat simpleDateFormatYM = new SimpleDateFormat("yyyyMMdd");//注意月份是MM
+
+        //获取当前日期DD格式
+        String nowDayYYYYMMDD=simpleDateFormatYM.format(endDate);
+
+        //宽带新增数据-KD
+        List<zj_Report_Kd_New_Zj> selectZj_Report_Kd_New_List_Zj =
+                Zj_Report_KdDao.selectZj_Report_Kd_New_Js_Month_Zj(startDate,endDate);
+        //表明
+        String tableNameOld=tableName+lastQuarterMonth;
+        //表明
+        String tableNameNew=tableName+lastMonth;
+
+        //宽带净增数据-KD
+        List<zj_Report_Kd_Jz_Zj> selectZj_Report_Kd_Jz_List_Zj =
+                Zj_Report_KdDao.selectZj_Report_Kd_Jz_Js_Month_Zj(tableNameOld,tableNameNew);
+        //宽带净增数据-KD
+        List<zj_Report_Kd_Jz_Zj> selectZj_Report_Kd_Jz_Year_List_Zj =
+                Zj_Report_KdDao.selectZj_Report_Kd_Jz_Year_Zj_Js(tableNameNew);
+
+        SimpleDateFormat simpleDateFormatY_M_D = new SimpleDateFormat("yyyy-MM-dd");//注意月份是MM
+
+        //系统时间
+        String maxDateString= simpleDateFormatY_M_D.format(endDate);;
+
+        sqlSession.close();
+
+        zj_Report_Kd_New_Zj Zj_Report_Kd_New_Zj=new zj_Report_Kd_New_Zj();
+        zj_Report_Kd_Jz_Zj Zj_Report_Kd_Jz_Zj=new zj_Report_Kd_Jz_Zj();
+
+        dealExcle DealExcle =new dealExcle();
+
+        Integer differenceDay=dealTime.get_date_Difference_Values(dealTime.get_nowQuarter_FirstDay_ByDate(),endDate);
+
+        Integer differenceDayYear=dealTime.get_date_Difference_Values(dealTime.get_nowYear_FirstDay_ByDate(),endDate);
+
+        //处理季度日期差
+        Integer quarterDay=dealTime.get_date_Difference_Values(dealTime.get_nowQuarter_FirstDay_ByDate(),dealTime.get_nowQuarter_LastDay_ByDate());
+
+        //处理支局新增
+        List<zj_Report_Kd_New_Zj> selectZj_Report_Kd_New_List_Zj_Deal =  report_Kd_New_DoDetail(selectZj_Report_Kd_New_List_Zj,differenceDay,quarterDay);
+        //宽带新增 1
+        DealExcle.cpoyToExcle(selectZj_Report_Kd_New_List_Zj_Deal,inExcleFile,OutExcleFile,1,Zj_Report_Kd_New_Zj);
+
+        //处理支局奖扣
+        List<zj_Report_Kd_Jz_Zj> selectZj_Report_Kd_Jz_List_Zj_Deal =  report_Kd_Jz_DoDetail(selectZj_Report_Kd_Jz_List_Zj,differenceDay,quarterDay);
+        //宽带净增 2
+        DealExcle.cpoyToExcle(selectZj_Report_Kd_Jz_List_Zj_Deal,inExcleFile,OutExcleFile,2,Zj_Report_Kd_Jz_Zj);
+
+        //处理支局奖扣
+        List<zj_Report_Kd_Jz_Zj> selectZj_Report_Kd_Jz_List_Zj_Deal_Year=  report_Kd_Jz_Year_DoDetail(selectZj_Report_Kd_Jz_Year_List_Zj,differenceDayYear);
+        //宽带净增 3
+        DealExcle.cpoyToExcle(selectZj_Report_Kd_Jz_List_Zj_Deal_Year,inExcleFile,OutExcleFile,3,Zj_Report_Kd_Jz_Zj);
+
+        //处理时间
+        DealExcle.cpoyToExcleSingle(maxDateString,inExcleFile,OutExcleFile, 4);
+
+        System.out.println("数据处理成功");
+
+        //复制文件
+        String OutExcleSouceFilenew =OutExcleAccountsFile_JS+"宽带KPI结算通报通报"+"_"+nowDayYYYYMMDD+".xlsx";
+        DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleSouceFilenew);
+        System.out.println("复制文件成功成功");
+
+
+    }
+
     //取数导出excle
     public static void report_Kd_Zj_DoData_NowMonth() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
         report_Kd_Zj_DoData();

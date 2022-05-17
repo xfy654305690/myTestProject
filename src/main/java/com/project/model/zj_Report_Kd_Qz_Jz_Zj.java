@@ -9,16 +9,16 @@ public class zj_Report_Kd_Qz_Jz_Zj {
     //千兆之前数量
     public  Integer  Old_Qz;
     //千兆净增数量
-    public  Integer  Qz_Num;
+    public  Double  Qz_Num;
+    //千兆日均净增数量
+    public  Double  Qz_Avg_Num;
     //千兆指标
     public  Integer  Zj_Kd_Qz_Jz_Tar;
     //千兆日均指标
     public  Double  Zj_Kd_Qz_Jz_Avg_Tar;
     //千兆缺口
     public  Integer  Qz_Gap;
-    //千兆日均缺口
-    public  Double  Qz_Avg_Gap;
-    //千兆日均完成率
+    //千兆完成率
     public  Double  Qz_Rate;
 
     public String getZj_Name() {
@@ -45,12 +45,20 @@ public class zj_Report_Kd_Qz_Jz_Zj {
         Old_Qz = old_Qz;
     }
 
-    public Integer getQz_Num() {
+    public Double getQz_Num() {
         return Qz_Num;
     }
 
-    public void setQz_Num(Integer qz_Num) {
+    public void setQz_Num(Double qz_Num) {
         Qz_Num = qz_Num;
+    }
+
+    public Double getQz_Avg_Num() {
+        return Qz_Avg_Num;
+    }
+
+    public void setQz_Avg_Num(Double qz_Avg_Num) {
+        Qz_Avg_Num = qz_Avg_Num;
     }
 
     public Integer getZj_Kd_Qz_Jz_Tar() {
@@ -77,14 +85,6 @@ public class zj_Report_Kd_Qz_Jz_Zj {
         Qz_Gap = qz_Gap;
     }
 
-    public Double getQz_Avg_Gap() {
-        return Qz_Avg_Gap;
-    }
-
-    public void setQz_Avg_Gap(Double qz_Avg_Gap) {
-        Qz_Avg_Gap = qz_Avg_Gap;
-    }
-
     public Double getQz_Rate() {
         return Qz_Rate;
     }
@@ -100,10 +100,10 @@ public class zj_Report_Kd_Qz_Jz_Zj {
                 ", Now_Qz=" + Now_Qz +
                 ", Old_Qz=" + Old_Qz +
                 ", Qz_Num=" + Qz_Num +
+                ", Qz_Avg_Num=" + Qz_Avg_Num +
                 ", Zj_Kd_Qz_Jz_Tar=" + Zj_Kd_Qz_Jz_Tar +
                 ", Zj_Kd_Qz_Jz_Avg_Tar=" + Zj_Kd_Qz_Jz_Avg_Tar +
                 ", Qz_Gap=" + Qz_Gap +
-                ", Qz_Avg_Gap=" + Qz_Avg_Gap +
                 ", Qz_Rate=" + Qz_Rate +
                 '}';
     }

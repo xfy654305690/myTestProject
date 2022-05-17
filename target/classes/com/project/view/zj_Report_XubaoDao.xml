@@ -159,7 +159,8 @@
              s.pay_MODE_NAME,
             s.bil_FLG,
              s.khq,
-             s.prom_YGSR
+             s.prom_YGSR,
+               s.XB_PER_MON_AMT
                from
                     (
                             SELECT a.*,B.PROM_YGSR,

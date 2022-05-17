@@ -26,6 +26,29 @@
 <!--        left join XFY_REP_PUB_TARGET  Q3-->
 <!--        on Q3.ZJ_ABBR_NAME=Q2.Zj_Name-->
 <!--    </select>-->
+
+    <select id="selectZj_Report_Kd_New_Js_Month_Zj"  resultType="com.project.model.zj_Report_Kd_New_Zj">
+        SELECT * FROM (select Q3.ZJ_ABBR_NAME Zj_Name,nvl(Q2.bb_Amt,0)bb_Amt,Q3.ZJ_KD_NEW_GIS bb_Amt_Avg_Tar
+        from (select  Q1.ZJ_OLD  Zj_Name ,count(*) as bb_Amt
+        from (select s.*,D.ZJ_OLD
+        from XFY_RPT_KD_ORDER_DETAIL s
+        left join XFY_REP_PUB_ZJ_CON D
+        on D.Zj_New = S.ZJ_AREA_NAME
+        where s.cpl_dt &gt;= #{startDate}  and s.cpl_dt &lt;= #{endDate}
+        ) Q1
+        group by   Q1.ZJ_OLD )Q2
+        right join XFY_REP_PUB_TARGET  Q3
+        on Q3.ZJ_ABBR_NAME=Q2.Zj_Name
+        WHERE Q3.ZJ_ABBR_NAME NOT IN ('鄞州政企部','合计')
+        order by  q3.ZJ_ABBR_NAME  desc)Q4
+        UNION ALL
+        select Zj_Name,bb_Amt,Q3.ZJ_KD_NEW_GIS from (select '合计' Zj_Name,nvl(count(*),0) bb_Amt  from XFY_RPT_KD_ORDER_DETAIL s
+        where s.cpl_dt &gt;= #{startDate}  and s.cpl_dt &lt;= #{endDate}
+        ) Q2
+        left join XFY_REP_PUB_TARGET  Q3
+        on Q3.ZJ_ABBR_NAME=Q2.Zj_Name
+    </select>
+
     <select id="selectZj_Report_Kd_New_Zj"  resultType="com.project.model.zj_Report_Kd_New_Zj">
         SELECT * FROM (select Q3.ZJ_ABBR_NAME Zj_Name,nvl(Q2.bb_Amt,0)bb_Amt,Q3.ZJ_KD_NEW bb_Amt_Avg_Tar
                        from (select p1.ZJ Zj_Name ,count(*) as bb_Amt
@@ -49,6 +72,32 @@
                                                 ) Q2
                                                     left join XFY_REP_PUB_TARGET  Q3
                                                               on Q3.ZJ_ABBR_NAME=Q2.Zj_Name
+    </select>
+
+    <select id="selectZj_Report_Kd_Jz_Js_Month_Zj"  resultType="com.project.model.zj_Report_Kd_Jz_Zj" statementType="STATEMENT">
+        SELECT * FROM (select p3.Zj_Name,AMT_NOW-AMT_OLD bb_Amt_Jz ,Q3.ZJ_KD_JZ_GIS   bb_Amt_Avg_Tar_Jz
+                       from (select p1.Zj_Name,AMT_NOW,AMT_OLD,AMT_NOW-AMT_OLD from (
+                                                                                        select D.ZJ_OLD as Zj_Name,COUNT(*) AMT_NOW from ${tableNameNew} S2
+                                                                                                                                             left join XFY_REP_PUB_ZJ_CON D
+                                                                                                                                                       on D.Zj_New = S2.ZJ_AREA_NAME
+                                                                                        where s2.CACCT_ID not in ('2742043679717','2742043400287')
+                                                                                        GROUP BY D.ZJ_OLD )p1
+                                                                                        left join
+                                                                                    (select D.ZJ_OLD as Zj_Name,COUNT(*) AMT_OLD from ${tableNameOld}  S1
+                                                                                                                                          left join XFY_REP_PUB_ZJ_CON D
+                                                                                                                                                    on D.Zj_New = S1.ZJ_AREA_NAME
+                                                                                     where s1.CACCT_ID not in ('2742043679717','2742043400287')
+                                                                                     GROUP BY D.ZJ_OLD) p2
+                                                                                    on p1.Zj_Name=p2.Zj_Name)p3
+                                right join XFY_REP_PUB_TARGET  Q3
+                                           on Q3.ZJ_ABBR_NAME=p3.Zj_Name
+                       WHERE Q3.ZJ_ABBR_NAME NOT IN ('鄞州政企部','合计')
+                       order by  p3.Zj_Name  desc)
+        union all
+        select Q6.*,Q7.ZJ_KD_JZ_GIS  bb_Amt_Avg_Tar_Jz from (SELECT '合计' Zj_Name,Q4.AMT_NOW-Q5.AMT_OLD bb_Amt_Jz  from
+                                                                                                                      (select COUNT(*)AMT_NOW  FROM ${tableNameNew}) Q4,(select COUNT(*)AMT_OLD  FROM ${tableNameOld})Q5) Q6
+                                                            left join XFY_REP_PUB_TARGET  Q7
+                                                                      on Q6.Zj_Name=Q7.ZJ_ABBR_NAME
     </select>
 
     <select id="selectZj_Report_Kd_Jz_Zj"  resultType="com.project.model.zj_Report_Kd_Jz_Zj" statementType="STATEMENT">
@@ -162,7 +211,7 @@
                                                                       on Q6.Zj_Name=Q7.ZJ_ABBR_NAME
     </select>
 
-    <select id="selectZj_Report_Kd_Jz_Zj_New"  resultType="com.project.model.zj_Report_Kd_Jz_Zj">
+    <select id="selectZj_Report_Kd_Jz_Zj_New_Hy"  resultType="com.project.model.zj_Report_Kd_Jz_Zj">
         select p3.Zj_Name,AMT_NOW,AMT_OLD,AMT_NOW-AMT_OLD bb_Amt_Jz ,Q3.ZJ_KD_JZ   bb_Amt_Avg_Tar_Jz
         from (select p1.Zj_Name,AMT_NOW,AMT_OLD,AMT_NOW-AMT_OLD
               from (select D.ZJ_OLD as Zj_Name,COUNT(*) AMT_NOW from XFY_RPT_ZLYW_ACT_ASSET S2
@@ -189,7 +238,7 @@
         WHERE Q3.ZJ_ABBR_NAME NOT IN ('鄞州政企部','合计')
         order by  p3.Zj_Name  desc;
     </select>
-    <select id="selectZj_Report_Kd_Jz_Data_New"  resultType="com.project.model.zj_Report_Zt_Data">
+    <select id="selectZj_Report_Kd_Jz_Data_New_Hy"  resultType="com.project.model.zj_Report_Zt_Data">
         SELECT S1.ZJ_AREA_NAME Zj_Name,S1.DATE_CD,S1.ASSET_ROW_ID,S1.ACCS_NBR,S1.DATA_USER_NAME,S1.PROM_NAME,S1.PROM_AMT,
                S1.SERV_START_DT,S1.STAT_NAME,S1.XZ_FLG,S1.ACT_FLG,S1.TYPE,S1.ACT_DAYS,S1.CCUST_ID,S1.MKT_EMPLOYEE_ID,
                S1.MKT_EMPLOYEE_NAME,S1.MIX_COMB_NBR_FLG,s1.BIL_FLG,s1.WG_ID,S1.WG_NAME
