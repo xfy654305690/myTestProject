@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.view.zj_Report_Kd_QzDao">
+    <select id="selectZj_Report_Kd_Qz_Jz_Zj"  resultType="com.project.model.zj_Report_Kd_Qz_Jz_Zj">
+        SELECT * FROM (select q2.ZJ_OLD zj_name,Now_Qz,Old_Qz,(Now_Qz-Old_Qz) Qz_Num,q3.ZJ_KD_QZ_JZ  Zj_Kd_Qz_Jz_Avg_Tar from
+            (select b.ZJ_OLD, count(*) as Now_Qz from   XFY_KD_ASSET a
+                left join XFY_REP_PUB_ZJ_CON b
+                          on b.ZJ_NEW=a.ZJ_AREA_NAME
+             where a.BIL_FLG='1'
+                AND a.CACCT_ID not in ('2742043679717','2742043400287')
+               and a.SPEED in ('1024000Kbps')
+             group by b.ZJ_OLD) q1
+                right join
+            (select b.ZJ_OLD,count(*) as Old_Qz from   ${tableName} a
+               left join XFY_REP_PUB_ZJ_CON b
+                         on b.ZJ_NEW=a.ZJ_AREA_NAME
+             where a.BIL_FLG='1'
+               AND a.CACCT_ID not in ('2742043679717','2742043400287')
+               and a.SPEED in ('1024000Kbps')
+             group by b.ZJ_OLD) q2
+            on q1.ZJ_OLD=q2.ZJ_OLD
+                right join XFY_REP_PUB_TARGET q3
+                           on q3.ZJ_ABBR_NAME=q1.ZJ_OLD
+                       WHERE Q3.ZJ_ABBR_NAME NOT IN ('鄞州政企部','合计')
+                       order by  q3.ZJ_ABBR_NAME  desc) q4
+        union all
+        select q5.zj_name,Now_Qz,Old_Qz,(Now_Qz-Old_Qz) Qz_Num,q3.ZJ_KD_QZ_JZ Zj_Kd_Qz_Jz_Avg_Tar from
+          (select '合计' Zj_Name,count(*) Old_Qz from ${tableName} q7
+           where q7.BIL_FLG='1'
+             AND q7.CACCT_ID not in ('2742043679717','2742043400287')
+             and q7.SPEED in ('1024000Kbps')
+          ) q5
+              left join (select '合计' Zj_Name,count(*) Now_Qz from XFY_KD_ASSET q8
+                         where q8.BIL_FLG='1'
+                           and q8.SPEED in ('1024000Kbps')
+                            AND q8.CACCT_ID not in ('2742043679717','2742043400287')
+        ) q6
+        ON Q5.Zj_Name=Q6.Zj_Name
+          left join XFY_REP_PUB_TARGET  Q3
+                    on Q3.ZJ_ABBR_NAME=Q5.Zj_Name
+    </select>
+
+    <select id="selectZj_Report_Kd_Qz_New_Zj"  resultType="com.project.model.zj_Report_Kd_Qz_New_Zj">
+        select Q2.Zj_Name,nvl(Q2.bb_Amt,0)bb_Amt,nvl(Q2.bb_Qz_Num,0)bb_Qz_Num,nvl(Qz_Rate,0)Qz_Rate
+        from (select q1.ZJ_OLD  Zj_Name,count(*) as bb_Amt,
+        sum(case when q1.DOWN_SPEED in ('1024000Kbps') then 1 else 0 end) as bb_Qz_Num,
+        sum(case when q1.DOWN_SPEED in ('1024000Kbps') then 1 else 0 end)/count(*) as Qz_Rate
+        from (select s.*,D.ZJ_OLD
+        from XFY_RPT_KD_ORDER_DETAIL s
+        left join XFY_REP_PUB_ZJ_CON D
+        on D.Zj_New = S.ZJ_AREA_NAME
+        where  s.cpl_dt &gt;= #{startDate}  and s.cpl_dt &lt;= #{endDate}
+        AND S.CACCT_ID not in ('2742043679717','2742043400287')
+        ) Q1
+        where q1.ZJ_OLD NOT IN ('鄞州政企部','合计')
+        group by  q1.ZJ_OLD
+        order by  q1.ZJ_OLD desc
+        )Q2
+        UNION ALL
+        select Zj_Name,bb_Amt,bb_Qz_Num,Qz_Rate from (select '合计' Zj_Name,nvl(count(*),0) bb_Amt,
+        sum(case when s.DOWN_SPEED in ('1024000Kbps') then 1 else 0 end) as bb_Qz_Num,
+        sum(case when s.DOWN_SPEED in ('1024000Kbps') then 1 else 0 end)/count(*) as Qz_Rate
+        from XFY_RPT_KD_ORDER_DETAIL s
+        where s.cpl_dt &gt;= #{startDate}  and s.cpl_dt &lt;= #{endDate}
+        AND S.CACCT_ID not in ('2742043679717','2742043400287')
+        ) Q3
+    </select>
+    <select id="selectZj_Report_Kd_Qz_MaxTime"  resultType="String">
+        select max(CPL_DT)  from XFY_RPT_KD_ORDER_DETAIL a
+    </select>
+
+</mapper>
