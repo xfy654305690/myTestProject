@@ -71,4 +71,40 @@
         select max(CPL_DT)  from XFY_RPT_KD_ORDER_DETAIL a
     </select>
 
+    <select id="selectZj_Report_Kd_Qz_Gis_TEMP_MaxTime"  resultType="String">
+        select max(DATE_CD)  from  XFY_KD_ASSET a
+    </select>
+
+    <select id="selectZj_Report_Kd_Qz_Temp_Gis"  resultType="com.project.model.zj_Report_Kd_Qz_Temp_Gis">
+        select * from (select a.ZJ_NAME,count(*) bb_amt,sum(case when b.SPEED in ('1024000Kbps') then 1 else 0 end) as bb_Qz_Num,
+                              sum(case when b.SPEED in ('1024000Kbps') then 1 else 0 end)/count(*) bb_Qz_Rate,
+                              sum(case when p1.BB_DATAUSERNAME is not null then 1 else 0 end) XGPON_Num,
+                              sum(case when p1.BB_DATAUSERNAME is not null then 1 else 0 end)/count(*) XGPON_Rate
+                       from XFY_RPT_RH_TEMP_169 s
+                                LEFT JOIN XFY_RPT_RH_TEMP_169_QZ  a
+                                          on a.GIS=s.WG_ID
+                                left join XFY_KD_ASSET b
+                                          on s.KD_ASSET_ROW_ID=b.ASSET_ROW_ID
+                                left join XFY_RPT_RH_TEMP_169_XGPON p1
+                                          on p1.BB_DATAUSERNAME=s.KD_DATA_USER_NAME
+                       group by a.ZJ_NAME
+                       order by a.ZJ_NAME) l1
+        union all
+        select '合计' ZJ_NAME,count(*) bb_amt,sum(case when b.SPEED in ('1024000Kbps') then 1 else 0 end) as bb_Qz_Num,
+               sum(case when b.SPEED in ('1024000Kbps') then 1 else 0 end)/count(*) bb_Qz_Rate
+                ,sum(case when p1.BB_DATAUSERNAME is not null then 1 else 0 end) XGPON_Num,
+               sum(case when p1.BB_DATAUSERNAME is not null then 1 else 0 end)/count(*) XGPON_Rate
+        from XFY_RPT_RH_TEMP_169 s
+                 LEFT JOIN XFY_RPT_RH_TEMP_169_QZ  a
+                           on a.GIS=s.WG_ID
+                 left join XFY_KD_ASSET b
+                           on s.KD_ASSET_ROW_ID=b.ASSET_ROW_ID
+                 left join XFY_RPT_RH_TEMP_169_XGPON p1
+                           on p1.BB_DATAUSERNAME=s.KD_DATA_USER_NAME
+    </select>
+
+    <select id="selectZj_Report_Kd_Qz_Gis_XGPON_TEMP_MaxTime"  resultType="String">
+        select max(XGPON_DT)  from  XFY_RPT_RH_TEMP_169_XGPON_TIME a
+    </select>
+
 </mapper>

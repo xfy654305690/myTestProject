@@ -36,7 +36,7 @@ public class zj_Report_Kd_Qz_Business {
     //图片地址跟目录
     public static  final  String OutPictureFile="D:\\test\\Kd_Qz\\PICTURE\\";
     //微信群名称
-    public static  final  String wechartSendName="春季营销冲锋行动（鄞战2022）";
+    public static  final  String wechartSendName="季度营销冲锋行动（鄞战2022）";
     public static  final  String wechartPictureAdress="D:\\test\\Kd_Qz\\";
     //微信群名称
     public static  final  String inExcleDataFile="D:\\Test\\Kd_Qz\\test.xlsx";
@@ -354,7 +354,7 @@ public class zj_Report_Kd_Qz_Business {
         NumberFormat nf = NumberFormat.getPercentInstance();
         nf.setMaximumFractionDigits(1);
 
-        context="鄞州整体宽带新增千兆共："+(int) Math.floor(heji.getBb_Amt())+",整体宽带新增千兆完成率："+nf.format(heji.getQz_Rate())+"。"+"\n"+"宽带新增千兆占比后五支局："+
+        context="鄞州整体宽带新增千兆共："+(int) Math.floor(heji.getBb_Qz_Num())+",整体宽带新增千兆完成率："+nf.format(heji.getQz_Rate())+"。"+"\n"+"宽带新增千兆占比后五支局："+
                 detailDone.get(0).getZj_Name()+","+detailDone.get(1).getZj_Name()+","+detailDone.get(2).getZj_Name()+","
                 +detailDone.get(3).getZj_Name()+","+detailDone.get(4).getZj_Name()+"。\n"+"宽带新增千兆占比前五支局："+
                 detailDone.get(detailDone.size()-1).getZj_Name()+","+ detailDone.get(detailDone.size()-2).getZj_Name()+","
@@ -389,7 +389,7 @@ public class zj_Report_Kd_Qz_Business {
         NumberFormat nf = NumberFormat.getPercentInstance();
         nf.setMaximumFractionDigits(1);
 
-        context="鄞州整体宽带千兆净增共："+(int) Math.floor(heji.getQz_Rate())+",整体完成率："+nf.format(heji.getQz_Rate())+"。"+"\n"+"宽带千兆净增完成率后五支局："+
+        context="鄞州整体宽带千兆净增共："+(int) Math.floor(heji.getQz_Num())+",整体完成率："+nf.format(heji.getQz_Rate())+"。"+"\n"+"宽带千兆净增完成率后五支局："+
                 detailDone.get(0).getZj_Name()+","+detailDone.get(1).getZj_Name()+","+detailDone.get(2).getZj_Name()+","
                 +detailDone.get(3).getZj_Name()+","+detailDone.get(4).getZj_Name()+"。\n"+"宽带千兆净增完成率前五支局："+
                 detailDone.get(detailDone.size()-1).getZj_Name()+","+ detailDone.get(detailDone.size()-2).getZj_Name()+","
