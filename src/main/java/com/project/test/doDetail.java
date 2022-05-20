@@ -22,9 +22,9 @@ public class doDetail {
             zj_Report_Xubao_Controller zj_Report_Xubao_Controller=new zj_Report_Xubao_Controller();
             zj_Report_Zt_Controller zj_Report_Zt_Controller=new zj_Report_Zt_Controller();
             zj_Report_Kd_Wg_Controller zj_Report_Kd_Wg_Controller=new zj_Report_Kd_Wg_Controller();
-
             zj_Report_OtherDone_Controller zj_Report_OtherDone_Controller=new zj_Report_OtherDone_Controller();
             zj_Report_Kd_Qz_Controller zj_Report_Kd_Qz_Controller=new zj_Report_Kd_Qz_Controller();
+            zj_Report_Kd_Qz_Gis_Controller zj_Report_Kd_Qz_Gis_Controller=new zj_Report_Kd_Qz_Gis_Controller();
 
             //获取当前日期DD格式
             String nowDay= dealTime.get_date_By_String_DD();
@@ -41,6 +41,7 @@ public class doDetail {
                 zj_Report_Kd_Controller.report_Kd_Zj();
                 zj_Report_Kd_Wg_Controller.report_Kd_Zj_Gis();
                 zj_Report_Kd_Qz_Controller.report_Kd_Qz_Zj();
+                zj_Report_Kd_Qz_Gis_Controller.report_Kd_Qz_Gis_Zj();
 
             }
             if (Integer.valueOf(nowDay)==6){
