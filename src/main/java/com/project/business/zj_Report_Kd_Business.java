@@ -373,7 +373,7 @@ public class zj_Report_Kd_Business {
             if(Zj_report_kd_jz_data_List.size()!=0){
                 titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"宽带净增中离网、拆机、移出清单详见附件"+nowDayYYYYMMDD;
                 contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+"宽带净增中离网、拆机、移出清单详见附件"+nowDayYYYYMMDD;
-                OutExcleDataFileNew=OutExcleDataFile+str+"KDJZ"+"_"+nowDayYYYYMMDD+".xlsx";
+                OutExcleDataFileNew=OutExcleDataFile+str+"_"+"KDJZ"+"_"+nowDayYYYYMMDD+".xlsx";
                 System.out.printf(OutExcleDataFileNew);
                 //复制值,并且另存为
                 DealExcle.cpoyToExcle(Zj_report_kd_jz_data_List,null,OutExcleDataFileNew,0,Zj_report_kd_jz_data);

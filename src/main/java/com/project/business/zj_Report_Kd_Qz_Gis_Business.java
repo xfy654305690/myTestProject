@@ -191,7 +191,7 @@ public class zj_Report_Kd_Qz_Gis_Business {
 
         context="鄞州锁定GIS内XGPON新增共："+(int) Math.floor(heji.getXGPON_Num())+",整体XGPON率："+nf.format(heji.getXGPON_Rate())+"。"
                 +"\n"+"XGPON完成率后三支局："+ detailDone.get(0).getZj_Name()+","+detailDone.get(1).getZj_Name()+","
-                +detailDone.get(2).getZj_Name()+"。\n"+"新增完成率前三支局："+ detailDone.get(detailDone.size()-1).getZj_Name()
+                +detailDone.get(2).getZj_Name()+"。\n"+"XGPON完成率前三支局："+ detailDone.get(detailDone.size()-1).getZj_Name()
                 +","+ detailDone.get(detailDone.size()-2).getZj_Name()+"," + detailDone.get(detailDone.size()-3).getZj_Name()+"。";
         return context;
     }

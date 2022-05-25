@@ -274,7 +274,7 @@ public class zj_Report_Xubao_Business {
 
             String str = new String(zj_Report_Public_List.get(i).getZj_Full_Name().getBytes(),"UTF-8");
 
-            String  OutExcleDataFileNew=OutExcleDataFile+"_"+str+nowDayYYYYMMDD+".xlsx";
+            String  OutExcleDataFileNew=OutExcleDataFile+"_"+str+"_"+nowDayYYYYMMDD+".xlsx";
             String titleMailSingle =zj_Report_Public_List.get(i).getZj_Full_Name()+strContent+"续包数据详见附件"+'_'+nowDayYYYYMMDD;
             String contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+strContent+"续包数据详见附件"+'_'+nowDayYYYYMMDD;
             System.out.println(OutExcleDataFileNew);

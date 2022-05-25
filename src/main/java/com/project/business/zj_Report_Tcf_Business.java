@@ -258,7 +258,7 @@ public class zj_Report_Tcf_Business {
             String contentMailSingle;
             titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+strContent+"调测费宽带、ITV未收数据详见附件"+nowDayYYYYMMDD;
             contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+strContent+"调测费宽带、ITV未收数据详见附件"+nowDayYYYYMMDD;
-            OutExcleDataFileNew=OutExcleDataFile+str+"TCF"+"_"+nowDayYYYYMMDD+".xlsx";
+            OutExcleDataFileNew=OutExcleDataFile+str+"_"+"TCF"+"_"+nowDayYYYYMMDD+".xlsx";
 
             if(zj_Report_Tcf_Kd_Data_List.size()!=0){
                 DealExcle.cpoyToExcle(zj_Report_Tcf_Kd_Data_List,null,OutExcleDataFileNew,0,Zj_Report_Tcf_Kd_Data);

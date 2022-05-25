@@ -242,7 +242,7 @@ public class zj_Report_Wyj_Business {
     }
     public static void report_Wyj_Zj_DoData_LastMonth() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
         //获取上季度一号，返回日期格式
-        Date startDate=dealTime.getLastQuarterFirstDay();
+        Date startDate=dealTime.get_nowQuarter_FirstDay_ByDate();
         //获取上季度最后一号，返回日期格式
         Date endDate=dealTime.getLastQuarterLastDay();
         //获取当前日期DD格式
@@ -281,7 +281,7 @@ public class zj_Report_Wyj_Business {
             if(Zj_Report_Wyj_Data_List.size()!=0){
                 titleMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+strContent+"违约金产生数据详见附件"+nowDayYYYYMMDD;
                 contentMailSingle=zj_Report_Public_List.get(i).getZj_Full_Name()+strContent+"违约金产生数据详见附件"+nowDayYYYYMMDD;
-                OutExcleDataFileNew=OutExcleDataFile+str+"Wyj"+"_"+nowDayYYYYMMDD+".xlsx";
+                OutExcleDataFileNew=OutExcleDataFile+str+"_"+"Wyj"+"_"+nowDayYYYYMMDD+".xlsx";
                 System.out.printf(OutExcleDataFileNew);
                 //复制值,并且另存为
                 DealExcle.cpoyToExcle(Zj_Report_Wyj_Data_List,null,OutExcleDataFileNew,0,Zj_Report_Wyj_Data);
