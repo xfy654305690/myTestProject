@@ -232,7 +232,7 @@ public class zj_Report_Wyj_Business {
     }
     public static void report_Wyj_Zj_DoData_NowMonth() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
         //获取当月一号，返回日期格式
-        Date startDate=dealTime.get_nowMonth_FirstDay_ByDate();
+        Date startDate=dealTime.get_nowQuarter_FirstDay_ByDate();
         //获取当月最后一号，返回日期格式
         Date endDate=dealTime.get_nowMonth_LastDay_ByDate();
         //获取当前日期DD格式
@@ -242,7 +242,7 @@ public class zj_Report_Wyj_Business {
     }
     public static void report_Wyj_Zj_DoData_LastMonth() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
         //获取上季度一号，返回日期格式
-        Date startDate=dealTime.get_nowQuarter_FirstDay_ByDate();
+        Date startDate=dealTime.getLastQuarterFirstDay();
         //获取上季度最后一号，返回日期格式
         Date endDate=dealTime.getLastQuarterLastDay();
         //获取当前日期DD格式
