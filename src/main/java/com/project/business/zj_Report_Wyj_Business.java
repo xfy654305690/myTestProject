@@ -32,7 +32,7 @@ public class zj_Report_Wyj_Business {
     //图片地址跟目录
     public static  final  String OutPictureFile="D:\\test\\WYJ\\PICTURE\\";
     //微信群名称
-    public static  final  String wechartSendName="季度营销冲锋行动（鄞战2022）";
+    public static  final  String wechartSendName="鄞战2022-冲刺630";
     public static  final  String wechartPictureAdress="D:\\test\\Tcf\\";
     //微信群名称
     public static  final  String inExcleDataFile="D:\\Test\\WYJ\\test.xlsx";

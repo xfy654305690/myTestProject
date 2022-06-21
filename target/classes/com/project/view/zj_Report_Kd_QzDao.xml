@@ -9,7 +9,8 @@
                 left join XFY_REP_PUB_ZJ_CON b
                           on b.ZJ_NEW=a.ZJ_AREA_NAME
              where a.BIL_FLG='1'
-                AND a.CACCT_ID not in ('2742043679717','2742043400287')
+                AND a.CACCT_ID not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
+                 ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
                and a.SPEED in ('1024000Kbps')
              group by b.ZJ_OLD) q1
                 right join
@@ -17,25 +18,28 @@
                left join XFY_REP_PUB_ZJ_CON b
                          on b.ZJ_NEW=a.ZJ_AREA_NAME
              where a.BIL_FLG='1'
-               AND a.CACCT_ID not in ('2742043679717','2742043400287')
+               AND a.CACCT_ID not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
+                 ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
                and a.SPEED in ('1024000Kbps')
              group by b.ZJ_OLD) q2
             on q1.ZJ_OLD=q2.ZJ_OLD
                 right join XFY_REP_PUB_TARGET q3
                            on q3.ZJ_ABBR_NAME=q1.ZJ_OLD
-                       WHERE Q3.ZJ_ABBR_NAME NOT IN ('鄞州政企部','合计')
+                       WHERE Q3.ZJ_ABBR_NAME NOT IN ('鄞州政企部','鄞州分公司未落地','鄞州分公司本级','合计')
                        order by  q3.ZJ_ABBR_NAME  desc) q4
         union all
         select q5.zj_name,Now_Qz,Old_Qz,(Now_Qz-Old_Qz) Qz_Num,q3.ZJ_KD_QZ_JZ Zj_Kd_Qz_Jz_Avg_Tar from
           (select '合计' Zj_Name,count(*) Old_Qz from ${tableName} q7
            where q7.BIL_FLG='1'
-             AND q7.CACCT_ID not in ('2742043679717','2742043400287')
+             AND q7.CACCT_ID not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
+               ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
              and q7.SPEED in ('1024000Kbps')
           ) q5
               left join (select '合计' Zj_Name,count(*) Now_Qz from XFY_KD_ASSET q8
                          where q8.BIL_FLG='1'
                            and q8.SPEED in ('1024000Kbps')
-                            AND q8.CACCT_ID not in ('2742043679717','2742043400287')
+                            AND q8.CACCT_ID not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
+                             ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
         ) q6
         ON Q5.Zj_Name=Q6.Zj_Name
           left join XFY_REP_PUB_TARGET  Q3
@@ -52,9 +56,10 @@
         left join XFY_REP_PUB_ZJ_CON D
         on D.Zj_New = S.ZJ_AREA_NAME
         where  s.cpl_dt &gt;= #{startDate}  and s.cpl_dt &lt;= #{endDate}
-        AND S.CACCT_ID not in ('2742043679717','2742043400287')
+        AND S.CACCT_ID not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
+            ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
         ) Q1
-        where q1.ZJ_OLD NOT IN ('鄞州政企部','合计')
+        where q1.ZJ_OLD NOT IN ('鄞州政企部','鄞州分公司未落地','鄞州分公司本级','合计')
         group by  q1.ZJ_OLD
         order by  q1.ZJ_OLD desc
         )Q2
@@ -64,11 +69,97 @@
         sum(case when s.DOWN_SPEED in ('1024000Kbps') then 1 else 0 end)/count(*) as Qz_Rate
         from XFY_RPT_KD_ORDER_DETAIL s
         where s.cpl_dt &gt;= #{startDate}  and s.cpl_dt &lt;= #{endDate}
-        AND S.CACCT_ID not in ('2742043679717','2742043400287')
+        AND S.CACCT_ID not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
+            ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
         ) Q3
     </select>
+
+    <select id="selectZj_Report_Kd_Qz_New_Tx"  resultType="com.project.model.zj_Report_Kd_Qz_New_Zj">
+        select Q2.Zj_Name,nvl(Q2.bb_Amt,0)bb_Amt,nvl(Q2.bb_Qz_Num,0)bb_Qz_Num,nvl(Qz_Rate,0)Qz_Rate
+        from (select  Zj_Name,count(*) as bb_Amt,
+        sum(case when q1.DOWN_SPEED in ('1024000Kbps') then 1 else 0 end) as bb_Qz_Num,
+        sum(case when q1.DOWN_SPEED in ('1024000Kbps') then 1 else 0 end)/count(*) as Qz_Rate
+        from (select s.*,case when b.JOB is null then '其他'else b.JOB end Zj_Name
+        from XFY_RPT_KD_ORDER_DETAIL s
+        left join XFY_REP_PUB_CDRY B
+        ON s.MKT_EMPLOYEE_ID=B.MKT_NAME
+        where  s.cpl_dt &gt;= #{startDate}  and s.cpl_dt &lt;= #{endDate}
+        AND S.CACCT_ID not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
+        ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
+        ) Q1
+        group by  q1.Zj_Name
+        order by decode(q1.Zj_Name,'支局长',0,'支局长助理',1,'网格经理',2,'营业员',3,'智家工程师',4,'行客经理',5,'支局其他',6,'商客经理',7,'特攻队',8)
+        )Q2
+    </select>
+
+    <select id="selectZj_Report_Kd_Qz_Rh_Zj"  resultType="com.project.model.zj_Report_Kd_Qz_Rh_Zj">
+        select * from (select l6.Zj_Name,l6.rh_Amt,l6.rh_Qz_Num,l6.Qz_Rate,l6.rh_Qz_Avg_Tar from
+        (select l8.*,l7.ZJ_KD_QZ_RH rh_Qz_Avg_Tar from (select  D.ZJ_OLD as Zj_Name,count(*) rh_Amt,sum(case when s.KD_SPEED in ('1024000Kbps') then 1 else 0 end)rh_Qz_Num,
+        sum(case when s.KD_SPEED in ('1024000Kbps') then 1 else 0 end)/count(*) Qz_Rate from  XFY_RPT_RH_ORDER_ASSET s
+        left join XFY_REP_PUB_ZJ_CON D
+        on D.Zj_New = S.BRANCH_AREA_NAME
+        where s.cpl_dt &gt;= #{startDate}  and s.cpl_dt &lt;= #{endDate}
+        and s.prom_amt>=129
+        and D.Zj_New  NOT IN ('鄞州政企部','鄞州分公司未落地','鄞州分公司本级','合计')
+        group by D.ZJ_OLD
+        order by D.ZJ_OLD desc)l8
+        left join XFY_REP_PUB_TARGET  l7
+        on l8.Zj_Name=l7.ZJ_ABBR_NAME) l6
+        order by  l6.Zj_Name desc) l5
+        union all
+        select l10.Zj_Name,l10.rh_Amt,l10.rh_Qz_Num,l10.Qz_Rate,l9.ZJ_KD_QZ_RH rh_Qz_Avg_Tar from (select '合计' as Zj_Name,count(*) rh_Amt,sum(case when s.KD_SPEED in ('1024000Kbps') then 1 else 0 end)rh_Qz_Num,
+        sum(case when s.KD_SPEED in ('1024000Kbps') then 1 else 0 end)/count(*) Qz_Rate
+        from XFY_RPT_RH_ORDER_ASSET s
+        where s.cpl_dt &gt;= #{startDate}  and s.cpl_dt &lt;= #{endDate}
+        and s.prom_amt>=129) l10
+        left join XFY_REP_PUB_TARGET  l9
+        on l10.Zj_Name=l9.ZJ_ABBR_NAME
+    </select>
+
+    <select id="selectZj_Report_Kd_Qz_Rh_Tx"  resultType="com.project.model.zj_Report_Kd_Qz_Rh_Zj">
+        select l8.*  from (select  case when b.JOB is null then '其他'else b.JOB end  as Zj_Name,count(*) rh_Amt,sum(case when s.KD_SPEED in ('1024000Kbps') then 1 else 0 end)rh_Qz_Num,
+        sum(case when s.KD_SPEED in ('1024000Kbps') then 1 else 0 end)/count(*) Qz_Rate from  XFY_RPT_RH_ORDER_ASSET s
+        left join XFY_REP_PUB_CDRY B
+        ON s.MKT_EMPLOYEE_ID=B.MKT_NAME
+        where s.cpl_dt &gt;= #{startDate}  and s.cpl_dt &lt;= #{endDate}
+        and s.prom_amt>=129
+        group by case when b.JOB is null then '其他'else b.JOB end
+        order by case when b.JOB is null then '其他'else b.JOB end desc)l8
+    </select>
+
+    <select id="selectZj_Report_Kd_Qz_Cl_Zj"  resultType="com.project.model.zj_Report_Kd_Qz_Cl_Zj">
+        select * from (select D.ZJ_OLD Zj_Name,count(*)cl_Amt from XFY_KD_CL_QZ s
+        left join XFY_REP_PUB_ZJ_CON D
+        on D.Zj_New = S.AREA_NAME_LV5
+        where s.cpl_dt &gt;= #{startDate}  and s.cpl_dt &lt;= #{endDate}
+        and D.ZJ_OLD is not null
+        and D.ZJ_OLD  NOT IN ('鄞州政企部','鄞州分公司未落地','鄞州分公司本级','合计')
+          and s.MKT_EMPLOYEE_NAME !='罗益宁'
+        group by  D.ZJ_OLD
+        order by  D.ZJ_OLD desc )
+        union all
+        select '合计' Zj_Name,count(*)cl_Amt from XFY_KD_CL_QZ s
+        where s.cpl_dt &gt;= #{startDate}  and s.cpl_dt &lt;= #{endDate}
+        and s.MKT_EMPLOYEE_NAME !='罗益宁'
+    </select>
+
+    <select id="selectZj_Report_Kd_Qz_Cl_Tx"  resultType="com.project.model.zj_Report_Kd_Qz_Cl_Zj">
+        select case when b.JOB is null then '其他'else b.JOB end  as Zj_Name,count(*) cl_Amt
+        from XFY_KD_CL_QZ s
+        right join XFY_REP_PUB_CDRY B
+        ON s.MKT_EMPLOYEE_ID=B.MKT_NAME
+        where s.cpl_dt &gt;= #{startDate}  and s.cpl_dt &lt;= #{endDate}
+          and s.MKT_EMPLOYEE_NAME !='罗益宁'
+        group by case when b.JOB is null then '其他'else b.JOB end
+        order by decode(case when b.JOB is null then '其他'else b.JOB end,'支局长',0,'支局长助理',1,'网格经理',2,'营业员',3,'智家工程师',4,'行客经理',5,'支局其他',6,'商客经理',7,'特攻队',8)
+    </select>
+
     <select id="selectZj_Report_Kd_Qz_MaxTime"  resultType="String">
         select max(CPL_DT)  from XFY_RPT_KD_ORDER_DETAIL a
+    </select>
+
+    <select id="selectZj_Report_Kd_Qz_Cl_MaxTime"  resultType="String">
+        select max(DATE_CD)  from XFY_KD_CL_QZ a
     </select>
 
     <select id="selectZj_Report_Kd_Qz_Gis_TEMP_MaxTime"  resultType="String">
@@ -106,5 +197,6 @@
     <select id="selectZj_Report_Kd_Qz_Gis_XGPON_TEMP_MaxTime"  resultType="String">
         select max(XGPON_DT)  from  XFY_RPT_RH_TEMP_169_XGPON_TIME a
     </select>
+
 
 </mapper>

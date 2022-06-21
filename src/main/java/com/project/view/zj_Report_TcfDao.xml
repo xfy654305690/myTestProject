@@ -15,7 +15,8 @@
         where cpl_dt &gt;= #{startDate}  and cpl_dt &lt;= #{endDate}
         and ( a.CDSC_NAME is null or  a.CDSC_NAME &lt;&gt;'IPTV纯装宽带零月租_ZJ' )
           and (a.remark_info not like '%中电信宁波市场联〔2022〕41号%' or a.remark_info is null)
-          and a.cacct_id not in ('2742039410352')
+          and a.cacct_id not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
+            ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
         and  a.CDSC_NAME&lt;&gt;'201801融合套餐100M宽带包月30元（第二条宽带专用）（产品）_ZJ'
         group by B.ZJ)P
         right join XFY_REP_PUB_ZJ_PAR  p3
@@ -27,7 +28,8 @@
         sum( case when a.xztc_amt&gt;=50 then 1 else 0 end )/count(*)  tcf_amt_rate
         from   XFY_RPT_KD_ORDER_DETAIL a where  cpl_dt &gt;= #{startDate}  and cpl_dt &lt;= #{endDate}
         and ( a.CDSC_NAME is null or  a.CDSC_NAME&lt;&gt;'IPTV纯装宽带零月租_ZJ' )
-        and a.cacct_id not in ('2742039410352')
+        and a.cacct_id not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
+                              ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
         and (a.remark_info not like '%中电信宁波市场联〔2022〕41号%' or a.remark_info is null)
         and  a.CDSC_NAME&lt;&gt;'201801融合套餐100M宽带包月30元（第二条宽带专用）（产品）_ZJ'  ) Q
     </select>
@@ -62,7 +64,8 @@
           and ( b.CDSC_NAME is null or  b.CDSC_NAME &lt;&gt;'IPTV纯装宽带零月租_ZJ' )
           and  b.CDSC_NAME&lt;&gt;'201801融合套餐100M宽带包月30元（第二条宽带专用）（产品）_ZJ'
           and (b.remark_info not like '%中电信宁波市场联〔2022〕41号%' or b.remark_info is null)
-          and b.cacct_id not in ('2742039410352')
+          and b.cacct_id not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
+            ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
           and b.xztc_amt&lt;50
         and C.ZJ in (
             select D.zj_new from XFY_REP_PUB_ZJ_CON D

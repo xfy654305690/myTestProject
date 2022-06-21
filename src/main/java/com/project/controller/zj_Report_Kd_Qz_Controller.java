@@ -18,4 +18,11 @@ public class zj_Report_Kd_Qz_Controller {
 
     }
 
+    public static void report_Kd_Qz_Zj_630() throws MessagingException, IOException, ParseException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+
+        zj_Report_Kd_Qz_Business Zj_Report_Kd_Qz_Business=new zj_Report_Kd_Qz_Business();
+        Zj_Report_Kd_Qz_Business.report_Kd_Qz_Zj_630();
+
+    }
+
 }

@@ -57,7 +57,8 @@
                                             left join XFY_REP_PUB_ZJ_CON D
                                                       on D.Zj_New = S.ZJ_AREA_NAME
                                    where s.cpl_dt &gt;= #{startDate}  and s.cpl_dt &lt;= #{endDate}
-                                        and s.CACCT_ID not in ('2742043679717','2742043400287')
+                                        and s.CACCT_ID not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
+                                       ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
                                   ) Q1
                                       left join XFY_REP_PUB_CDRY P1
                                                 ON Q1.MKT_EMPLOYEE_ID=P1.MKT_NAME
@@ -80,13 +81,15 @@
                                                                                         select D.ZJ_OLD as Zj_Name,COUNT(*) AMT_NOW from ${tableNameNew} S2
                                                                                                                                              left join XFY_REP_PUB_ZJ_CON D
                                                                                                                                                        on D.Zj_New = S2.ZJ_AREA_NAME
-                                                                                        where s2.CACCT_ID not in ('2742043679717','2742043400287')
+                                                                                        where s2.CACCT_ID not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
+                                                                                            ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
                                                                                         GROUP BY D.ZJ_OLD )p1
                                                                                         left join
                                                                                     (select D.ZJ_OLD as Zj_Name,COUNT(*) AMT_OLD from ${tableNameOld}  S1
                                                                                                                                           left join XFY_REP_PUB_ZJ_CON D
                                                                                                                                                     on D.Zj_New = S1.ZJ_AREA_NAME
-                                                                                     where s1.CACCT_ID not in ('2742043679717','2742043400287')
+                                                                                     where s1.CACCT_ID not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
+                                                                                         ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
                                                                                      GROUP BY D.ZJ_OLD) p2
                                                                                     on p1.Zj_Name=p2.Zj_Name)p3
                                 right join XFY_REP_PUB_TARGET  Q3
@@ -105,13 +108,15 @@
         from (select p1.Zj_Name,AMT_NOW,AMT_OLD,AMT_NOW-AMT_OLD from (select D.ZJ_OLD as Zj_Name,COUNT(*) AMT_NOW from XFY_KD_ASSET S2
          left join XFY_REP_PUB_ZJ_CON D
          on D.Zj_New = S2.ZJ_AREA_NAME
-            where s2.CACCT_ID not in ('2742043679717','2742043400287')
+            where s2.CACCT_ID not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
+                ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
          GROUP BY D.ZJ_OLD )p1
          left join
          (select D.ZJ_OLD as Zj_Name,COUNT(*) AMT_OLD from ${tableName}  S1
           left join XFY_REP_PUB_ZJ_CON D
           on D.Zj_New = S1.ZJ_AREA_NAME
-         where s1.CACCT_ID not in ('2742043679717','2742043400287')
+         where s1.CACCT_ID not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
+             ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
           GROUP BY D.ZJ_OLD) p2
         on p1.Zj_Name=p2.Zj_Name)p3
         right join XFY_REP_PUB_TARGET  Q3
@@ -129,7 +134,8 @@
                        from (select p1.Zj_Name,AMT_NOW,AMT_OLD,AMT_NOW-AMT_OLD from (select D.ZJ_OLD as Zj_Name,COUNT(*) AMT_NOW from XFY_KD_ASSET S2
                               left join XFY_REP_PUB_ZJ_CON D
                                         on D.Zj_New = S2.ZJ_AREA_NAME
-                                where s2.CACCT_ID not in ('2742043679717','2742043400287')
+                                where s2.CACCT_ID not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
+                                    ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
                              GROUP BY D.ZJ_OLD )p1
                                 left join
                             (select D.ZJ_OLD as Zj_Name,COUNT(*) AMT_OLD from XFY_KD_ASSET_BAK_BEF202112  S1
@@ -153,8 +159,10 @@
                  left join XFY_KD_ASSET q2
                            on q1.ASSET_ROW_ID=q2.ASSET_ROW_ID
         where q2.ASSET_ROW_ID is null
-          and q1.CACCT_ID not in ('2742043679717','2742043400287')
-          and q2.CACCT_ID not in ('2742043679717','2742043400287')
+          and q1.CACCT_ID not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
+            ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
+          and q2.CACCT_ID not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
+            ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
           and q1.ZJ_AREA_NAME in
               (SELECT p3.ZJ_NEW FROM  XFY_REP_PUB_ZJ_CON P3
                WHERE  P3.ZJ_OLD = #{zjName})
@@ -166,13 +174,15 @@
                            select D.ZJ_OLD as Zj_Name,COUNT(*) AMT_NOW from ${tableNameNew} S2
                           left join XFY_REP_PUB_ZJ_CON D
                           on D.Zj_New = S2.ZJ_AREA_NAME
-                           where s2.CACCT_ID not in ('2742043679717','2742043400287')
+                           where s2.CACCT_ID not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
+                               ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
                          GROUP BY D.ZJ_OLD )p1
                             left join
                         (select D.ZJ_OLD as Zj_Name,COUNT(*) AMT_OLD from ${tableNameOld}  S1
                           left join XFY_REP_PUB_ZJ_CON D
                           on D.Zj_New = S1.ZJ_AREA_NAME_NEW
-                         where s1.CACCT_ID not in ('2742043679717','2742043400287')
+                         where s1.CACCT_ID not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
+                             ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
                          GROUP BY D.ZJ_OLD) p2
                         on p1.Zj_Name=p2.Zj_Name)p3
                                 right join XFY_REP_PUB_TARGET  Q3
@@ -191,13 +201,15 @@
                        from (select p1.Zj_Name,AMT_NOW,AMT_OLD,AMT_NOW-AMT_OLD from (select D.ZJ_OLD as Zj_Name,COUNT(*) AMT_NOW from ${tableNameNew} S2
                                                                                                                                           left join XFY_REP_PUB_ZJ_CON D
                                                                                                                                                     on D.Zj_New = S2.ZJ_AREA_NAME
-                                                                                     where S2.CACCT_ID not in ('2742043679717','2742043400287')
+                                                                                     where S2.CACCT_ID not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
+                                                                                         ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
                                                                                      GROUP BY D.ZJ_OLD )p1
                                                                                         left join
                                                                                     (select D.ZJ_OLD as Zj_Name,COUNT(*) AMT_OLD from XFY_KD_ASSET_BAK_BEF202112  S1
                                                                                                                                           left join XFY_REP_PUB_ZJ_CON D
                                                                                                                                                     on D.Zj_New = S1.ZJ_AREA_NAME_NEW
-                                                                                     where S1.CACCT_ID not in ('2742043679717','2742043400287')
+                                                                                     where S1.CACCT_ID not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
+                                                                                         ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
                                                                                      GROUP BY D.ZJ_OLD) p2
                                                                                     on p1.Zj_Name=p2.Zj_Name)p3
                                 right join XFY_REP_PUB_TARGET  Q3
@@ -293,6 +305,5 @@
     <select id="selectZj_Report_Kd_Jz_MaxTime"  resultType="String">
         select max(DATE_CD)  from XFY_KD_ASSET a
     </select>
-
 
 </mapper>

@@ -42,6 +42,7 @@ public class doDetail {
                 zj_Report_Kd_Wg_Controller.report_Kd_Zj_Gis();
                 zj_Report_Kd_Qz_Controller.report_Kd_Qz_Zj();
                 zj_Report_Kd_Qz_Gis_Controller.report_Kd_Qz_Gis_Zj();
+                zj_Report_Kd_Qz_Controller.report_Kd_Qz_Zj_630();
 
             }
             if (Integer.valueOf(nowDay)==6){
