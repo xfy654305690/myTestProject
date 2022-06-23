@@ -37,5 +37,6 @@
         <mapper resource="com/project/view/zj_Report_ZssDao.xml" />
         <mapper resource="com/project/view/zj_Report_Kd_QzDao.xml" />
         <mapper resource="com/project/view/zj_Report_Znzw_Dao.xml" />
+        <mapper resource="com/project/view/zj_Report_Kj_Dao.xml" />
     </mappers>
 </configuration>

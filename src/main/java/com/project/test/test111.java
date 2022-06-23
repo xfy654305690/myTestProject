@@ -17,8 +17,8 @@ public class test111 {
 
     public static void main(String[] args) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, ParseException, MessagingException {
 
-        zj_Report_Znzw_Controller zj_Report_Znzw_Controller=new zj_Report_Znzw_Controller();
-        zj_Report_Znzw_Controller.report_Znzw_Zj();
+        zj_Report_Kj_Controller zj_Report_Kj_Controller=new zj_Report_Kj_Controller();
+        zj_Report_Kj_Controller.report_Kj_Zj();
 
     }
 
