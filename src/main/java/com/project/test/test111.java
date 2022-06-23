@@ -17,30 +17,8 @@ public class test111 {
 
     public static void main(String[] args) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, ParseException, MessagingException {
 
-          zj_Report_Kd_Controller zj_Report_Kd_Controller=new zj_Report_Kd_Controller();
-          zj_Report_Kd_Qz_Controller zj_Report_Kd_Qz_Controller=new zj_Report_Kd_Qz_Controller();
-        zj_Report_Kd_Qz_Gis_Controller zj_Report_Kd_Qz_Gis_Controller=new zj_Report_Kd_Qz_Gis_Controller();
-//        zj_Report_RhItv_Controller zj_Report_RhItv_Controller=new zj_Report_RhItv_Controller();
-//        zj_Report_Tcf_Controller zj_Report_Tcf_Controller=new zj_Report_Tcf_Controller();
-//        zj_Report_Wyj_Controller zj_Report_Wyj_Controller=new zj_Report_Wyj_Controller();
-//        zj_Report_Xubao_Controller zj_Report_Xubao_Controller=new zj_Report_Xubao_Controller();
-//        zj_Report_Zt_Controller zj_Report_Zt_Controller=new zj_Report_Zt_Controller();
-//        zj_Report_Kd_Wg_Controller zj_Report_Kd_Wg_Controller=new zj_Report_Kd_Wg_Controller();
-//
-//        zj_Report_Zss_Business zj_Report_Zss_Business=new zj_Report_Zss_Business();
-
-        //zj_Report_Zss_Business.report_Zss_Zj();
-
-//        zj_Report_Xubao_Controller.report_Xubao_Zj();
-//        zj_Report_Tcf_Controller.report_Tcf_Zj();
-//        zj_Report_Zt_Controller.report_Zt_Zj();
-//        zj_Report_Wyj_Controller.report_Wyj_Zj();
-//        zj_Report_RhItv_Controller.report_RhItv_Zj();
-        //zj_Report_Kd_Controller.report_Kd_Zj();
-//        zj_Report_Kd_Wg_Controller.report_Kd_Zj_Gis();
-        //zj_Report_Kd_Controller.report_Kd_Zj_By_Month_Js();
-        //zj_Report_Kd_Qz_Controller.report_Kd_Qz_Zj();
-        zj_Report_Kd_Qz_Gis_Controller.report_Kd_Qz_Gis_Zj();
+        zj_Report_Znzw_Controller zj_Report_Znzw_Controller=new zj_Report_Znzw_Controller();
+        zj_Report_Znzw_Controller.report_Znzw_Zj();
 
     }
 

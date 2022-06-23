@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.view.zj_Report_Znzw_Dao">
+
+    <select id="selectZj_Report_Znzw_New_Zj"  resultType="com.project.model.zj_Report_Znzw_New_Zj">
+        SELECT L1.* FROM  (SELECT P2.ZJ_ABBR_NAME Zj_Name,NVL(P1.znzw_Amt,0) znzw_Amt,P2.ZJ_ZNZW_NEW znzw_Amt_Avg_Tar
+        FROM (select S.ZJ_AREA_NAME,count(*) znzw_Amt from XFY_ZNZW_ORDER_DETAIL S
+        LEFT JOIN XFY_REP_PUB_ZJ_CON Q
+        ON S.ZJ_AREA_NAME=Q.ZJ_NEW
+        where s.cpl_dt &gt;= #{startDate}  and s.cpl_dt &lt;= #{endDate}
+        group by S.ZJ_AREA_NAME) P1
+        right join XFY_REP_PUB_TARGET  P2
+        ON P1.ZJ_AREA_NAME=P2.ZJ_ABBR_NAME
+        WHERE P2.ZJ_ABBR_NAME NOT IN ('鄞州政企部','合计')
+        ORDER BY  P2.ZJ_ABBR_NAME desc)L1
+        UNION ALL
+        select p10.Zj_Name,p10.znzw_Amt,p9.ZJ_ZNZW_NEW znzw_Amt_Avg_Tar from (SELECT '合计' Zj_Name,count(*)znzw_Amt from XFY_ZNZW_ORDER_DETAIL S
+        where s.cpl_dt &gt;= #{startDate}  and s.cpl_dt &lt;= #{endDate}
+        )p10
+        left join XFY_REP_PUB_TARGET  p9
+        ON P10.Zj_Name=P9.ZJ_ABBR_NAME
+    </select>
+
+    <select id="selectZj_Report_Znzw_Rh_Zj"  resultType="com.project.model.zj_Report_Znzw_Rh_Zj">
+        SELECT L1.* FROM (select
+        p2.ZJ_ABBR_NAME Zj_Name,nvl(l1.rh_Amt,0) rh_Amt,NVL(rh_Znzw_Num,0)rh_Znzw_Num, znzw_Rate
+        from (select  S2.ZJ_OLD,count(*) rh_Amt,sum(CASE WHEN S3.ASSET_ROW_ID IS NOT NULL THEN 1 ELSE 0 END)rh_Znzw_Num,
+        CASE WHEN count(*) =0 THEN 0 ELSE sum(CASE WHEN S3.ASSET_ROW_ID IS NOT NULL THEN 1 ELSE 0 END)/count(*) END znzw_Rate
+        from XFY_RPT_RH_ORDER_ASSET S1
+        LEFT JOIN XFY_REP_PUB_ZJ_CON S2
+        ON S1.BRANCH_AREA_NAME=S2.ZJ_NEW
+        left join XFY_ZNZW_ORDER_DETAIL S3
+        ON S3.PROM_INTEG_ID=S1.PROM_INTEG_ID
+        where S2.ZJ_OLD NOT IN ('鄞州政企部','合计')
+        and   s1.cpl_dt &gt;= #{startDate}  and s1.cpl_dt &lt;= #{endDate}
+        group by S2.ZJ_OLD)l1
+        right join XFY_REP_PUB_TARGET  P2
+        ON l1.ZJ_OLD=P2.ZJ_ABBR_NAME
+        WHERE P2.ZJ_ABBR_NAME NOT IN ('鄞州政企部','合计')
+        ORDER BY  P2.ZJ_ABBR_NAME desc) L1
+        UNION ALL
+        select  '合计' Zj_Name,count(*) rh_Amt,sum(CASE WHEN S3.ASSET_ROW_ID IS NOT NULL THEN 1 ELSE 0 END)rh_Znzw_Num,
+        CASE WHEN count(*) =0 THEN 0 ELSE sum(CASE WHEN S3.ASSET_ROW_ID IS NOT NULL THEN 1 ELSE 0 END)/count(*) END znzw_Rate
+        from XFY_RPT_RH_ORDER_ASSET S1
+        LEFT JOIN XFY_REP_PUB_ZJ_CON S2
+        ON S1.BRANCH_AREA_NAME=S2.ZJ_NEW
+        left join XFY_ZNZW_ORDER_DETAIL S3
+        ON S3.PROM_INTEG_ID=S1.PROM_INTEG_ID
+        where   s1.cpl_dt &gt;= #{startDate}  and s1.cpl_dt &lt;= #{endDate}
+    </select>
+
+    <select id="selectZj_Report_Znzw_Kd_Zj"  resultType="com.project.model.zj_Report_Znzw_Kd_Zj">
+        SELECT L1.* FROM (select
+        p2.ZJ_ABBR_NAME Zj_Name,nvl(l1.bb_Amt,0) bb_Amt,NVL(bb_Znzw_Num,0)bb_Znzw_Num, znzw_Rate
+        from (select  S2.ZJ_OLD,count(*) bb_Amt,sum(CASE WHEN S3.ASSET_ROW_ID IS NOT NULL THEN 1 ELSE 0 END)bb_Znzw_Num,
+        CASE WHEN count(*) =0 THEN 0 ELSE sum(CASE WHEN S3.ASSET_ROW_ID IS NOT NULL THEN 1 ELSE 0 END)/count(*) END znzw_Rate
+        from XFY_KD_ASSET S1
+        LEFT JOIN XFY_REP_PUB_ZJ_CON S2
+        ON S1.ZJ_AREA_NAME=S2.ZJ_NEW
+        left join XFY_ZNZW_ORDER_DETAIL S3
+        ON S3.PROM_INTEG_ID=S1.PROM_INTEG_ID
+        inner join XFY_RPT_KD_ORDER_DETAIL S4
+        ON S4.ASSET_ROW_ID=S1.ASSET_ROW_ID
+        AND S4.CPL_DT&gt;= #{startDate} and  S4.CPL_DT &lt;= #{endDate}
+        where S2.ZJ_OLD NOT IN ('鄞州政企部','合计')
+        and   s1.SERV_START_DT &gt;= #{startDate} and  s1.SERV_START_DT &lt;= #{endDate}
+        and s1.prom_name not like '%完美%联盟%'
+        and s1.prom_name not like '%酒店%联盟%'
+        and   s1.CACCT_ID not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
+        ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
+        group by S2.ZJ_OLD)l1
+        right join XFY_REP_PUB_TARGET  P2
+        ON l1.ZJ_OLD=P2.ZJ_ABBR_NAME
+        WHERE P2.ZJ_ABBR_NAME NOT IN ('鄞州政企部','合计')
+        ORDER BY  P2.ZJ_ABBR_NAME desc) L1
+        UNION ALL
+        select  '合计' Zj_Name,count(*) bb_Amt,sum(CASE WHEN S3.ASSET_ROW_ID IS NOT NULL THEN 1 ELSE 0 END)bb_Znzw_Num,
+        CASE WHEN count(*) =0 THEN 0 ELSE sum(CASE WHEN S3.ASSET_ROW_ID IS NOT NULL THEN 1 ELSE 0 END)/count(*) END znzw_Rate
+        from XFY_KD_ASSET S1
+        left join XFY_ZNZW_ORDER_DETAIL S3
+        ON S3.PROM_INTEG_ID=S1.PROM_INTEG_ID
+        inner join XFY_RPT_KD_ORDER_DETAIL S4
+        ON S4.ASSET_ROW_ID=S1.ASSET_ROW_ID
+        AND S4.CPL_DT&gt;= #{startDate} and  S4.CPL_DT &lt;= #{endDate}
+        where   S4.CPL_DT&gt;= #{startDate}  and  S4.CPL_DT &lt;= #{endDate}
+        and s1.prom_name not like '%完美%联盟%'
+        and s1.prom_name not like '%酒店%联盟%'
+        and   s1.CACCT_ID not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
+        ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
+    </select>
+
+
+    <select id="selectZj_Report_Znzw_Kd_MaxTime"  resultType="String">
+        select max(CPL_DT)  from  XFY_ZNZW_ORDER_DETAIL a
+    </select>
+
+
+</mapper>

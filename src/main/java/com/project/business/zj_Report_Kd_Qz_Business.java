@@ -384,42 +384,42 @@ public class zj_Report_Kd_Qz_Business {
         //处理支局新增
         List<zj_Report_Kd_Qz_Jz_Zj> Zj_Report_Kd_Qz_Jz_Zj_Deal =  report_Kd_Qz_Jz_DoDetail(selectZj_Report_Kd_Qz_List_Zj,differenceDay,monthDay);
         //宽带新增 1
-        DealExcle.cpoyToExcle(Zj_Report_Kd_Qz_Jz_Zj_Deal,inExcleFile,OutExcleFile,1,Zj_Report_Kd_Qz_Jz_Zj);
+        DealExcle.cpoyToExcle(Zj_Report_Kd_Qz_Jz_Zj_Deal,"D:\\Test\\Kd_Qz\\test630.xlsx",OutExcleFile,1,Zj_Report_Kd_Qz_Jz_Zj);
 
         //处理支局奖扣
         List<zj_Report_Kd_Qz_New_Zj> selectZj_Report_Kd_Qz_New_List_Zj_Deal =  report_Kd_Qz_New_DoDetail(selectZj_Report_Kd_Qz_New_List_Zj,differenceDay,monthDay);
         //宽带净增 2
-        DealExcle.cpoyToExcle(selectZj_Report_Kd_Qz_New_List_Zj_Deal,inExcleFile,OutExcleFile,2,Zj_Report_Kd_Qz_New_Zj);
+        DealExcle.cpoyToExcle(selectZj_Report_Kd_Qz_New_List_Zj_Deal,"D:\\Test\\Kd_Qz\\test630.xlsx",OutExcleFile,2,Zj_Report_Kd_Qz_New_Zj);
 
         //处理支局奖扣
         List<zj_Report_Kd_Qz_Cl_Zj> selectZj_Report_Kd_Qz_Cl_List_Zj_Deal =  report_Kd_Qz_Cl_DoDetail(selectZj_Report_Kd_Qz_List_Cl_Zj,differenceDay,monthDay);
         //宽带净增 2
-        DealExcle.cpoyToExcle(selectZj_Report_Kd_Qz_Cl_List_Zj_Deal,inExcleFile,OutExcleFile,3,Zj_Report_Kd_Qz_Cl_Zj);
+        DealExcle.cpoyToExcle(selectZj_Report_Kd_Qz_Cl_List_Zj_Deal,"D:\\Test\\Kd_Qz\\test630.xlsx",OutExcleFile,3,Zj_Report_Kd_Qz_Cl_Zj);
 
         //处理支局奖扣
         List<zj_Report_Kd_Qz_Rh_Zj> selectZj_Report_Kd_Qz_Rh_List_Zj_Deal =  report_Kd_Qz_Rh_DoDetail(selectZj_Report_Kd_Qz_List_Rh_Zj,differenceDay,monthDay);
         //宽带净增 2
-        DealExcle.cpoyToExcle(selectZj_Report_Kd_Qz_Rh_List_Zj_Deal,inExcleFile,OutExcleFile,4,Zj_Report_Kd_Qz_Rh_Zj);
+        DealExcle.cpoyToExcle(selectZj_Report_Kd_Qz_Rh_List_Zj_Deal,"D:\\Test\\Kd_Qz\\test630.xlsx",OutExcleFile,4,Zj_Report_Kd_Qz_Rh_Zj);
 
         //处理支局奖扣
         List<zj_Report_Kd_Qz_New_Zj> selectZj_Report_Kd_Qz_New_List_Tx_Deal =  report_Kd_Qz_New_DoDetail(selectZj_Report_Kd_Qz_List_New_Tx,differenceDay,monthDay);
         //宽带净增 2
-        DealExcle.cpoyToExcle(selectZj_Report_Kd_Qz_New_List_Tx_Deal,inExcleFile,OutExcleFile,5,Zj_Report_Kd_Qz_New_Zj);
+        DealExcle.cpoyToExcle(selectZj_Report_Kd_Qz_New_List_Tx_Deal,"D:\\Test\\Kd_Qz\\test630.xlsx",OutExcleFile,5,Zj_Report_Kd_Qz_New_Zj);
 
         //处理支局奖扣
         List<zj_Report_Kd_Qz_Cl_Zj> selectZj_Report_Kd_Qz_Cl_List_Tx_Deal =  report_Kd_Qz_Cl_DoDetail(selectZj_Report_Kd_Qz_List_Cl_Tx,differenceDay,monthDay);
         //宽带净增 2
-        DealExcle.cpoyToExcle(selectZj_Report_Kd_Qz_Cl_List_Tx_Deal,inExcleFile,OutExcleFile,6,Zj_Report_Kd_Qz_Cl_Zj);
+        DealExcle.cpoyToExcle(selectZj_Report_Kd_Qz_Cl_List_Tx_Deal,"D:\\Test\\Kd_Qz\\test630.xlsx",OutExcleFile,6,Zj_Report_Kd_Qz_Cl_Zj);
 
         //处理支局奖扣
         List<zj_Report_Kd_Qz_Rh_Zj> selectZj_Report_Kd_Qz_Rh_List_Tx_Deal =  report_Kd_Qz_Rh_DoDetail(selectZj_Report_Kd_Qz_List_Rh_Tx,differenceDay,monthDay);
         //宽带净增 2
-        DealExcle.cpoyToExcle(selectZj_Report_Kd_Qz_Rh_List_Tx_Deal,inExcleFile,OutExcleFile,7,Zj_Report_Kd_Qz_Rh_Zj);
+        DealExcle.cpoyToExcle(selectZj_Report_Kd_Qz_Rh_List_Tx_Deal,"D:\\Test\\Kd_Qz\\test630.xlsx",OutExcleFile,7,Zj_Report_Kd_Qz_Rh_Zj);
 
         //处理时间
-        DealExcle.cpoyToExcleSingle(maxDateStringQz,inExcleFile,OutExcleFile, 8);
+        DealExcle.cpoyToExcleSingle(maxDateStringQz,"D:\\Test\\Kd_Qz\\test630.xlsx",OutExcleFile, 8);
         //处理时间
-        DealExcle.cpoyToExcleSingle(maxDateStringQzCl,inExcleFile,OutExcleFile, 9);
+        DealExcle.cpoyToExcleSingle(maxDateStringQzCl,"D:\\Test\\Kd_Qz\\test630.xlsx",OutExcleFile, 9);
 
         System.out.println("数据处理成功");
 
