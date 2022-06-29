@@ -89,9 +89,9 @@
         select  '合计' Zj_Name,count(*) bb_Amt,sum(CASE WHEN S3.ASSET_ROW_ID IS NOT NULL THEN 1 ELSE 0 END)bb_Kj_Num,
         CASE WHEN count(*) =0 THEN 0 ELSE sum(CASE WHEN S3.ASSET_ROW_ID IS NOT NULL THEN 1 ELSE 0 END)/count(*) END kj_Rate
         from XFY_KD_ASSET S1
-        left join XFY_ZNZW_ORDER_DETAIL S3
+        left join XFY_KJ_ORDER_DETAIL S3
         ON S3.PROM_INTEG_ID=S1.PROM_INTEG_ID
-        inner join XFY_KJ_ORDER_DETAIL S4
+        inner join XFY_RPT_KD_ORDER_DETAIL S4
         ON S4.ASSET_ROW_ID=S1.ASSET_ROW_ID
         AND S4.CPL_DT&gt;= #{startDate}  and  S4.CPL_DT &lt;= #{endDate}
         where   s1.SERV_START_DT &gt;= #{startDate}  and  s1.SERV_START_DT &lt;= #{endDate}

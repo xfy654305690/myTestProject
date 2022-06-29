@@ -384,42 +384,42 @@ public class zj_Report_Kd_Qz_Business {
         //处理支局新增
         List<zj_Report_Kd_Qz_Jz_Zj> Zj_Report_Kd_Qz_Jz_Zj_Deal =  report_Kd_Qz_Jz_DoDetail(selectZj_Report_Kd_Qz_List_Zj,differenceDay,monthDay);
         //宽带新增 1
-        DealExcle.cpoyToExcle(Zj_Report_Kd_Qz_Jz_Zj_Deal,"D:\\Test\\Kd_Qz\\test630.xlsx",OutExcleFile,1,Zj_Report_Kd_Qz_Jz_Zj);
+        DealExcle.cpoyToExcle(Zj_Report_Kd_Qz_Jz_Zj_Deal,"D:\\Test\\Kd_Qz\\test_630.xlsx","D:\\Test\\Kd_Qz\\test_630.xlsx",1,Zj_Report_Kd_Qz_Jz_Zj);
 
         //处理支局奖扣
         List<zj_Report_Kd_Qz_New_Zj> selectZj_Report_Kd_Qz_New_List_Zj_Deal =  report_Kd_Qz_New_DoDetail(selectZj_Report_Kd_Qz_New_List_Zj,differenceDay,monthDay);
         //宽带净增 2
-        DealExcle.cpoyToExcle(selectZj_Report_Kd_Qz_New_List_Zj_Deal,"D:\\Test\\Kd_Qz\\test630.xlsx",OutExcleFile,2,Zj_Report_Kd_Qz_New_Zj);
+        DealExcle.cpoyToExcle(selectZj_Report_Kd_Qz_New_List_Zj_Deal,"D:\\Test\\Kd_Qz\\test_630.xlsx","D:\\Test\\Kd_Qz\\test_630.xlsx",2,Zj_Report_Kd_Qz_New_Zj);
 
         //处理支局奖扣
         List<zj_Report_Kd_Qz_Cl_Zj> selectZj_Report_Kd_Qz_Cl_List_Zj_Deal =  report_Kd_Qz_Cl_DoDetail(selectZj_Report_Kd_Qz_List_Cl_Zj,differenceDay,monthDay);
         //宽带净增 2
-        DealExcle.cpoyToExcle(selectZj_Report_Kd_Qz_Cl_List_Zj_Deal,"D:\\Test\\Kd_Qz\\test630.xlsx",OutExcleFile,3,Zj_Report_Kd_Qz_Cl_Zj);
+        DealExcle.cpoyToExcle(selectZj_Report_Kd_Qz_Cl_List_Zj_Deal,"D:\\Test\\Kd_Qz\\test_630.xlsx","D:\\Test\\Kd_Qz\\test_630.xlsx",3,Zj_Report_Kd_Qz_Cl_Zj);
 
         //处理支局奖扣
         List<zj_Report_Kd_Qz_Rh_Zj> selectZj_Report_Kd_Qz_Rh_List_Zj_Deal =  report_Kd_Qz_Rh_DoDetail(selectZj_Report_Kd_Qz_List_Rh_Zj,differenceDay,monthDay);
         //宽带净增 2
-        DealExcle.cpoyToExcle(selectZj_Report_Kd_Qz_Rh_List_Zj_Deal,"D:\\Test\\Kd_Qz\\test630.xlsx",OutExcleFile,4,Zj_Report_Kd_Qz_Rh_Zj);
+        DealExcle.cpoyToExcle(selectZj_Report_Kd_Qz_Rh_List_Zj_Deal,"D:\\Test\\Kd_Qz\\test_630.xlsx","D:\\Test\\Kd_Qz\\test_630.xlsx",4,Zj_Report_Kd_Qz_Rh_Zj);
 
         //处理支局奖扣
         List<zj_Report_Kd_Qz_New_Zj> selectZj_Report_Kd_Qz_New_List_Tx_Deal =  report_Kd_Qz_New_DoDetail(selectZj_Report_Kd_Qz_List_New_Tx,differenceDay,monthDay);
         //宽带净增 2
-        DealExcle.cpoyToExcle(selectZj_Report_Kd_Qz_New_List_Tx_Deal,"D:\\Test\\Kd_Qz\\test630.xlsx",OutExcleFile,5,Zj_Report_Kd_Qz_New_Zj);
+        DealExcle.cpoyToExcle(selectZj_Report_Kd_Qz_New_List_Tx_Deal,"D:\\Test\\Kd_Qz\\test_630.xlsx","D:\\Test\\Kd_Qz\\test_630.xlsx",5,Zj_Report_Kd_Qz_New_Zj);
 
         //处理支局奖扣
         List<zj_Report_Kd_Qz_Cl_Zj> selectZj_Report_Kd_Qz_Cl_List_Tx_Deal =  report_Kd_Qz_Cl_DoDetail(selectZj_Report_Kd_Qz_List_Cl_Tx,differenceDay,monthDay);
         //宽带净增 2
-        DealExcle.cpoyToExcle(selectZj_Report_Kd_Qz_Cl_List_Tx_Deal,"D:\\Test\\Kd_Qz\\test630.xlsx",OutExcleFile,6,Zj_Report_Kd_Qz_Cl_Zj);
+        DealExcle.cpoyToExcle(selectZj_Report_Kd_Qz_Cl_List_Tx_Deal,"D:\\Test\\Kd_Qz\\test_630.xlsx","D:\\Test\\Kd_Qz\\test_630.xlsx",6,Zj_Report_Kd_Qz_Cl_Zj);
 
         //处理支局奖扣
         List<zj_Report_Kd_Qz_Rh_Zj> selectZj_Report_Kd_Qz_Rh_List_Tx_Deal =  report_Kd_Qz_Rh_DoDetail(selectZj_Report_Kd_Qz_List_Rh_Tx,differenceDay,monthDay);
         //宽带净增 2
-        DealExcle.cpoyToExcle(selectZj_Report_Kd_Qz_Rh_List_Tx_Deal,"D:\\Test\\Kd_Qz\\test630.xlsx",OutExcleFile,7,Zj_Report_Kd_Qz_Rh_Zj);
+        DealExcle.cpoyToExcle(selectZj_Report_Kd_Qz_Rh_List_Tx_Deal,"D:\\Test\\Kd_Qz\\test_630.xlsx","D:\\Test\\Kd_Qz\\test_630.xlsx",7,Zj_Report_Kd_Qz_Rh_Zj);
 
         //处理时间
-        DealExcle.cpoyToExcleSingle(maxDateStringQz,"D:\\Test\\Kd_Qz\\test630.xlsx",OutExcleFile, 8);
+        DealExcle.cpoyToExcleSingle(maxDateStringQz,"D:\\Test\\Kd_Qz\\test_630.xlsx","D:\\Test\\Kd_Qz\\test_630.xlsx", 8);
         //处理时间
-        DealExcle.cpoyToExcleSingle(maxDateStringQzCl,"D:\\Test\\Kd_Qz\\test630.xlsx",OutExcleFile, 9);
+        DealExcle.cpoyToExcleSingle(maxDateStringQzCl,"D:\\Test\\Kd_Qz\\test_630.xlsx","D:\\Test\\Kd_Qz\\test_630.xlsx", 9);
 
         System.out.println("数据处理成功");
 
@@ -436,7 +436,7 @@ public class zj_Report_Kd_Qz_Business {
 
         //将图片发送微信
         // 1是文字，2是图片
-        DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
+        //DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
 
         System.out.println("发送微信成功");
 
@@ -444,7 +444,7 @@ public class zj_Report_Kd_Qz_Business {
         String contextNew=report_Kd_Qz_New_DoDetail_Context(selectZj_Report_Kd_Qz_New_List_Zj_Deal);
         String contextJz=report_Kd_Qz_Jz_DoDetail_Context(Zj_Report_Kd_Qz_Jz_Zj_Deal);
         String context=contextNew+"\n"+contextJz;
-        DealSendMessage.searchMyFriendAndSend(wechartSendName,1,context);
+        //DealSendMessage.searchMyFriendAndSend(wechartSendName,1,context);
 
         //获取支局长邮箱地址
         List<zj_Report_Public> zj_Report_Public_List =zj_Report_Public_Business.zj_Report_Public_Business();
@@ -455,7 +455,7 @@ public class zj_Report_Kd_Qz_Business {
         List<String> FileList=new ArrayList();
         FileList.add(OutPictureFileNew);
         //邮件发送附件图片*****************************
-        DealEmail.ctreatMailMore(zj_Report_Public_List,null,null,title,content,FileList);
+        //DealEmail.ctreatMailMore(zj_Report_Public_List,null,null,title,content,FileList);
 
         System.out.println("邮件发送成功");
 

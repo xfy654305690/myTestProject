@@ -155,15 +155,15 @@
     </select>
 
     <select id="selectZj_Report_Kd_Qz_MaxTime"  resultType="String">
-        select max(CPL_DT)  from XFY_RPT_KD_ORDER_DETAIL a
+        select max(a.CPL_DT)  from XFY_RPT_KD_ORDER_DETAIL a
     </select>
 
     <select id="selectZj_Report_Kd_Qz_Cl_MaxTime"  resultType="String">
-        select max(DATE_CD)  from XFY_KD_CL_QZ a
+        select max(a.DATE_CD)  from XFY_KD_CL_QZ a
     </select>
 
     <select id="selectZj_Report_Kd_Qz_Gis_TEMP_MaxTime"  resultType="String">
-        select max(DATE_CD)  from  XFY_KD_ASSET a
+        select max(a.DATE_CD)  from  XFY_KD_ASSET a
     </select>
 
     <select id="selectZj_Report_Kd_Qz_Temp_Gis"  resultType="com.project.model.zj_Report_Kd_Qz_Temp_Gis">
