@@ -40,7 +40,7 @@
                            and q8.SPEED in ('1024000Kbps')
                             AND q8.CACCT_ID not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
                              ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
-        ) q6
+            ) q6
         ON Q5.Zj_Name=Q6.Zj_Name
           left join XFY_REP_PUB_TARGET  Q3
                     on Q3.ZJ_ABBR_NAME=Q5.Zj_Name
@@ -196,6 +196,49 @@
 
     <select id="selectZj_Report_Kd_Qz_Gis_XGPON_TEMP_MaxTime"  resultType="String">
         select max(XGPON_DT)  from  XFY_RPT_RH_TEMP_169_XGPON_TIME a
+    </select>
+
+    <select id="selectZj_Report_Kd_Qz_Jz_Zj_JS"  resultType="com.project.model.zj_Report_Kd_Qz_Jz_Zj">
+        SELECT * FROM (select q2.ZJ_OLD zj_name,Now_Qz,Old_Qz,(Now_Qz-Old_Qz) Qz_Num,q3.ZJ_KD_QZ_JZ  Zj_Kd_Qz_Jz_Avg_Tar from
+            (select b.ZJ_OLD, count(*) as Now_Qz from   ${tableNameNew} a
+                                                            left join XFY_REP_PUB_ZJ_CON b
+                                                                      on b.ZJ_NEW=a.ZJ_AREA_NAME
+             where a.BIL_FLG='1'
+               AND a.CACCT_ID not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
+                 ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
+               and a.SPEED in ('1024000Kbps')
+             group by b.ZJ_OLD) q1
+                right join
+            (select b.ZJ_OLD,count(*) as Old_Qz from   ${tableNameOld} a
+                                                           left join XFY_REP_PUB_ZJ_CON b
+                                                                     on b.ZJ_NEW=a.ZJ_AREA_NAME
+             where a.BIL_FLG='1'
+               AND a.CACCT_ID not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
+                 ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
+               and a.SPEED in ('1024000Kbps')
+             group by b.ZJ_OLD) q2
+            on q1.ZJ_OLD=q2.ZJ_OLD
+                right join XFY_REP_PUB_TARGET q3
+                           on q3.ZJ_ABBR_NAME=q1.ZJ_OLD
+                       WHERE Q3.ZJ_ABBR_NAME NOT IN ('鄞州政企部','鄞州分公司未落地','鄞州分公司本级','合计')
+                       order by  q3.ZJ_ABBR_NAME  desc) q4
+        union all
+        select q5.zj_name,Now_Qz,Old_Qz,(Now_Qz-Old_Qz) Qz_Num,q3.ZJ_KD_QZ_JZ Zj_Kd_Qz_Jz_Avg_Tar from
+            (select '合计' Zj_Name,count(*) Old_Qz from  ${tableNameOld} q7
+             where q7.BIL_FLG='1'
+               AND q7.CACCT_ID not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
+                 ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
+               and q7.SPEED in ('1024000Kbps')
+            ) q5
+                left join (select '合计' Zj_Name,count(*) Now_Qz from ${tableNameNew} q8
+                           where q8.BIL_FLG='1'
+                             and q8.SPEED in ('1024000Kbps')
+                             AND q8.CACCT_ID not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
+                               ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
+            ) q6
+                          ON Q5.Zj_Name=Q6.Zj_Name
+                left join XFY_REP_PUB_TARGET  Q3
+                          on Q3.ZJ_ABBR_NAME=Q5.Zj_Name
     </select>
 
 

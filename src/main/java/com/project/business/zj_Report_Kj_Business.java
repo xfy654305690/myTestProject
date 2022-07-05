@@ -51,6 +51,79 @@ public class zj_Report_Kj_Business {
 
 
     //取数导出excle
+    public static void report_Kj_Zj_Js() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException, ParseException {
+
+        InputStream in= Resources.getResourceAsStream(config);
+        SqlSessionFactoryBuilder builder=new SqlSessionFactoryBuilder();
+        SqlSessionFactory factory = builder.build(in);
+        SqlSession sqlSession=factory.openSession();
+
+        zj_Report_Kj_Dao zj_Report_Kj_Dao = sqlSession.getMapper(zj_Report_Kj_Dao.class);
+
+        dealTime dealTime=new dealTime();
+
+        //获取上季度一号，返回日期格式
+        Date startDate=dealTime.getLastQuarterFirstDay();
+        //获取上季度最后一号，返回日期格式
+        Date endDate=dealTime.getLastQuarterLastDay();
+
+        //获取当前日期DD格式
+        String nowDayYYYYMMDD=dealTime.get_date_By_String_YYYYMMDD();
+
+
+        //宽带新增数据-KD
+        List<zj_Report_Kj_New_Zj> selectZj_Report_Kj_New_List_Zj =
+                zj_Report_Kj_Dao.selectZj_Report_Kj_New_Zj(startDate,endDate);
+        //宽带净增数据-KD
+        List<zj_Report_Kj_Rh_Zj> selectZj_Report_Kj_Rh_List_Zj =
+                zj_Report_Kj_Dao.selectZj_Report_Kj_Rh_Zj(startDate,endDate);
+        //宽带净增数据-KD
+        List<zj_Report_Kj_Kd_Zj> selectZj_Report_Kj_Kd_List_Zj =
+                zj_Report_Kj_Dao.selectZj_Report_Kj_Kd_Zj(startDate,endDate);
+
+        //系统时间
+        String maxDateString=zj_Report_Kj_Dao.selectZj_Report_Kj_Kd_MaxTime();
+
+        sqlSession.close();
+
+        zj_Report_Kj_New_Zj zj_Report_Kj_New_Zj=new zj_Report_Kj_New_Zj();
+        zj_Report_Kj_Rh_Zj zj_Report_Kj_Rh_Zj=new zj_Report_Kj_Rh_Zj();
+        zj_Report_Kj_Kd_Zj zj_Report_Kj_Kd_Zj=new zj_Report_Kj_Kd_Zj();
+
+        dealExcle DealExcle =new dealExcle();
+        dealEmail DealEmail=new dealEmail();
+        dealSendMessage DealSendMessage=new dealSendMessage();
+
+        //处理时间差
+        SimpleDateFormat simpleDateFormatYMD = new SimpleDateFormat("yyyy-MM-dd");
+        Date maxDate =  simpleDateFormatYMD.parse(maxDateString);
+        Integer differenceDay=dealTime.get_date_Difference_Values(dealTime.get_nowQuarter_FirstDay_ByDate(),maxDate);
+
+        //处理季度日期差
+        Integer quarterDay=dealTime.get_date_Difference_Values(dealTime.get_nowQuarter_FirstDay_ByDate(),dealTime.get_nowQuarter_LastDay_ByDate());
+
+        //
+        List<zj_Report_Kj_New_Zj> selectZj_Report_Kj_New_List_Zj_Deal =  report_Kj_New_DoDetail(selectZj_Report_Kj_New_List_Zj,differenceDay,quarterDay);
+        //
+        DealExcle.cpoyToExcle(selectZj_Report_Kj_New_List_Zj_Deal,inExcleFile,OutExcleFile,1,zj_Report_Kj_New_Zj);
+        //
+        DealExcle.cpoyToExcle(selectZj_Report_Kj_Rh_List_Zj,inExcleFile,OutExcleFile,2,zj_Report_Kj_Rh_Zj);
+        //
+        DealExcle.cpoyToExcle(selectZj_Report_Kj_Kd_List_Zj,inExcleFile,OutExcleFile,3,zj_Report_Kj_Kd_Zj);
+
+        //处理时间
+        DealExcle.cpoyToExcleSingle(maxDateString,inExcleFile,OutExcleFile, 4);
+
+        System.out.println("数据处理成功");
+
+        //复制文件
+        String OutExcleSouceFilenew =OutExcleAccountsFile_JS+"看家通报"+"_"+nowDayYYYYMMDD+".xlsx";
+        DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleSouceFilenew);
+
+    }
+
+
+    //取数导出excle
     public static void report_Kj_Zj() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException, ParseException {
 
         InputStream in= Resources.getResourceAsStream(config);

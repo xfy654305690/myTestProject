@@ -15,4 +15,10 @@ public class zj_Report_Kj_Controller {
 
     }
 
+    public static void report_Kj_Zj_Js() throws MessagingException, IOException, ParseException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException, IOException, ParseException, InvocationTargetException {
+        zj_Report_Kj_Business zj_Report_Kj_Business=new zj_Report_Kj_Business();
+        zj_Report_Kj_Business.report_Kj_Zj_Js();
+
+    }
+
 }

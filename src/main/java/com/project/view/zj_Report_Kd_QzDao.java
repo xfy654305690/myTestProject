@@ -34,4 +34,6 @@ public interface zj_Report_Kd_QzDao {
 
     public String selectZj_Report_Kd_Qz_Gis_XGPON_TEMP_MaxTime ();
 
+    public List<zj_Report_Kd_Qz_Jz_Zj> selectZj_Report_Kd_Qz_Jz_Zj_JS (@Param("tableNameOld") String tableNameOld,@Param("tableNameNew") String tableNameNew);
+
 }
