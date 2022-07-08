@@ -95,10 +95,10 @@ public class zj_Report_Znzw_Business {
         //处理时间差
         SimpleDateFormat simpleDateFormatYMD = new SimpleDateFormat("yyyy-MM-dd");
         Date maxDate =  simpleDateFormatYMD.parse(maxDateString);
-        Integer differenceDay=dealTime.get_date_Difference_Values(dealTime.get_nowQuarter_FirstDay_ByDate(),maxDate);
+        Integer differenceDay=dealTime.get_date_Difference_Values(startDate,endDate);
 
         //处理季度日期差
-        Integer quarterDay=dealTime.get_date_Difference_Values(dealTime.get_nowQuarter_FirstDay_ByDate(),dealTime.get_nowQuarter_LastDay_ByDate());
+        Integer quarterDay=dealTime.get_date_Difference_Values(dealTime.getLastQuarterFirstDay(),dealTime.getLastQuarterLastDay());
 
         //
         List<zj_Report_Znzw_New_Zj> selectZj_Report_Znzw_New_List_Zj_Deal =  report_Znzw_New_DoDetail(selectZj_Report_Znzw_New_List_Zj,differenceDay,quarterDay);

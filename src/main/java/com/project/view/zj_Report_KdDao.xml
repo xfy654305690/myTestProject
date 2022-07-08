@@ -180,7 +180,7 @@
                             left join
                         (select D.ZJ_OLD as Zj_Name,COUNT(*) AMT_OLD from ${tableNameOld}  S1
                           left join XFY_REP_PUB_ZJ_CON D
-                          on D.Zj_New = S1.ZJ_AREA_NAME_NEW
+                          on D.Zj_New = S1.ZJ_AREA_NAME
                          where s1.CACCT_ID not in ('2742039410352','2742043400287','2742043679717','2742037917799','2742037919610','2742039829735','2742037919567','2742025286104','2742025284266'
                              ,'2742035055805','2742025290416','2741049732135','2741049732180','2741049732096','2741049732132','2741049666670','2741049580116')
                          GROUP BY D.ZJ_OLD) p2

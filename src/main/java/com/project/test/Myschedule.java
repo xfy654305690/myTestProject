@@ -17,6 +17,8 @@ public class Myschedule {
                 .withIdentity("job1", "group1").build();
         JobDetail jobDetailZss1 = JobBuilder.newJob(DoJob1.class)
                 .withIdentity("jobZss1", "groupZss1").build();
+        JobDetail jobDetailZcy = JobBuilder.newJob(DoJob2.class)
+                .withIdentity("jobZcy1", "groupZcy1").build();
         // 3、构建Trigger实例,每隔1s执行一次
         Date startDate = new Date();
         startDate.setTime(startDate.getTime() + 5000);
@@ -34,10 +36,18 @@ public class Myschedule {
                 //.withSchedule(CronScheduleBuilder.cronSchedule("0 0/2 * * * ? "))
                 .withSchedule(CronScheduleBuilder.cronSchedule("0 15 12,13,15,17,19,21 * * ? *"))
                 .build();
+        CronTrigger cronTriggerZcy1 = TriggerBuilder.newTrigger().withIdentity("triggerZcy1", "triggerGroupZcy1")
+                .usingJobData("triggerZcy1", "这是jobDetail1的triggerZcy1")
+                .startNow()//立即生效
+                .startAt(startDate)
+                //.withSchedule(CronScheduleBuilder.cronSchedule("0 0/2 * * * ? "))
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 30 16,19 * * ? *"))
+                .build();
 
         //4、执行
         scheduler.scheduleJob(jobDetail, cronTrigger);
         scheduler.scheduleJob(jobDetailZss1, cronTriggerZss1);
+        scheduler.scheduleJob(jobDetailZcy, cronTriggerZcy1);
         System.out.println("--------scheduler start ! ------------");
         scheduler.start();
 

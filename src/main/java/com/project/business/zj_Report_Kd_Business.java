@@ -100,7 +100,7 @@ public class zj_Report_Kd_Business {
         //处理时间差
         Integer differenceDay=dealTime.get_date_Difference_Values(startDate,endDate);
         //处理季度日期差
-        Integer quarterDay=dealTime.get_date_Difference_Values(dealTime.get_nowQuarter_FirstDay_ByDate(),dealTime.get_nowQuarter_LastDay_ByDate());
+        Integer quarterDay=dealTime.get_date_Difference_Values(dealTime.getLastQuarterFirstDay(),dealTime.getLastQuarterLastDay());
 
         Integer differenceDayYear=dealTime.get_date_Difference_Values(dealTime.get_nowYear_FirstDay_ByDate(),endDate);
 
