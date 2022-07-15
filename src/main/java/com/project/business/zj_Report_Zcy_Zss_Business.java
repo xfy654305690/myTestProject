@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class zj_Report_Zcy_Zss_Business {
@@ -43,7 +45,7 @@ public class zj_Report_Zcy_Zss_Business {
 
 
     //取数导出excle
-    public static void selectZj_Report_Zcy_Zss() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException, ParseException {
+    public static void selectZj_Report_Zcy_Zss() throws Exception {
 
         InputStream in= Resources.getResourceAsStream(config);
         SqlSessionFactoryBuilder builder=new SqlSessionFactoryBuilder();
@@ -60,6 +62,9 @@ public class zj_Report_Zcy_Zss_Business {
         List<zj_Report_Zcy_Zss_Zj> selectZj_Report_Zcy_Zss_List =
                 zj_Report_Zcy_ZssDao.selectZj_Report_Zcy_Zss();
 
+        Date maxDate=zj_Report_Zcy_ZssDao.selectZj_Report_Zcy_MaxTime();
+        SimpleDateFormat simpleDateFormatYMD = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        String maxDateStringYYYYMMDDHHDDSS=simpleDateFormatYMD.format(maxDate.getTime());
 
         sqlSession.close();
 
@@ -71,6 +76,9 @@ public class zj_Report_Zcy_Zss_Business {
 
 
         DealExcle.cpoyToExcle(selectZj_Report_Zcy_Zss_List,inExcleFile,OutExcleFile,1,zj_Report_Zcy_Zss_Zj);
+
+        //处理时间
+        DealExcle.cpoyToExcleSingle(maxDateStringYYYYMMDDHHDDSS,inExcleFile,OutExcleFile, 2);
 
         System.out.println("数据处理成功");
 
@@ -84,10 +92,12 @@ public class zj_Report_Zcy_Zss_Business {
         DealExcle.excleToPng(inPictureFile,OutPictureFileNew);
 
         System.out.println("图片转化成功");
+        //System.out.println(OutExcleSouceFilenew);
 
         //将图片发送微信
         // 1是文字，2是图片
-        DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutExcleSouceFilenew);
+        DealSendMessage.searchMyFriendAndSend(wechartSendName,2,OutPictureFileNew);
+        DealSendMessage.searchMyFriendAndSend(wechartSendName,3,OutExcleSouceFilenew);
 
         System.out.println("发送微信成功");
 

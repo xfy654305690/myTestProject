@@ -17,13 +17,13 @@ public class zj_Report_Kd_Controller {
 
     }
 
-    public static void report_Kd_Zj() throws MessagingException, IOException, ParseException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+    public static void report_Kd_Zj() throws Exception {
 
         zj_Report_Kd_Business Zj_Report_Kd_Business=new zj_Report_Kd_Business();
         Zj_Report_Kd_Business.report_Kd_Zj();
 
     }
-    public static void report_Kd_Zj_DoData() throws MessagingException, IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+    public static void report_Kd_Zj_DoData() throws Exception {
         zj_Report_Kd_Business Zj_Report_Kd_Business=new zj_Report_Kd_Business();
         Zj_Report_Kd_Business.report_Kd_Zj_DoData_NowMonth();
 

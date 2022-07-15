@@ -10,7 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 public class zj_Report_RhItv_Controller {
 
 
-    public static void report_RhItv_Zj() throws MessagingException, IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+    public static void report_RhItv_Zj() throws Exception {
         zj_Report_RhItv_Business zj_Report_RhItv_Business=new zj_Report_RhItv_Business();
         zj_Report_RhItv_Business.report_RhItv_Zj();
     }
@@ -18,11 +18,11 @@ public class zj_Report_RhItv_Controller {
         zj_Report_RhItv_Business zj_Report_RhItv_Business=new zj_Report_RhItv_Business();
         zj_Report_RhItv_Business.report_RhItv_Zj_Js();
     }
-    public static void report_RhItv_Zj_Js_DoData() throws MessagingException, IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+    public static void report_RhItv_Zj_Js_DoData() throws Exception {
         zj_Report_RhItv_Business zj_Report_RhItv_Business=new zj_Report_RhItv_Business();
         zj_Report_RhItv_Business.report_RhItv_Zj_DoData_LastMonth();
     }
-    public static void report_RhItv_Zj_DoData() throws MessagingException, IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+    public static void report_RhItv_Zj_DoData() throws Exception {
         zj_Report_RhItv_Business zj_Report_RhItv_Business=new zj_Report_RhItv_Business();
         zj_Report_RhItv_Business.report_RhItv_Zj_DoData_NowMonth();
     }

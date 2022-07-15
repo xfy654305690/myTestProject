@@ -18,5 +18,8 @@
         from ck_zj_2022_zss_2
         order  by   zjdf desc
     </select>
+    <select id="selectZj_Report_Zcy_MaxTime"  resultType="Date">
+        select max(order_item_accept_date)  from  RPT_REAL_prd_LST_IO_DAY_D_SBJ@lbas
+    </select>
 
 </mapper>

@@ -32,7 +32,7 @@ public class zj_Report_Tcf_Business {
     //图片地址跟目录
     public static  final  String OutPictureFile="D:\\test\\Tcf\\PICTURE\\";
     //微信群名称
-    public static  final  String wechartSendName="鄞战2022-冲刺630";
+    public static  final  String wechartSendName="鄞战2022“一根筋做融合”";
     public static  final  String wechartPictureAdress="D:\\test\\Tcf\\";
     //微信群名称
     public static  final  String inExcleDataFile="D:\\Test\\Tcf\\test.xlsx";
@@ -109,7 +109,7 @@ public class zj_Report_Tcf_Business {
     }
 
     //取数导出excle
-    public static void report_Tcf_Zj() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
+    public static void report_Tcf_Zj() throws Exception {
 
         InputStream in= Resources.getResourceAsStream(config);
         SqlSessionFactoryBuilder builder=new SqlSessionFactoryBuilder();
@@ -206,7 +206,7 @@ public class zj_Report_Tcf_Business {
 
     }
 
-    public static void report_Tcf_Zj_DoData_NowMonth() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
+    public static void report_Tcf_Zj_DoData_NowMonth() throws Exception {
         //获取当月一号，返回日期格式
         Date startDate=dealTime.get_nowMonth_FirstDay_ByDate();
         //获取当月最后一号，返回日期格式
@@ -217,7 +217,7 @@ public class zj_Report_Tcf_Business {
 
     }
 
-    public static void report_Xubao_Zj_DoData_LastMonth() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
+    public static void report_Xubao_Zj_DoData_LastMonth() throws Exception {
         //获取上月一号，返回日期格式
         Date startDate=dealTime.get_lastMonth_FirstDay_ByDate();
         //获取上月最后一号，返回日期格式
@@ -227,7 +227,7 @@ public class zj_Report_Tcf_Business {
         report_Tcf_Zj_DoData(startDate,endDate,nowDayYYYYMMDD,"上月结算");
 
     }
-    public static void report_Tcf_Zj_DoData(Date startDate,Date endDate,String nowDayYYYYMMDD,String strContent) throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
+    public static void report_Tcf_Zj_DoData(Date startDate,Date endDate,String nowDayYYYYMMDD,String strContent) throws Exception {
 
         dealEmail DealEmail=new dealEmail();
         dealExcle DealExcle =new dealExcle();

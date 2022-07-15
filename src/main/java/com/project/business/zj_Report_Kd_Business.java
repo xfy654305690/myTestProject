@@ -35,7 +35,7 @@ public class zj_Report_Kd_Business {
     //图片地址跟目录
     public static  final  String OutPictureFile="D:\\test\\KD\\PICTURE\\";
     //微信群名称
-    public static  final  String wechartSendName="鄞战2022-冲刺630";
+    public static  final  String wechartSendName="鄞战2022“一根筋做融合”";
     public static  final  String wechartPictureAdress="D:\\test\\KD\\";
     //微信群名称
     public static  final  String inExcleDataFile="D:\\Test\\KD\\test.xlsx";
@@ -130,7 +130,7 @@ public class zj_Report_Kd_Business {
     }
 
     //取数导出excle
-    public static void report_Kd_Zj() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException, ParseException {
+    public static void report_Kd_Zj() throws Exception {
 
         InputStream in= Resources.getResourceAsStream(config);
         SqlSessionFactoryBuilder builder=new SqlSessionFactoryBuilder();
@@ -287,7 +287,7 @@ public class zj_Report_Kd_Business {
         SimpleDateFormat simpleDateFormatY_M_D = new SimpleDateFormat("yyyy-MM-dd");//注意月份是MM
 
         //系统时间
-        String maxDateString= simpleDateFormatY_M_D.format(endDate);;
+        String maxDateString= simpleDateFormatY_M_D.format(endDate);
 
         sqlSession.close();
 
@@ -332,11 +332,11 @@ public class zj_Report_Kd_Business {
     }
 
     //取数导出excle
-    public static void report_Kd_Zj_DoData_NowMonth() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
+    public static void report_Kd_Zj_DoData_NowMonth() throws Exception {
         report_Kd_Zj_DoData();
     }
 
-    public static void report_Kd_Zj_DoData() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
+    public static void report_Kd_Zj_DoData() throws Exception {
 
         //上个季度的最后一天
         String lastQuarterMonth =dealTime.get_lastQuarter_LastDay_ByDate_YYYYMM();

@@ -22,7 +22,7 @@ public class zj_Report_Xubao_Controller {
         Zj_Report_Xubao_Business.report_Xubao_Zj_Js();
     }
 
-    public static void report_Xubao_Zj() throws MessagingException, IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+    public static void report_Xubao_Zj() throws Exception {
         zj_Report_Xubao_Business Zj_Report_Xubao_Business=new zj_Report_Xubao_Business();
         Zj_Report_Xubao_Business.report_Xubao_Zj();
     }

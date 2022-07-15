@@ -41,7 +41,7 @@ public class Myschedule {
                 .startNow()//立即生效
                 .startAt(startDate)
                 //.withSchedule(CronScheduleBuilder.cronSchedule("0 0/2 * * * ? "))
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 30 16,19 * * ? *"))
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 35 16,19 * * ? *"))
                 .build();
 
         //4、执行

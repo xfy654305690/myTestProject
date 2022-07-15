@@ -5,9 +5,12 @@ import java.awt.*;
 import java.awt.datatransfer.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 public class dealSendMessage {
 
@@ -23,7 +26,7 @@ public class dealSendMessage {
     }
 
     //发送类型，1是文字，2是图片
-    public static void searchMyFriendAndSend(String friendNickName,int type,String UrlOrMessage ) throws IOException {
+    public static void searchMyFriendAndSend(String friendNickName,int type,String UrlOrMessage ) throws Exception {
         // 创建Robot对象
         Robot robot = getRobot();
         //打开微信 Ctrl+Alt+W
@@ -80,6 +83,10 @@ public class dealSendMessage {
             // 发送图片
             sendPicture(UrlOrMessage);
         }
+        if(type == 3){
+            // 发送图片
+            putFileToSystemClipboard(UrlOrMessage);
+        }
 
         robot.delay(8000);
 
@@ -133,6 +140,32 @@ public class dealSendMessage {
         };
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(trans,null);
 
+    }
+
+    public static void putFileToSystemClipboard(String adress) throws Exception {
+        File fileOut = new File(adress);
+        final Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        final ClipboardOwner clipboardOwner = null;
+        final Transferable transferable = new Transferable() {
+            public boolean isDataFlavorSupported(final DataFlavor flavor) {
+                return false;
+            }
+            public DataFlavor[] getTransferDataFlavors() {
+                return new DataFlavor[] { DataFlavor.javaFileListFlavor, DataFlavor.stringFlavor };
+            }
+            public Object getTransferData(final DataFlavor flavor) {
+                if (flavor.equals(DataFlavor.javaFileListFlavor)) {
+                    final List list = new ArrayList<>();
+                    list.add(fileOut.getAbsolutePath());
+                    return list;
+                }
+                if (flavor.equals(DataFlavor.stringFlavor)) {
+                    return fileOut.getAbsolutePath();
+                }
+                return null;
+            }
+        };
+        clipboard.setContents(transferable, clipboardOwner);
     }
 
 }

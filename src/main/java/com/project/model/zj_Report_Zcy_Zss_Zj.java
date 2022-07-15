@@ -2,6 +2,7 @@ package com.project.model;
 
 public class zj_Report_Zcy_Zss_Zj {
 
+    public  String dcld;
     //支局全程 Zj_Abbr_Name
     public  String zj;
     //移动日均指标
@@ -103,10 +104,19 @@ public class zj_Report_Zcy_Zss_Zj {
         this.zjdf = zjdf;
     }
 
+    public String getDcld() {
+        return dcld;
+    }
+
+    public void setDcld(String dcld) {
+        this.dcld = dcld;
+    }
+
     @Override
     public String toString() {
         return "zj_Report_Zcy_Zss_Zj{" +
-                "zj='" + zj + '\'' +
+                "dcld='" + dcld + '\'' +
+                ", zj='" + zj + '\'' +
                 ", ydrj=" + ydrj +
                 ", kdrj=" + kdrj +
                 ", gtrj=" + gtrj +

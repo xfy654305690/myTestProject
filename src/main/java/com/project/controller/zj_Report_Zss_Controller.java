@@ -18,7 +18,7 @@ public class zj_Report_Zss_Controller {
 //
 //    }
 
-    public static void report_Zss_Zj() throws MessagingException, IOException, ParseException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+    public static void report_Zss_Zj() throws Exception {
         zj_Report_Zss_Business zj_Report_Zss_Business=new zj_Report_Zss_Business();
         zj_Report_Zss_Business.report_Zss_Zj();
     }

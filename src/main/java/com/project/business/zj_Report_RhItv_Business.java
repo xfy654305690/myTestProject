@@ -32,7 +32,7 @@ public class zj_Report_RhItv_Business {
     //图片地址跟目录
     public static  final  String OutPictureFile="D:\\test\\RhItv\\PICTURE\\";
     //微信群名称
-    public static  final  String wechartSendName="鄞战2022-冲刺630";
+    public static  final  String wechartSendName="鄞战2022“一根筋做融合”";
     public static  final  String wechartPictureAdress="D:\\test\\RhItv\\";
     //微信群名称
     public static  final  String inExcleDataFile="D:\\Test\\RhItv\\test.xlsx";
@@ -155,7 +155,7 @@ public class zj_Report_RhItv_Business {
 
 
     //取数导出excle
-    public static void report_RhItv_Zj() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
+    public static void report_RhItv_Zj() throws Exception {
 
         InputStream in= Resources.getResourceAsStream(config);
         SqlSessionFactoryBuilder builder=new SqlSessionFactoryBuilder();
@@ -246,7 +246,7 @@ public class zj_Report_RhItv_Business {
 
     }
     //取数导出excle
-    public static void report_RhItv_Zj_DoData_NowMonth() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
+    public static void report_RhItv_Zj_DoData_NowMonth() throws Exception {
         //获取当月一号，返回日期格式
         Date startDate=dealTime.get_nowQuarter_FirstDay_ByDate();
         //获取当月最后一号，返回日期格式
@@ -255,7 +255,7 @@ public class zj_Report_RhItv_Business {
         String nowDayYYYYMMDD=dealTime.get_date_By_String_YYYYMMDD();
         report_RhItv_Zj_DoData(startDate,endDate,nowDayYYYYMMDD,"");
     }
-    public static void report_RhItv_Zj_DoData_LastMonth()throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
+    public static void report_RhItv_Zj_DoData_LastMonth() throws Exception {
         //获取上季度一号，返回日期格式
         Date startDate=dealTime.getLastQuarterFirstDay();
         //获取上季度最后一号，返回日期格式
@@ -266,7 +266,7 @@ public class zj_Report_RhItv_Business {
     }
 
     //取数导出excle
-    public static void report_RhItv_Zj_DoData(Date startDate,Date endDate,String nowDayYYYYMMDD,String strContent) throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException {
+    public static void report_RhItv_Zj_DoData(Date startDate,Date endDate,String nowDayYYYYMMDD,String strContent) throws Exception {
 
         dealEmail DealEmail=new dealEmail();
         dealExcle DealExcle =new dealExcle();

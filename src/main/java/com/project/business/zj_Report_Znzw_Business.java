@@ -36,7 +36,7 @@ public class zj_Report_Znzw_Business {
     //图片地址跟目录
     public static  final  String OutPictureFile="D:\\test\\ZNZW\\PICTURE\\";
     //微信群名称
-    public static  final  String wechartSendName="鄞战2022-冲刺630";
+    public static  final  String wechartSendName="鄞战2022“一根筋做融合”";
     public static  final  String wechartPictureAdress="D:\\test\\ZNZW\\";
     //微信群名称
     public static  final  String inExcleDataFile="D:\\Test\\ZNZW\\test.xlsx";
@@ -123,7 +123,7 @@ public class zj_Report_Znzw_Business {
 
 
     //取数导出excle
-    public static void report_Znzw_Zj() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException, ParseException {
+    public static void report_Znzw_Zj() throws Exception {
 
         InputStream in= Resources.getResourceAsStream(config);
         SqlSessionFactoryBuilder builder=new SqlSessionFactoryBuilder();

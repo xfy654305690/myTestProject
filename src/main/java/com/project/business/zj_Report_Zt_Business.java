@@ -36,7 +36,7 @@ public class zj_Report_Zt_Business {
     //图片地址跟目录
     public static  final  String OutPictureFile="D:\\test\\ZT\\PICTURE\\";
     //微信群名称
-    public static  final  String wechartSendName="鄞战2022-冲刺630";
+    public static  final  String wechartSendName="鄞战2022“一根筋做融合”";
     public static  final  String wechartPictureAdress="D:\\test\\ZT\\";
     //微信群名称
     public static  final  String inExcleDataFile="D:\\Test\\ZT\\test.xlsx";
@@ -125,7 +125,7 @@ public class zj_Report_Zt_Business {
 
 
     //取数导出excle
-    public static void report_Zt_Zj() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException, ParseException {
+    public static void report_Zt_Zj() throws Exception {
 
         InputStream in= Resources.getResourceAsStream(config);
         SqlSessionFactoryBuilder builder=new SqlSessionFactoryBuilder();
@@ -235,14 +235,14 @@ public class zj_Report_Zt_Business {
 
     }
 
-    public static void report_Tcf_Zj_DoData_NowMonth() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException, ParseException {
+    public static void report_Tcf_Zj_DoData_NowMonth() throws Exception {
         //获取当前日期DD格式
         String nowDayYYYYMMDD=dealTime.get_date_By_String_YYYYMMDD();
         report_Zt_Zj_DoData(nowDayYYYYMMDD,"",null);
 
     }
 
-    public static void report_Xubao_Zj_DoData_LastMonth() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException, ParseException {
+    public static void report_Xubao_Zj_DoData_LastMonth() throws Exception {
         String lastMonth=dealTime.get_lastMonth_By_String_YYYYMM();
         //表明
         String tableNameNew=tableName+lastMonth;
@@ -253,7 +253,7 @@ public class zj_Report_Zt_Business {
     }
 
     //取数导出excle
-    public static void report_Zt_Zj_DoData(String nowDayYYYYMMDD,String strContent,String tableName) throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException, ParseException {
+    public static void report_Zt_Zj_DoData(String nowDayYYYYMMDD,String strContent,String tableName) throws Exception {
 
         //发送数据给支局长 *********这里乱码没有结解决
         dealExcle DealExcle =new dealExcle();

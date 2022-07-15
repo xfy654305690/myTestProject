@@ -24,19 +24,19 @@ public class zj_Report_Tcf_Controller {
 
     }
 
-    public static void report_Tcf_Zj() throws MessagingException, IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+    public static void report_Tcf_Zj() throws Exception {
         zj_Report_Tcf_Business zj_Report_Tcf_Business=new zj_Report_Tcf_Business();
         zj_Report_Tcf_Business.report_Tcf_Zj();
 
     }
 
-    public static void report_Tcf_Zj_DoData() throws MessagingException, IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+    public static void report_Tcf_Zj_DoData() throws Exception {
         zj_Report_Tcf_Business zj_Report_Tcf_Business=new zj_Report_Tcf_Business();
         zj_Report_Tcf_Business.report_Tcf_Zj_DoData_NowMonth();
 
     }
 
-    public static void report_Tcf_Zj_Js_DoData() throws MessagingException, IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+    public static void report_Tcf_Zj_Js_DoData() throws Exception {
         zj_Report_Tcf_Business zj_Report_Tcf_Business=new zj_Report_Tcf_Business();
         zj_Report_Tcf_Business.report_Xubao_Zj_DoData_LastMonth();
 

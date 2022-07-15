@@ -9,7 +9,7 @@ import java.text.ParseException;
 
 public class zj_Report_Kj_Controller {
 
-    public static void report_Kj_Zj() throws MessagingException, IOException, ParseException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, MessagingException, IOException, ParseException, InvocationTargetException {
+    public static void report_Kj_Zj() throws Exception {
         zj_Report_Kj_Business zj_Report_Kj_Business=new zj_Report_Kj_Business();
         zj_Report_Kj_Business.report_Kj_Zj();
 
