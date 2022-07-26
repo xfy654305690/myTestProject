@@ -34,7 +34,7 @@ public class zj_Report_Zcy_Zss_Business {
     //图片地址跟目录
     public static  final  String OutPictureFile="D:\\test\\Zcy\\PICTURE\\";
     //微信群名称
-    public static  final  String wechartSendName="电信-市场部—周朝艳";
+    public static  final  String wechartSendName="电信周朝艳";
     public static  final  String wechartPictureAdress="D:\\test\\Zcy\\";
     //微信群名称
     public static  final  String inExcleDataFile="D:\\Test\\Zcy\\test.xlsx";
@@ -71,7 +71,6 @@ public class zj_Report_Zcy_Zss_Business {
         zj_Report_Zcy_Zss_Zj zj_Report_Zcy_Zss_Zj=new zj_Report_Zcy_Zss_Zj();
 
         dealExcle DealExcle =new dealExcle();
-        dealEmail DealEmail=new dealEmail();
         dealSendMessage DealSendMessage=new dealSendMessage();
 
 
@@ -83,16 +82,15 @@ public class zj_Report_Zcy_Zss_Business {
         System.out.println("数据处理成功");
 
         //复制文件
-        String OutExcleSouceFilenew =OutExcleSouceFile+"春开准实时通报"+"_"+nowDayYYYYMMDD+".xlsx";
+        String OutExcleSouceFilenew =OutExcleSouceFile+"春开准实时通报"+"_"+maxDateStringYYYYMMDDHHDDSS+".xlsx";
         DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleSouceFilenew);
         System.out.println("复制文件成功成功");
-        String OutPictureFileNew=OutPictureFile+"picture"+"_"+nowDayYYYYMMDD+".png";
+        String OutPictureFileNew=OutPictureFile+"picture"+"_"+maxDateStringYYYYMMDDHHDDSS+".png";
 
         //将exlce处理成图片
         DealExcle.excleToPng(inPictureFile,OutPictureFileNew);
 
         System.out.println("图片转化成功");
-        //System.out.println(OutExcleSouceFilenew);
 
         //将图片发送微信
         // 1是文字，2是图片

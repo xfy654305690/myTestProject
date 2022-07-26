@@ -25,7 +25,7 @@ public class dealSendMessage {
         return robot;
     }
 
-    //发送类型，1是文字，2是图片
+    //发送类型，1是文字，2是图片，3是文件
     public static void searchMyFriendAndSend(String friendNickName,int type,String UrlOrMessage ) throws Exception {
         // 创建Robot对象
         Robot robot = getRobot();
@@ -84,7 +84,7 @@ public class dealSendMessage {
             sendPicture(UrlOrMessage);
         }
         if(type == 3){
-            // 发送图片
+            // 发送文件
             putFileToSystemClipboard(UrlOrMessage);
         }
 
