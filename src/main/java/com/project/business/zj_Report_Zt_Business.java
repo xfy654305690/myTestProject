@@ -376,7 +376,7 @@ public class zj_Report_Zt_Business {
             Double nowGrade=(selectZj_Report_Zt_Itv_Zj.get(i).getItv_Now_Amt_act_rate()-0.95)*10;
             selectZj_Report_Zt_Itv_Zj.get(i).setItv_Now_Grade(nowGrade);
             //上月分数
-            Double lastGrade=(selectZj_Report_Zt_Itv_Zj.get(i).getItv_Las_Amt_act_rate()-0.9)*10;
+            Double lastGrade=(selectZj_Report_Zt_Itv_Zj.get(i).getItv_Las_Amt_act_rate()-0.8)*10;
             selectZj_Report_Zt_Itv_Zj.get(i).setItv_Last_Grade(lastGrade);
             //合计分数
             Double grade=lastGrade+nowGrade;
