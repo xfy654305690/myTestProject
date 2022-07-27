@@ -66,6 +66,10 @@ public class zj_Report_Zcy_Zss_Business {
         SimpleDateFormat simpleDateFormatYMD = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String maxDateStringYYYYMMDDHHDDSS=simpleDateFormatYMD.format(maxDate.getTime());
 
+        Date DateNow=new Date();
+        SimpleDateFormat simpleDateFormatYDMHMS = new SimpleDateFormat("yyyyMMddHHmmss");
+        String nowDayYYYYMMDDHHmmssDeal=simpleDateFormatYDMHMS.format(DateNow.getTime());
+
         sqlSession.close();
 
         zj_Report_Zcy_Zss_Zj zj_Report_Zcy_Zss_Zj=new zj_Report_Zcy_Zss_Zj();
@@ -82,10 +86,10 @@ public class zj_Report_Zcy_Zss_Business {
         System.out.println("数据处理成功");
 
         //复制文件
-        String OutExcleSouceFilenew =OutExcleSouceFile+"春开准实时通报"+"_"+maxDateStringYYYYMMDDHHDDSS+".xlsx";
+        String OutExcleSouceFilenew =OutExcleSouceFile+"春开准实时通报"+"_"+nowDayYYYYMMDDHHmmssDeal+".xlsx";
         DealExcle.copyExcleToOtherExcle(OutExcleFile,OutExcleSouceFilenew);
         System.out.println("复制文件成功成功");
-        String OutPictureFileNew=OutPictureFile+"picture"+"_"+maxDateStringYYYYMMDDHHDDSS+".png";
+        String OutPictureFileNew=OutPictureFile+"picture"+"_"+nowDayYYYYMMDDHHmmssDeal+".png";
 
         //将exlce处理成图片
         DealExcle.excleToPng(inPictureFile,OutPictureFileNew);
